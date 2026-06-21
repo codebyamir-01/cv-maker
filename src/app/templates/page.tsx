@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { Footer } from "@/components/layout/Footer";
+import { Navbar } from "@/components/layout/Navbar";
 import { Button } from "@/components/ui/button";
 
 import TemplateCard from "@/components/templates/TemplateCard";
