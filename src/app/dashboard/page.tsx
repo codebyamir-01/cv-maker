@@ -73,8 +73,8 @@ export default async function DashboardPage() {
         </div>
         
         <div className="grid md:grid-cols-3 gap-6">
-          {resumes.map((resume) => (
-            <Card key={resume.id} className="border border-slate-200 shadow-sm hover:border-blue-300 transition-colors group cursor-pointer relative overflow-hidden">
+          {resumes.map((resume: any) => (
+            <Card key={resume.id} className="border border-slate-200 shadow-sm hover:border-blue-400 transition-all cursor-pointer relative group overflow-hidden">
               <div className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-900 bg-white/80 rounded-md backdrop-blur-sm shadow-sm z-10 opacity-0 group-hover:opacity-100 transition-opacity">
                 <MoreVertical className="w-5 h-5" />
               </div>
