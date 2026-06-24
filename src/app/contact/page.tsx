@@ -54,8 +54,8 @@ export default async function ContactPage() {
                 <h2 className="text-lg font-bold text-slate-900 mb-5">Contact Details</h2>
                 <div className="flex flex-col gap-5">
                   {[
-                    { icon: Mail,    label: "Email",   value: "support@cvmaker.io",    sub: "For general questions & support" },
-                    { icon: Phone,   label: "Phone",   value: "+92 300 0000000",        sub: "Mon–Fri, 9am – 6pm PKT" },
+                    { icon: Mail,    label: "Email",   value: "jerryjoe9199@gmail.com",    sub: "For general questions & support" },
+                    { icon: Phone,   label: "Phone",   value: "+92 332 131022",        sub: "Mon–Fri, 9am – 6pm PKT" },
                     { icon: MapPin,  label: "Office",  value: "Rawalpindi, Pakistan",  sub: "Headquartered in Pakistan" },
                     { icon: Clock,   label: "Hours",   value: "9:00 AM – 6:00 PM",     sub: "Pakistan Standard Time (PKT)" },
                   ].map(item => {
