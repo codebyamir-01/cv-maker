@@ -47,29 +47,29 @@ export default function LoginPage() {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="w-full rounded-3xl bg-white p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-slate-100 sm:p-10"
+        className="w-full rounded-3xl bg-white p-[clamp(1.25rem,2.5vh,2rem)] shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-slate-100 sm:p-[clamp(1.5rem,3vh,2.5rem)]"
       >
-        <div className="mb-8 space-y-2 text-center">
-          <h2 className="text-3xl font-extrabold tracking-tight text-slate-900">Welcome back</h2>
-          <p className="text-sm font-medium text-slate-500">Sign in to continue building your professional resume.</p>
+        <div className="mb-[clamp(1rem,2.5vh,2rem)] space-y-[clamp(0.25rem,0.5vh,0.5rem)] text-center">
+          <h2 className="text-[clamp(1.5rem,3.5vh,1.875rem)] font-extrabold tracking-tight text-slate-900">Welcome back</h2>
+          <p className="text-[clamp(0.75rem,1.5vh,0.875rem)] font-medium text-slate-500">Sign in to continue building your professional resume.</p>
         </div>
 
-        <form onSubmit={handleLogin} className="space-y-5">
+        <form onSubmit={handleLogin} className="space-y-[clamp(0.75rem,1.5vh,1.25rem)]">
           {error && (
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="rounded-xl bg-red-50 p-4 text-sm font-semibold text-red-600 ring-1 ring-inset ring-red-500/20"
+              className="rounded-xl bg-red-50 p-3 text-sm font-semibold text-red-600 ring-1 ring-inset ring-red-500/20"
             >
               {error}
             </motion.div>
           )}
 
-          <div className="space-y-1.5">
-            <label htmlFor="email" className="text-sm font-bold text-slate-700">Email</label>
+          <div className="space-y-1">
+            <label htmlFor="email" className="text-[clamp(0.75rem,1.5vh,0.875rem)] font-bold text-slate-700">Email</label>
             <div className="relative">
               <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
-                <Mail className="h-5 w-5" />
+                <Mail className="h-[clamp(1rem,2vh,1.25rem)] w-[clamp(1rem,2vh,1.25rem)]" />
               </div>
               <input
                 id="email"
@@ -78,21 +78,21 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="block w-full rounded-xl border-0 py-3.5 pl-11 pr-4 text-slate-900 ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6 transition-all shadow-sm"
+                className="block w-full rounded-xl border-0 py-[clamp(0.6rem,1.5vh,0.875rem)] pl-10 pr-4 text-slate-900 ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6 transition-all shadow-sm"
               />
             </div>
           </div>
 
-          <div className="space-y-1.5">
+          <div className="space-y-1">
             <div className="flex items-center justify-between">
-              <label htmlFor="password" className="text-sm font-bold text-slate-700">Password</label>
-              <Link href="/forgot-password" className="text-sm font-semibold text-blue-600 hover:text-blue-500 transition-colors">
+              <label htmlFor="password" className="text-[clamp(0.75rem,1.5vh,0.875rem)] font-bold text-slate-700">Password</label>
+              <Link href="/forgot-password" className="text-[clamp(0.7rem,1.4vh,0.875rem)] font-semibold text-blue-600 hover:text-blue-500 transition-colors">
                 Forgot password?
               </Link>
             </div>
             <div className="relative">
               <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
-                <Lock className="h-5 w-5" />
+                <Lock className="h-[clamp(1rem,2vh,1.25rem)] w-[clamp(1rem,2vh,1.25rem)]" />
               </div>
               <input
                 id="password"
@@ -101,14 +101,14 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="block w-full rounded-xl border-0 py-3.5 pl-11 pr-12 text-slate-900 ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6 transition-all shadow-sm"
+                className="block w-full rounded-xl border-0 py-[clamp(0.6rem,1.5vh,0.875rem)] pl-10 pr-12 text-slate-900 ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6 transition-all shadow-sm"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute inset-y-0 right-0 flex items-center pr-3.5 text-slate-400 hover:text-slate-600 transition-colors"
               >
-                {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
               </button>
             </div>
           </div>
@@ -116,7 +116,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={isLoading}
-            className="group relative flex w-full justify-center rounded-xl bg-blue-600 px-4 py-3.5 text-sm font-bold text-white shadow-sm hover:bg-blue-500 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:opacity-70 disabled:hover:bg-blue-600 transition-all active:scale-[0.98]"
+            className="mt-2 group relative flex w-full justify-center rounded-xl bg-blue-600 px-4 py-[clamp(0.6rem,1.5vh,0.875rem)] text-[clamp(0.875rem,1.5vh,1rem)] font-bold text-white shadow-sm hover:bg-blue-500 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 disabled:opacity-70 disabled:hover:bg-blue-600 transition-all active:scale-[0.98]"
           >
             {isLoading ? (
               <span className="flex items-center gap-2">
@@ -129,23 +129,23 @@ export default function LoginPage() {
           </button>
         </form>
 
-        <div className="mt-8">
+        <div className="mt-[clamp(1.5rem,3vh,2rem)]">
           <div className="relative">
             <div className="absolute inset-0 flex items-center" aria-hidden="true">
               <div className="w-full border-t border-slate-200" />
             </div>
-            <div className="relative flex justify-center text-sm font-medium leading-6">
-              <span className="bg-white px-6 text-slate-500">Or continue with</span>
+            <div className="relative flex justify-center text-xs sm:text-sm font-medium leading-6">
+              <span className="bg-white px-4 text-slate-500">Or continue with</span>
             </div>
           </div>
 
-          <div className="mt-6">
+          <div className="mt-[clamp(1rem,2vh,1.5rem)]">
             <button
               type="button"
               onClick={handleGoogleSignIn}
-              className="flex w-full items-center justify-center gap-3 rounded-xl bg-white px-4 py-3 text-sm font-bold text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 hover:bg-slate-50 hover:ring-slate-300 transition-all active:scale-[0.98]"
+              className="flex w-full items-center justify-center gap-3 rounded-xl bg-white px-4 py-[clamp(0.5rem,1.5vh,0.75rem)] text-sm font-bold text-slate-900 shadow-sm ring-1 ring-inset ring-slate-200 hover:bg-slate-50 hover:ring-slate-300 transition-all active:scale-[0.98]"
             >
-              <svg className="h-5 w-5" viewBox="0 0 24 24">
+              <svg className="h-4 w-4 sm:h-5 sm:w-5" viewBox="0 0 24 24">
                 <path
                   d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
                   fill="#4285F4"
@@ -168,7 +168,7 @@ export default function LoginPage() {
           </div>
         </div>
 
-        <div className="mt-8 text-center text-sm text-slate-500">
+        <div className="mt-[clamp(1.5rem,3vh,2rem)] text-center text-xs sm:text-sm text-slate-500">
           Don't have an account?{" "}
           <Link href="/signup" className="font-bold text-blue-600 hover:text-blue-500 transition-colors">
             Create one
