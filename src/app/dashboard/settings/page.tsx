@@ -85,7 +85,7 @@ export default function SettingsPage() {
       });
       if (res.ok) {
         showMessage("success", "Profile updated successfully!");
-        update({ name: `${firstName} ${lastName}`.trim(), image: avatarBase64 });
+        update({ name: `${firstName} ${lastName}`.trim() });
       } else {
         const data = await res.json();
         showMessage("error", data.error || "Failed to update profile.");

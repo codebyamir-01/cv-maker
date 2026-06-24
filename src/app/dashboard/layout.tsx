@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { FileText, LayoutDashboard, Settings, LogOut, User } from "lucide-react";
 import { useSession, signOut } from "next-auth/react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function DashboardLayout({
@@ -10,8 +11,19 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter();
+  const [avatar, setAvatar] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      fetch("/api/user/profile")
+        .then(res => res.json())
+        .then(data => {
+          if (data.user?.image) setAvatar(data.user.image);
+        });
+    }
+  }, [status]);
 
   const handleSignOut = async () => {
     await signOut({ redirect: false });
@@ -49,8 +61,8 @@ export default function DashboardLayout({
         <div className="p-4 border-t border-slate-200">
           <div className="flex items-center gap-3 mb-4 px-2">
             <div className="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center overflow-hidden border border-slate-300">
-              {session?.user?.image ? (
-                <img src={session.user.image} alt="Avatar" className="w-full h-full object-cover" />
+              {avatar ? (
+                <img src={avatar} alt="Avatar" className="w-full h-full object-cover" />
               ) : (
                 <User className="w-5 h-5 text-slate-500" />
               )}

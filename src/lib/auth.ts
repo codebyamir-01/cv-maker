@@ -68,7 +68,7 @@ export const authOptions: NextAuthOptions = {
         session.user.id = token.sub!;
         session.user.name = token.name;
         session.user.email = token.email;
-        session.user.image = token.picture as string | null | undefined;
+        // Don't pull image from token as it exceeds cookie size limits
       }
       return session;
     },
@@ -77,11 +77,11 @@ export const authOptions: NextAuthOptions = {
         token.sub = user.id;
         token.name = user.name;
         token.email = user.email;
-        token.picture = user.image;
+        // Don't save image to token as base64 strings exceed cookie size limits
       }
       if (trigger === "update" && session) {
         if (session.name) token.name = session.name;
-        if (session.image) token.picture = session.image;
+        // Skip saving session.image to token.picture
       }
       return token;
     }
