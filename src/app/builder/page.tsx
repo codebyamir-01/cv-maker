@@ -224,7 +224,9 @@ export default function BuilderPage() {
                   <button onClick={() => cycleTemplate(-1)} className="grid h-7 w-7 place-items-center rounded-md text-slate-400 transition hover:bg-slate-100">
                     <ChevronLeft className="h-4 w-4" />
                   </button>
-                  <span className="px-1 text-xs font-semibold text-slate-500">1 / 15</span>
+                  <span className="px-1 text-xs font-semibold text-slate-500">
+                    {templatesList.indexOf(resumeData.templateId) + 1} / {templatesList.length}
+                  </span>
                   <button onClick={() => cycleTemplate(1)} className="grid h-7 w-7 place-items-center rounded-md text-slate-400 transition hover:bg-slate-100">
                     <ChevronRight className="h-4 w-4" />
                   </button>
