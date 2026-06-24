@@ -241,12 +241,8 @@ export default function BuilderPage() {
               </div>
 
               {/* Template + actions */}
-              <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
-                <button className="text-sm font-bold text-blue-500 hover:underline">Classic ATS-Friendly</button>
+              <div className="mb-4 flex flex-wrap items-center justify-end gap-2">
                 <div className="flex items-center gap-2">
-                  <button className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-semibold text-slate-600 transition hover:bg-slate-50">
-                    <Sparkles className="h-3.5 w-3.5" /> Show Icons
-                  </button>
                   <button onClick={() => handlePrint()} className="inline-flex items-center gap-1.5 rounded-lg bg-slate-900 px-3 py-1.5 text-xs font-bold text-white transition hover:bg-black">
                     <Download className="h-3.5 w-3.5" /> Download
                   </button>
