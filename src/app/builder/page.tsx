@@ -249,33 +249,6 @@ export default function BuilderPage() {
                 </div>
               </div>
 
-              {/* Colors */}
-              <div className="mb-4 flex flex-wrap items-center gap-3">
-                <span className="text-sm font-medium text-slate-500">Colors:</span>
-                <div className="flex flex-wrap gap-1.5">
-                  {COLORS.map(c => (
-                    <button
-                      key={c.label}
-                      aria-label={c.label}
-                      title={c.label}
-                      onClick={() => updateAccentColor(c.hex)}
-                      className="grid h-6 w-6 place-items-center rounded-full transition hover:scale-110"
-                      style={{
-                        backgroundColor: c.hex,
-                        outline: accentColor === c.hex ? `2px solid ${c.hex}` : "none",
-                        outlineOffset: "2px",
-                      }}
-                    >
-                      {accentColor === c.hex && (
-                        <svg className="h-3 w-3 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                          <polyline points="20 6 9 17 4 12" />
-                        </svg>
-                      )}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
               {/* Zoom bar */}
               <div className="mb-3 flex items-center justify-between rounded-lg border border-slate-200 bg-slate-50/60 px-3 py-1.5">
                 <div className="flex items-center gap-1">
