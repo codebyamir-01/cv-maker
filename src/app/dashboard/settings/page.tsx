@@ -117,8 +117,9 @@ export default function SettingsPage() {
       } else {
         showMessage("error", data.error || "Failed to change password.");
       }
-    } catch (e) {
-      showMessage("error", "An error occurred while saving.");
+    } catch (e: any) {
+      console.error("Failed to save security:", e);
+      showMessage("error", e.message || "An error occurred while saving.");
     }
     setIsSaving(false);
   };
