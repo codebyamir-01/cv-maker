@@ -156,28 +156,41 @@ export default function BuilderPage() {
       <section className="border-b border-slate-200 bg-white">
         <div className="mx-auto max-w-[1400px] px-4 py-6 sm:px-6">
           <div className="relative overflow-x-auto pb-2">
-            <ol className="flex min-w-[760px] items-start justify-between gap-2">
+            <ol className="flex min-w-max items-center gap-2">
               {STEPS.map((step, idx) => {
                 const done   = idx < stepIdx;
                 const active = idx === stepIdx;
                 return (
-                  <li key={step.id} className="relative flex flex-1 flex-col items-center">
+                  <li key={step.id} className="relative flex items-center shrink-0">
+                    <div className="flex items-center gap-3">
+                      <button
+                        onClick={() => done && setStepIdx(idx)}
+                        className={`relative grid h-11 w-11 place-items-center rounded-full text-base font-bold transition-all
+                          ${active ? "bg-[#0b132b] text-white shadow-md cursor-default" :
+                            done   ? "bg-emerald-500 text-white shadow-sm cursor-pointer hover:bg-emerald-600" :
+                                     "border-2 border-slate-100 bg-white text-slate-700 cursor-default"}`}
+                      >
+                        {done ? <CheckCircle2 className="h-5 w-5" /> : (idx + 1)}
+                        
+                        {active && (
+                          <div className="absolute -bottom-1.5 left-1/2 h-3 w-3 -translate-x-1/2 rotate-45 bg-[#0b132b] rounded-sm" />
+                        )}
+                      </button>
+                      
+                      <div className="flex flex-col justify-center">
+                        <p className={`text-sm font-bold ${active ? "text-[#0b132b]" : "text-slate-600"}`}>
+                          {step.title}
+                        </p>
+                        <p className="text-[11px] font-medium text-slate-400">{step.subtitle}</p>
+                      </div>
+                    </div>
+
                     {idx < STEPS.length - 1 && (
-                      <span className="absolute left-1/2 top-5 h-px w-full bg-slate-200" aria-hidden />
+                      <div className="mx-5 flex items-center gap-1.5">
+                        <div className="h-px w-6 bg-slate-200" />
+                        <div className="h-1 w-1 rounded-full bg-slate-200" />
+                      </div>
                     )}
-                    <button
-                      onClick={() => done && setStepIdx(idx)}
-                      className={`relative z-10 grid h-10 w-10 place-items-center rounded-full text-sm font-bold transition
-                        ${done   ? "bg-emerald-500 text-white shadow-sm cursor-pointer hover:bg-emerald-600" :
-                          active ? "bg-slate-900 text-white shadow-md ring-4 ring-slate-900/10 cursor-default" :
-                                   "border border-slate-200 bg-white text-slate-400 cursor-default"}`}
-                    >
-                      {done ? <CheckCircle2 className="h-5 w-5" /> : (idx + 1)}
-                    </button>
-                    <p className={`mt-2 text-sm font-semibold ${done ? "text-emerald-600" : active ? "text-slate-900" : "text-slate-400"}`}>
-                      {step.title}
-                    </p>
-                    <p className="mt-0.5 text-center text-xs text-slate-400">{step.subtitle}</p>
                   </li>
                 );
               })}
