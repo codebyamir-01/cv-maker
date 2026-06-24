@@ -155,14 +155,14 @@ export default function BuilderPage() {
       {/* ── STEPPER ── */}
       <section className="border-b border-slate-200 bg-white">
         <div className="mx-auto max-w-[1400px] px-4 py-6 sm:px-6">
-          <div className="relative overflow-x-auto pb-2">
-            <ol className="flex min-w-max items-center gap-2">
+          <div className="relative overflow-x-auto no-scrollbar pb-2" style={{ scrollbarWidth: 'none' }}>
+            <ol className="flex w-full min-w-[800px] items-center justify-between">
               {STEPS.map((step, idx) => {
                 const done   = idx < stepIdx;
                 const active = idx === stepIdx;
                 return (
-                  <li key={step.id} className="relative flex items-center shrink-0">
-                    <div className="flex items-center gap-3">
+                  <li key={step.id} className="relative flex items-center flex-1 last:flex-none">
+                    <div className="flex items-center gap-3 shrink-0">
                       <button
                         onClick={() => done && setStepIdx(idx)}
                         className={`relative grid h-11 w-11 place-items-center rounded-full text-base font-bold transition-all
@@ -181,14 +181,14 @@ export default function BuilderPage() {
                         <p className={`text-sm font-bold ${active ? "text-[#0b132b]" : "text-slate-600"}`}>
                           {step.title}
                         </p>
-                        <p className="text-[11px] font-medium text-slate-400">{step.subtitle}</p>
+                        <p className="text-[11px] font-medium text-slate-400 hidden sm:block">{step.subtitle}</p>
                       </div>
                     </div>
 
                     {idx < STEPS.length - 1 && (
-                      <div className="mx-5 flex items-center gap-1.5">
-                        <div className="h-px w-6 bg-slate-200" />
-                        <div className="h-1 w-1 rounded-full bg-slate-200" />
+                      <div className="mx-4 flex-1 flex items-center gap-1.5">
+                        <div className="h-px w-full bg-slate-200" />
+                        <div className="h-1 w-1 rounded-full bg-slate-200 shrink-0" />
                       </div>
                     )}
                   </li>
