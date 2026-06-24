@@ -85,7 +85,7 @@ export default function SettingsPage() {
       });
       if (res.ok) {
         showMessage("success", "Profile updated successfully!");
-        update(); // Tell NextAuth to refresh session if needed
+        update({ name: `${firstName} ${lastName}`.trim(), image: avatarBase64 });
       } else {
         const data = await res.json();
         showMessage("error", data.error || "Failed to update profile.");

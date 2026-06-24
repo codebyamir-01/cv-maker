@@ -48,8 +48,12 @@ export default function DashboardLayout({
 
         <div className="p-4 border-t border-slate-200">
           <div className="flex items-center gap-3 mb-4 px-2">
-            <div className="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center">
-              <User className="w-5 h-5 text-slate-500" />
+            <div className="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center overflow-hidden border border-slate-300">
+              {session?.user?.image ? (
+                <img src={session.user.image} alt="Avatar" className="w-full h-full object-cover" />
+              ) : (
+                <User className="w-5 h-5 text-slate-500" />
+              )}
             </div>
             <div className="overflow-hidden">
               <p className="text-sm font-medium text-slate-900 truncate">{session?.user?.name || "User"}</p>
