@@ -11,7 +11,7 @@ interface AuthLayoutProps {
 
 export default function AuthLayout({ children }: AuthLayoutProps) {
   return (
-    <div className="flex min-h-screen w-full bg-slate-50 font-sans">
+    <div className="flex h-[100dvh] w-full overflow-hidden bg-slate-50 font-sans">
       {/* ── LEFT PANEL (Hidden on mobile, split on desktop) ── */}
       <div className="relative hidden w-1/2 flex-col justify-between overflow-hidden bg-slate-900 lg:flex">
         {/* Gradients and shapes */}
@@ -134,7 +134,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
       </div>
 
       {/* ── RIGHT PANEL (Forms) ── */}
-      <div className="flex w-full flex-col justify-center px-4 py-12 sm:px-6 lg:w-1/2 lg:px-12 xl:px-24">
+      <div className="flex h-full w-full flex-col overflow-y-auto px-4 py-8 sm:px-6 lg:w-1/2 lg:px-12 xl:px-24">
         {/* Mobile branding (only shows on small screens) */}
         <div className="mb-8 flex justify-center lg:hidden">
           <Link href="/" className="flex items-center gap-2 text-2xl font-black tracking-tighter text-slate-900">
@@ -145,7 +145,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
           </Link>
         </div>
         
-        <div className="mx-auto w-full max-w-md">
+        <div className="mx-auto my-auto w-full max-w-md">
           {children}
         </div>
       </div>
