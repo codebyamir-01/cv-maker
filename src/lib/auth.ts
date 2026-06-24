@@ -57,7 +57,6 @@ export const authOptions: NextAuthOptions = {
           id: user.id,
           email: user.email,
           name: user.name,
-          image: user.image,
         };
       }
     })
@@ -73,11 +72,15 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
     async jwt({ token, user, trigger, session }) {
+      // NextAuth automatically maps user.image to token.picture, we must delete it
+      if (token.picture) {
+        delete token.picture;
+      }
+      
       if (user) {
         token.sub = user.id;
         token.name = user.name;
         token.email = user.email;
-        // Don't save image to token as base64 strings exceed cookie size limits
       }
       if (trigger === "update" && session) {
         if (session.name) token.name = session.name;
