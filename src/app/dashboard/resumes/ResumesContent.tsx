@@ -253,19 +253,12 @@ export default function ResumesContent() {
                         </p>
                       </div>
                       
-                      <div className="grid grid-cols-2 gap-2 mt-auto">
-                        <Button 
-                          variant="outline" 
-                          onClick={() => showToast("Preview opening soon!")}
-                          className="w-full rounded-xl border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-900 h-9 text-xs"
-                        >
-                          View
-                        </Button>
+                      <div className="flex gap-2 mt-auto">
                         <Link href={`/builder?id=${resume.id}`} className="w-full">
                           <Button 
-                            className="w-full rounded-xl bg-slate-100 hover:bg-blue-50 hover:text-blue-700 text-slate-700 border-none h-9 text-xs transition-colors"
+                            className="w-full rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-700 border-none h-9 text-xs transition-colors font-semibold"
                           >
-                            Edit
+                            Open Builder
                           </Button>
                         </Link>
                       </div>

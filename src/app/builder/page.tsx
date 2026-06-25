@@ -86,6 +86,12 @@ export default function BuilderPage() {
   const [stepIdx, setStepIdx] = useState(0);
   const [zoom, setZoom] = useState(60);
 
+  useEffect(() => {
+    const w = window.innerWidth;
+    if (w < 640) setZoom(40);
+    else if (w < 1024) setZoom(50);
+  }, []);
+
   const accentColor = resumeData.accentColor ?? "#0d9488";
 
   const handlePrint = useReactToPrint({

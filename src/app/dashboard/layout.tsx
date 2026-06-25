@@ -213,10 +213,28 @@ export default function DashboardLayout({
         </header>
 
         {/* Page Content */}
-        <main id="main-content" className="flex-1 overflow-x-hidden overflow-y-auto">
+        <main id="main-content" className="flex-1 overflow-x-hidden overflow-y-auto pb-20 md:pb-0">
           {children}
         </main>
       </div>
+
+      {/* Mobile Bottom Navigation */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 z-50 px-6 py-3 flex justify-between items-center shadow-[0_-4px_24px_rgba(0,0,0,0.04)]">
+        {navItems.map((item) => {
+          const isActive = pathname === item.href;
+          const Icon = item.icon;
+          return (
+            <Link 
+              key={item.name} 
+              href={item.href}
+              className={`flex flex-col items-center gap-1 ${isActive ? "text-blue-600" : "text-slate-400 hover:text-slate-600"}`}
+            >
+              <Icon className={`w-5 h-5 ${isActive ? "stroke-[2.5]" : ""}`} />
+              <span className="text-[10px] font-semibold">{item.name}</span>
+            </Link>
+          );
+        })}
+      </nav>
     </div>
   );
 }

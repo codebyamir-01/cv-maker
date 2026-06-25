@@ -25,6 +25,7 @@ export function Footer() {
             <h3 className="mb-4 text-sm font-bold tracking-tight text-slate-900">Product</h3>
             <ul className="space-y-3 text-sm text-slate-500">
               <li><Link href="/" className="transition hover:text-slate-900">Home</Link></li>
+              <li><Link href="/about" className="transition hover:text-slate-900">About Us</Link></li>
               <li><Link href="/builder" className="transition hover:text-slate-900">Resume Builder</Link></li>
               <li><Link href="/templates" className="transition hover:text-slate-900">Templates</Link></li>
               <li><Link href="/blog" className="transition hover:text-slate-900">Career Blog</Link></li>

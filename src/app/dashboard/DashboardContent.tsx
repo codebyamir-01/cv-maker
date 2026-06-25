@@ -67,15 +67,17 @@ export default function DashboardContent({ user, resumes }: { user: any, resumes
             </div>
             <div>
               <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Avg ATS Score</p>
-              <p className="text-2xl font-bold text-slate-900 leading-none mt-1">{averageAtsScore}%</p>
+              <p className="text-xl font-bold text-slate-900 leading-none mt-1">
+                {averageAtsScore > 0 ? `${averageAtsScore}%` : <span className="text-sm font-medium text-slate-500">Not checked yet</span>}
+              </p>
             </div>
           </div>
         </div>
       </motion.div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        {/* Main Content Area (Left 70%) */}
-        <div className="lg:col-span-8 space-y-8">
+      <div className="max-w-5xl mx-auto space-y-8">
+        {/* Main Content Area */}
+        <div className="space-y-8">
           
           {/* Action Cards */}
           <div className="grid sm:grid-cols-2 gap-6">
@@ -142,13 +144,19 @@ export default function DashboardContent({ user, resumes }: { user: any, resumes
                     <div className="aspect-[2/1] bg-gradient-to-br from-slate-50 to-slate-100 border-b border-slate-100 flex items-center justify-center relative overflow-hidden group-hover:from-blue-50/50 group-hover:to-slate-50 transition-colors">
                        <FileText className="w-12 h-12 text-slate-300 group-hover:text-blue-200 transition-colors" />
                        <div className="absolute bottom-3 left-3 flex gap-2">
-                         <span className={`px-2.5 py-1 rounded-md text-[10px] font-bold tracking-wider uppercase shadow-sm ${
-                           (resume.atsScore || 0) >= 80 ? "bg-green-100 text-green-700" : 
-                           (resume.atsScore || 0) >= 50 ? "bg-amber-100 text-amber-700" : 
-                           "bg-red-100 text-red-700"
-                         }`}>
-                           ATS: {resume.atsScore || 0}%
-                         </span>
+                         {resume.atsScore > 0 ? (
+                           <span className={`px-2.5 py-1 rounded-md text-[10px] font-bold tracking-wider uppercase shadow-sm ${
+                             resume.atsScore >= 80 ? "bg-green-100 text-green-700" : 
+                             resume.atsScore >= 50 ? "bg-amber-100 text-amber-700" : 
+                             "bg-red-100 text-red-700"
+                           }`}>
+                             ATS: {resume.atsScore}%
+                           </span>
+                         ) : (
+                           <span className="px-2.5 py-1 rounded-md text-[10px] font-bold tracking-wider uppercase shadow-sm bg-slate-100 text-slate-500">
+                             Not Checked
+                           </span>
+                         )}
                        </div>
                     </div>
                     <CardContent className="p-4">
@@ -158,12 +166,11 @@ export default function DashboardContent({ user, resumes }: { user: any, resumes
                       </p>
                       
                       <div className="flex gap-2 mt-4 pt-4 border-t border-slate-100">
-                        <Button variant="outline" size="sm" className="w-full text-xs h-8 bg-slate-50 hover:bg-slate-100">
-                          <Edit className="w-3.5 h-3.5 mr-1.5" /> Edit
-                        </Button>
-                        <Button variant="outline" size="sm" className="w-full text-xs h-8 bg-slate-50 hover:bg-slate-100">
-                          <Download className="w-3.5 h-3.5 mr-1.5" /> Export
-                        </Button>
+                        <Link href={`/builder?id=${resume.id}`} className="w-full">
+                          <Button variant="outline" size="sm" className="w-full text-xs h-8 bg-slate-50 hover:bg-slate-100">
+                            <Edit className="w-3.5 h-3.5 mr-1.5" /> Edit
+                          </Button>
+                        </Link>
                       </div>
                     </CardContent>
                   </Card>
@@ -187,130 +194,7 @@ export default function DashboardContent({ user, resumes }: { user: any, resumes
             </div>
           </motion.div>
 
-          {/* Analytics Chart */}
-          <motion.div variants={itemVariants}>
-             <Card className="border border-slate-200 shadow-sm bg-white overflow-hidden">
-                <CardHeader className="border-b border-slate-100 pb-4">
-                   <CardTitle className="text-lg font-bold text-slate-900 flex items-center gap-2">
-                     <BarChart3 className="w-5 h-5 text-blue-600" /> ATS Score Overview
-                   </CardTitle>
-                   <CardDescription>Track your resume improvement over time</CardDescription>
-                </CardHeader>
-                <CardContent className="pt-6">
-                   <div className="h-[250px] w-full">
-                      <ResponsiveContainer width="100%" height="100%">
-                        <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                          <defs>
-                            <linearGradient id="colorScore" x1="0" y1="0" x2="0" y2="1">
-                              <stop offset="5%" stopColor="#2563eb" stopOpacity={0.2}/>
-                              <stop offset="95%" stopColor="#2563eb" stopOpacity={0}/>
-                            </linearGradient>
-                          </defs>
-                          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-                          <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#64748b', fontSize: 12}} dy={10} />
-                          <YAxis axisLine={false} tickLine={false} tick={{fill: '#64748b', fontSize: 12}} />
-                          <Tooltip 
-                            contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
-                            cursor={{stroke: '#cbd5e1', strokeWidth: 1, strokeDasharray: '4 4'}}
-                          />
-                          <Area type="monotone" dataKey="score" stroke="#2563eb" strokeWidth={3} fillOpacity={1} fill="url(#colorScore)" />
-                        </AreaChart>
-                      </ResponsiveContainer>
-                   </div>
-                </CardContent>
-             </Card>
-          </motion.div>
-
-        </div>
-
-        {/* Right Sidebar Widgets (Right 30%) */}
-        <div className="lg:col-span-4 space-y-6">
-          
-          {/* Profile Strength */}
-          <motion.div variants={itemVariants}>
-            <Card className="border border-slate-200 shadow-sm bg-white">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-lg font-bold text-slate-900">Profile Strength</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center gap-6 mb-6">
-                  <div className="relative w-20 h-20 flex items-center justify-center shrink-0">
-                    <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
-                      <circle cx="50" cy="50" r="40" fill="transparent" stroke="#f1f5f9" strokeWidth="8" />
-                      <circle 
-                        cx="50" cy="50" r="40" 
-                        fill="transparent" 
-                        stroke="#2563eb" 
-                        strokeWidth="8" 
-                        strokeDasharray={`${2 * Math.PI * 40}`} 
-                        strokeDashoffset={`${2 * Math.PI * 40 * (1 - 0.75)}`} 
-                        strokeLinecap="round"
-                        className="transition-all duration-1000 ease-out"
-                      />
-                    </svg>
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-lg font-bold text-slate-900">75%</span>
-                    </div>
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-slate-900 text-sm">Almost there!</h4>
-                    <p className="text-xs text-slate-500 mt-1 leading-relaxed">Complete your profile to get better ATS recommendations.</p>
-                  </div>
-                </div>
-
-                <div className="space-y-3">
-                  {[
-                    { label: "Add Personal Info", done: true },
-                    { label: "Add Experience", done: true },
-                    { label: "Add Education", done: true },
-                    { label: "Add Skills", done: false },
-                    { label: "Add Summary", done: false },
-                  ].map((task, i) => (
-                    <div key={i} className="flex items-center justify-between text-sm">
-                      <span className={`font-medium ${task.done ? "text-slate-400 line-through" : "text-slate-700"}`}>
-                        {task.label}
-                      </span>
-                      {task.done ? (
-                        <CheckCircle2 className="w-4 h-4 text-green-500" />
-                      ) : (
-                        <div className="w-4 h-4 rounded-full border-2 border-slate-300" />
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-
-          {/* Improve ATS Score */}
-          <motion.div variants={itemVariants}>
-            <Card className="border border-amber-200 bg-amber-50/50 shadow-sm relative overflow-hidden">
-              <div className="absolute top-0 right-0 p-4 opacity-10">
-                <Sparkles className="w-24 h-24 text-amber-500 transform rotate-12 translate-x-4 -translate-y-4" />
-              </div>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-lg font-bold text-amber-900 flex items-center gap-2">
-                  <Sparkles className="w-5 h-5 text-amber-600" /> Improve Your ATS
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-3 relative z-10">
-                  {[
-                    "Add more industry-specific skills",
-                    "Use strong action verbs in experience",
-                    "Optimize your professional summary",
-                    "Quantify your achievements with metrics"
-                  ].map((tip, i) => (
-                    <li key={i} className="flex gap-3 text-sm text-amber-800/80 font-medium">
-                      <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0 mt-1.5" />
-                      {tip}
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-          </motion.div>
-
+          {/* Removed dummy chart */}
         </div>
       </div>
     </motion.div>

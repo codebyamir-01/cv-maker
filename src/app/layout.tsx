@@ -4,6 +4,8 @@ import { Providers } from "@/components/providers";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
+import { CookieBanner } from "@/components/layout/CookieBanner";
+
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
@@ -13,6 +15,7 @@ export const metadata: Metadata = {
   title: "ATS-Friendly Resume & CV Maker - Land Your Dream Job",
   description: "Create professional, modern, and ATS-friendly resumes. Get step-by-step guidance, resume scoring, mistake detection, and job-description matching.",
   keywords: "resume builder, cv maker, ats friendly resume, resume templates, job match, career",
+  metadataBase: new URL("https://cvmaker.vercel.app"),
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -41,6 +44,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-slate-50 text-slate-900">
         <Providers>{children}</Providers>
         <SpeedInsights />
+        <CookieBanner />
       </body>
     </html>
   );
