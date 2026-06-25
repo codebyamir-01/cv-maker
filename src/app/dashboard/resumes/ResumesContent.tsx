@@ -91,7 +91,7 @@ export default function ResumesContent() {
   };
 
   return (
-    <div className="space-y-6 w-full max-w-7xl mx-auto px-3 md:px-4 lg:px-6 py-4 sm:py-6 pb-24 md:pb-12 relative min-h-[80vh] overflow-x-hidden">
+    <div className="space-y-5 w-full max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-6 pb-12 overflow-x-hidden">
       
       {/* Custom Toast Notification */}
       <AnimatePresence>
@@ -176,18 +176,18 @@ export default function ResumesContent() {
           variants={containerVariants}
           initial="hidden"
           animate="show"
-          className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(260px,1fr))] w-full"
+          className="grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(280px,1fr))] w-full"
         >
           {loading ? (
             // Skeleton Loader
             Array.from({ length: 3 }).map((_, i) => (
               <div key={i} className="animate-pulse">
                 <Card className="border border-slate-200 shadow-sm flex flex-col h-[280px] rounded-2xl">
-                  <div className="h-40 bg-slate-100 border-b border-slate-100 flex-shrink-0"></div>
+                  <div className="h-[140px] bg-slate-100 border-b border-slate-100 flex-shrink-0"></div>
                   <CardContent className="p-4 flex-1 flex flex-col justify-between bg-white">
-                    <div className="h-4 bg-slate-200 rounded w-3/4 mb-3"></div>
+                    <div className="h-4 bg-slate-200 rounded w-3/4 mb-2"></div>
                     <div className="h-3 bg-slate-100 rounded w-1/2"></div>
-                    <div className="flex gap-2 mt-auto pt-4">
+                    <div className="flex gap-2 mt-auto pt-3">
                       <div className="h-9 bg-slate-100 rounded flex-1"></div>
                     </div>
                   </CardContent>
@@ -202,10 +202,10 @@ export default function ResumesContent() {
               
               return (
                 <motion.div key={resume.id} variants={itemVariants} className="min-w-0 flex">
-                  <Card className="w-full border border-slate-200/60 shadow-sm hover:shadow-xl hover:shadow-blue-900/5 transition-all duration-300 group relative flex flex-col h-[340px] rounded-2xl bg-white hover:-translate-y-1">
+                  <Card className="w-full border border-slate-200/60 shadow-sm hover:shadow-xl hover:shadow-blue-900/5 transition-all duration-300 group relative flex flex-col h-[280px] rounded-2xl bg-white hover:-translate-y-1">
                     
                     {/* Thumbnail Area */}
-                    <div className="h-[180px] bg-slate-50 rounded-t-2xl border-b border-slate-100 flex items-center justify-center relative flex-shrink-0 overflow-hidden">
+                    <div className="h-[140px] bg-slate-50 rounded-t-2xl border-b border-slate-100 flex items-center justify-center relative flex-shrink-0 overflow-hidden">
                       
                       {/* Top Right Menu */}
                       <button 
@@ -220,22 +220,22 @@ export default function ResumesContent() {
                       </button>
 
                       {/* Wide Horizontal Skeleton */}
-                      <div className="w-[85%] h-[110px] bg-white shadow-sm border border-slate-100 rounded-lg p-5 flex flex-col justify-start mt-2 transform transition-transform group-hover:scale-[1.02] duration-500">
-                        <div className="h-2.5 w-[60%] bg-slate-200 rounded-full mb-4"></div>
-                        <div className="h-1.5 w-full bg-slate-100 rounded-full mb-2.5"></div>
-                        <div className="h-1.5 w-[90%] bg-slate-100 rounded-full mb-2.5"></div>
+                      <div className="w-[85%] h-[90px] bg-white shadow-sm border border-slate-100 rounded-lg p-4 flex flex-col justify-start mt-2 transform transition-transform group-hover:scale-[1.02] duration-500">
+                        <div className="h-2 w-[60%] bg-slate-200 rounded-full mb-3"></div>
+                        <div className="h-1.5 w-full bg-slate-100 rounded-full mb-2"></div>
+                        <div className="h-1.5 w-[90%] bg-slate-100 rounded-full mb-2"></div>
                         <div className="h-1.5 w-[80%] bg-slate-100 rounded-full"></div>
                       </div>
 
                       {/* Score Badge */}
                       <div className="absolute bottom-3 left-3 z-10">
                         {hasScore ? (
-                          <div className={`flex items-center gap-1.5 bg-white border border-slate-200 text-slate-700 font-medium px-3 py-1.5 rounded-full text-xs shadow-sm`}>
+                          <div className={`flex items-center gap-1.5 bg-white border border-slate-200 text-slate-700 font-medium px-2.5 py-1 rounded-full text-[11px] shadow-sm`}>
                             {score >= 70 ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" /> : <AlertCircle className="w-3.5 h-3.5 text-orange-500" />}
                             ATS: {score}%
                           </div>
                         ) : (
-                          <div className="flex items-center gap-1.5 bg-white border border-slate-200 text-slate-700 font-medium px-3 py-1.5 rounded-full text-xs shadow-sm">
+                          <div className="flex items-center gap-1.5 bg-white border border-slate-200 text-slate-700 font-medium px-2.5 py-1 rounded-full text-[11px] shadow-sm">
                             <CheckCircle2 className="w-3.5 h-3.5 text-slate-400" />
                             Not checked yet
                           </div>
@@ -244,19 +244,19 @@ export default function ResumesContent() {
                     </div>
 
                     {/* Card Content & Actions */}
-                    <CardContent className="p-5 flex-1 flex flex-col justify-between bg-white z-20 min-w-0">
+                    <CardContent className="p-4 flex-1 flex flex-col justify-between bg-white z-20 min-w-0">
                       <div>
                         <h3 className="font-bold text-slate-900 truncate text-[15px] group-hover:text-blue-600 transition-colors" title={resume.title}>{resume.title}</h3>
-                        <p className="text-[13px] text-slate-500 mt-1.5 flex items-center">
+                        <p className="text-[13px] text-slate-500 mt-1 flex items-center">
                           <Calendar className="w-3.5 h-3.5 mr-1.5 text-slate-400" /> Updated {formatDate(resume.updatedAt)}
                         </p>
                       </div>
                       
-                      <div className="flex gap-2 mt-4 pt-4 border-t border-slate-50">
+                      <div className="flex gap-2 mt-3 pt-3 border-t border-slate-50">
                         <Link href={`/builder?id=${resume.id}`} className="flex-1">
                           <Button 
                             variant="outline"
-                            className="w-full rounded-xl border-slate-200 text-slate-700 hover:bg-slate-50 hover:text-blue-600 h-[38px] text-xs font-semibold transition-all"
+                            className="w-full rounded-xl border-slate-200 text-slate-700 hover:bg-slate-50 hover:text-blue-600 h-9 text-xs font-semibold transition-all"
                           >
                             <Eye className="w-3.5 h-3.5 mr-1.5" /> View
                           </Button>
@@ -264,7 +264,7 @@ export default function ResumesContent() {
                         <Link href={`/builder?id=${resume.id}`} className="flex-1">
                           <Button 
                             variant="outline"
-                            className="w-full rounded-xl border-slate-200 text-slate-700 hover:bg-slate-50 hover:text-blue-600 h-[38px] text-xs font-semibold transition-all"
+                            className="w-full rounded-xl border-slate-200 text-slate-700 hover:bg-slate-50 hover:text-blue-600 h-9 text-xs font-semibold transition-all"
                           >
                             <Edit2 className="w-3.5 h-3.5 mr-1.5" /> Edit
                           </Button>
@@ -272,7 +272,7 @@ export default function ResumesContent() {
                         <Button 
                           variant="outline"
                           onClick={(e) => handleDelete(resume.id, e)}
-                          className="w-[38px] h-[38px] p-0 shrink-0 rounded-xl border-slate-200 text-slate-500 hover:bg-red-50 hover:text-red-600 hover:border-red-200 transition-all flex items-center justify-center"
+                          className="w-9 h-9 p-0 shrink-0 rounded-xl border-slate-200 text-slate-500 hover:bg-red-50 hover:text-red-600 hover:border-red-200 transition-all flex items-center justify-center"
                           title="Delete"
                         >
                           <MoreHorizontal className="w-4 h-4" />
@@ -292,13 +292,13 @@ export default function ResumesContent() {
           {/* Create New Card (moved to end) */}
           {!loading && (
             <motion.div variants={itemVariants} className="min-w-0 flex">
-              <Link href="/builder" className="w-full block outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-2xl h-[340px]">
+              <Link href="/builder" className="w-full block outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-2xl h-[280px]">
                 <Card className="border border-dashed border-blue-200 shadow-none hover:border-blue-400 hover:bg-blue-50/50 transition-all duration-300 h-full flex flex-col items-center justify-center group rounded-2xl cursor-pointer hover:-translate-y-1 bg-slate-50/30 p-6">
-                  <div className="w-[72px] h-[72px] bg-blue-50 group-hover:bg-blue-100 rounded-full flex items-center justify-center mb-6 transition-colors">
+                  <div className="w-16 h-16 bg-blue-50 group-hover:bg-blue-100 rounded-full flex items-center justify-center mb-4 transition-colors">
                     <Plus className="w-8 h-8 text-blue-600 group-hover:scale-110 transition-transform duration-300" />
                   </div>
                   <h3 className="font-bold text-slate-900 text-[17px] group-hover:text-blue-600 transition-colors text-center w-full truncate">Create New Resume</h3>
-                  <p className="text-[13px] text-slate-500 mt-2 text-center">Start from scratch using our guided builder</p>
+                  <p className="text-[13px] text-slate-500 mt-1.5 text-center px-2">Start from scratch using our guided builder</p>
                 </Card>
               </Link>
             </motion.div>
@@ -311,13 +311,13 @@ export default function ResumesContent() {
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="mt-12"
+        className="mt-8"
       >
         <Card className="bg-gradient-to-br from-blue-50 to-indigo-50/50 border border-blue-100/50 rounded-3xl overflow-hidden relative shadow-sm">
-          <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
-            <Sparkles className="w-32 h-32 text-blue-600" />
+          <div className="absolute top-0 right-0 p-6 opacity-10 pointer-events-none">
+            <Sparkles className="w-24 h-24 text-blue-600" />
           </div>
-          <CardContent className="p-8 sm:p-10 flex flex-col sm:flex-row items-center justify-between gap-8 relative z-10">
+          <CardContent className="p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 relative z-10">
             <div className="flex-1 text-center sm:text-left">
               <h2 className="text-2xl font-bold text-slate-900 mb-2">Want a higher ATS score?</h2>
               <p className="text-slate-600 text-base max-w-xl">
