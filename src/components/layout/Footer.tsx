@@ -36,10 +36,10 @@ export function Footer() {
             <h3 className="mb-4 text-sm font-bold tracking-tight text-slate-900">Expert Resources</h3>
             <ul className="space-y-3 text-sm text-slate-500">
               <li><Link href="/blog" className="transition hover:text-slate-900">Resume Examples</Link></li>
-              <li><Link href="/blog" className="transition hover:text-slate-900">ATS-Friendly Resumes</Link></li>
+              <li><Link href="/blog/ats-friendly-resume-2026" className="transition hover:text-slate-900">ATS-Friendly Resumes</Link></li>
               <li><Link href="/templates" className="transition hover:text-slate-900">Professional Templates</Link></li>
-              <li><Link href="/blog" className="transition hover:text-slate-900">How to Write a CV</Link></li>
-              <li><Link href="/blog" className="transition hover:text-slate-900">Resume Action Verbs</Link></li>
+              <li><Link href="/blog/one-vs-two-page-resume" className="transition hover:text-slate-900">How to Write a CV</Link></li>
+              <li><Link href="/blog/resume-action-verbs" className="transition hover:text-slate-900">Resume Action Verbs</Link></li>
             </ul>
           </div>
           <div>

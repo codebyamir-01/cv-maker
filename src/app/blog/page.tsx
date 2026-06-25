@@ -11,55 +11,10 @@ export const metadata: Metadata = {
   description: "Expert resume tips, career advice, and job search strategies from the CV Maker team.",
 };
 
-const FEATURED = {
-  id: 1,
-  title: "How to Write an ATS-Friendly Resume in 2026",
-  excerpt: "Applicant Tracking Systems reject over 75% of resumes before a human ever sees them. Learn exactly how ATS software scans your resume and how to format yours to pass every filter.",
-  category: "ATS Tips",
-  categoryColor: "bg-emerald-100 text-emerald-700",
-  readTime: "8 min read",
-  date: "Jun 18, 2026",
-  slug: "ats-friendly-resume-2026",
-};
+import { BLOG_POSTS } from "@/lib/blog-data";
 
-const POSTS = [
-  {
-    id: 2, title: "10 Resume Action Verbs That Get You Hired", excerpt: "Replace weak filler words with powerful action verbs that immediately signal impact to recruiters.",
-    category: "Writing Tips", categoryColor: "bg-blue-100 text-blue-700", readTime: "5 min read", date: "Jun 15, 2026", slug: "resume-action-verbs",
-  },
-  {
-    id: 3, title: "One Page vs. Two Page Resume: What Recruiters Actually Want", excerpt: "The eternal debate settled. We interviewed 50 HR professionals to find out the truth.",
-    category: "Resume Advice", categoryColor: "bg-purple-100 text-purple-700", readTime: "6 min read", date: "Jun 12, 2026", slug: "one-vs-two-page-resume",
-  },
-  {
-    id: 4, title: "How to Write a Professional Summary That Gets Noticed", excerpt: "Your summary is the first thing recruiters read. Make it count with these proven templates and examples.",
-    category: "Writing Tips", categoryColor: "bg-blue-100 text-blue-700", readTime: "7 min read", date: "Jun 10, 2026", slug: "professional-summary-guide",
-  },
-  {
-    id: 5, title: "The Best Resume Format for Software Engineers in 2026", excerpt: "Tech hiring has changed. Here's how to structure your engineering resume to stand out at top companies.",
-    category: "Tech Careers", categoryColor: "bg-violet-100 text-violet-700", readTime: "9 min read", date: "Jun 8, 2026", slug: "software-engineer-resume-format",
-  },
-  {
-    id: 6, title: "How to List Skills on a Resume (With Examples)", excerpt: "Don't just dump a list of buzzwords. Learn how to strategically present skills that match job descriptions.",
-    category: "Resume Advice", categoryColor: "bg-purple-100 text-purple-700", readTime: "5 min read", date: "Jun 5, 2026", slug: "how-to-list-skills-resume",
-  },
-  {
-    id: 7, title: "Cover Letter vs. Resume: What's the Difference?", excerpt: "Many candidates confuse these two documents. Here's what each one should contain and when you need both.",
-    category: "Job Search", categoryColor: "bg-orange-100 text-orange-700", readTime: "4 min read", date: "Jun 2, 2026", slug: "cover-letter-vs-resume",
-  },
-  {
-    id: 8, title: "How to Explain Employment Gaps on Your Resume", excerpt: "Career gaps are common after COVID-19. Here's how to address them honestly without hurting your chances.",
-    category: "Career Tips", categoryColor: "bg-pink-100 text-pink-700", readTime: "6 min read", date: "May 30, 2026", slug: "explain-employment-gaps",
-  },
-  {
-    id: 9, title: "LinkedIn Profile vs. Resume: Key Differences", excerpt: "Your LinkedIn isn't just a digital copy of your resume. Learn how to optimise both for maximum impact.",
-    category: "Job Search", categoryColor: "bg-orange-100 text-orange-700", readTime: "5 min read", date: "May 28, 2026", slug: "linkedin-vs-resume",
-  },
-  {
-    id: 10, title: "Resume Tips for Fresh Graduates With No Experience", excerpt: "Everyone starts somewhere. Here's how to build a competitive resume even if you have zero work history.",
-    category: "Career Tips", categoryColor: "bg-pink-100 text-pink-700", readTime: "7 min read", date: "May 25, 2026", slug: "fresh-graduate-resume-tips",
-  },
-];
+const FEATURED = BLOG_POSTS[0];
+const POSTS = BLOG_POSTS.slice(1);
 
 const CATEGORIES = ["All", "ATS Tips", "Writing Tips", "Resume Advice", "Tech Careers", "Job Search", "Career Tips"];
 
