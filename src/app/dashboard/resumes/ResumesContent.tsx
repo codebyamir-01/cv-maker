@@ -275,7 +275,7 @@ export default function ResumesContent() {
                           className="w-9 h-9 p-0 shrink-0 rounded-xl border-slate-200 text-slate-500 hover:bg-red-50 hover:text-red-600 hover:border-red-200 transition-all flex items-center justify-center"
                           title="Delete"
                         >
-                          <MoreHorizontal className="w-4 h-4" />
+                          <Trash2 className="w-4 h-4" />
                         </Button>
                       </div>
                     </CardContent>
