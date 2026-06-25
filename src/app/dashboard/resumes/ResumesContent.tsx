@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Plus, FileText, MoreVertical, Search, Filter, Sparkles, CheckCircle2, Copy, Trash2, Edit2, Download, AlertCircle } from "lucide-react";
+import { Plus, FileText, MoreVertical, Search, Filter, Sparkles, CheckCircle2, Copy, Trash2, Edit2, Download, AlertCircle, Eye, MoreHorizontal, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { motion, AnimatePresence } from "framer-motion";
@@ -202,73 +202,80 @@ export default function ResumesContent() {
               
               return (
                 <motion.div key={resume.id} variants={itemVariants} className="min-w-0 flex">
-                  <Card className="w-full border border-slate-200/60 shadow-sm hover:shadow-xl hover:shadow-blue-900/5 transition-all duration-300 group relative flex flex-col h-[320px] rounded-2xl bg-white hover:-translate-y-1">
+                  <Card className="w-full border border-slate-200/60 shadow-sm hover:shadow-xl hover:shadow-blue-900/5 transition-all duration-300 group relative flex flex-col h-[340px] rounded-2xl bg-white hover:-translate-y-1">
                     
-                    {/* More button */}
-                    <button 
-                      onClick={(e) => {
-                        e.preventDefault();
-                        showToast("More actions coming soon!");
-                      }}
-                      className="absolute top-3 right-3 p-1.5 text-slate-400 hover:text-slate-700 hover:bg-white bg-white/80 rounded-lg backdrop-blur-md shadow-sm z-10 opacity-0 group-hover:opacity-100 transition-all"
-                      title="More actions"
-                    >
-                      <MoreVertical className="w-4 h-4" />
-                    </button>
-
                     {/* Thumbnail Area */}
-                    <div className="h-40 bg-slate-50 border-b border-slate-100 flex items-center justify-center relative flex-shrink-0 overflow-hidden">
-                      {/* Premium Soft Resume Skeleton */}
-                      <div className="w-[120px] h-[170px] bg-white shadow-md border border-slate-100 rounded-sm p-3 flex flex-col gap-2 mt-8 transform transition-transform group-hover:scale-105 duration-500 relative">
-                        <div className="h-2 w-1/2 bg-slate-200 rounded-full mx-auto mb-2"></div>
-                        <div className="h-1.5 w-full bg-slate-100 rounded-full"></div>
-                        <div className="h-1.5 w-5/6 bg-slate-100 rounded-full"></div>
-                        <div className="h-1.5 w-full bg-slate-100 rounded-full mt-2"></div>
-                        <div className="h-1.5 w-4/5 bg-slate-100 rounded-full"></div>
-                        <div className="h-1.5 w-full bg-slate-100 rounded-full mt-2"></div>
-                        <div className="h-1.5 w-3/4 bg-slate-100 rounded-full"></div>
-                        {/* Soft gradient overlay so it fades out at bottom */}
-                        <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-white to-transparent"></div>
+                    <div className="h-[180px] bg-slate-50 rounded-t-2xl border-b border-slate-100 flex items-center justify-center relative flex-shrink-0 overflow-hidden">
+                      
+                      {/* Top Right Menu */}
+                      <button 
+                        onClick={(e) => {
+                          e.preventDefault();
+                          showToast("More actions coming soon!");
+                        }}
+                        className="absolute top-3 right-3 w-8 h-8 bg-white border border-slate-200 rounded-full flex items-center justify-center text-slate-500 shadow-sm hover:bg-slate-50 hover:text-slate-700 transition-colors z-10"
+                        title="More actions"
+                      >
+                        <MoreHorizontal className="w-4 h-4" />
+                      </button>
+
+                      {/* Wide Horizontal Skeleton */}
+                      <div className="w-[85%] h-[110px] bg-white shadow-sm border border-slate-100 rounded-lg p-5 flex flex-col justify-start mt-2 transform transition-transform group-hover:scale-[1.02] duration-500">
+                        <div className="h-2.5 w-[60%] bg-slate-200 rounded-full mb-4"></div>
+                        <div className="h-1.5 w-full bg-slate-100 rounded-full mb-2.5"></div>
+                        <div className="h-1.5 w-[90%] bg-slate-100 rounded-full mb-2.5"></div>
+                        <div className="h-1.5 w-[80%] bg-slate-100 rounded-full"></div>
                       </div>
 
                       {/* Score Badge */}
-                      <div className="absolute top-3 left-3 z-10">
+                      <div className="absolute bottom-3 left-3 z-10">
                         {hasScore ? (
-                          <div className={`flex items-center gap-1.5 text-white font-semibold ${score >= 70 ? 'bg-emerald-500' : 'bg-orange-500'} px-2.5 py-1 rounded-full text-[11px] shadow-sm`}>
-                            {score >= 70 ? <CheckCircle2 className="w-3 h-3" /> : <AlertCircle className="w-3 h-3" />}
+                          <div className={`flex items-center gap-1.5 bg-white border border-slate-200 text-slate-700 font-medium px-3 py-1.5 rounded-full text-xs shadow-sm`}>
+                            {score >= 70 ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" /> : <AlertCircle className="w-3.5 h-3.5 text-orange-500" />}
                             ATS: {score}%
                           </div>
                         ) : (
-                          <div className="flex items-center gap-1.5 text-slate-500 font-medium bg-white/90 backdrop-blur px-2.5 py-1 rounded-full text-[11px] shadow-sm border border-slate-200/50">
-                            <CheckCircle2 className="w-3 h-3 text-slate-400" />
-                            Not checked
+                          <div className="flex items-center gap-1.5 bg-white border border-slate-200 text-slate-700 font-medium px-3 py-1.5 rounded-full text-xs shadow-sm">
+                            <CheckCircle2 className="w-3.5 h-3.5 text-slate-400" />
+                            Not checked yet
                           </div>
                         )}
                       </div>
                     </div>
 
                     {/* Card Content & Actions */}
-                    <CardContent className="p-4 flex-1 flex flex-col justify-between bg-white z-20 min-w-0">
+                    <CardContent className="p-5 flex-1 flex flex-col justify-between bg-white z-20 min-w-0">
                       <div>
-                        <h3 className="font-bold text-slate-900 truncate text-base group-hover:text-blue-600 transition-colors" title={resume.title}>{resume.title}</h3>
-                        <p className="text-xs text-slate-500 mt-1 flex items-center gap-1">
-                          Updated {formatDate(resume.updatedAt)}
+                        <h3 className="font-bold text-slate-900 truncate text-[15px] group-hover:text-blue-600 transition-colors" title={resume.title}>{resume.title}</h3>
+                        <p className="text-[13px] text-slate-500 mt-1.5 flex items-center">
+                          <Calendar className="w-3.5 h-3.5 mr-1.5 text-slate-400" /> Updated {formatDate(resume.updatedAt)}
                         </p>
                       </div>
                       
-                      <div className="flex gap-2 mt-4 pt-4 border-t border-slate-100/60">
+                      <div className="flex gap-2 mt-4 pt-4 border-t border-slate-50">
                         <Link href={`/builder?id=${resume.id}`} className="flex-1">
                           <Button 
-                            className="w-full rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 border-none h-8 text-[11px] transition-colors font-semibold"
+                            variant="outline"
+                            className="w-full rounded-xl border-slate-200 text-slate-700 hover:bg-slate-50 hover:text-blue-600 h-[38px] text-xs font-semibold transition-all"
                           >
-                            <Edit2 className="w-3 h-3 mr-1.5" /> Edit
+                            <Eye className="w-3.5 h-3.5 mr-1.5" /> View
+                          </Button>
+                        </Link>
+                        <Link href={`/builder?id=${resume.id}`} className="flex-1">
+                          <Button 
+                            variant="outline"
+                            className="w-full rounded-xl border-slate-200 text-slate-700 hover:bg-slate-50 hover:text-blue-600 h-[38px] text-xs font-semibold transition-all"
+                          >
+                            <Edit2 className="w-3.5 h-3.5 mr-1.5" /> Edit
                           </Button>
                         </Link>
                         <Button 
+                          variant="outline"
                           onClick={(e) => handleDelete(resume.id, e)}
-                          className="flex-1 rounded-lg bg-slate-50 hover:bg-red-50 hover:text-red-600 text-slate-600 border-none h-8 text-[11px] transition-colors font-semibold"
+                          className="w-[38px] h-[38px] p-0 shrink-0 rounded-xl border-slate-200 text-slate-500 hover:bg-red-50 hover:text-red-600 hover:border-red-200 transition-all flex items-center justify-center"
+                          title="Delete"
                         >
-                          <Trash2 className="w-3 h-3 mr-1.5" /> Delete
+                          <MoreHorizontal className="w-4 h-4" />
                         </Button>
                       </div>
                     </CardContent>
@@ -285,13 +292,13 @@ export default function ResumesContent() {
           {/* Create New Card (moved to end) */}
           {!loading && (
             <motion.div variants={itemVariants} className="min-w-0 flex">
-              <Link href="/builder" className="w-full block outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-2xl h-[320px]">
-                <Card className="border-2 border-dashed border-slate-200 shadow-none hover:border-blue-400 hover:bg-blue-50/30 transition-all duration-300 h-full flex flex-col items-center justify-center group rounded-2xl cursor-pointer hover:-translate-y-1 bg-white/50 backdrop-blur-sm p-4">
-                  <div className="w-16 h-16 bg-blue-100/50 group-hover:bg-blue-100 rounded-full flex items-center justify-center mb-5 transition-colors">
+              <Link href="/builder" className="w-full block outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-2xl h-[340px]">
+                <Card className="border border-dashed border-blue-200 shadow-none hover:border-blue-400 hover:bg-blue-50/50 transition-all duration-300 h-full flex flex-col items-center justify-center group rounded-2xl cursor-pointer hover:-translate-y-1 bg-slate-50/30 p-6">
+                  <div className="w-[72px] h-[72px] bg-blue-50 group-hover:bg-blue-100 rounded-full flex items-center justify-center mb-6 transition-colors">
                     <Plus className="w-8 h-8 text-blue-600 group-hover:scale-110 transition-transform duration-300" />
                   </div>
-                  <h3 className="font-bold text-slate-900 text-lg group-hover:text-blue-600 transition-colors text-center w-full truncate px-2">Create New Resume</h3>
-                  <p className="text-sm text-slate-500 mt-2 text-center px-4">Start from scratch using our guided builder</p>
+                  <h3 className="font-bold text-slate-900 text-[17px] group-hover:text-blue-600 transition-colors text-center w-full truncate">Create New Resume</h3>
+                  <p className="text-[13px] text-slate-500 mt-2 text-center">Start from scratch using our guided builder</p>
                 </Card>
               </Link>
             </motion.div>
