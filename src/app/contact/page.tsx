@@ -22,21 +22,20 @@ export default async function ContactPage() {
 
         {/* ── HERO ── */}
         <section className="relative overflow-hidden py-16 text-center">
-          {/* Background blobs */}
-          <div className="absolute inset-0 -z-10 pointer-events-none">
-            <div className="absolute top-[-10%] left-[-5%] w-[35%] h-[80%] rounded-full bg-blue-100/50 blur-[120px]" />
-            <div className="absolute bottom-0 right-[-5%] w-[30%] h-[60%] rounded-full bg-indigo-100/40 blur-[100px]" />
+          {/* Lighter background blobs - reduced blur cost for better CLS/FCP */}
+          <div className="absolute inset-0 -z-10 pointer-events-none" aria-hidden="true">
+            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-50/60 via-transparent to-indigo-50/40" />
           </div>
 
           <div className="container mx-auto px-6 max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 shadow-sm text-blue-600 text-sm font-semibold mb-6">
+            <div className="animate-fade-in inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 shadow-sm text-blue-600 text-sm font-semibold mb-6">
               <MessageSquare className="w-4 h-4" />
-              We'd love to hear from you
+              We&apos;d love to hear from you
             </div>
-            <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight text-slate-900 mb-5 leading-tight">
+            <h1 className="animate-fade-in-up text-5xl md:text-6xl font-extrabold tracking-tight text-slate-900 mb-5 leading-tight">
               Get in <span className="text-blue-600">Touch</span>
             </h1>
-            <p className="text-lg text-slate-500 font-medium leading-relaxed">
+            <p className="animate-fade-in-up-delay-1 text-lg text-slate-500 font-medium leading-relaxed">
               Have a question, feedback, or need help? Our team is here to assist you — usually within 24 hours.
             </p>
           </div>

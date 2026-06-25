@@ -4,7 +4,7 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { motion } from "framer-motion";
+
 import { Mail, Lock, Eye, EyeOff, Loader2 } from "lucide-react";
 import AuthLayout from "@/components/auth/AuthLayout";
 
@@ -43,12 +43,7 @@ export default function LoginPage() {
 
   return (
     <AuthLayout>
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="w-full rounded-3xl bg-white p-[clamp(1.25rem,2.5vh,2rem)] shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-slate-100 sm:p-[clamp(1.5rem,3vh,2.5rem)]"
-      >
+      <div className="animate-fade-in-up w-full rounded-3xl bg-white p-[clamp(1.25rem,2.5vh,2rem)] shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-slate-100 sm:p-[clamp(1.5rem,3vh,2.5rem)]">
         <div className="mb-[clamp(1rem,2.5vh,2rem)] space-y-[clamp(0.25rem,0.5vh,0.5rem)] text-center">
           <h2 className="text-[clamp(1.5rem,3.5vh,1.875rem)] font-extrabold tracking-tight text-slate-900">Welcome back</h2>
           <p className="text-[clamp(0.75rem,1.5vh,0.875rem)] font-medium text-slate-500">Sign in to continue building your professional resume.</p>
@@ -56,13 +51,9 @@ export default function LoginPage() {
 
         <form onSubmit={handleLogin} className="space-y-[clamp(0.75rem,1.5vh,1.25rem)]">
           {error && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="rounded-xl bg-red-50 p-3 text-sm font-semibold text-red-600 ring-1 ring-inset ring-red-500/20"
-            >
+            <div className="animate-scale-in rounded-xl bg-red-50 p-3 text-sm font-semibold text-red-600 ring-1 ring-inset ring-red-500/20">
               {error}
-            </motion.div>
+            </div>
           )}
 
           <div className="space-y-1">
@@ -174,7 +165,7 @@ export default function LoginPage() {
             Create one
           </Link>
         </div>
-      </motion.div>
+      </div>
     </AuthLayout>
   );
 }

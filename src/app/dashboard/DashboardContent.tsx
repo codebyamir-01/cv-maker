@@ -1,58 +1,47 @@
 "use client";
 
 import Link from "next/link";
-import { Plus, FileText, Upload, MoreVertical, Clock, CheckCircle2, TrendingUp, Sparkles, Download, Edit, BarChart3, ChevronRight } from "lucide-react";
+import { Plus, FileText, Upload, Clock, TrendingUp, Sparkles, Edit, ChevronRight, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { motion } from "framer-motion";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, AreaChart } from "recharts";
-
-const chartData = [
-  { name: 'Jan', score: 45 },
-  { name: 'Feb', score: 52 },
-  { name: 'Mar', score: 58 },
-  { name: 'Apr', score: 65 },
-  { name: 'May', score: 72 },
-  { name: 'Jun', score: 85 },
-];
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1
-    }
-  }
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { type: "spring" as const, stiffness: 300, damping: 24 } }
-};
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function DashboardContent({ user, resumes }: { user: any, resumes: any[] }) {
-  const averageAtsScore = resumes.length > 0 
+  const router = useRouter();
+  const [deletingId, setDeletingId] = useState<string | null>(null);
+
+  const averageAtsScore = resumes.length > 0
     ? Math.round(resumes.reduce((acc, curr) => acc + (curr.atsScore || 0), 0) / resumes.length)
     : 0;
 
+  const handleDelete = async (id: string) => {
+    if (!confirm("Delete this resume?")) return;
+    setDeletingId(id);
+    try {
+      await fetch(`/api/resumes/${id}`, { method: "DELETE" });
+      router.refresh();
+    } catch {
+      // silent
+    } finally {
+      setDeletingId(null);
+    }
+  };
+
   return (
-    <motion.div 
-      className="p-8 max-w-7xl mx-auto space-y-8"
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-    >
+    <div className="p-6 md:p-8 max-w-7xl mx-auto space-y-8">
+
       {/* Hero Section */}
-      <motion.div variants={itemVariants} className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+      <div className="animate-fade-in-up flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div>
           <h1 className="text-3xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
-            Welcome back, {user?.name?.split(" ")[0]} <span className="text-4xl animate-wave origin-bottom-right inline-block">👋</span>
+            Welcome back, {user?.name?.split(" ")[0]}{" "}
+            <span className="text-4xl animate-wave origin-bottom-right inline-block">👋</span>
           </h1>
           <p className="text-slate-500 mt-2 text-lg">Manage your resumes, track ATS scores, and improve your job chances.</p>
         </div>
-        <div className="flex gap-4">
-          <div className="bg-white px-5 py-3 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
+        <div className="flex gap-4 animate-fade-in-up-delay-1">
+          <div className="bg-white px-5 py-3 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4 transition-shadow hover:shadow-md">
             <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-600">
               <FileText className="w-5 h-5" />
             </div>
@@ -61,7 +50,7 @@ export default function DashboardContent({ user, resumes }: { user: any, resumes
               <p className="text-2xl font-bold text-slate-900 leading-none mt-1">{resumes.length}</p>
             </div>
           </div>
-          <div className="bg-white px-5 py-3 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
+          <div className="bg-white px-5 py-3 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4 transition-shadow hover:shadow-md">
             <div className="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center text-green-600">
               <TrendingUp className="w-5 h-5" />
             </div>
@@ -73,131 +62,126 @@ export default function DashboardContent({ user, resumes }: { user: any, resumes
             </div>
           </div>
         </div>
-      </motion.div>
+      </div>
 
       <div className="max-w-5xl mx-auto space-y-8">
-        {/* Main Content Area */}
-        <div className="space-y-8">
-          
-          {/* Action Cards */}
-          <div className="grid sm:grid-cols-2 gap-6">
-            <motion.div variants={itemVariants} whileHover={{ y: -4 }} transition={{ type: "spring", stiffness: 400 }}>
-              <Link href="/builder" className="block h-full">
-                <Card className="h-full bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white border-0 shadow-[0_8px_30px_rgb(37,99,235,0.2)] overflow-hidden relative group">
-                  <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity group-hover:scale-110 duration-500">
-                    <FileText className="w-32 h-32 transform rotate-12" />
-                  </div>
-                  <CardHeader className="relative z-10 pb-2">
-                    <div className="w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center mb-4">
-                      <Plus className="w-6 h-6 text-white" />
-                    </div>
-                    <CardTitle className="text-2xl font-bold text-white">Create New Resume</CardTitle>
-                  </CardHeader>
-                  <CardContent className="relative z-10">
-                    <p className="text-blue-100/90 mb-6 font-medium leading-relaxed">Build an ATS-optimized resume from scratch using our guided step-by-step wizard.</p>
-                    <div className="inline-flex items-center text-white font-semibold group-hover:underline decoration-2 underline-offset-4">
-                      Start Building <ChevronRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
-            </motion.div>
 
-            <motion.div variants={itemVariants} whileHover={{ y: -4 }} transition={{ type: "spring", stiffness: 400 }}>
-              <Link href="/upload" className="block h-full">
-                <Card className="h-full bg-white/60 backdrop-blur-xl border border-slate-200/60 shadow-sm hover:shadow-md transition-all group overflow-hidden relative">
-                  <CardHeader className="pb-2">
-                    <div className="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center mb-4 text-blue-600 group-hover:bg-blue-50 transition-colors">
-                      <Upload className="w-6 h-6" />
-                    </div>
-                    <CardTitle className="text-2xl font-bold text-slate-900">Import Existing</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-slate-500 mb-6 font-medium leading-relaxed">Upload an existing PDF or DOCX resume to parse its content and get instant ATS feedback.</p>
-                    <div className="inline-flex items-center text-blue-600 font-semibold group-hover:underline decoration-2 underline-offset-4">
-                      Upload Resume <ChevronRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
-                    </div>
-                  </CardContent>
-                </Card>
+        {/* Action Cards */}
+        <div className="grid sm:grid-cols-2 gap-6 animate-fade-in-up-delay-2">
+          <Link href="/builder" className="block h-full group">
+            <Card className="h-full bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white border-0 shadow-[0_8px_30px_rgb(37,99,235,0.2)] overflow-hidden relative transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_40px_rgb(37,99,235,0.3)]">
+              <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity group-hover:scale-110 duration-500">
+                <FileText className="w-32 h-32 transform rotate-12" />
+              </div>
+              <CardHeader className="relative z-10 pb-2">
+                <div className="w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center mb-4">
+                  <Plus className="w-6 h-6 text-white" />
+                </div>
+                <CardTitle className="text-2xl font-bold text-white">Create New Resume</CardTitle>
+              </CardHeader>
+              <CardContent className="relative z-10">
+                <p className="text-blue-100/90 mb-6 font-medium leading-relaxed">Build an ATS-optimized resume from scratch using our guided step-by-step wizard.</p>
+                <div className="inline-flex items-center text-white font-semibold group-hover:underline decoration-2 underline-offset-4">
+                  Start Building <ChevronRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
+
+          <Link href="/upload" className="block h-full group">
+            <Card className="h-full bg-white/60 backdrop-blur-xl border border-slate-200/60 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 overflow-hidden relative">
+              <CardHeader className="pb-2">
+                <div className="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center mb-4 text-blue-600 group-hover:bg-blue-50 transition-colors">
+                  <Upload className="w-6 h-6" />
+                </div>
+                <CardTitle className="text-2xl font-bold text-slate-900">Import Existing</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-slate-500 mb-6 font-medium leading-relaxed">Upload an existing PDF or DOCX resume to parse its content and get instant ATS feedback.</p>
+                <div className="inline-flex items-center text-blue-600 font-semibold group-hover:underline decoration-2 underline-offset-4">
+                  Upload Resume <ChevronRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
+        </div>
+
+        {/* Recent Resumes */}
+        <div className="space-y-4 animate-fade-in-up-delay-3">
+          <div className="flex items-center justify-between">
+            <h2 className="text-xl font-bold text-slate-900">Recent Resumes</h2>
+            {resumes.length > 0 && (
+              <Link href="/dashboard/resumes" className="text-sm font-semibold text-blue-600 hover:text-blue-700 hover:underline">
+                View All
               </Link>
-            </motion.div>
+            )}
           </div>
 
-          {/* Recent Resumes */}
-          <motion.div variants={itemVariants} className="space-y-4">
-            <div className="flex items-center justify-between">
-              <h2 className="text-xl font-bold text-slate-900">Recent Resumes</h2>
-              {resumes.length > 0 && (
-                <Link href="/dashboard/resumes" className="text-sm font-semibold text-blue-600 hover:text-blue-700 hover:underline">
-                  View All
-                </Link>
-              )}
-            </div>
-            
-            <div className="grid sm:grid-cols-2 gap-6">
-              {resumes.slice(0, 4).map((resume: any, index: number) => (
-                <motion.div key={resume.id} variants={itemVariants} whileHover={{ y: -4 }}>
-                  <Card className="border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-200 transition-all cursor-pointer relative group bg-white overflow-hidden">
-                    <div className="absolute top-3 right-3 p-1.5 text-slate-400 hover:text-slate-900 bg-white/90 rounded-md backdrop-blur-sm shadow-sm z-10 opacity-0 group-hover:opacity-100 transition-all">
-                      <MoreVertical className="w-4 h-4" />
+          <div className="grid sm:grid-cols-2 gap-6">
+            {resumes.slice(0, 4).map((resume: any) => (
+              <div key={resume.id} className="group transition-all duration-300 hover:-translate-y-1">
+                <Card className="border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-200 transition-all cursor-pointer relative bg-white overflow-hidden">
+                  <button
+                    onClick={() => handleDelete(resume.id)}
+                    disabled={deletingId === resume.id}
+                    className="absolute top-3 right-3 p-1.5 text-slate-400 hover:text-red-500 bg-white/90 rounded-md backdrop-blur-sm shadow-sm z-10 opacity-0 group-hover:opacity-100 transition-all"
+                    title="Delete resume"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                  <div className="aspect-[2/1] bg-gradient-to-br from-slate-50 to-slate-100 border-b border-slate-100 flex items-center justify-center relative overflow-hidden group-hover:from-blue-50/50 group-hover:to-slate-50 transition-colors">
+                    <FileText className="w-12 h-12 text-slate-300 group-hover:text-blue-200 transition-colors" />
+                    <div className="absolute bottom-3 left-3 flex gap-2">
+                      {resume.atsScore > 0 ? (
+                        <span className={`px-2.5 py-1 rounded-md text-[10px] font-bold tracking-wider uppercase shadow-sm ${
+                          resume.atsScore >= 80 ? "bg-green-100 text-green-700" :
+                          resume.atsScore >= 50 ? "bg-amber-100 text-amber-700" :
+                          "bg-red-100 text-red-700"
+                        }`}>
+                          ATS: {resume.atsScore}%
+                        </span>
+                      ) : (
+                        <span className="px-2.5 py-1 rounded-md text-[10px] font-bold tracking-wider uppercase shadow-sm bg-slate-100 text-slate-500">
+                          Not Checked
+                        </span>
+                      )}
                     </div>
-                    <div className="aspect-[2/1] bg-gradient-to-br from-slate-50 to-slate-100 border-b border-slate-100 flex items-center justify-center relative overflow-hidden group-hover:from-blue-50/50 group-hover:to-slate-50 transition-colors">
-                       <FileText className="w-12 h-12 text-slate-300 group-hover:text-blue-200 transition-colors" />
-                       <div className="absolute bottom-3 left-3 flex gap-2">
-                         {resume.atsScore > 0 ? (
-                           <span className={`px-2.5 py-1 rounded-md text-[10px] font-bold tracking-wider uppercase shadow-sm ${
-                             resume.atsScore >= 80 ? "bg-green-100 text-green-700" : 
-                             resume.atsScore >= 50 ? "bg-amber-100 text-amber-700" : 
-                             "bg-red-100 text-red-700"
-                           }`}>
-                             ATS: {resume.atsScore}%
-                           </span>
-                         ) : (
-                           <span className="px-2.5 py-1 rounded-md text-[10px] font-bold tracking-wider uppercase shadow-sm bg-slate-100 text-slate-500">
-                             Not Checked
-                           </span>
-                         )}
-                       </div>
-                    </div>
-                    <CardContent className="p-4">
-                      <h3 className="font-bold text-slate-900 truncate group-hover:text-blue-700 transition-colors">{resume.title}</h3>
-                      <p className="text-xs font-medium text-slate-400 mt-1.5 flex items-center gap-1.5">
-                        <Clock className="w-3.5 h-3.5" /> Updated {new Date(resume.updatedAt).toLocaleDateString()}
-                      </p>
-                      
-                      <div className="flex gap-2 mt-4 pt-4 border-t border-slate-100">
-                        <Link href={`/builder?id=${resume.id}`} className="w-full">
-                          <Button variant="outline" size="sm" className="w-full text-xs h-8 bg-slate-50 hover:bg-slate-100">
-                            <Edit className="w-3.5 h-3.5 mr-1.5" /> Edit
-                          </Button>
-                        </Link>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-
-              {resumes.length === 0 && (
-                <div className="col-span-2 text-center py-12 px-4 border-2 border-dashed border-slate-200 rounded-2xl bg-slate-50/50">
-                  <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm">
-                    <FileText className="w-8 h-8 text-slate-300" />
                   </div>
-                  <h3 className="text-lg font-bold text-slate-900">No resumes yet</h3>
-                  <p className="text-slate-500 mt-1 mb-4">Create your first resume to get started.</p>
-                  <Link href="/builder">
-                    <Button className="bg-blue-600 hover:bg-blue-700">
-                      <Plus className="w-4 h-4 mr-2" /> Create Resume
-                    </Button>
-                  </Link>
-                </div>
-              )}
-            </div>
-          </motion.div>
+                  <CardContent className="p-4">
+                    <h3 className="font-bold text-slate-900 truncate group-hover:text-blue-700 transition-colors">{resume.title}</h3>
+                    <p className="text-xs font-medium text-slate-400 mt-1.5 flex items-center gap-1.5">
+                      <Clock className="w-3.5 h-3.5" /> Updated {new Date(resume.updatedAt).toLocaleDateString()}
+                    </p>
+                    <div className="flex gap-2 mt-4 pt-4 border-t border-slate-100">
+                      <Link href={`/builder?id=${resume.id}`} className="w-full">
+                        <Button variant="outline" size="sm" className="w-full text-xs h-8 bg-slate-50 hover:bg-slate-100">
+                          <Edit className="w-3.5 h-3.5 mr-1.5" /> Edit
+                        </Button>
+                      </Link>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            ))}
 
-          {/* Removed dummy chart */}
+            {resumes.length === 0 && (
+              <div className="col-span-2 text-center py-12 px-4 border-2 border-dashed border-slate-200 rounded-2xl bg-slate-50/50">
+                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm">
+                  <FileText className="w-8 h-8 text-slate-300" />
+                </div>
+                <h3 className="text-lg font-bold text-slate-900">No resumes yet</h3>
+                <p className="text-slate-500 mt-1 mb-4">Create your first resume to get started.</p>
+                <Link href="/builder">
+                  <Button className="bg-blue-600 hover:bg-blue-700">
+                    <Plus className="w-4 h-4 mr-2" /> Create Resume
+                  </Button>
+                </Link>
+              </div>
+            )}
+          </div>
         </div>
+
       </div>
-    </motion.div>
+    </div>
   );
 }
-

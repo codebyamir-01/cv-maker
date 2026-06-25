@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { CheckCircle2, FileText, Download, Save, Sparkles } from "lucide-react";
 import { ReactNode } from "react";
@@ -21,7 +20,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
           <div className="absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-indigo-500/10 blur-[100px]" />
         </div>
 
-        {/* Content Top */}
+        {/* Content Top – CSS animation instead of framer-motion */}
         <div className="relative z-10 flex flex-col p-[clamp(1.5rem,4vh,3rem)]">
           <Link href="/" className="flex items-center gap-2 text-[clamp(1.25rem,2.5vh,1.5rem)] font-black tracking-tighter text-white">
             <div className="grid h-[clamp(1.75rem,3.5vh,2rem)] w-[clamp(1.75rem,3.5vh,2rem)] place-items-center rounded-lg bg-emerald-500 text-slate-900">
@@ -30,26 +29,17 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
             CV Maker
           </Link>
           <div className="mt-[clamp(1.5rem,4vh,3rem)] max-w-lg">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
+            <div className="animate-fade-in-up">
               <h1 className="text-[clamp(1.75rem,4.5vh,2.5rem)] font-extrabold leading-tight tracking-tight text-white xl:text-[clamp(2rem,5vh,3rem)]">
                 Build an <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-blue-400">ATS-Ready</span> CV in minutes.
               </h1>
               <p className="mt-[clamp(0.5rem,1.5vh,1rem)] text-[clamp(0.875rem,2vh,1.125rem)] text-slate-300">
                 Join thousands of professionals landing their dream jobs with our premium, ATS-optimized resume builder.
               </p>
-            </motion.div>
+            </div>
 
-            {/* Trust Section */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="mt-[clamp(1rem,3vh,2.5rem)] grid grid-cols-2 gap-x-4 gap-y-[clamp(0.5rem,1.5vh,1rem)]"
-            >
+            {/* Trust Section – staggered CSS */}
+            <div className="animate-fade-in-up-delay-2 mt-[clamp(1rem,3vh,2.5rem)] grid grid-cols-2 gap-x-4 gap-y-[clamp(0.5rem,1.5vh,1rem)]">
               {[
                 { icon: CheckCircle2, text: "ATS-friendly templates" },
                 { icon: FileText, text: "Live resume preview" },
@@ -63,24 +53,15 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
                   <span className="text-[clamp(0.75rem,1.5vh,0.875rem)] font-medium leading-tight">{item.text}</span>
                 </div>
               ))}
-            </motion.div>
+            </div>
           </div>
         </div>
 
-        {/* Floating Mockup Area */}
+        {/* Floating Mockup Area – kept with CSS animations for the float effect */}
         <div className="relative z-10 flex flex-1 items-center justify-center p-[clamp(1rem,2vh,2rem)]">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="relative h-[clamp(240px,38vh,320px)] w-[clamp(180px,30vh,260px)]"
-          >
-            {/* The Resume Card */}
-            <motion.div
-              animate={{ y: [-8, 8, -8] }}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute inset-0 rounded-2xl bg-white p-[clamp(1rem,2.5vh,1.5rem)] shadow-2xl shadow-black/50 ring-1 ring-white/10"
-            >
+          <div className="animate-fade-in relative h-[clamp(240px,38vh,320px)] w-[clamp(180px,30vh,260px)]">
+            {/* The Resume Card with CSS float animation */}
+            <div className="animate-float absolute inset-0 rounded-2xl bg-white p-[clamp(1rem,2.5vh,1.5rem)] shadow-2xl shadow-black/50 ring-1 ring-white/10">
               <div className="mb-[clamp(0.5rem,1.5vh,1rem)] flex items-center gap-[clamp(0.5rem,1vh,0.75rem)]">
                 <div className="h-[clamp(1.5rem,4vh,2.5rem)] w-[clamp(1.5rem,4vh,2.5rem)] shrink-0 rounded-full bg-slate-100" />
                 <div className="space-y-[clamp(0.2rem,0.5vh,0.375rem)] flex-1">
@@ -105,31 +86,23 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
                   </div>
                 ))}
               </div>
-            </motion.div>
+            </div>
 
-            {/* Floating Badges */}
-            <motion.div
-              animate={{ y: [4, -4, 4] }}
-              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-              className="absolute -right-6 top-8 flex items-center gap-1.5 rounded-xl bg-white px-2 py-1.5 shadow-xl sm:-right-8 sm:top-12 sm:gap-2 sm:px-3 sm:py-2"
-            >
+            {/* Floating Badges – CSS animations */}
+            <div className="animate-float-delay absolute -right-6 top-8 flex items-center gap-1.5 rounded-xl bg-white px-2 py-1.5 shadow-xl sm:-right-8 sm:top-12 sm:gap-2 sm:px-3 sm:py-2">
               <div className="grid h-[clamp(1rem,2.5vh,1.5rem)] w-[clamp(1rem,2.5vh,1.5rem)] shrink-0 place-items-center rounded-full bg-emerald-100 text-emerald-600">
                 <Sparkles className="h-[clamp(0.5rem,1.2vh,0.75rem)] w-[clamp(0.5rem,1.2vh,0.75rem)]" />
               </div>
               <span className="text-[clamp(0.6rem,1.4vh,0.75rem)] font-bold text-slate-800">14% Completed</span>
-            </motion.div>
+            </div>
 
-            <motion.div
-              animate={{ y: [-5, 5, -5] }}
-              transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-              className="absolute -left-4 bottom-12 flex items-center gap-1.5 rounded-xl bg-white px-2 py-1.5 shadow-xl sm:-left-6 sm:bottom-16 sm:gap-2 sm:px-3 sm:py-2"
-            >
+            <div className="animate-float-reverse absolute -left-4 bottom-12 flex items-center gap-1.5 rounded-xl bg-white px-2 py-1.5 shadow-xl sm:-left-6 sm:bottom-16 sm:gap-2 sm:px-3 sm:py-2">
               <div className="grid h-[clamp(1rem,2.5vh,1.5rem)] w-[clamp(1rem,2.5vh,1.5rem)] shrink-0 place-items-center rounded-full bg-blue-100 text-blue-600">
                 <Save className="h-[clamp(0.5rem,1.2vh,0.75rem)] w-[clamp(0.5rem,1.2vh,0.75rem)]" />
               </div>
               <span className="text-[clamp(0.6rem,1.4vh,0.75rem)] font-bold text-slate-800">Auto-saved</span>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -144,7 +117,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
             CV Maker
           </Link>
         </div>
-        
+
         <div className="mx-auto my-auto w-full max-w-md shrink-0">
           {children}
         </div>
