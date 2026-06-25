@@ -40,7 +40,7 @@ export default function ResumesContent() {
   ];
 
   return (
-    <div className="space-y-8 max-w-6xl mx-auto pb-12 relative min-h-[80vh]">
+    <div className="space-y-8 w-full px-4 sm:px-8 lg:px-10 py-6 sm:py-8 pb-12 relative min-h-[80vh] overflow-x-hidden">
       
       {/* Custom Toast Notification */}
       <AnimatePresence>
@@ -62,14 +62,14 @@ export default function ResumesContent() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6"
+        className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 w-full"
       >
         <div>
           <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">My Resumes</h1>
           <p className="text-slate-500 mt-2 text-base">View and manage all your created resumes.</p>
         </div>
-        <Link href="/builder">
-          <Button className="bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-600/20 rounded-xl h-12 px-6 font-semibold transition-all hover:scale-[1.02]">
+        <Link href="/builder" className="w-full sm:w-auto mt-2 sm:mt-0">
+          <Button className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-600/20 rounded-xl h-12 px-6 font-semibold transition-all hover:scale-[1.02]">
             <Plus className="w-5 h-5 mr-2" /> Create New
           </Button>
         </Link>
@@ -80,9 +80,9 @@ export default function ResumesContent() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.2 }}
-        className="flex flex-col sm:flex-row gap-4 mb-8"
+        className="flex flex-col sm:flex-row gap-4 mb-8 w-full"
       >
-        <div className="relative flex-1 max-w-md group">
+        <div className="relative flex-1 w-full group">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-blue-500 transition-colors" />
           <input 
             type="text" 
@@ -93,7 +93,7 @@ export default function ResumesContent() {
         <Button 
           variant="outline" 
           onClick={() => showToast("Filters coming soon!")}
-          className="rounded-2xl border-slate-200 text-slate-600 h-12 px-6 hover:bg-slate-50 transition-colors shadow-sm"
+          className="w-full sm:w-auto rounded-2xl border-slate-200 text-slate-600 h-12 px-6 hover:bg-slate-50 transition-colors shadow-sm"
         >
           <Filter className="w-4 h-4 mr-2" /> Filter
         </Button>
@@ -104,24 +104,11 @@ export default function ResumesContent() {
         variants={containerVariants}
         initial="hidden"
         animate="show"
-        className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+        className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(280px,1fr))] w-full"
       >
-        {/* Create New Card */}
-        <motion.div variants={itemVariants}>
-          <Link href="/builder" className="block h-full outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-2xl">
-            <Card className="border-2 border-dashed border-slate-200 shadow-none hover:border-blue-400 hover:bg-blue-50/30 transition-all duration-300 h-full flex flex-col items-center justify-center min-h-[340px] group rounded-2xl cursor-pointer hover:-translate-y-1">
-              <div className="w-16 h-16 bg-blue-100/50 group-hover:bg-blue-100 rounded-full flex items-center justify-center mb-5 transition-colors">
-                <Plus className="w-8 h-8 text-blue-600 group-hover:scale-110 transition-transform duration-300" />
-              </div>
-              <h3 className="font-bold text-slate-900 text-lg group-hover:text-blue-700 transition-colors">Create New Resume</h3>
-              <p className="text-sm text-slate-500 mt-2 text-center px-4">Start from scratch using our guided builder</p>
-            </Card>
-          </Link>
-        </motion.div>
-
         {/* Existing Resumes */}
         {resumes.map((resume) => (
-          <motion.div key={resume.id} variants={itemVariants} className="h-full">
+          <motion.div key={resume.id} variants={itemVariants} className="h-full min-w-0">
             <Card className="border border-slate-200/60 shadow-sm hover:shadow-xl hover:shadow-blue-900/5 transition-all duration-300 group relative overflow-hidden flex flex-col h-full rounded-2xl bg-white hover:-translate-y-1">
               
               {/* Three-dot menu */}
@@ -159,9 +146,9 @@ export default function ResumesContent() {
               </div>
 
               {/* Card Content & Actions */}
-              <CardContent className="p-5 flex-1 flex flex-col justify-between bg-white z-20">
+              <CardContent className="p-5 flex-1 flex flex-col justify-between bg-white z-20 min-w-0">
                 <div className="mb-4">
-                  <h3 className="font-bold text-slate-900 truncate text-base group-hover:text-blue-700 transition-colors">{resume.title}</h3>
+                  <h3 className="font-bold text-slate-900 truncate text-base group-hover:text-blue-700 transition-colors w-full">{resume.title}</h3>
                   <p className="text-xs text-slate-400 mt-1.5 flex items-center gap-1">
                     <CheckCircle2 className="w-3 h-3" /> {resume.date}
                   </p>
@@ -187,6 +174,19 @@ export default function ResumesContent() {
             </Card>
           </motion.div>
         ))}
+
+        {/* Create New Card (moved to end) */}
+        <motion.div variants={itemVariants} className="h-full min-w-0">
+          <Link href="/builder" className="block h-full outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-2xl">
+            <Card className="border-2 border-dashed border-slate-200 shadow-none hover:border-blue-400 hover:bg-blue-50/30 transition-all duration-300 h-full flex flex-col items-center justify-center min-h-[340px] group rounded-2xl cursor-pointer hover:-translate-y-1">
+              <div className="w-16 h-16 bg-blue-100/50 group-hover:bg-blue-100 rounded-full flex items-center justify-center mb-5 transition-colors">
+                <Plus className="w-8 h-8 text-blue-600 group-hover:scale-110 transition-transform duration-300" />
+              </div>
+              <h3 className="font-bold text-slate-900 text-lg group-hover:text-blue-700 transition-colors text-center w-full truncate px-2">Create New Resume</h3>
+              <p className="text-sm text-slate-500 mt-2 text-center px-4">Start from scratch using our guided builder</p>
+            </Card>
+          </Link>
+        </motion.div>
       </motion.div>
 
       {/* Bottom CTA Section */}
