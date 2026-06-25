@@ -41,12 +41,22 @@ export default function DashboardLayout({
       }
     };
 
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest('#notification-container')) {
+        setShowNotifications(false);
+      }
+    };
+
     const mainContent = document.getElementById("main-content");
     if (mainContent) {
       mainContent.addEventListener("scroll", handleScroll);
     }
+    document.addEventListener("mousedown", handleClickOutside);
+
     return () => {
       if (mainContent) mainContent.removeEventListener("scroll", handleScroll);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
@@ -58,7 +68,7 @@ export default function DashboardLayout({
   const navItems = [
     { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
     { name: "My Resumes", href: "/dashboard/resumes", icon: FileText },
-    { name: "Templates", href: "/templates", icon: PenTool },
+    { name: "Templates", href: "/dashboard/templates", icon: PenTool },
     { name: "Settings", href: "/dashboard/settings", icon: Settings },
   ];
 
@@ -160,7 +170,7 @@ export default function DashboardLayout({
             </div>
           </div>
           
-          <div className="flex items-center gap-4 pl-4 ml-auto relative">
+          <div className="flex items-center gap-4 pl-4 ml-auto relative" id="notification-container">
             <button 
               onClick={() => setShowNotifications(!showNotifications)}
               className="relative p-2 text-slate-400 hover:text-slate-600 transition-colors rounded-full hover:bg-slate-100"
