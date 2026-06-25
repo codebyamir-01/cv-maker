@@ -48,11 +48,21 @@ export default function ModernProfessional({ resumeData }: Props) {
             </div>
           </div>
           
-          <div className="mb-6 opacity-50">
+          <div className="mb-6">
             <h2 className="text-sm font-bold text-slate-900 uppercase tracking-widest mb-3 border-b border-slate-300 pb-1">
               Skills
             </h2>
-            <p className="text-sm italic">Skills coming soon...</p>
+            {resumeData.skills.length === 0 ? (
+              <p className="text-sm italic text-slate-500">Skills will appear here...</p>
+            ) : (
+              <div className="flex flex-wrap gap-2 text-sm text-slate-700">
+                {resumeData.skills.map((skill) => (
+                  <span key={skill.id} className="bg-slate-200 px-2 py-1 rounded">
+                    {skill.name}
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
@@ -94,6 +104,59 @@ export default function ModernProfessional({ resumeData }: Props) {
               </div>
             )}
           </div>
+
+          {/* Education */}
+          <div className="mb-8">
+            <h2 className="text-xl font-bold text-slate-900 border-b-2 border-slate-800 pb-1 mb-4 uppercase tracking-wider">
+              Education
+            </h2>
+            {resumeData.education.length === 0 ? (
+              <div className="text-sm text-slate-500 italic">Education will appear here...</div>
+            ) : (
+              <div className="space-y-4">
+                {resumeData.education.map((edu) => (
+                  <div key={edu.id}>
+                    <h3 className="font-bold text-slate-900">{edu.degree}</h3>
+                    <div className="flex justify-between items-center text-sm text-slate-600 font-medium">
+                      <span>{edu.institution} {edu.location && `| ${edu.location}`}</span>
+                      <span>{edu.startYear} - {edu.endYear}</span>
+                    </div>
+                    {edu.grade && <div className="text-sm text-slate-700 mt-1">Grade: {edu.grade}</div>}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Projects */}
+          {resumeData.projects && resumeData.projects.length > 0 && (
+            <div className="mb-8">
+              <h2 className="text-xl font-bold text-slate-900 border-b-2 border-slate-800 pb-1 mb-4 uppercase tracking-wider">
+                Projects
+              </h2>
+              <div className="space-y-6">
+                {resumeData.projects.map((proj) => (
+                  <div key={proj.id}>
+                    <div className="flex justify-between items-center mb-1">
+                      <h3 className="font-bold text-lg text-slate-900">{proj.name}</h3>
+                      {proj.link && (
+                        <a href={proj.link} className="text-sm text-blue-600 underline">
+                          Link
+                        </a>
+                      )}
+                    </div>
+                    {proj.techStack && (
+                      <div className="text-sm text-slate-600 font-medium mb-2">Tech: {proj.techStack}</div>
+                    )}
+                    <div className="text-sm leading-relaxed whitespace-pre-wrap text-slate-700">
+                      {proj.description}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
         </div>
       </div>
     </div>

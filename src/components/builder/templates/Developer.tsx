@@ -85,7 +85,73 @@ export default function Developer({ resumeData }: Props) {
             </div>
           )}
         </div>
+        {/* Education */}
+        <div className="mb-8">
+          <h2 className="text-xl font-black uppercase mb-4 bg-slate-900 text-white inline-block px-2 py-1">
+            # EDUCATION
+          </h2>
+          {resumeData.education.length === 0 ? (
+            <div className="text-sm italic pl-4 border-l-2 border-slate-900">Education will appear here...</div>
+          ) : (
+            <div className="space-y-4">
+              {resumeData.education.map((edu) => (
+                <div key={edu.id} className="pl-4 border-l-2 border-slate-900">
+                  <div className="flex flex-wrap items-center justify-between">
+                    <h3 className="font-bold text-lg text-slate-900">{edu.degree}</h3>
+                    <span className="text-xs font-bold bg-slate-200 px-2 py-1 rounded">
+                      {edu.startYear} - {edu.endYear}
+                    </span>
+                  </div>
+                  <div className="font-semibold text-sm">{edu.institution} <span className="font-normal text-slate-500">({edu.location})</span></div>
+                  {edu.grade && <div className="text-sm mt-1">Grade: {edu.grade}</div>}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
 
+        {/* Skills */}
+        <div className="mb-8">
+          <h2 className="text-xl font-black uppercase mb-4 bg-slate-900 text-white inline-block px-2 py-1">
+            # SKILLS
+          </h2>
+          {resumeData.skills.length === 0 ? (
+            <div className="text-sm italic pl-4 border-l-2 border-slate-900">Skills will appear here...</div>
+          ) : (
+            <div className="flex flex-wrap gap-2 pl-4 border-l-2 border-slate-900">
+              {resumeData.skills.map((skill) => (
+                <span key={skill.id} className="text-sm font-bold bg-blue-50 text-blue-800 border border-blue-200 px-2 py-1 rounded">
+                  {skill.name}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Projects */}
+        {resumeData.projects && resumeData.projects.length > 0 && (
+          <div className="mb-8">
+            <h2 className="text-xl font-black uppercase mb-4 bg-slate-900 text-white inline-block px-2 py-1">
+              # PROJECTS
+            </h2>
+            <div className="space-y-6">
+              {resumeData.projects.map((proj) => (
+                <div key={proj.id} className="pl-4 border-l-2 border-slate-900">
+                  <div className="flex flex-wrap items-center justify-between mb-1">
+                    <h3 className="font-bold text-lg text-slate-900">{proj.name}</h3>
+                    {proj.link && (
+                      <a href={proj.link} className="text-xs font-bold text-blue-700 underline">
+                        [Link]
+                      </a>
+                    )}
+                  </div>
+                  {proj.techStack && <div className="font-mono text-xs text-slate-500 mb-2">[{proj.techStack}]</div>}
+                  <div className="text-sm whitespace-pre-wrap">{proj.description}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

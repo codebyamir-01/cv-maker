@@ -20,7 +20,17 @@ export default function EducationForm() {
   };
 
   const handleSave = () => {
-    if (editingId) { updateEducation(editingId, current); setEditingId(null); }
+    setEditingId(null);
+  };
+
+  const handleChange = (key: keyof Education, value: string) => {
+    setCurrent(prev => {
+      const next = { ...prev, [key]: value };
+      if (editingId) {
+        updateEducation(editingId, next);
+      }
+      return next;
+    });
   };
 
   return (
@@ -55,19 +65,19 @@ export default function EducationForm() {
                         className="rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-800 placeholder:text-slate-300 focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-200 transition"
                         placeholder={f.placeholder}
                         value={(current as any)[f.key] || ""}
-                        onChange={e => setCurrent({ ...current, [f.key]: e.target.value })}
+                        onChange={e => handleChange(f.key as keyof Education, e.target.value)}
                       />
                     </div>
                   ))}
                   <div className="flex flex-col gap-1.5">
                     <label className="text-[13px] font-semibold text-slate-700">Start Year</label>
                     <input className="rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm placeholder:text-slate-300 focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-200 transition"
-                      placeholder="2018" value={current.startYear || ""} onChange={e => setCurrent({ ...current, startYear: e.target.value })} />
+                      placeholder="2018" value={current.startYear || ""} onChange={e => handleChange("startYear", e.target.value)} />
                   </div>
                   <div className="flex flex-col gap-1.5">
                     <label className="text-[13px] font-semibold text-slate-700">End Year</label>
                     <input className="rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm placeholder:text-slate-300 focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-200 transition"
-                      placeholder="2022" value={current.endYear || ""} onChange={e => setCurrent({ ...current, endYear: e.target.value })} />
+                      placeholder="2022" value={current.endYear || ""} onChange={e => handleChange("endYear", e.target.value)} />
                   </div>
                 </div>
                 <div className="flex justify-end gap-2 pt-2 border-t border-slate-200">

@@ -34,10 +34,17 @@ export default function ExperienceForm() {
   };
 
   const handleSave = () => {
-    if (isEditing && currentExp) {
-      updateExperience(isEditing, currentExp);
-      setIsEditing(null);
-    }
+    setIsEditing(null);
+  };
+
+  const handleChange = (key: keyof Experience, value: string | boolean) => {
+    setCurrentExp(prev => {
+      const next = { ...prev, [key]: value };
+      if (isEditing) {
+        updateExperience(isEditing, next);
+      }
+      return next;
+    });
   };
 
   const handleDelete = (id: string) => {
@@ -69,7 +76,7 @@ export default function ExperienceForm() {
                     <Label>Job Title</Label>
                     <Input 
                       value={currentExp.jobTitle || ""} 
-                      onChange={(e) => setCurrentExp({...currentExp, jobTitle: e.target.value})}
+                      onChange={(e) => handleChange("jobTitle", e.target.value)}
                       placeholder="e.g. Senior Developer"
                     />
                   </div>
@@ -77,7 +84,7 @@ export default function ExperienceForm() {
                     <Label>Company</Label>
                     <Input 
                       value={currentExp.company || ""} 
-                      onChange={(e) => setCurrentExp({...currentExp, company: e.target.value})}
+                      onChange={(e) => handleChange("company", e.target.value)}
                       placeholder="e.g. Google"
                     />
                   </div>
@@ -85,7 +92,7 @@ export default function ExperienceForm() {
                     <Label>Location</Label>
                     <Input 
                       value={currentExp.location || ""} 
-                      onChange={(e) => setCurrentExp({...currentExp, location: e.target.value})}
+                      onChange={(e) => handleChange("location", e.target.value)}
                       placeholder="e.g. New York, USA"
                     />
                   </div>
@@ -94,7 +101,7 @@ export default function ExperienceForm() {
                       <Label>Start Date</Label>
                       <Input 
                         value={currentExp.startDate || ""} 
-                        onChange={(e) => setCurrentExp({...currentExp, startDate: e.target.value})}
+                        onChange={(e) => handleChange("startDate", e.target.value)}
                         placeholder="e.g. Jan 2020"
                       />
                     </div>
@@ -102,7 +109,7 @@ export default function ExperienceForm() {
                       <Label>End Date</Label>
                       <Input 
                         value={currentExp.endDate || ""} 
-                        onChange={(e) => setCurrentExp({...currentExp, endDate: e.target.value})}
+                        onChange={(e) => handleChange("endDate", e.target.value)}
                         placeholder="e.g. Present"
                       />
                     </div>
@@ -116,7 +123,7 @@ export default function ExperienceForm() {
                   </div>
                   <Textarea 
                     value={currentExp.description || ""} 
-                    onChange={(e) => setCurrentExp({...currentExp, description: e.target.value})}
+                    onChange={(e) => handleChange("description", e.target.value)}
                     placeholder="• Developed new features...&#10;• Improved performance by 20%..."
                     className="min-h-[120px]"
                   />

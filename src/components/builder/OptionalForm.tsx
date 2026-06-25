@@ -20,7 +20,17 @@ export default function OptionalForm() {
   };
 
   const handleSave = () => {
-    if (editingId) { updateProject(editingId, current); setEditingId(null); }
+    setEditingId(null);
+  };
+
+  const handleChange = (key: keyof Project, value: string) => {
+    setCurrent(prev => {
+      const next = { ...prev, [key]: value };
+      if (editingId) {
+        updateProject(editingId, next);
+      }
+      return next;
+    });
   };
 
   return (
@@ -87,7 +97,7 @@ export default function OptionalForm() {
                             className="rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm placeholder:text-slate-300 focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-200 transition"
                             placeholder={f.placeholder}
                             value={(current as any)[f.key] || ""}
-                            onChange={e => setCurrent({ ...current, [f.key]: e.target.value })}
+                            onChange={e => handleChange(f.key as keyof Project, e.target.value)}
                           />
                         </div>
                       ))}
@@ -98,7 +108,7 @@ export default function OptionalForm() {
                           className="rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm placeholder:text-slate-300 focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-200 transition resize-none"
                           placeholder="Briefly describe what you built, the problem it solved, and its impact..."
                           value={current.description || ""}
-                          onChange={e => setCurrent({ ...current, description: e.target.value })}
+                          onChange={e => handleChange("description", e.target.value)}
                         />
                       </div>
                     </div>

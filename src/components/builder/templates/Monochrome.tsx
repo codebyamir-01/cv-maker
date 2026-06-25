@@ -100,12 +100,45 @@ export default function Monochrome({ resumeData, accentColor = "#000000" }: Prop
         <h2 className="font-bold text-sm mb-3 pb-1" style={{ color: accentColor, borderBottom: `2px solid ${accentColor}` }}>
           Skills
         </h2>
-        <ul className="list-disc pl-5 text-xs text-slate-800 space-y-1 font-bold">
+        <ul className="list-disc pl-5 text-xs text-slate-800 space-y-1 font-bold flex flex-wrap gap-x-6">
           {skills.map((skill) => (
-            <li key={skill.id}>{skill.name}</li>
+            <li key={skill.id} className="w-1/3">{skill.name}</li>
           ))}
         </ul>
       </div>
+
+      {/* Projects */}
+      {resumeData.projects && resumeData.projects.length > 0 && (
+        <div className="mb-5">
+          <h2 className="font-bold text-sm mb-3 pb-1" style={{ color: accentColor, borderBottom: `2px solid ${accentColor}` }}>
+            Projects
+          </h2>
+          <div className="space-y-4">
+            {resumeData.projects.map((proj) => (
+              <div key={proj.id}>
+                <div className="flex justify-between items-baseline">
+                  <h3 className="font-bold text-xs text-slate-900">{proj.name}</h3>
+                  {proj.link && (
+                    <span className="text-xs italic text-slate-700 underline">
+                      {proj.link.replace(/^https?:\/\//, '')}
+                    </span>
+                  )}
+                </div>
+                {proj.techStack && (
+                  <p className="text-xs italic text-slate-800 mb-1">{proj.techStack}</p>
+                )}
+                {proj.description && (
+                  <ul className="list-disc pl-5 text-xs text-slate-800 space-y-1 mt-1">
+                    {proj.description.split('\n').filter(Boolean).map((line, i) => (
+                      <li key={i}>{line.replace(/^[-•]\s*/, '')}</li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
