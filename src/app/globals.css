@@ -244,6 +244,27 @@
   display: inline-block;
 }
 
+/* ── Mobile Performance: Reduce expensive animations on slow devices ── */
+@media (max-width: 768px) {
+  /* Reduce blur cost on mobile — blur-[120px] is very GPU expensive */
+  .mobile-blur-reduce {
+    filter: blur(40px) !important;
+  }
+
+  /* Disable complex floating animations on mobile to reduce INP */
+  .animate-float,
+  .animate-float-delay,
+  .animate-float-reverse {
+    animation: none !important;
+  }
+}
+
+/* content-visibility for below-the-fold sections improves mobile LCP */
+.cv-below-fold {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 400px;
+}
+
 @media print {
   @page {
     margin: 0;

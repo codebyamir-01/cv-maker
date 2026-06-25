@@ -1,22 +1,59 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, memo, useCallback, lazy, Suspense } from "react";
 import Link from "next/link";
 import {
   ArrowLeft, ArrowRight, ChevronLeft, ChevronRight,
   Download, CheckCircle2, FileText, ZoomIn, ZoomOut,
-  RotateCcw, Sparkles, Lightbulb
+  RotateCcw, Sparkles, Lightbulb, Eye
 } from "lucide-react";
 import { Footer } from "@/components/layout/Footer";
-import PersonalInfoForm from "@/components/builder/PersonalInfoForm";
-import ExperienceForm   from "@/components/builder/ExperienceForm";
-import EducationForm    from "@/components/builder/EducationForm";
-import SkillsForm       from "@/components/builder/SkillsForm";
-import OptionalForm     from "@/components/builder/OptionalForm";
-import FinalizeStep     from "@/components/builder/FinalizeStep";
-import LivePreview      from "@/components/builder/LivePreview";
 import { useResumeStore } from "@/store/useResumeStore";
 import { useReactToPrint } from "react-to-print";
+import dynamic from "next/dynamic";
+import { useSearchParams } from "next/navigation";
+
+/* ─── Lazy-load ALL heavy form components ─────────────────────────
+   This is the main mobile win. Without this, all 6 form components
+   and all 6 template files were bundled into ONE chunk (~600KB+).
+   Now each component is a separate chunk loaded on demand.
+─────────────────────────────────────────────────────────────────── */
+const FormSkeleton = () => (
+  <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm animate-pulse">
+    <div className="h-5 bg-slate-200 rounded w-1/3 mb-4" />
+    <div className="space-y-3">
+      {[...Array(4)].map((_, i) => <div key={i} className="h-10 bg-slate-100 rounded-xl" />)}
+    </div>
+  </div>
+);
+
+const PersonalInfoForm = dynamic(() => import("@/components/builder/PersonalInfoForm"), {
+  ssr: false, loading: () => <FormSkeleton />,
+});
+const ExperienceForm = dynamic(() => import("@/components/builder/ExperienceForm"), {
+  ssr: false, loading: () => <FormSkeleton />,
+});
+const EducationForm = dynamic(() => import("@/components/builder/EducationForm"), {
+  ssr: false, loading: () => <FormSkeleton />,
+});
+const SkillsForm = dynamic(() => import("@/components/builder/SkillsForm"), {
+  ssr: false, loading: () => <FormSkeleton />,
+});
+const OptionalForm = dynamic(() => import("@/components/builder/OptionalForm"), {
+  ssr: false, loading: () => <FormSkeleton />,
+});
+const FinalizeStep = dynamic(() => import("@/components/builder/FinalizeStep"), {
+  ssr: false, loading: () => <FormSkeleton />,
+});
+// LivePreview is the heaviest: it pulls in template CSS + fonts
+const LivePreview = dynamic(() => import("@/components/builder/LivePreview"), {
+  ssr: false,
+  loading: () => (
+    <div className="flex items-center justify-center bg-slate-100 rounded-xl" style={{ minHeight: 400 }}>
+      <div className="w-8 h-8 rounded-full border-4 border-blue-500/30 border-t-blue-500 animate-spin" />
+    </div>
+  ),
+});
 
 /* ─── Steps ──────────────────────────────────────────────────────── */
 const STEPS = [
@@ -45,8 +82,8 @@ const COLORS = [
 const ZOOM_OPTIONS = [30, 50, 60, 75, 100];
 const A4_W = 816;
 
-/* ─── Summary inline form ────────────────────────────────────────── */
-function SummaryForm() {
+/* ─── Summary inline form (kept here — no separate import needed) ── */
+const SummaryForm = memo(function SummaryForm() {
   const { resumeData, updateSummary } = useResumeStore();
   return (
     <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
@@ -61,20 +98,16 @@ function SummaryForm() {
       />
     </div>
   );
-}
+});
 
-import { useSearchParams } from "next/navigation";
-import { Suspense } from "react";
-
+/* ─── Template search params loader ─────────────────────────────── */
 function TemplateLoader() {
   const searchParams = useSearchParams();
   const { updateTemplateId } = useResumeStore();
-
   useEffect(() => {
     const t = searchParams.get("t");
     if (t) updateTemplateId(t);
   }, [searchParams, updateTemplateId]);
-
   return null;
 }
 
@@ -85,9 +118,14 @@ export default function BuilderPage() {
 
   const [stepIdx, setStepIdx] = useState(0);
   const [zoom, setZoom] = useState(60);
+  // On mobile, preview panel is hidden by default to boost FCP/LCP
+  const [showPreviewOnMobile, setShowPreviewOnMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const w = window.innerWidth;
+    const mobile = w < 1024;
+    setIsMobile(mobile);
     if (w < 640) setZoom(40);
     else if (w < 1024) setZoom(50);
   }, []);
@@ -102,19 +140,29 @@ export default function BuilderPage() {
   });
 
   const templatesList = ["ats-classic", "modern", "developer", "monochrome", "aether", "executive"];
-  const cycleTemplate = (dir: 1 | -1) => {
+  const cycleTemplate = useCallback((dir: 1 | -1) => {
     const i = templatesList.indexOf(resumeData.templateId);
     let n = i + dir;
     if (n >= templatesList.length) n = 0;
     if (n < 0) n = templatesList.length - 1;
     updateTemplateId(templatesList[n]);
-  };
+  }, [resumeData.templateId, updateTemplateId]);
 
   const scaledW = Math.round(A4_W * zoom / 100);
   const scaledH = Math.round(1056 * zoom / 100);
 
-  const goNext = () => { if (stepIdx < STEPS.length - 1) { setStepIdx(s => s + 1); window.scrollTo({ top: 0, behavior: "smooth" }); } };
-  const goPrev = () => { if (stepIdx > 0) { setStepIdx(s => s - 1); window.scrollTo({ top: 0, behavior: "smooth" }); } };
+  const goNext = useCallback(() => {
+    if (stepIdx < STEPS.length - 1) {
+      setStepIdx(s => s + 1);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [stepIdx]);
+  const goPrev = useCallback(() => {
+    if (stepIdx > 0) {
+      setStepIdx(s => s - 1);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [stepIdx]);
 
   const renderForm = () => {
     switch (STEPS[stepIdx].id) {
@@ -151,9 +199,21 @@ export default function BuilderPage() {
             <h1 className="truncate text-base font-extrabold tracking-tight sm:text-lg text-slate-900">Resume Builder</h1>
             <p className="text-xs text-slate-400 font-medium">Step {stepIdx + 1} of {STEPS.length} • My Resume</p>
           </div>
-          <div className="flex shrink-0 items-center gap-2 rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-600">
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
-            Auto-saved
+          <div className="flex shrink-0 items-center gap-2">
+            {/* Mobile: toggle preview button */}
+            {isMobile && (
+              <button
+                onClick={() => setShowPreviewOnMobile(v => !v)}
+                className="flex items-center gap-1.5 rounded-full bg-slate-100 px-3 py-1.5 text-xs font-semibold text-slate-600 transition hover:bg-slate-200"
+              >
+                <Eye className="h-3.5 w-3.5" />
+                {showPreviewOnMobile ? "Hide" : "Preview"}
+              </button>
+            )}
+            <div className="flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-600">
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
+              Auto-saved
+            </div>
           </div>
         </div>
       </header>
@@ -177,12 +237,11 @@ export default function BuilderPage() {
                                      "border-2 border-slate-100 bg-white text-slate-700 cursor-default"}`}
                       >
                         {done ? <CheckCircle2 className="h-4 w-4 lg:h-5 lg:w-5" /> : (idx + 1)}
-                        
                         {active && (
                           <div className="absolute -bottom-1 lg:-bottom-1.5 left-1/2 h-2 w-2 lg:h-3 lg:w-3 -translate-x-1/2 rotate-45 bg-[#0b132b] rounded-sm" />
                         )}
                       </button>
-                      
+
                       <div className="hidden lg:flex flex-col justify-center">
                         <p className={`text-sm font-bold ${active ? "text-[#0b132b]" : "text-slate-600"}`}>
                           {step.title}
@@ -213,30 +272,32 @@ export default function BuilderPage() {
       <main className="mx-auto w-full max-w-[1400px] px-4 py-8 sm:px-6">
         <div className="grid gap-6 lg:grid-cols-2">
 
-          {/* Left column */}
+          {/* Left column – Form */}
           <div className="flex flex-col gap-6">
             {renderForm()}
 
             {/* Navigation */}
             <div className={`flex items-center pt-2 ${stepIdx === 0 ? "justify-end" : "justify-between"}`}>
               {stepIdx > 0 && (
-                <button onClick={goPrev} className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50">
+                <button onClick={goPrev} className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50 active:scale-[0.98]">
                   <ArrowLeft className="h-4 w-4" /> Back
                 </button>
               )}
               {stepIdx < STEPS.length - 1 && (
-                <button onClick={goNext} className="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-6 py-3.5 text-sm font-bold text-white shadow-md transition hover:bg-black">
+                <button onClick={goNext} className="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-6 py-3.5 text-sm font-bold text-white shadow-md transition hover:bg-black active:scale-[0.98]">
                   Next: {STEPS[stepIdx + 1].title} <ArrowRight className="h-4 w-4" />
                 </button>
               )}
             </div>
           </div>
 
-          {/* Right column – Live Preview */}
-          <div className="lg:sticky lg:top-24 lg:h-fit">
+          {/* Right column – Live Preview
+              On mobile: hidden by default, shown when user taps "Preview"
+              On desktop: always visible and sticky             */}
+          <div className={`lg:sticky lg:top-24 lg:h-fit ${isMobile && !showPreviewOnMobile ? "hidden" : ""}`}>
             <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
 
-              {/* Title + pagination */}
+              {/* Title + template pagination */}
               <div className="mb-4 flex items-center justify-between">
                 <h2 className="text-lg font-bold tracking-tight text-slate-900">Live Preview</h2>
                 <div className="flex items-center gap-1">
@@ -261,13 +322,11 @@ export default function BuilderPage() {
                 <div className="h-full rounded-full bg-gradient-to-r from-emerald-500 to-emerald-400 transition-all duration-500" style={{ width: `${pct}%` }} />
               </div>
 
-              {/* Template + actions */}
+              {/* Actions */}
               <div className="mb-4 flex flex-wrap items-center justify-end gap-2">
-                <div className="flex items-center gap-2">
-                  <button onClick={() => handlePrint()} className="inline-flex items-center gap-1.5 rounded-lg bg-slate-900 px-3 py-1.5 text-xs font-bold text-white transition hover:bg-black">
-                    <Download className="h-3.5 w-3.5" /> Download
-                  </button>
-                </div>
+                <button onClick={() => handlePrint()} className="inline-flex items-center gap-1.5 rounded-lg bg-slate-900 px-3 py-1.5 text-xs font-bold text-white transition hover:bg-black active:scale-[0.98]">
+                  <Download className="h-3.5 w-3.5" /> Download
+                </button>
               </div>
 
               {/* Zoom bar */}

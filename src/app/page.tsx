@@ -5,17 +5,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
-import dynamic from "next/dynamic";
-
-// Lazy-load the heavy template section (below the fold)
-const TemplatesSection = dynamic(() => import("@/components/home/TemplatesSection"), {
-  ssr: true, // Keep SSR for SEO/crawlability; just splits the JS bundle
-  loading: () => (
-    <div className="py-32 bg-[#1e293b] flex items-center justify-center">
-      <div className="w-12 h-12 rounded-full border-4 border-blue-500/30 border-t-blue-500 animate-spin" />
-    </div>
-  ),
-});
+import TemplatesSectionLoader from "@/components/home/TemplatesSectionLoader";
 
 export default async function LandingPage() {
   const session = await getServerSession(authOptions);
@@ -92,8 +82,10 @@ export default async function LandingPage() {
           </div>
         </section>
 
-        {/* Templates Section – Lazy loaded (below the fold) */}
-        <TemplatesSection />
+        {/* Templates Section – Lazy loaded, client-only (below the fold) */}
+        <div className="cv-below-fold">
+          <TemplatesSectionLoader />
+        </div>
 
       </main>
 
