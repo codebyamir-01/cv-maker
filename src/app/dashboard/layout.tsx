@@ -58,9 +58,6 @@ export default function DashboardLayout({
     { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
     { name: "My Resumes", href: "/dashboard/resumes", icon: FileText },
     { name: "Templates", href: "/dashboard/templates", icon: PenTool },
-    { name: "ATS Score", href: "/dashboard/ats-score", icon: BarChart3 },
-    { name: "Cover Letters", href: "/dashboard/cover-letters", icon: FileText },
-    { name: "Career Resources", href: "/dashboard/resources", icon: BookOpen },
     { name: "Settings", href: "/dashboard/settings", icon: Settings },
   ];
 
@@ -163,10 +160,7 @@ export default function DashboardLayout({
           </div>
           
           <div className="flex items-center gap-4 pl-4 ml-auto">
-            <button className="hidden md:flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white px-4 py-2 rounded-full text-sm font-semibold transition-all shadow-md shadow-orange-500/20 hover:shadow-lg hover:shadow-orange-500/30 hover:-translate-y-0.5">
-              <Sparkles className="w-4 h-4" />
-              Upgrade Plan
-            </button>
+
             
             <button className="relative p-2 text-slate-400 hover:text-slate-600 transition-colors rounded-full hover:bg-slate-100">
               <Bell className="w-5 h-5" />
