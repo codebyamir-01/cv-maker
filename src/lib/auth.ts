@@ -39,7 +39,7 @@ export const authOptions: NextAuthOptions = {
         if (!credentials?.email || !credentials?.password) {
           return null;
         }
-        
+
         // For now, allow a mock login if the DB is not yet populated
         if (credentials.email === "test@example.com" && credentials.password === "password") {
           return { id: "1", email: "test@example.com", name: "Test User" };
@@ -82,7 +82,7 @@ export const authOptions: NextAuthOptions = {
       if (token.picture) {
         delete token.picture;
       }
-      
+
       if (user) {
         token.sub = user.id;
         token.name = user.name;
