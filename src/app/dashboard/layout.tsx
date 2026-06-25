@@ -160,24 +160,9 @@ export default function DashboardLayout({
           </div>
           
           <div className="flex items-center gap-4 pl-4 ml-auto">
-
-            
             <button className="relative p-2 text-slate-400 hover:text-slate-600 transition-colors rounded-full hover:bg-slate-100">
               <Bell className="w-5 h-5" />
               <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
-            </button>
-            
-            <div className="hidden md:block h-8 w-px bg-slate-200 mx-1"></div>
-            
-            <button className="hidden md:flex items-center gap-2 hover:bg-slate-100 p-1.5 rounded-full pl-2 transition-colors">
-              <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center overflow-hidden border border-slate-200">
-                {avatar ? (
-                  <img src={avatar} alt="Avatar" className="w-full h-full object-cover" />
-                ) : (
-                  <User className="w-4 h-4 text-blue-600" />
-                )}
-              </div>
-              <ChevronDown className="w-4 h-4 text-slate-400" />
             </button>
           </div>
         </header>
