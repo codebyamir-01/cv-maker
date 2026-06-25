@@ -18,6 +18,7 @@ export default function DashboardLayout({
   const pathname = usePathname();
   const [avatar, setAvatar] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
 
   useEffect(() => {
     if (status === "authenticated") {
@@ -57,7 +58,7 @@ export default function DashboardLayout({
   const navItems = [
     { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
     { name: "My Resumes", href: "/dashboard/resumes", icon: FileText },
-    { name: "Templates", href: "/dashboard/templates", icon: PenTool },
+    { name: "Templates", href: "/templates", icon: PenTool },
     { name: "Settings", href: "/dashboard/settings", icon: Settings },
   ];
 
@@ -159,11 +160,45 @@ export default function DashboardLayout({
             </div>
           </div>
           
-          <div className="flex items-center gap-4 pl-4 ml-auto">
-            <button className="relative p-2 text-slate-400 hover:text-slate-600 transition-colors rounded-full hover:bg-slate-100">
+          <div className="flex items-center gap-4 pl-4 ml-auto relative">
+            <button 
+              onClick={() => setShowNotifications(!showNotifications)}
+              className="relative p-2 text-slate-400 hover:text-slate-600 transition-colors rounded-full hover:bg-slate-100"
+            >
               <Bell className="w-5 h-5" />
               <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
             </button>
+
+            {showNotifications && (
+              <div className="absolute top-full right-0 mt-2 w-80 bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden z-50">
+                <div className="p-4 border-b border-slate-100 flex items-center justify-between">
+                  <h3 className="font-semibold text-slate-900">Notifications</h3>
+                  <span className="text-xs font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded-full">1 New</span>
+                </div>
+                <div className="max-h-[300px] overflow-y-auto">
+                  <div className="p-4 border-b border-slate-50 hover:bg-slate-50 transition-colors cursor-pointer">
+                    <div className="flex gap-3">
+                      <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center shrink-0">
+                        <Sparkles className="w-4 h-4 text-blue-600" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium text-slate-900">Welcome to CV Maker!</p>
+                        <p className="text-xs text-slate-500 mt-0.5">Create your first ATS-friendly resume to get started.</p>
+                        <p className="text-[10px] text-slate-400 mt-2">Just now</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-3 text-center border-t border-slate-100">
+                  <button 
+                    onClick={() => setShowNotifications(false)}
+                    className="text-xs font-medium text-blue-600 hover:text-blue-700 transition-colors"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </header>
 
