@@ -1,3 +1,5 @@
+"use client";
+
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -6,14 +8,16 @@ import { useResumeStore } from "@/store/useResumeStore";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Camera, Upload, Trash2 } from "lucide-react";
+import { Camera, Upload, Trash2, Plus, Link as LinkIcon, Globe } from "lucide-react";
 
 const personalInfoSchema = z.object({
-  fullName: z.string().min(2, "Name must be at least 2 characters"),
+  firstName: z.string().min(2, "First name must be at least 2 characters").optional().or(z.literal("")),
+  lastName: z.string().optional(),
   jobTitle: z.string().optional(),
-  email: z.string().email("Invalid email address"),
+  email: z.string().email("Invalid email address").optional().or(z.literal("")),
   phone: z.string().optional(),
-  location: z.string().optional(),
+  city: z.string().optional(),
+  country: z.string().optional(),
   linkedIn: z.string().url("Invalid URL").optional().or(z.literal("")),
   github: z.string().url("Invalid URL").optional().or(z.literal("")),
   portfolio: z.string().url("Invalid URL").optional().or(z.literal("")),
@@ -23,16 +27,68 @@ type PersonalInfoValues = z.infer<typeof personalInfoSchema>;
 
 export default function PersonalInfoForm() {
   const { resumeData, updatePersonalInfo } = useResumeStore();
+  const [showLinks, setShowLinks] = useState(
+    !!(resumeData.personalInfo.linkedIn || resumeData.personalInfo.github || resumeData.personalInfo.portfolio)
+  );
+
+  // Backward compatibility: split fullName and location if firstName/city are empty
+  let defaultFirstName = resumeData.personalInfo.firstName || "";
+  let defaultLastName = resumeData.personalInfo.lastName || "";
+  if (!defaultFirstName && !defaultLastName && resumeData.personalInfo.fullName) {
+    const parts = resumeData.personalInfo.fullName.split(" ");
+    defaultFirstName = parts[0];
+    defaultLastName = parts.slice(1).join(" ");
+  }
+
+  let defaultCity = resumeData.personalInfo.city || "";
+  let defaultCountry = resumeData.personalInfo.country || "";
+  if (!defaultCity && !defaultCountry && resumeData.personalInfo.location) {
+    const parts = resumeData.personalInfo.location.split(",");
+    defaultCity = parts[0].trim();
+    if (parts.length > 1) defaultCountry = parts.slice(1).join(",").trim();
+  }
   
   const { register, handleSubmit, formState: { errors }, watch } = useForm<PersonalInfoValues>({
     resolver: zodResolver(personalInfoSchema),
-    defaultValues: resumeData.personalInfo,
+    defaultValues: {
+      firstName: defaultFirstName,
+      lastName: defaultLastName,
+      jobTitle: resumeData.personalInfo.jobTitle || "",
+      email: resumeData.personalInfo.email || "",
+      phone: resumeData.personalInfo.phone || "",
+      city: defaultCity,
+      country: defaultCountry,
+      linkedIn: resumeData.personalInfo.linkedIn || "",
+      github: resumeData.personalInfo.github || "",
+      portfolio: resumeData.personalInfo.portfolio || "",
+    },
     mode: "onChange",
   });
 
   useEffect(() => {
     const subscription = watch((value) => {
-      updatePersonalInfo(value as PersonalInfoValues);
+      const cleanData: any = { ...value };
+      
+      // Auto-generate fullName and location for templates
+      if (cleanData.firstName || cleanData.lastName) {
+        cleanData.fullName = `${cleanData.firstName || ""} ${cleanData.lastName || ""}`.trim();
+      } else {
+        cleanData.fullName = "";
+      }
+
+      if (cleanData.city || cleanData.country) {
+        cleanData.location = [cleanData.city, cleanData.country].filter(Boolean).join(", ");
+      } else {
+        cleanData.location = "";
+      }
+
+      // EXTREMELY IMPORTANT: Do not overwrite photo or showPhoto.
+      // watch() only returns form fields. We must not send photo: undefined
+      // to the store, because the store merge will wipe out the photo.
+      delete cleanData.photo;
+      delete cleanData.showPhoto;
+
+      updatePersonalInfo(cleanData);
     });
     return () => subscription.unsubscribe();
   }, [watch, updatePersonalInfo]);
@@ -56,6 +112,8 @@ export default function PersonalInfoForm() {
       const reader = new FileReader();
       reader.onloadend = () => {
         updatePersonalInfo({ photo: reader.result as string });
+        // Reset the file input so the user can upload the same image again if needed
+        if (fileInputRef.current) fileInputRef.current.value = "";
       };
       reader.readAsDataURL(file);
     }
@@ -65,6 +123,7 @@ export default function PersonalInfoForm() {
     e.stopPropagation();
     updatePersonalInfo({ photo: "" });
     setPhotoError(null);
+    // Also reset file input to allow re-upload
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
@@ -85,14 +144,15 @@ export default function PersonalInfoForm() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <div className="space-y-2">
-            <Label htmlFor="fullName" className="text-[13px] font-semibold text-slate-700">First Name <span className="text-red-500">*</span></Label>
-            <Input id="fullName" {...register("fullName")} placeholder="Amir" className="h-[46px] bg-white border-slate-200 focus-visible:ring-blue-500" />
-            {errors.fullName && <p className="text-red-500 text-xs mt-1">{errors.fullName.message}</p>}
+            <Label htmlFor="firstName" className="text-[13px] font-semibold text-slate-700">First Name <span className="text-red-500">*</span></Label>
+            <Input id="firstName" {...register("firstName")} placeholder="Amir" className="h-[46px] bg-white border-slate-200 focus-visible:ring-blue-500" />
+            {errors.firstName && <p className="text-red-500 text-xs mt-1">{errors.firstName.message}</p>}
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="lastName" className="text-[13px] font-semibold text-slate-700">Last Name <span className="text-red-500">*</span></Label>
-            <Input id="lastName" placeholder="Khan" className="h-[46px] bg-white border-slate-200 focus-visible:ring-blue-500" />
+            <Input id="lastName" {...register("lastName")} placeholder="Khan" className="h-[46px] bg-white border-slate-200 focus-visible:ring-blue-500" />
+            {errors.lastName && <p className="text-red-500 text-xs mt-1">{errors.lastName.message}</p>}
           </div>
 
           <div className="space-y-2 md:col-span-2">
@@ -114,12 +174,12 @@ export default function PersonalInfoForm() {
 
           <div className="space-y-2">
             <Label htmlFor="city" className="text-[13px] font-semibold text-slate-700">City <span className="text-red-500">*</span></Label>
-            <Input id="city" {...register("location")} placeholder="Rawalpindi" className="h-[46px] bg-white border-slate-200 focus-visible:ring-blue-500" />
+            <Input id="city" {...register("city")} placeholder="Rawalpindi" className="h-[46px] bg-white border-slate-200 focus-visible:ring-blue-500" />
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="country" className="text-[13px] font-semibold text-slate-700">Country <span className="text-red-500">*</span></Label>
-            <Input id="country" placeholder="Pakistan" className="h-[46px] bg-white border-slate-200 focus-visible:ring-blue-500" />
+            <Input id="country" {...register("country")} placeholder="Pakistan" className="h-[46px] bg-white border-slate-200 focus-visible:ring-blue-500" />
           </div>
         </div>
       </div>
@@ -142,20 +202,20 @@ export default function PersonalInfoForm() {
         >
           <input 
             type="file" 
-            accept="image/png, image/jpeg, image/jpg" 
+            accept="image/png, image/jpeg, image/jpg, image/webp" 
             className="hidden" 
             ref={fileInputRef}
             onChange={handlePhotoUpload}
           />
           
           {resumeData.personalInfo.photo ? (
-            <div className="flex flex-col items-center gap-4">
+            <div className="flex flex-col items-center gap-4" onClick={e => e.stopPropagation()}>
               <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-slate-200 shadow-sm relative">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={resumeData.personalInfo.photo} alt="Profile" className="w-full h-full object-cover" />
               </div>
               <div className="flex gap-2">
-                <Button variant="secondary" size="sm" className="bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold h-9 px-4 rounded-lg">
+                <Button variant="secondary" size="sm" onClick={() => fileInputRef.current?.click()} className="bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold h-9 px-4 rounded-lg">
                   Change Photo
                 </Button>
                 <Button variant="destructive" size="sm" onClick={removePhoto} className="h-9 w-9 p-0 rounded-lg">
@@ -195,8 +255,9 @@ export default function PersonalInfoForm() {
 
         {/* Note for ATS templates */}
         {["ats-classic", "monochrome", "executive"].includes(resumeData.templateId) && (
-          <div className="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-700 text-xs font-semibold">
-            Note: This template does not display profile photos.
+          <div className="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-700 text-xs font-semibold flex items-start gap-2">
+            <span className="text-lg leading-none">⚠️</span>
+            <span className="mt-0.5">Note: This template does not display profile photos.</span>
           </div>
         )}
 
@@ -217,14 +278,45 @@ export default function PersonalInfoForm() {
 
       {/* Professional Links Card */}
       <div className="bg-white rounded-[24px] shadow-sm border border-slate-200/80 p-6 md:p-8">
-        <div className="mb-5">
-          <h2 className="text-[17px] font-bold text-slate-900">Professional Links (Optional)</h2>
-          <p className="text-slate-500 text-[13px] mt-0.5">Add your professional profiles and websites</p>
+        <div className="mb-5 flex items-center justify-between">
+          <div>
+            <h2 className="text-[17px] font-bold text-slate-900">Professional Links (Optional)</h2>
+            <p className="text-slate-500 text-[13px] mt-0.5">Add your professional profiles and websites</p>
+          </div>
+          {!showLinks && (
+            <Button variant="outline" size="sm" onClick={() => setShowLinks(true)} className="h-9 px-3 rounded-lg border-slate-300 font-semibold text-slate-700">
+              <Plus className="w-4 h-4 mr-1.5" /> Add Links
+            </Button>
+          )}
         </div>
         
-        <Button variant="outline" className="h-10 px-4 rounded-lg border-slate-300 font-semibold text-slate-700">
-          Add Professional Links
-        </Button>
+        {showLinks && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-2">
+            <div className="space-y-2">
+              <Label htmlFor="linkedIn" className="text-[13px] font-semibold text-slate-700 flex items-center gap-1.5">
+                <LinkIcon className="w-3.5 h-3.5 text-blue-600" /> LinkedIn
+              </Label>
+              <Input id="linkedIn" type="url" {...register("linkedIn")} placeholder="https://linkedin.com/in/username" className="h-[46px] bg-white border-slate-200 focus-visible:ring-blue-500" />
+              {errors.linkedIn && <p className="text-red-500 text-xs mt-1">{errors.linkedIn.message}</p>}
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="github" className="text-[13px] font-semibold text-slate-700 flex items-center gap-1.5">
+                <LinkIcon className="w-3.5 h-3.5 text-slate-800" /> GitHub
+              </Label>
+              <Input id="github" type="url" {...register("github")} placeholder="https://github.com/username" className="h-[46px] bg-white border-slate-200 focus-visible:ring-blue-500" />
+              {errors.github && <p className="text-red-500 text-xs mt-1">{errors.github.message}</p>}
+            </div>
+
+            <div className="space-y-2 md:col-span-2">
+              <Label htmlFor="portfolio" className="text-[13px] font-semibold text-slate-700 flex items-center gap-1.5">
+                <Globe className="w-3.5 h-3.5 text-emerald-600" /> Portfolio / Website
+              </Label>
+              <Input id="portfolio" type="url" {...register("portfolio")} placeholder="https://yourportfolio.com" className="h-[46px] bg-white border-slate-200 focus-visible:ring-blue-500" />
+              {errors.portfolio && <p className="text-red-500 text-xs mt-1">{errors.portfolio.message}</p>}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

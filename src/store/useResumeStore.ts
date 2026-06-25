@@ -2,11 +2,15 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 export interface PersonalInfo {
-  fullName: string;
+  firstName: string;
+  lastName: string;
+  fullName: string; // Kept for backward compatibility
   jobTitle: string;
   email: string;
   phone: string;
-  location: string;
+  city: string;
+  country: string;
+  location: string; // Kept for backward compatibility
   linkedIn: string;
   github: string;
   portfolio: string;
@@ -86,10 +90,14 @@ interface ResumeState {
 
 const initialData: ResumeData = {
   personalInfo: {
+    firstName: "",
+    lastName: "",
     fullName: "",
     jobTitle: "",
     email: "",
     phone: "",
+    city: "",
+    country: "",
     location: "",
     linkedIn: "",
     github: "",
