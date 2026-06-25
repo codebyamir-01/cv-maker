@@ -181,8 +181,8 @@ export default function ResumesContent() {
           {loading ? (
             // Skeleton Loader
             Array.from({ length: 3 }).map((_, i) => (
-              <div key={i} className="animate-pulse">
-                <Card className="border border-slate-200 shadow-sm flex flex-col h-[280px] rounded-2xl">
+              <div key={i} className="animate-pulse h-full">
+                <Card className="border border-slate-200 shadow-sm flex flex-col h-full min-h-[260px] rounded-2xl">
                   <div className="h-[140px] bg-slate-100 border-b border-slate-100 flex-shrink-0"></div>
                   <CardContent className="p-4 flex-1 flex flex-col justify-between bg-white">
                     <div className="h-4 bg-slate-200 rounded w-3/4 mb-2"></div>
@@ -201,8 +201,8 @@ export default function ResumesContent() {
               const hasScore = score > 0;
               
               return (
-                <motion.div key={resume.id} variants={itemVariants} className="min-w-0 flex">
-                  <Card className="w-full border border-slate-200/60 shadow-sm hover:shadow-xl hover:shadow-blue-900/5 transition-all duration-300 group relative flex flex-col h-[280px] rounded-2xl bg-white hover:-translate-y-1">
+                <motion.div key={resume.id} variants={itemVariants} className="min-w-0 flex h-full">
+                  <Card className="w-full border border-slate-200/60 shadow-sm hover:shadow-xl hover:shadow-blue-900/5 transition-all duration-300 group relative flex flex-col h-full min-h-[260px] rounded-2xl bg-white hover:-translate-y-1">
                     
                     {/* Thumbnail Area */}
                     <div className="h-[140px] bg-slate-50 rounded-t-2xl border-b border-slate-100 flex items-center justify-center relative flex-shrink-0 overflow-hidden">
@@ -291,8 +291,8 @@ export default function ResumesContent() {
 
           {/* Create New Card (moved to end) */}
           {!loading && (
-            <motion.div variants={itemVariants} className="min-w-0 flex">
-              <Link href="/builder" className="w-full block outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-2xl h-[280px]">
+            <motion.div variants={itemVariants} className="min-w-0 flex h-full">
+              <Link href="/builder" className="w-full block outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-2xl h-full min-h-[260px]">
                 <Card className="border border-dashed border-blue-200 shadow-none hover:border-blue-400 hover:bg-blue-50/50 transition-all duration-300 h-full flex flex-col items-center justify-center group rounded-2xl cursor-pointer hover:-translate-y-1 bg-slate-50/30 p-6">
                   <div className="w-16 h-16 bg-blue-50 group-hover:bg-blue-100 rounded-full flex items-center justify-center mb-4 transition-colors">
                     <Plus className="w-8 h-8 text-blue-600 group-hover:scale-110 transition-transform duration-300" />
