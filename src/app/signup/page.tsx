@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -49,7 +50,8 @@ export default function SignupPage() {
   };
 
   const handleGoogleSignUp = () => {
-    alert("Google Sign-Up is not fully configured on the backend yet.");
+    setIsLoading(true);
+    signIn("google", { callbackUrl: "/dashboard" });
   };
 
   return (

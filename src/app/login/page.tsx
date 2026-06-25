@@ -37,8 +37,8 @@ export default function LoginPage() {
   };
 
   const handleGoogleSignIn = () => {
-    // In a real implementation, this would be: signIn("google", { callbackUrl: "/dashboard" });
-    alert("Google Sign-In is not fully configured on the backend yet.");
+    setIsLoading(true);
+    signIn("google", { callbackUrl: "/dashboard" });
   };
 
   return (
