@@ -91,7 +91,7 @@ export default function ResumesContent() {
   };
 
   return (
-    <div className="space-y-8 w-full px-4 sm:px-8 lg:px-10 py-6 sm:py-8 pb-12 relative min-h-[80vh] overflow-x-hidden">
+    <div className="space-y-6 w-full max-w-7xl mx-auto px-3 md:px-4 lg:px-6 py-4 sm:py-6 pb-12 relative min-h-[80vh] overflow-x-hidden">
       
       {/* Custom Toast Notification */}
       <AnimatePresence>
@@ -176,19 +176,18 @@ export default function ResumesContent() {
           variants={containerVariants}
           initial="hidden"
           animate="show"
-          className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(280px,1fr))] w-full"
+          className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(260px,1fr))] w-full"
         >
           {loading ? (
             // Skeleton Loader
             Array.from({ length: 3 }).map((_, i) => (
               <div key={i} className="animate-pulse">
-                <Card className="border border-slate-200 shadow-sm h-full flex flex-col min-h-[340px] rounded-2xl">
-                  <div className="aspect-[1/1.2] bg-slate-100 border-b border-slate-100 flex-shrink-0"></div>
-                  <CardContent className="p-5 flex-1 flex flex-col justify-between bg-white">
+                <Card className="border border-slate-200 shadow-sm flex flex-col h-[280px] rounded-2xl">
+                  <div className="h-40 bg-slate-100 border-b border-slate-100 flex-shrink-0"></div>
+                  <CardContent className="p-4 flex-1 flex flex-col justify-between bg-white">
                     <div className="h-4 bg-slate-200 rounded w-3/4 mb-3"></div>
                     <div className="h-3 bg-slate-100 rounded w-1/2"></div>
                     <div className="flex gap-2 mt-auto pt-4">
-                      <div className="h-9 bg-slate-100 rounded flex-1"></div>
                       <div className="h-9 bg-slate-100 rounded flex-1"></div>
                     </div>
                   </CardContent>
@@ -202,30 +201,27 @@ export default function ResumesContent() {
               const hasScore = score > 0;
               
               return (
-                <motion.div key={resume.id} variants={itemVariants} className="h-full min-w-0">
-                  <Card className="border border-slate-200/60 shadow-sm hover:shadow-xl hover:shadow-blue-900/5 transition-all duration-300 group relative overflow-hidden flex flex-col h-full rounded-2xl bg-white hover:-translate-y-1">
+                <motion.div key={resume.id} variants={itemVariants} className="min-w-0">
+                  <Card className="border border-slate-200/60 shadow-sm hover:shadow-xl hover:shadow-blue-900/5 transition-all duration-300 group relative overflow-hidden flex flex-col h-[280px] rounded-2xl bg-white hover:-translate-y-1">
                     
                     {/* Delete button (instead of generic menu for now) */}
                     <button 
                       onClick={(e) => handleDelete(resume.id, e)}
-                      className="absolute top-4 right-4 p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 bg-white/90 rounded-xl backdrop-blur-md shadow-sm z-10 opacity-0 group-hover:opacity-100 transition-all hover:scale-105"
+                      className="absolute top-3 right-3 p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 bg-white/90 rounded-xl backdrop-blur-md shadow-sm z-10 opacity-0 group-hover:opacity-100 transition-all hover:scale-105"
                       title="Delete resume"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
 
                     {/* Thumbnail Area */}
-                    <div className="aspect-[1/1.2] bg-slate-50 border-b border-slate-100 flex items-center justify-center relative flex-shrink-0 overflow-hidden">
+                    <div className="h-36 bg-slate-50 border-b border-slate-100 flex items-center justify-center relative flex-shrink-0 overflow-hidden">
                       {/* Fake resume skeleton */}
-                      <div className="absolute inset-4 bg-white shadow-sm border border-slate-100 rounded-md p-4 flex flex-col gap-3 opacity-60">
-                        <div className="h-4 w-2/3 bg-slate-200 rounded"></div>
-                        <div className="h-2 w-1/3 bg-slate-200 rounded mb-2"></div>
-                        <div className="h-2 w-full bg-slate-100 rounded"></div>
-                        <div className="h-2 w-full bg-slate-100 rounded"></div>
-                        <div className="h-2 w-4/5 bg-slate-100 rounded"></div>
-                        <div className="h-2 w-full bg-slate-100 rounded mt-2"></div>
-                        <div className="h-2 w-full bg-slate-100 rounded"></div>
-                        <div className="h-2 w-3/4 bg-slate-100 rounded"></div>
+                      <div className="absolute top-2 left-1/2 -translate-x-1/2 w-3/4 h-[200px] bg-white shadow-sm border border-slate-100 rounded p-3 flex flex-col gap-2 opacity-60">
+                        <div className="h-3 w-2/3 bg-slate-200 rounded"></div>
+                        <div className="h-1.5 w-1/3 bg-slate-200 rounded mb-1"></div>
+                        <div className="h-1.5 w-full bg-slate-100 rounded"></div>
+                        <div className="h-1.5 w-full bg-slate-100 rounded"></div>
+                        <div className="h-1.5 w-4/5 bg-slate-100 rounded"></div>
                       </div>
 
                       {/* Score Badge */}
@@ -275,14 +271,14 @@ export default function ResumesContent() {
 
           {/* Create New Card (moved to end) */}
           {!loading && (
-            <motion.div variants={itemVariants} className="h-full min-w-0">
-              <Link href="/builder" className="block h-full outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-2xl">
-                <Card className="border-2 border-dashed border-slate-200 shadow-none hover:border-blue-400 hover:bg-blue-50/30 transition-all duration-300 h-full flex flex-col items-center justify-center min-h-[340px] group rounded-2xl cursor-pointer hover:-translate-y-1 bg-white/50 backdrop-blur-sm">
-                  <div className="w-16 h-16 bg-blue-100/50 group-hover:bg-blue-100 rounded-full flex items-center justify-center mb-5 transition-colors">
-                    <Plus className="w-8 h-8 text-blue-600 group-hover:scale-110 transition-transform duration-300" />
+            <motion.div variants={itemVariants} className="min-w-0">
+              <Link href="/builder" className="block outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-2xl h-[280px]">
+                <Card className="border-2 border-dashed border-slate-200 shadow-none hover:border-blue-400 hover:bg-blue-50/30 transition-all duration-300 h-full flex flex-col items-center justify-center group rounded-2xl cursor-pointer hover:-translate-y-1 bg-white/50 backdrop-blur-sm p-4">
+                  <div className="w-14 h-14 bg-blue-100/50 group-hover:bg-blue-100 rounded-full flex items-center justify-center mb-4 transition-colors">
+                    <Plus className="w-7 h-7 text-blue-600 group-hover:scale-110 transition-transform duration-300" />
                   </div>
-                  <h3 className="font-bold text-slate-900 text-lg group-hover:text-blue-700 transition-colors text-center w-full truncate px-2">Create New Resume</h3>
-                  <p className="text-sm text-slate-500 mt-2 text-center px-4">Start from scratch using our guided builder</p>
+                  <h3 className="font-bold text-slate-900 text-base group-hover:text-blue-700 transition-colors text-center w-full truncate px-2">Create New Resume</h3>
+                  <p className="text-xs text-slate-500 mt-1.5 text-center px-2">Start from scratch using our guided builder</p>
                 </Card>
               </Link>
             </motion.div>
