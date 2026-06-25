@@ -25,7 +25,7 @@ export default function ModernProfessional({ resumeData }: Props) {
         {/* Left Sidebar (Contact & Skills) */}
         <div className="w-1/3 bg-slate-50 p-6 border-r border-slate-200">
           
-          {personalInfo.photo && (
+          {personalInfo.photo && personalInfo.showPhoto !== false && (
             <div className="mb-8 flex justify-center mt-[-4rem]">
               <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-md bg-white">
                 {/* eslint-disable-next-line @next/next/no-img-element */}

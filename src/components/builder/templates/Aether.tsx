@@ -13,10 +13,8 @@ export default function Aether({ resumeData, accentColor = "#0f172a" }: Props) {
       {/* Left Sidebar */}
       <div className="w-[35%] p-8 flex flex-col gap-8" style={{ backgroundColor: accentColor, color: "white" }}>
         <div className="text-center mt-4">
-          {personalInfo.photo ? (
+          {personalInfo.photo && personalInfo.showPhoto !== false && (
             <img src={personalInfo.photo} className="w-32 h-32 rounded-full mx-auto object-cover border-4 border-white/20 mb-4" alt="Profile" />
-          ) : (
-            <div className="w-32 h-32 rounded-full mx-auto bg-white/10 mb-4" />
           )}
           <h1 className="text-2xl font-bold tracking-tight leading-tight">{personalInfo.fullName || "YOUR NAME"}</h1>
           <p className="text-sm font-medium mt-2 opacity-80">{personalInfo.jobTitle}</p>

@@ -35,7 +35,7 @@ export default function Developer({ resumeData }: Props) {
             </div>
           </div>
           
-          {personalInfo.photo && (
+          {personalInfo.photo && personalInfo.showPhoto !== false && (
             <div className="w-28 h-28 border-4 border-slate-900 flex-shrink-0">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={personalInfo.photo} alt="Profile" className="w-full h-full object-cover filter grayscale" />

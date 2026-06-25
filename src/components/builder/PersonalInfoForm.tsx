@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useResumeStore } from "@/store/useResumeStore";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -38,10 +38,21 @@ export default function PersonalInfoForm() {
   }, [watch, updatePersonalInfo]);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [photoError, setPhotoError] = useState<string | null>(null);
 
   const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
+    setPhotoError(null);
     if (file) {
+      if (file.size > 3 * 1024 * 1024) {
+        setPhotoError("Image size must be less than 3MB");
+        return;
+      }
+      if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
+        setPhotoError("Only JPG, PNG, and WEBP formats are supported");
+        return;
+      }
+
       const reader = new FileReader();
       reader.onloadend = () => {
         updatePersonalInfo({ photo: reader.result as string });
@@ -53,7 +64,13 @@ export default function PersonalInfoForm() {
   const removePhoto = (e: React.MouseEvent) => {
     e.stopPropagation();
     updatePersonalInfo({ photo: "" });
+    setPhotoError(null);
     if (fileInputRef.current) fileInputRef.current.value = "";
+  };
+
+  const toggleShowPhoto = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    updatePersonalInfo({ showPhoto: !resumeData.personalInfo.showPhoto });
   };
 
   return (
@@ -152,13 +169,36 @@ export default function PersonalInfoForm() {
                 <Camera className="w-6 h-6 text-slate-400" />
               </div>
               <h3 className="text-sm font-bold text-slate-900 mb-1">Click to upload or drag and drop</h3>
-              <p className="text-[11px] text-slate-500 mb-4">JPG or PNG (Max 3MB)<br/>Image will be automatically cropped to 400x400px</p>
+              <p className="text-[11px] text-slate-500 mb-4">JPG, PNG or WEBP (Max 3MB)</p>
               <Button variant="secondary" size="sm" className="bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold h-9 px-4 rounded-lg pointer-events-none">
                 <Upload className="w-3.5 h-3.5 mr-2" /> Select Photo
               </Button>
             </>
           )}
         </div>
+        {photoError && <p className="text-red-500 text-xs mt-2 font-medium">{photoError}</p>}
+
+        {resumeData.personalInfo.photo && (
+          <div className="mt-4 flex items-center justify-between bg-slate-50 p-4 rounded-xl border border-slate-200">
+            <div>
+              <p className="text-sm font-bold text-slate-900">Show photo on resume</p>
+              <p className="text-xs text-slate-500 mt-0.5">Toggle to hide or show your photo in the template</p>
+            </div>
+            <button
+              onClick={toggleShowPhoto}
+              className={`w-11 h-6 rounded-full transition-colors relative ${resumeData.personalInfo.showPhoto !== false ? "bg-blue-600" : "bg-slate-300"}`}
+            >
+              <span className={`absolute top-1 left-1 bg-white w-4 h-4 rounded-full transition-transform ${resumeData.personalInfo.showPhoto !== false ? "translate-x-5" : "translate-x-0"}`} />
+            </button>
+          </div>
+        )}
+
+        {/* Note for ATS templates */}
+        {["ats-classic", "monochrome", "executive"].includes(resumeData.templateId) && (
+          <div className="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-700 text-xs font-semibold">
+            Note: This template does not display profile photos.
+          </div>
+        )}
 
         {/* Photo Tips Box */}
         <div className="mt-6 bg-[#f8fafc] border border-slate-200/60 rounded-xl p-5">

@@ -11,6 +11,7 @@ export interface PersonalInfo {
   github: string;
   portfolio: string;
   photo?: string;
+  showPhoto?: boolean;
 }
 
 export interface Experience {
@@ -94,6 +95,7 @@ const initialData: ResumeData = {
     github: "",
     portfolio: "",
     photo: "",
+    showPhoto: true,
   },
   summary: "",
   experience: [],
