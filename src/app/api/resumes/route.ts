@@ -63,7 +63,18 @@ export async function POST(req: Request) {
       experience: data.experience || [],
       education: data.education || [],
       skills: data.skills || [],
-      projects: data.projects || [],
+      
+      // Extract optional sections and map them to Prisma fields
+      projects: data.optionalSections?.projects || data.projects || [],
+      certifications: data.optionalSections?.certifications || [],
+      languages: data.optionalSections?.languages || [],
+      
+      // Store the remaining optional sections in customSections JSON
+      customSections: {
+        awards: data.optionalSections?.awards || [],
+        volunteer: data.optionalSections?.volunteer || [],
+        publications: data.optionalSections?.publications || [],
+      },
     };
 
     // If ID is provided, update existing resume. Otherwise create new.

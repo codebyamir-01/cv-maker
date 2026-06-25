@@ -130,14 +130,14 @@ export default function AtsClassic({ resumeData, accentColor = "#0d9488" }: Prop
         )}
       </div>
 
-      {/* Projects */}
-      {resumeData.projects && resumeData.projects.length > 0 && (
+      {/* Optional Sections */}
+      {resumeData.optionalSections?.projects && resumeData.optionalSections.projects.length > 0 && (
         <div className="mb-5">
           <h2 className="font-bold uppercase tracking-[2px] mb-3 pb-[2px]" style={{ fontSize: "11px", color: accentColor, borderBottom: `1.5px solid ${accentColor}` }}>
             Projects
           </h2>
           <div className="space-y-4">
-            {resumeData.projects.map((proj) => (
+            {resumeData.optionalSections.projects.map((proj) => (
               <div key={proj.id}>
                 <div className="flex justify-between items-baseline">
                   <h3 className="font-bold text-[12px] text-slate-900">{proj.name}</h3>
@@ -154,6 +154,124 @@ export default function AtsClassic({ resumeData, accentColor = "#0d9488" }: Prop
                   <p className="text-[11px] leading-relaxed text-slate-700 whitespace-pre-wrap">
                     {proj.description}
                   </p>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {resumeData.optionalSections?.certifications && resumeData.optionalSections.certifications.length > 0 && (
+        <div className="mb-5">
+          <h2 className="font-bold uppercase tracking-[2px] mb-3 pb-[2px]" style={{ fontSize: "11px", color: accentColor, borderBottom: `1.5px solid ${accentColor}` }}>
+            Certifications
+          </h2>
+          <div className="space-y-4">
+            {resumeData.optionalSections.certifications.map((cert) => (
+              <div key={cert.id}>
+                <div className="flex justify-between items-baseline">
+                  <h3 className="font-bold text-[12px] text-slate-900">{cert.name}</h3>
+                  <span className="text-[11px] text-slate-500 font-medium">
+                    {cert.issueDate} {cert.expiryDate ? `- ${cert.expiryDate}` : ''}
+                  </span>
+                </div>
+                <div className="flex justify-between items-baseline">
+                  <p className="text-[11px] italic text-slate-600">{cert.issuer}</p>
+                  {cert.link && (
+                    <a href={cert.link} className="text-[11px] text-blue-600 underline">View Credential</a>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {resumeData.optionalSections?.languages && resumeData.optionalSections.languages.length > 0 && (
+        <div className="mb-5">
+          <h2 className="font-bold uppercase tracking-[2px] mb-3 pb-[2px]" style={{ fontSize: "11px", color: accentColor, borderBottom: `1.5px solid ${accentColor}` }}>
+            Languages
+          </h2>
+          <div className="flex flex-wrap gap-x-4 gap-y-2">
+            {resumeData.optionalSections.languages.map((lang) => (
+              <span key={lang.id} className="text-[11px] text-slate-700">
+                <span className="font-bold">{lang.name}</span>
+                {lang.proficiency && <span className="text-slate-500 ml-1">({lang.proficiency})</span>}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {resumeData.optionalSections?.awards && resumeData.optionalSections.awards.length > 0 && (
+        <div className="mb-5">
+          <h2 className="font-bold uppercase tracking-[2px] mb-3 pb-[2px]" style={{ fontSize: "11px", color: accentColor, borderBottom: `1.5px solid ${accentColor}` }}>
+            Awards
+          </h2>
+          <div className="space-y-4">
+            {resumeData.optionalSections.awards.map((award) => (
+              <div key={award.id}>
+                <div className="flex justify-between items-baseline">
+                  <h3 className="font-bold text-[12px] text-slate-900">{award.title}</h3>
+                  <span className="text-[11px] text-slate-500 font-medium">{award.date}</span>
+                </div>
+                <p className="text-[11px] italic text-slate-600 mb-1">{award.organization}</p>
+                {award.description && (
+                  <p className="text-[11px] leading-relaxed text-slate-700 whitespace-pre-wrap">{award.description}</p>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {resumeData.optionalSections?.volunteer && resumeData.optionalSections.volunteer.length > 0 && (
+        <div className="mb-5">
+          <h2 className="font-bold uppercase tracking-[2px] mb-3 pb-[2px]" style={{ fontSize: "11px", color: accentColor, borderBottom: `1.5px solid ${accentColor}` }}>
+            Volunteer Experience
+          </h2>
+          <div className="space-y-4">
+            {resumeData.optionalSections.volunteer.map((vol) => (
+              <div key={vol.id}>
+                <div className="flex justify-between items-baseline">
+                  <h3 className="font-bold text-[12px] text-slate-900">{vol.role}</h3>
+                  <span className="text-[11px] text-slate-500 font-medium">
+                    {vol.startDate} - {vol.endDate}
+                  </span>
+                </div>
+                <div className="flex justify-between items-baseline mb-1.5">
+                  <p className="text-[11px] italic text-slate-600">{vol.organization}</p>
+                  <span className="text-[11px] text-slate-500">{vol.location}</span>
+                </div>
+                {vol.description && (
+                  <p className="text-[11px] leading-relaxed text-slate-700 whitespace-pre-wrap">{vol.description}</p>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {resumeData.optionalSections?.publications && resumeData.optionalSections.publications.length > 0 && (
+        <div className="mb-5">
+          <h2 className="font-bold uppercase tracking-[2px] mb-3 pb-[2px]" style={{ fontSize: "11px", color: accentColor, borderBottom: `1.5px solid ${accentColor}` }}>
+            Publications
+          </h2>
+          <div className="space-y-4">
+            {resumeData.optionalSections.publications.map((pub) => (
+              <div key={pub.id}>
+                <div className="flex justify-between items-baseline">
+                  <h3 className="font-bold text-[12px] text-slate-900">{pub.title}</h3>
+                  <span className="text-[11px] text-slate-500 font-medium">{pub.date}</span>
+                </div>
+                <div className="flex justify-between items-baseline mb-1">
+                  <p className="text-[11px] italic text-slate-600">{pub.publisher}</p>
+                  {pub.link && (
+                    <a href={pub.link} className="text-[11px] text-blue-600 underline">View Publication</a>
+                  )}
+                </div>
+                {pub.description && (
+                  <p className="text-[11px] leading-relaxed text-slate-700 whitespace-pre-wrap">{pub.description}</p>
                 )}
               </div>
             ))}

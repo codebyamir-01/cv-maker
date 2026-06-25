@@ -129,13 +129,13 @@ export default function Developer({ resumeData }: Props) {
         </div>
 
         {/* Projects */}
-        {resumeData.projects && resumeData.projects.length > 0 && (
+        {resumeData.optionalSections?.projects && resumeData.optionalSections.projects.length > 0 && (
           <div className="mb-8">
             <h2 className="text-xl font-black uppercase mb-4 bg-slate-900 text-white inline-block px-2 py-1">
               # PROJECTS
             </h2>
             <div className="space-y-6">
-              {resumeData.projects.map((proj) => (
+              {resumeData.optionalSections.projects.map((proj) => (
                 <div key={proj.id} className="pl-4 border-l-2 border-slate-900">
                   <div className="flex flex-wrap items-center justify-between mb-1">
                     <h3 className="font-bold text-lg text-slate-900">{proj.name}</h3>
@@ -147,6 +147,124 @@ export default function Developer({ resumeData }: Props) {
                   </div>
                   {proj.techStack && <div className="font-mono text-xs text-slate-500 mb-2">[{proj.techStack}]</div>}
                   <div className="text-sm whitespace-pre-wrap">{proj.description}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Certifications */}
+        {resumeData.optionalSections?.certifications && resumeData.optionalSections.certifications.length > 0 && (
+          <div className="mb-8">
+            <h2 className="text-xl font-black uppercase mb-4 bg-slate-900 text-white inline-block px-2 py-1">
+              # CERTIFICATIONS
+            </h2>
+            <div className="space-y-6">
+              {resumeData.optionalSections.certifications.map((cert) => (
+                <div key={cert.id} className="pl-4 border-l-2 border-slate-900">
+                  <div className="flex flex-wrap items-center justify-between mb-1">
+                    <h3 className="font-bold text-lg text-slate-900">{cert.name}</h3>
+                    <span className="text-xs font-bold bg-slate-200 px-2 py-1 rounded">
+                      {cert.issueDate} {cert.expiryDate ? `- ${cert.expiryDate}` : ''}
+                    </span>
+                  </div>
+                  <div className="font-semibold text-sm mb-1">{cert.issuer}</div>
+                  {cert.link && (
+                    <a href={cert.link} className="text-xs font-bold text-blue-700 underline">
+                      [View Credential]
+                    </a>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Languages */}
+        {resumeData.optionalSections?.languages && resumeData.optionalSections.languages.length > 0 && (
+          <div className="mb-8">
+            <h2 className="text-xl font-black uppercase mb-4 bg-slate-900 text-white inline-block px-2 py-1">
+              # LANGUAGES
+            </h2>
+            <div className="flex flex-wrap gap-4 pl-4 border-l-2 border-slate-900">
+              {resumeData.optionalSections.languages.map((lang) => (
+                <div key={lang.id} className="text-sm">
+                  <span className="font-bold text-slate-900">{lang.name}</span>
+                  {lang.proficiency && <span className="text-slate-600 ml-2">[{lang.proficiency}]</span>}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Awards */}
+        {resumeData.optionalSections?.awards && resumeData.optionalSections.awards.length > 0 && (
+          <div className="mb-8">
+            <h2 className="text-xl font-black uppercase mb-4 bg-slate-900 text-white inline-block px-2 py-1">
+              # AWARDS
+            </h2>
+            <div className="space-y-6">
+              {resumeData.optionalSections.awards.map((award) => (
+                <div key={award.id} className="pl-4 border-l-2 border-slate-900">
+                  <div className="flex flex-wrap items-center justify-between mb-1">
+                    <h3 className="font-bold text-lg text-slate-900">{award.title}</h3>
+                    <span className="text-xs font-bold bg-slate-200 px-2 py-1 rounded">{award.date}</span>
+                  </div>
+                  <div className="font-semibold text-sm mb-2">{award.organization}</div>
+                  <div className="text-sm whitespace-pre-wrap">{award.description}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Volunteer */}
+        {resumeData.optionalSections?.volunteer && resumeData.optionalSections.volunteer.length > 0 && (
+          <div className="mb-8">
+            <h2 className="text-xl font-black uppercase mb-4 bg-slate-900 text-white inline-block px-2 py-1">
+              # VOLUNTEER
+            </h2>
+            <div className="space-y-6">
+              {resumeData.optionalSections.volunteer.map((vol) => (
+                <div key={vol.id} className="pl-4 border-l-2 border-slate-900">
+                  <div className="flex flex-wrap items-center justify-between mb-1">
+                    <h3 className="font-bold text-lg text-slate-900">{vol.role}</h3>
+                    <span className="text-xs font-bold bg-slate-200 px-2 py-1 rounded">
+                      {vol.startDate} - {vol.endDate}
+                    </span>
+                  </div>
+                  <div className="font-semibold text-sm mb-2">
+                    @ {vol.organization} <span className="font-normal text-slate-500">({vol.location})</span>
+                  </div>
+                  <div className="text-sm whitespace-pre-wrap">{vol.description}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Publications */}
+        {resumeData.optionalSections?.publications && resumeData.optionalSections.publications.length > 0 && (
+          <div className="mb-8">
+            <h2 className="text-xl font-black uppercase mb-4 bg-slate-900 text-white inline-block px-2 py-1">
+              # PUBLICATIONS
+            </h2>
+            <div className="space-y-6">
+              {resumeData.optionalSections.publications.map((pub) => (
+                <div key={pub.id} className="pl-4 border-l-2 border-slate-900">
+                  <div className="flex flex-wrap items-center justify-between mb-1">
+                    <h3 className="font-bold text-lg text-slate-900">{pub.title}</h3>
+                    <span className="text-xs font-bold bg-slate-200 px-2 py-1 rounded">{pub.date}</span>
+                  </div>
+                  <div className="font-semibold text-sm mb-1">{pub.publisher}</div>
+                  {pub.link && (
+                    <div className="mb-2">
+                      <a href={pub.link} className="text-xs font-bold text-blue-700 underline">
+                        [Link]
+                      </a>
+                    </div>
+                  )}
+                  <div className="text-sm whitespace-pre-wrap">{pub.description}</div>
                 </div>
               ))}
             </div>

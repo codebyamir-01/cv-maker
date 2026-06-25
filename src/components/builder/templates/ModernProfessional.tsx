@@ -64,6 +64,45 @@ export default function ModernProfessional({ resumeData }: Props) {
               </div>
             )}
           </div>
+
+          {/* Languages */}
+          {resumeData.optionalSections?.languages && resumeData.optionalSections.languages.length > 0 && (
+            <div className="mb-6">
+              <h2 className="text-sm font-bold text-slate-900 uppercase tracking-widest mb-3 border-b border-slate-300 pb-1">
+                Languages
+              </h2>
+              <div className="space-y-2 text-sm text-slate-700">
+                {resumeData.optionalSections.languages.map((lang) => (
+                  <div key={lang.id} className="flex flex-col">
+                    <span className="font-bold">{lang.name}</span>
+                    {lang.proficiency && <span className="text-slate-500">{lang.proficiency}</span>}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Certifications */}
+          {resumeData.optionalSections?.certifications && resumeData.optionalSections.certifications.length > 0 && (
+            <div className="mb-6">
+              <h2 className="text-sm font-bold text-slate-900 uppercase tracking-widest mb-3 border-b border-slate-300 pb-1">
+                Certifications
+              </h2>
+              <div className="space-y-3 text-sm text-slate-700">
+                {resumeData.optionalSections.certifications.map((cert) => (
+                  <div key={cert.id} className="flex flex-col">
+                    <span className="font-bold">{cert.name}</span>
+                    <span>{cert.issuer}</span>
+                    {(cert.issueDate || cert.expiryDate) && (
+                      <span className="text-slate-500 italic text-xs mt-0.5">
+                        {cert.issueDate} {cert.expiryDate ? `- ${cert.expiryDate}` : ''}
+                      </span>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Right Main Content */}
@@ -129,13 +168,13 @@ export default function ModernProfessional({ resumeData }: Props) {
           </div>
 
           {/* Projects */}
-          {resumeData.projects && resumeData.projects.length > 0 && (
+          {resumeData.optionalSections?.projects && resumeData.optionalSections.projects.length > 0 && (
             <div className="mb-8">
               <h2 className="text-xl font-bold text-slate-900 border-b-2 border-slate-800 pb-1 mb-4 uppercase tracking-wider">
                 Projects
               </h2>
               <div className="space-y-6">
-                {resumeData.projects.map((proj) => (
+                {resumeData.optionalSections.projects.map((proj) => (
                   <div key={proj.id}>
                     <div className="flex justify-between items-center mb-1">
                       <h3 className="font-bold text-lg text-slate-900">{proj.name}</h3>
@@ -157,6 +196,81 @@ export default function ModernProfessional({ resumeData }: Props) {
             </div>
           )}
 
+          {/* Awards */}
+          {resumeData.optionalSections?.awards && resumeData.optionalSections.awards.length > 0 && (
+            <div className="mb-8">
+              <h2 className="text-xl font-bold text-slate-900 border-b-2 border-slate-800 pb-1 mb-4 uppercase tracking-wider">
+                Awards
+              </h2>
+              <div className="space-y-6">
+                {resumeData.optionalSections.awards.map((award) => (
+                  <div key={award.id}>
+                    <div className="flex justify-between items-center mb-1">
+                      <h3 className="font-bold text-lg text-slate-900">{award.title}</h3>
+                      <span className="text-sm text-slate-600 font-medium">{award.date}</span>
+                    </div>
+                    <div className="text-sm text-slate-700 font-semibold mb-2">{award.organization}</div>
+                    <div className="text-sm leading-relaxed whitespace-pre-wrap text-slate-700">
+                      {award.description}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Volunteer Experience */}
+          {resumeData.optionalSections?.volunteer && resumeData.optionalSections.volunteer.length > 0 && (
+            <div className="mb-8">
+              <h2 className="text-xl font-bold text-slate-900 border-b-2 border-slate-800 pb-1 mb-4 uppercase tracking-wider">
+                Volunteer Experience
+              </h2>
+              <div className="space-y-6">
+                {resumeData.optionalSections.volunteer.map((vol) => (
+                  <div key={vol.id}>
+                    <div className="flex justify-between items-center mb-1">
+                      <h3 className="font-bold text-lg text-slate-900">{vol.role}</h3>
+                      <span className="text-sm text-slate-600 font-medium">{vol.startDate} - {vol.endDate}</span>
+                    </div>
+                    <div className="text-sm text-slate-700 font-semibold mb-2">{vol.organization} {vol.location && `| ${vol.location}`}</div>
+                    <div className="text-sm leading-relaxed whitespace-pre-wrap text-slate-700">
+                      {vol.description}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Publications */}
+          {resumeData.optionalSections?.publications && resumeData.optionalSections.publications.length > 0 && (
+            <div className="mb-8">
+              <h2 className="text-xl font-bold text-slate-900 border-b-2 border-slate-800 pb-1 mb-4 uppercase tracking-wider">
+                Publications
+              </h2>
+              <div className="space-y-6">
+                {resumeData.optionalSections.publications.map((pub) => (
+                  <div key={pub.id}>
+                    <div className="flex justify-between items-center mb-1">
+                      <h3 className="font-bold text-lg text-slate-900">{pub.title}</h3>
+                      <span className="text-sm text-slate-600 font-medium">{pub.date}</span>
+                    </div>
+                    <div className="flex justify-between items-center mb-2">
+                      <div className="text-sm text-slate-700 font-semibold">{pub.publisher}</div>
+                      {pub.link && (
+                        <a href={pub.link} className="text-sm text-blue-600 underline">
+                          View
+                        </a>
+                      )}
+                    </div>
+                    <div className="text-sm leading-relaxed whitespace-pre-wrap text-slate-700">
+                      {pub.description}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

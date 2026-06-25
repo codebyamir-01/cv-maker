@@ -53,13 +53,68 @@ export interface Project {
   link: string;
 }
 
+export interface Certification {
+  id: string;
+  name: string;
+  issuer: string;
+  issueDate: string;
+  expiryDate: string;
+  link: string;
+}
+
+export interface Language {
+  id: string;
+  name: string;
+  proficiency: string; // Basic, Intermediate, Fluent, Native
+}
+
+export interface Award {
+  id: string;
+  title: string;
+  organization: string;
+  date: string;
+  description: string;
+}
+
+export interface Volunteer {
+  id: string;
+  role: string;
+  organization: string;
+  location: string;
+  startDate: string;
+  endDate: string;
+  description: string;
+}
+
+export interface Publication {
+  id: string;
+  title: string;
+  publisher: string;
+  date: string;
+  link: string;
+  description: string;
+}
+
+export interface OptionalSections {
+  projects: Project[];
+  certifications: Certification[];
+  languages: Language[];
+  awards: Award[];
+  volunteer: Volunteer[];
+  publications: Publication[];
+}
+
 export interface ResumeData {
   personalInfo: PersonalInfo;
   summary: string;
   experience: Experience[];
   education: Education[];
   skills: Skill[];
-  projects: Project[];
+  optionalSections: OptionalSections;
+  
+  // Keep projects at root strictly for backward compatibility with older local storage
+  projects?: Project[];
+  
   templateId: string;
   accentColor: string;
 }
@@ -80,10 +135,17 @@ interface ResumeState {
   addSkill: (skill: Skill) => void;
   removeSkill: (id: string) => void;
 
+  // Generic optional section updaters
+  addOptionalItem: <K extends keyof OptionalSections>(section: K, item: OptionalSections[K][0]) => void;
+  updateOptionalItem: <K extends keyof OptionalSections>(section: K, id: string, data: Partial<OptionalSections[K][0]>) => void;
+  removeOptionalItem: <K extends keyof OptionalSections>(section: K, id: string) => void;
+
+  // Aliases for legacy project functions to not break existing code
   addProject: (project: Project) => void;
   updateProject: (id: string, data: Partial<Project>) => void;
   removeProject: (id: string) => void;
   updateProjects: (projects: Project[]) => void;
+
   updateTemplateId: (templateId: string) => void;
   updateAccentColor: (color: string) => void;
 }
@@ -109,7 +171,14 @@ const initialData: ResumeData = {
   experience: [],
   education: [],
   skills: [],
-  projects: [],
+  optionalSections: {
+    projects: [],
+    certifications: [],
+    languages: [],
+    awards: [],
+    volunteer: [],
+    publications: []
+  },
   templateId: "ats-classic",
   accentColor: "#0d9488",
 };
@@ -133,104 +202,195 @@ export const useResumeStore = create<ResumeState>()(
         })),
 
       addExperience: (exp) =>
-    set((state) => ({
-      resumeData: { ...state.resumeData, experience: [...state.resumeData.experience, exp] },
-    })),
+        set((state) => ({
+          resumeData: { ...state.resumeData, experience: [...state.resumeData.experience, exp] },
+        })),
 
-  updateExperience: (id, data) =>
-    set((state) => ({
-      resumeData: {
-        ...state.resumeData,
-        experience: state.resumeData.experience.map((exp) => 
-          exp.id === id ? { ...exp, ...data } : exp
-        ),
-      },
-    })),
+      updateExperience: (id, data) =>
+        set((state) => ({
+          resumeData: {
+            ...state.resumeData,
+            experience: state.resumeData.experience.map((exp) => 
+              exp.id === id ? { ...exp, ...data } : exp
+            ),
+          },
+        })),
 
-  removeExperience: (id) =>
-    set((state) => ({
-      resumeData: {
-        ...state.resumeData,
-        experience: state.resumeData.experience.filter((exp) => exp.id !== id),
-      },
-    })),
+      removeExperience: (id) =>
+        set((state) => ({
+          resumeData: {
+            ...state.resumeData,
+            experience: state.resumeData.experience.filter((exp) => exp.id !== id),
+          },
+        })),
 
-  addEducation: (edu) =>
-    set((state) => ({
-      resumeData: { ...state.resumeData, education: [...state.resumeData.education, edu] },
-    })),
+      addEducation: (edu) =>
+        set((state) => ({
+          resumeData: { ...state.resumeData, education: [...state.resumeData.education, edu] },
+        })),
 
-  updateEducation: (id, data) =>
-    set((state) => ({
-      resumeData: {
-        ...state.resumeData,
-        education: state.resumeData.education.map((edu) => 
-          edu.id === id ? { ...edu, ...data } : edu
-        ),
-      },
-    })),
+      updateEducation: (id, data) =>
+        set((state) => ({
+          resumeData: {
+            ...state.resumeData,
+            education: state.resumeData.education.map((edu) => 
+              edu.id === id ? { ...edu, ...data } : edu
+            ),
+          },
+        })),
 
-  removeEducation: (id) =>
-    set((state) => ({
-      resumeData: {
-        ...state.resumeData,
-        education: state.resumeData.education.filter((edu) => edu.id !== id),
-      },
-    })),
+      removeEducation: (id) =>
+        set((state) => ({
+          resumeData: {
+            ...state.resumeData,
+            education: state.resumeData.education.filter((edu) => edu.id !== id),
+          },
+        })),
 
-  addSkill: (skill) =>
-    set((state) => ({
-      resumeData: { ...state.resumeData, skills: [...state.resumeData.skills, skill] },
-    })),
+      addSkill: (skill) =>
+        set((state) => ({
+          resumeData: { ...state.resumeData, skills: [...state.resumeData.skills, skill] },
+        })),
 
-  removeSkill: (id) =>
-    set((state) => ({
-      resumeData: {
-        ...state.resumeData,
-        skills: state.resumeData.skills.filter((skill) => skill.id !== id),
-      },
-    })),
+      removeSkill: (id) =>
+        set((state) => ({
+          resumeData: {
+            ...state.resumeData,
+            skills: state.resumeData.skills.filter((skill) => skill.id !== id),
+          },
+        })),
 
-  addProject: (project) =>
-    set((state) => ({
-      resumeData: { ...state.resumeData, projects: [...state.resumeData.projects, project] },
-    })),
+      // Generic optional item handlers
+      addOptionalItem: (section, item) =>
+        set((state) => {
+          const currentSection = state.resumeData.optionalSections?.[section] || [];
+          return {
+            resumeData: {
+              ...state.resumeData,
+              optionalSections: {
+                ...state.resumeData.optionalSections,
+                [section]: [...currentSection, item],
+              },
+            },
+          };
+        }),
 
-  updateProject: (id, data) =>
-    set((state) => ({
-      resumeData: {
-        ...state.resumeData,
-        projects: state.resumeData.projects.map((proj) => 
-          proj.id === id ? { ...proj, ...data } : proj
-        ),
-      },
-    })),
+      updateOptionalItem: (section, id, data) =>
+        set((state) => {
+          const currentSection = state.resumeData.optionalSections?.[section] || [];
+          return {
+            resumeData: {
+              ...state.resumeData,
+              optionalSections: {
+                ...state.resumeData.optionalSections,
+                // @ts-ignore
+                [section]: currentSection.map((item) => (item.id === id ? { ...item, ...data } : item)),
+              },
+            },
+          };
+        }),
 
-  removeProject: (id) =>
-    set((state) => ({
-      resumeData: {
-        ...state.resumeData,
-        projects: state.resumeData.projects.filter((proj) => proj.id !== id),
-      },
-    })),
+      removeOptionalItem: (section, id) =>
+        set((state) => {
+          const currentSection = state.resumeData.optionalSections?.[section] || [];
+          return {
+            resumeData: {
+              ...state.resumeData,
+              optionalSections: {
+                ...state.resumeData.optionalSections,
+                // @ts-ignore
+                [section]: currentSection.filter((item) => item.id !== id),
+              },
+            },
+          };
+        }),
 
-  updateProjects: (projects) =>
-    set((state) => ({
-      resumeData: { ...state.resumeData, projects },
-    })),
+      // Legacy aliases pointing to optionalSections.projects
+      addProject: (project) =>
+        set((state) => {
+          const currentProjects = state.resumeData.optionalSections?.projects || state.resumeData.projects || [];
+          return {
+            resumeData: {
+              ...state.resumeData,
+              optionalSections: {
+                ...state.resumeData.optionalSections,
+                projects: [...currentProjects, project],
+              },
+            },
+          };
+        }),
 
-  updateTemplateId: (templateId) =>
-    set((state) => ({
-      resumeData: { ...state.resumeData, templateId },
-    })),
+      updateProject: (id, data) =>
+        set((state) => {
+          const currentProjects = state.resumeData.optionalSections?.projects || state.resumeData.projects || [];
+          return {
+            resumeData: {
+              ...state.resumeData,
+              optionalSections: {
+                ...state.resumeData.optionalSections,
+                projects: currentProjects.map((proj) => 
+                  proj.id === id ? { ...proj, ...data } : proj
+                ),
+              },
+            },
+          };
+        }),
 
-  updateAccentColor: (accentColor) =>
-    set((state) => ({
-      resumeData: { ...state.resumeData, accentColor },
-    })),
+      removeProject: (id) =>
+        set((state) => {
+          const currentProjects = state.resumeData.optionalSections?.projects || state.resumeData.projects || [];
+          return {
+            resumeData: {
+              ...state.resumeData,
+              optionalSections: {
+                ...state.resumeData.optionalSections,
+                projects: currentProjects.filter((proj) => proj.id !== id),
+              },
+            },
+          };
+        }),
+
+      updateProjects: (projects) =>
+        set((state) => ({
+          resumeData: {
+            ...state.resumeData,
+            optionalSections: {
+              ...state.resumeData.optionalSections,
+              projects,
+            },
+          },
+        })),
+
+      updateTemplateId: (templateId) =>
+        set((state) => ({
+          resumeData: { ...state.resumeData, templateId },
+        })),
+
+      updateAccentColor: (accentColor) =>
+        set((state) => ({
+          resumeData: { ...state.resumeData, accentColor },
+        })),
     }),
     {
       name: "resume-storage",
+      onRehydrateStorage: () => (state) => {
+        // Migration logic for old stored data when page reloads
+        if (state && state.resumeData) {
+          if (!state.resumeData.optionalSections) {
+            state.resumeData.optionalSections = {
+              projects: state.resumeData.projects || [],
+              certifications: [],
+              languages: [],
+              awards: [],
+              volunteer: [],
+              publications: []
+            };
+          } else if (state.resumeData.projects && state.resumeData.optionalSections.projects.length === 0) {
+            // Migrate root projects to optionalSections if optionalSections is empty
+            state.resumeData.optionalSections.projects = state.resumeData.projects;
+          }
+        }
+      }
     }
   )
 );
