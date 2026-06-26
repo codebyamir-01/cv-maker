@@ -13,7 +13,7 @@ export function ContactForm() {
     setMessage("");
 
     const formData = new FormData(e.currentTarget);
-    formData.append("access_key", "9c4d0be4-fcb0-471c-b20f-989680327171");
+    formData.append("access_key", "4b768aa2-8394-4c84-a914-fb9ce4a95401");
 
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
@@ -136,7 +136,7 @@ export function ContactForm() {
             />
           </div>
 
-          {/* Botpoison/Honeypot */}
+          {/* Spam Prevention Honeypot */}
           <input type="checkbox" name="botcheck" className="hidden" style={{ display: 'none' }} />
 
           {/* Error Message */}
