@@ -28,32 +28,12 @@ export default function FinalizeStep() {
     try {
       const element = printRef.current;
       
-      // html2canvas sometimes fails if elements are opacity: 0
-      // So we temporarily make it visible but keep it off-screen
-      element.parentElement!.style.opacity = "1";
-      
       const canvas = await html2canvas(element, {
         scale: 2,
         useCORS: true,
         logging: true, // Enable logging to see the exact issue in console
         backgroundColor: "#ffffff",
-        windowWidth: 794, // Force A4 width (210mm at 96dpi approx)
-        windowHeight: 1123, // Force A4 height
-        onclone: (clonedDoc) => {
-           // Ensure the cloned element inside the iframe is fully visible
-           const el = clonedDoc.getElementById("pdf-export-container");
-           if (el) {
-             el.style.opacity = "1";
-             el.style.display = "block";
-             el.style.position = "relative";
-             el.style.left = "0";
-             el.style.top = "0";
-           }
-        }
       });
-      
-      // Restore opacity immediately after capture
-      element.parentElement!.style.opacity = "0";
       
       const imgData = canvas.toDataURL("image/jpeg", 1.0);
       const pdf = new jsPDF({
@@ -75,10 +55,10 @@ export default function FinalizeStep() {
       
       setDownloadStatus("success");
       setDownloadMessage("PDF downloaded successfully");
-    } catch (error) {
+    } catch (error: any) {
       console.error("PDF generation error:", error);
       setDownloadStatus("error");
-      setDownloadMessage("PDF download failed. Please try again.");
+      setDownloadMessage(`Failed: ${error.message || 'Unknown error'}`);
     } finally {
       setIsDownloading(false);
       setTimeout(() => {
@@ -169,8 +149,8 @@ export default function FinalizeStep() {
         <p className="text-sm text-slate-500 mb-8 max-w-sm">Save as a PDF — ready to send to employers!</p>
 
         {/* Visually hidden but accessible printable resume */}
-        <div id="pdf-export-container" className="absolute top-[-9999px] left-[-9999px] w-[210mm] min-h-[297mm] opacity-0 pointer-events-none">
-          <div ref={printRef} className="w-full h-full bg-white">
+        <div id="pdf-export-container" style={{ position: 'fixed', left: '200vw', top: 0 }}>
+          <div ref={printRef} style={{ width: '816px', minHeight: '1056px', backgroundColor: 'white' }}>
             <LivePreview accentColor={resumeData.accentColor} />
           </div>
         </div>
