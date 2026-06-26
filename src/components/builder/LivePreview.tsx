@@ -61,7 +61,7 @@ const LivePreview = memo(function LivePreview({ accentColor }: Props) {
   const renderTemplate = () => {
     switch (resumeData.templateId) {
       case "monochrome":
-        return <Monochrome resumeData={resumeData} accentColor={color} />;
+        return <Monochrome resumeData={resumeData} accentColor="#000000" />;
       case "aether":
         return <Aether resumeData={resumeData} accentColor={color} />;
       case "executive":
