@@ -376,7 +376,6 @@ export default function BuilderPage() {
               </button>
             )}
             <AutoSaver />
-            </div>
           </div>
         </div>
       </header>
