@@ -3,6 +3,7 @@ import { FileText, Mail, MapPin, Phone, Send, MessageSquare, Clock, CheckCircle2
 import type { Metadata } from "next";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
+import { ContactForm } from "@/components/contact/ContactForm";
 
 export const metadata: Metadata = {
   title: "Contact Us — CV Maker",
@@ -95,98 +96,7 @@ export default function ContactPage() {
 
             {/* RIGHT: Contact form */}
             <div className="lg:col-span-3">
-              <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm h-full">
-                <h2 className="text-2xl font-bold text-slate-900 mb-1">Send a Message</h2>
-                <p className="text-sm text-slate-400 mb-7">Fill out the form and we'll get back to you as soon as possible.</p>
-
-                <form className="flex flex-col gap-5">
-                  {/* Name row */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    <div className="flex flex-col gap-1.5">
-                      <label className="text-[13px] font-bold text-slate-700">
-                        First Name <span className="text-red-500">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        placeholder="Amir"
-                        className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-800 placeholder:text-slate-300 focus:border-blue-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100 transition"
-                      />
-                    </div>
-                    <div className="flex flex-col gap-1.5">
-                      <label className="text-[13px] font-bold text-slate-700">
-                        Last Name <span className="text-red-500">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        placeholder="Khan"
-                        className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-800 placeholder:text-slate-300 focus:border-blue-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100 transition"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Email */}
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-[13px] font-bold text-slate-700">
-                      Email Address <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="email"
-                      required
-                      placeholder="you@example.com"
-                      className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-800 placeholder:text-slate-300 focus:border-blue-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100 transition"
-                    />
-                  </div>
-
-                  {/* Subject */}
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-[13px] font-bold text-slate-700">
-                      Subject <span className="text-red-500">*</span>
-                    </label>
-                    <select
-                      required
-                      defaultValue=""
-                      className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 focus:border-blue-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100 transition"
-                    >
-                      <option value="" disabled>Select a topic...</option>
-                      <option>Resume Builder Help</option>
-                      <option>Template Question</option>
-                      <option>PDF Download Issue</option>
-                      <option>ATS / Job Match</option>
-                      <option>Feature Request</option>
-                      <option>Partnership Inquiry</option>
-                      <option>Other</option>
-                    </select>
-                  </div>
-
-                  {/* Message */}
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-[13px] font-bold text-slate-700">
-                      Message <span className="text-red-500">*</span>
-                    </label>
-                    <textarea
-                      required
-                      rows={6}
-                      placeholder="Describe your question or issue in detail..."
-                      className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-800 placeholder:text-slate-300 focus:border-blue-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100 transition resize-none"
-                    />
-                  </div>
-
-                  {/* Submit */}
-                  <button
-                    type="submit"
-                    className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 text-sm font-bold text-white shadow-md transition hover:bg-blue-700 hover:shadow-lg active:scale-[0.98]"
-                  >
-                    <Send className="h-4 w-4" />
-                    Send Message
-                  </button>
-
-                  <p className="text-center text-xs text-slate-400">
-                    We typically respond within 24 hours on business days.
-                  </p>
-                </form>
-              </div>
+              <ContactForm />
             </div>
 
           </div>
