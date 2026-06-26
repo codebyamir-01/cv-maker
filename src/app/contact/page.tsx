@@ -3,7 +3,7 @@ import { FileText, Mail, MapPin, Phone, Send, MessageSquare, Clock, CheckCircle2
 import type { Metadata } from "next";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
-import { ContactForm } from "@/components/contact/ContactForm";
+import { SupportForm } from "@/components/contact/SupportForm";
 
 export const metadata: Metadata = {
   title: "Contact Us — CV Maker",
@@ -96,7 +96,7 @@ export default function ContactPage() {
 
             {/* RIGHT: Contact form */}
             <div className="lg:col-span-3">
-              <ContactForm />
+              <SupportForm />
             </div>
 
           </div>
