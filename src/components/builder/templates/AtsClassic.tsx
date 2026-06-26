@@ -10,7 +10,7 @@ export default function AtsClassic({ resumeData, accentColor = "#0d9488" }: Prop
 
   return (
     <div
-      className="bg-white font-sans text-slate-900"
+      className="bg-white font-sans text-slate-900 text-left"
       style={{
         width: "816px",        // 8.5 inches at 96dpi
         minHeight: "1056px",   // 11 inches at 96dpi

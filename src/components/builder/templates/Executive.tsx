@@ -9,7 +9,7 @@ export default function Executive({ resumeData, accentColor = "#1e293b" }: Props
   const { personalInfo, experience, education, skills, summary } = resumeData;
 
   return (
-    <div className="bg-white font-sans text-slate-900" style={{ width: "816px", minHeight: "1056px", padding: "48px", boxSizing: "border-box" }}>
+    <div className="bg-white font-sans text-slate-900 text-left" style={{ width: "816px", minHeight: "1056px", padding: "48px", boxSizing: "border-box" }}>
       {/* Header */}
       <div className="border-b-4 pb-6 mb-6 flex flex-col items-center" style={{ borderColor: accentColor }}>
         <h1 className="text-4xl font-black uppercase tracking-widest text-slate-900">{personalInfo.fullName || "YOUR NAME"}</h1>

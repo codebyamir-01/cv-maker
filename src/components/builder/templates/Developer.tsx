@@ -9,7 +9,7 @@ export default function Developer({ resumeData }: Props) {
   const { personalInfo, experience, summary } = resumeData;
 
   return (
-    <div className="w-full h-full font-mono text-slate-900 bg-white p-2">
+    <div className="w-full h-full font-mono text-slate-900 bg-white p-2 text-left">
       <div className="border-4 border-slate-900 h-full p-6">
         
         {/* Header */}

@@ -10,7 +10,7 @@ export default function Monochrome({ resumeData, accentColor = "#000000" }: Prop
 
   return (
     <div
-      className="bg-white font-serif text-slate-900"
+      className="bg-white font-serif text-slate-900 text-left"
       style={{
         width: "816px",
         minHeight: "1056px",

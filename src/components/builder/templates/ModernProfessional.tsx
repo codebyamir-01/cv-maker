@@ -8,7 +8,7 @@ export default function ModernProfessional({ resumeData }: Props) {
   const { personalInfo, experience, summary } = resumeData;
 
   return (
-    <div className="w-full h-full font-sans text-slate-800 bg-white flex flex-col">
+    <div className="w-full h-full font-sans text-slate-800 bg-white flex flex-col text-left">
       {/* Header with Background */}
       <div className="bg-slate-800 text-white p-8">
         <h1 className="text-4xl font-bold tracking-tight mb-2">

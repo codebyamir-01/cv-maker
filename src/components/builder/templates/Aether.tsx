@@ -9,7 +9,7 @@ export default function Aether({ resumeData, accentColor = "#0f172a" }: Props) {
   const { personalInfo, experience, education, skills, summary } = resumeData;
 
   return (
-    <div className="bg-white font-sans text-slate-800 flex overflow-hidden" style={{ width: "816px", minHeight: "1056px", boxSizing: "border-box" }}>
+    <div className="bg-white font-sans text-slate-800 flex overflow-hidden text-left" style={{ width: "816px", minHeight: "1056px", boxSizing: "border-box" }}>
       {/* Left Sidebar */}
       <div className="w-[35%] p-8 flex flex-col gap-8" style={{ backgroundColor: accentColor, color: "white" }}>
         <div className="text-center mt-4">
