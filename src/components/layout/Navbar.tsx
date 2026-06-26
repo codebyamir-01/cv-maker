@@ -97,7 +97,7 @@ export function Navbar() {
 
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 top-[64px] sm:top-[80px] bg-white z-40 overflow-y-auto border-t border-slate-100">
+        <div className="md:hidden fixed left-0 right-0 bottom-0 top-[64px] sm:top-[80px] bg-white z-[60] overflow-y-auto border-t border-slate-100 shadow-xl">
           <nav className="flex flex-col p-4 sm:p-6 space-y-2">
             {links.map((link) => {
               const isActive = pathname === link.href;
