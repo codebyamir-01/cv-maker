@@ -1,53 +1,80 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { Download, CheckCircle2, FileText, AlertCircle, Star, Cloud } from "lucide-react";
-import { useSession } from "next-auth/react";
+import { Download, CheckCircle2, AlertCircle, Star, Share2, FileDown } from "lucide-react";
 import { useResumeStore } from "@/store/useResumeStore";
-import { useReactToPrint } from "react-to-print";
 import LivePreview from "@/components/builder/LivePreview";
-
-const A4_W = 816;
+import html2pdf from "html2pdf.js";
 
 export default function FinalizeStep() {
   const { resumeData } = useResumeStore();
   const printRef = useRef<HTMLDivElement>(null);
-  const { data: session } = useSession();
-  const [isSaving, setIsSaving] = useState(false);
-  const [saveMessage, setSaveMessage] = useState("");
+  
+  const [isDownloading, setIsDownloading] = useState(false);
+  const [downloadMessage, setDownloadMessage] = useState("");
+  const [downloadStatus, setDownloadStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  
+  const [shareMessage, setShareMessage] = useState("");
 
-  const handleSaveToCloud = async () => {
-    if (!session) {
-      setSaveMessage("Please log in to save your resume to the cloud.");
-      return;
-    }
+  const handleDownloadPdf = async () => {
+    if (!printRef.current) return;
     
-    setIsSaving(true);
-    setSaveMessage("");
+    setIsDownloading(true);
+    setDownloadStatus("loading");
+    setDownloadMessage("Preparing PDF...");
+    
     try {
-      const res = await fetch("/api/resumes", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(resumeData),
-      });
-      if (res.ok) {
-        setSaveMessage("Resume successfully saved to cloud!");
-      } else {
-        setSaveMessage("Failed to save resume. Please try again.");
+      const element = printRef.current;
+      
+      const opt: any = {
+        margin: 0,
+        filename: resumeData.personalInfo.fullName 
+          ? `${resumeData.personalInfo.fullName.replace(/\s+/g, '_')}_Resume.pdf` 
+          : 'My_Resume.pdf',
+        image: { type: 'jpeg', quality: 1 },
+        html2canvas: { scale: 2, useCORS: true, letterRendering: true },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      };
+      
+      // Briefly show for printing if hidden by tailwind `print:block`
+      const parent = element.parentElement;
+      if (parent) {
+        parent.classList.remove("hidden");
+        parent.classList.add("block");
+        parent.style.position = "absolute";
+        parent.style.left = "-9999px";
+        parent.style.top = "-9999px";
       }
-    } catch (e) {
-      setSaveMessage("An error occurred while saving.");
+      
+      await html2pdf().set(opt).from(element).save();
+      
+      if (parent) {
+        parent.classList.add("hidden");
+        parent.classList.remove("block");
+        parent.style.position = "";
+        parent.style.left = "";
+        parent.style.top = "";
+      }
+      
+      setDownloadStatus("success");
+      setDownloadMessage("PDF downloaded successfully");
+    } catch (error) {
+      console.error("PDF generation error:", error);
+      setDownloadStatus("error");
+      setDownloadMessage("PDF download failed. Please try again.");
     } finally {
-      setIsSaving(false);
+      setIsDownloading(false);
+      setTimeout(() => {
+        setDownloadMessage("");
+        setDownloadStatus("idle");
+      }, 4000);
     }
   };
 
-  const handlePrint = useReactToPrint({
-    contentRef: printRef,
-    documentTitle: resumeData.personalInfo.fullName
-      ? `${resumeData.personalInfo.fullName}_Resume`
-      : "My_Resume",
-  });
+  const handleShareLink = () => {
+    setShareMessage("Coming soon");
+    setTimeout(() => setShareMessage(""), 3000);
+  };
 
   /* Completion checklist */
   const checks = [
@@ -111,43 +138,68 @@ export default function FinalizeStep() {
         )}
       </div>
 
-      {/* Download card */}
-      <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-        <h3 className="text-base font-bold text-slate-900 mb-1">Download Your Resume</h3>
-        <p className="text-sm text-slate-400 mb-5">Save as a PDF — ready to send to employers!</p>
+      {/* Redesigned Download Card */}
+      <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] relative overflow-hidden flex flex-col items-center text-center">
+        {/* Background Accent */}
+        <div className="absolute top-0 w-full h-1.5 bg-gradient-to-r from-blue-500 to-indigo-600"></div>
+        
+        {/* Icon Header */}
+        <div className="mb-4 mt-2 grid h-14 w-14 place-items-center rounded-full bg-blue-50 border border-blue-100 text-blue-600">
+          <FileDown className="h-6 w-6" />
+        </div>
+        
+        <h3 className="text-xl font-bold text-slate-900 mb-2">Download Your Resume</h3>
+        <p className="text-sm text-slate-500 mb-8 max-w-sm">Save as a PDF — ready to send to employers!</p>
 
         {/* Hidden printable resume */}
-        <div className="hidden print:block">
-          <div ref={printRef}>
+        <div className="hidden print:block w-[210mm] min-h-[297mm]">
+          <div ref={printRef} className="w-full h-full bg-white">
             <LivePreview accentColor={resumeData.accentColor} />
           </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-3">
+        <div className="flex flex-col w-full max-w-sm gap-3">
           <button
-            onClick={() => handlePrint()}
-            className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-slate-900 px-6 py-3.5 text-sm font-bold text-white shadow-md transition hover:bg-black"
+            onClick={handleDownloadPdf}
+            disabled={isDownloading}
+            className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-4 text-[15px] font-bold text-white shadow-lg shadow-blue-600/20 transition-all hover:bg-blue-700 hover:-translate-y-0.5 disabled:opacity-80 disabled:pointer-events-none"
           >
-            <Download className="h-4 w-4" /> Download PDF
+            <Download className="h-5 w-5" /> 
+            {isDownloading ? "Preparing PDF..." : "Download PDF"}
           </button>
+          
           <button 
-            onClick={handleSaveToCloud}
-            disabled={isSaving}
-            className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 text-sm font-bold text-white shadow-md transition hover:bg-blue-700 disabled:opacity-70"
+            onClick={handleShareLink}
+            className="inline-flex w-full items-center justify-center gap-2 rounded-xl border-2 border-slate-200 bg-white px-6 py-3.5 text-[15px] font-bold text-slate-700 transition hover:bg-slate-50 hover:border-slate-300"
           >
-            <Cloud className="h-4 w-4" /> {isSaving ? "Saving..." : "Save to Cloud"}
+            <Share2 className="h-4 w-4 text-slate-500" /> Share Resume Link
           </button>
         </div>
 
-        {saveMessage && (
-          <p className={`mt-4 text-xs font-bold text-center ${saveMessage.includes("success") ? "text-emerald-600" : "text-amber-600"}`}>
-            {saveMessage}
-          </p>
-        )}
+        {/* Download Status Messages */}
+        <div className="min-h-[24px] mt-4">
+          {downloadMessage && (
+            <p className={`text-sm font-semibold transition-all ${
+              downloadStatus === "success" ? "text-emerald-600" : 
+              downloadStatus === "error" ? "text-red-600" : 
+              "text-blue-600 animate-pulse"
+            }`}>
+              {downloadMessage}
+            </p>
+          )}
+          {shareMessage && !downloadMessage && (
+            <p className="text-sm font-semibold text-slate-600">
+              {shareMessage}
+            </p>
+          )}
+        </div>
 
-        <p className="mt-4 text-xs text-slate-400 text-center">
-          Your resume is automatically saved in this browser session.
-        </p>
+        <div className="mt-4 pt-4 border-t border-slate-100 w-full">
+          <p className="text-[13px] text-slate-400 font-medium">
+            <CheckCircle2 className="inline h-3.5 w-3.5 text-emerald-500 mr-1" />
+            Your resume is automatically saved in this browser session.
+          </p>
+        </div>
       </div>
 
       {/* ATS tips */}
