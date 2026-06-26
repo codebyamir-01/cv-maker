@@ -4,7 +4,8 @@ import { useRef, useState } from "react";
 import { Download, CheckCircle2, AlertCircle, Star, Share2, FileDown } from "lucide-react";
 import { useResumeStore } from "@/store/useResumeStore";
 import LivePreview from "@/components/builder/LivePreview";
-import html2pdf from "html2pdf.js";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 export default function FinalizeStep() {
   const { resumeData } = useResumeStore();
@@ -17,6 +18,7 @@ export default function FinalizeStep() {
   const [shareMessage, setShareMessage] = useState("");
 
   const handleDownloadPdf = async () => {
+    if (isDownloading) return; // Prevent multiple clicks freezing the UI
     if (!printRef.current) return;
     
     setIsDownloading(true);
@@ -26,17 +28,30 @@ export default function FinalizeStep() {
     try {
       const element = printRef.current;
       
-      const opt: any = {
-        margin: 0,
-        filename: resumeData.personalInfo.fullName 
-          ? `${resumeData.personalInfo.fullName.replace(/\s+/g, '_')}_Resume.pdf` 
-          : 'My_Resume.pdf',
-        image: { type: 'jpeg', quality: 1 },
-        html2canvas: { scale: 2, useCORS: true, letterRendering: true },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-      };
+      const canvas = await html2canvas(element, {
+        scale: 2,
+        useCORS: true,
+        logging: false,
+        backgroundColor: "#ffffff",
+      });
       
-      await html2pdf().set(opt).from(element).save();
+      const imgData = canvas.toDataURL("image/jpeg", 1.0);
+      const pdf = new jsPDF({
+        orientation: "portrait",
+        unit: "mm",
+        format: "a4",
+      });
+      
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+      
+      pdf.addImage(imgData, "JPEG", 0, 0, pdfWidth, pdfHeight);
+      
+      const filename = resumeData.personalInfo.fullName 
+          ? `${resumeData.personalInfo.fullName.replace(/\s+/g, '_')}_Resume.pdf` 
+          : 'Resume.pdf'; // Fallback if name missing
+          
+      pdf.save(filename);
       
       setDownloadStatus("success");
       setDownloadMessage("PDF downloaded successfully");

@@ -121,14 +121,40 @@ export default function BuilderPage() {
   // On mobile, preview panel is hidden by default to boost FCP/LCP
   const [showPreviewOnMobile, setShowPreviewOnMobile] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [hasMounted, setHasMounted] = useState(false);
 
   useEffect(() => {
+    setHasMounted(true);
+    
+    // Restore step
+    const savedStep = sessionStorage.getItem("builderCurrentStep");
+    if (savedStep !== null) {
+      const parsed = parseInt(savedStep, 10);
+      if (!isNaN(parsed) && parsed >= 0 && parsed < STEPS.length) {
+        setStepIdx(parsed);
+      }
+    }
+    
     const w = window.innerWidth;
     const mobile = w < 1024;
     setIsMobile(mobile);
     if (w < 640) setZoom(40);
     else if (w < 1024) setZoom(50);
   }, []);
+
+  useEffect(() => {
+    if (hasMounted) {
+      sessionStorage.setItem("builderCurrentStep", stepIdx.toString());
+    }
+  }, [stepIdx, hasMounted]);
+
+  if (!hasMounted) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#f8fafc]">
+        <div className="w-10 h-10 border-4 border-blue-500/30 border-t-blue-500 rounded-full animate-spin" />
+      </div>
+    );
+  }
 
   const accentColor = resumeData.accentColor ?? "#0d9488";
 
