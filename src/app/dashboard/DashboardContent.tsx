@@ -4,12 +4,51 @@ import Link from "next/link";
 import { Plus, FileText, Upload, Clock, TrendingUp, Sparkles, Edit, ChevronRight, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useState } from "react";
+import { useSession } from "next-auth/react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { Loader2 } from "lucide-react";
 
-export default function DashboardContent({ user, resumes }: { user: any, resumes: any[] }) {
+export default function DashboardContent() {
   const router = useRouter();
+  const { data: session, status } = useSession();
+  const [resumes, setResumes] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
   const [deletingId, setDeletingId] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchResumes() {
+      try {
+        const res = await fetch("/api/resumes");
+        if (res.ok) {
+          const data = await res.json();
+          setResumes(data.resumes || []);
+        }
+      } catch (error) {
+        console.error("Error fetching resumes:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    if (status === "authenticated") {
+      fetchResumes();
+    } else if (status === "unauthenticated") {
+      router.push("/login");
+    }
+  }, [status, router]);
+
+  if (status === "loading" || loading) {
+    return (
+      <div className="flex h-[60vh] w-full items-center justify-center p-12 animate-fade-in-up">
+        <div className="flex flex-col items-center gap-4">
+          <Loader2 className="h-10 w-10 animate-spin text-blue-600" />
+          <p className="text-sm font-semibold text-slate-500 animate-pulse">Loading dashboard...</p>
+        </div>
+      </div>
+    );
+  }
+
+  const user = session?.user;
 
   const averageAtsScore = resumes.length > 0
     ? Math.round(resumes.reduce((acc, curr) => acc + (curr.atsScore || 0), 0) / resumes.length)
@@ -20,7 +59,7 @@ export default function DashboardContent({ user, resumes }: { user: any, resumes
     setDeletingId(id);
     try {
       await fetch(`/api/resumes/${id}`, { method: "DELETE" });
-      router.refresh();
+      setResumes(prev => prev.filter(r => r.id !== id));
     } catch {
       // silent
     } finally {
