@@ -142,7 +142,7 @@ export default function AtsClassic({ resumeData, accentColor = "#0d9488" }: Prop
                 <div className="flex justify-between items-baseline">
                   <h3 className="font-bold text-[12px] text-slate-900">{proj.name}</h3>
                   {proj.link && (
-                    <a href={proj.link} className="text-[11px] text-blue-600 underline">
+                    <a href={proj.link} className="text-[11px] text-slate-600 underline">
                       {proj.link.replace(/^https?:\/\//, '')}
                     </a>
                   )}
@@ -178,7 +178,7 @@ export default function AtsClassic({ resumeData, accentColor = "#0d9488" }: Prop
                 <div className="flex justify-between items-baseline">
                   <p className="text-[11px] italic text-slate-600">{cert.issuer}</p>
                   {cert.link && (
-                    <a href={cert.link} className="text-[11px] text-blue-600 underline">View Credential</a>
+                    <a href={cert.link} className="text-[11px] text-slate-600 underline">View Credential</a>
                   )}
                 </div>
               </div>
@@ -267,7 +267,7 @@ export default function AtsClassic({ resumeData, accentColor = "#0d9488" }: Prop
                 <div className="flex justify-between items-baseline mb-1">
                   <p className="text-[11px] italic text-slate-600">{pub.publisher}</p>
                   {pub.link && (
-                    <a href={pub.link} className="text-[11px] text-blue-600 underline">View Publication</a>
+                    <a href={pub.link} className="text-[11px] text-slate-600 underline">View Publication</a>
                   )}
                 </div>
                 {pub.description && (

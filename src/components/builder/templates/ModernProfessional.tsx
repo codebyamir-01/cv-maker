@@ -15,7 +15,7 @@ export default function ModernProfessional({ resumeData }: Props) {
           {personalInfo.fullName || "YOUR FULL NAME"}
         </h1>
         {personalInfo.jobTitle && (
-          <p className="text-xl text-blue-300 font-medium tracking-wide">
+          <p className="text-xl text-slate-300 font-medium tracking-wide">
             {personalInfo.jobTitle}
           </p>
         )}
@@ -179,8 +179,8 @@ export default function ModernProfessional({ resumeData }: Props) {
                     <div className="flex justify-between items-center mb-1">
                       <h3 className="font-bold text-lg text-slate-900">{proj.name}</h3>
                       {proj.link && (
-                        <a href={proj.link} className="text-sm text-blue-600 underline">
-                          Link
+                        <a href={proj.link} className="text-sm text-slate-600 underline">
+                          {proj.link.replace(/^https?:\/\//, '')}
                         </a>
                       )}
                     </div>
@@ -258,8 +258,8 @@ export default function ModernProfessional({ resumeData }: Props) {
                     <div className="flex justify-between items-center mb-2">
                       <div className="text-sm text-slate-700 font-semibold">{pub.publisher}</div>
                       {pub.link && (
-                        <a href={pub.link} className="text-sm text-blue-600 underline">
-                          View
+                        <a href={pub.link} className="text-sm text-slate-600 underline">
+                          View Publication
                         </a>
                       )}
                     </div>

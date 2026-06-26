@@ -113,7 +113,7 @@ export default function Aether({ resumeData, accentColor = "#0f172a" }: Props) {
                   <div className="absolute w-2.5 h-2.5 rounded-full -left-[6px] top-1" style={{ backgroundColor: accentColor }} />
                   <div className="flex justify-between items-center mb-1">
                     <h3 className="font-bold text-sm text-slate-900">{proj.name}</h3>
-                    {proj.link && <span className="text-xs text-blue-600 underline">{proj.link.replace(/^https?:\/\//, '')}</span>}
+                    {proj.link && <span className="text-xs text-slate-600 underline">{proj.link.replace(/^https?:\/\//, '')}</span>}
                   </div>
                   {proj.techStack && <div className="text-[11px] font-semibold text-slate-500 mb-2">{proj.techStack}</div>}
                   <p className="text-xs leading-relaxed text-slate-600 whitespace-pre-wrap">{proj.description}</p>
@@ -177,7 +177,7 @@ export default function Aether({ resumeData, accentColor = "#0f172a" }: Props) {
                   </div>
                   <div className="flex justify-between items-center mb-2">
                     <div className="text-[11px] font-semibold text-slate-500">{pub.publisher}</div>
-                    {pub.link && <span className="text-xs text-blue-600 underline">View</span>}
+                    {pub.link && <span className="text-xs text-slate-600 underline">View</span>}
                   </div>
                   <p className="text-xs leading-relaxed text-slate-600 whitespace-pre-wrap">{pub.description}</p>
                 </div>

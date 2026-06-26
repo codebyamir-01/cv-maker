@@ -56,7 +56,8 @@ interface Props {
 // not on every parent state update (typing, zoom, etc.)
 const LivePreview = memo(function LivePreview({ accentColor }: Props) {
   const { resumeData } = useResumeStore();
-  const color = accentColor ?? resumeData.accentColor ?? "#0d9488";
+  // Force black color for ALL templates as requested by the user
+  const color = "#000000";
 
   const renderTemplate = () => {
     switch (resumeData.templateId) {

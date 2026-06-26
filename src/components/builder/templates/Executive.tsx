@@ -98,7 +98,7 @@ export default function Executive({ resumeData, accentColor = "#1e293b" }: Props
                 <div key={proj.id} className="mb-5">
                   <div className="flex justify-between items-baseline mb-1">
                     <h3 className="font-bold text-sm text-slate-900">{proj.name}</h3>
-                    {proj.link && <span className="text-xs text-blue-600 underline">{proj.link.replace(/^https?:\/\//, '')}</span>}
+                    {proj.link && <span className="text-xs text-slate-600 underline">{proj.link.replace(/^https?:\/\//, '')}</span>}
                   </div>
                   {proj.techStack && <div className="text-[11px] font-semibold text-slate-600 mb-2">{proj.techStack}</div>}
                   <p className="text-xs leading-relaxed text-slate-700 whitespace-pre-wrap">{proj.description}</p>
@@ -150,7 +150,7 @@ export default function Executive({ resumeData, accentColor = "#1e293b" }: Props
                   </div>
                   <div className="flex justify-between items-baseline mb-2">
                     <div className="text-xs font-semibold text-slate-700 italic">{pub.publisher}</div>
-                    {pub.link && <span className="text-xs text-blue-600 underline">View Publication</span>}
+                    {pub.link && <span className="text-xs text-slate-600 underline">View Publication</span>}
                   </div>
                   <p className="text-xs leading-relaxed text-slate-700 whitespace-pre-wrap">{pub.description}</p>
                 </div>
