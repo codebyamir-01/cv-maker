@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { Download, CheckCircle2, AlertCircle, Star, Share2, FileDown } from "lucide-react";
 import { useResumeStore } from "@/store/useResumeStore";
 import LivePreview from "@/components/builder/LivePreview";
-import html2canvas from "html2canvas";
+import domtoimage from "dom-to-image-more";
 import jsPDF from "jspdf";
 
 export default function FinalizeStep() {
@@ -28,14 +28,22 @@ export default function FinalizeStep() {
     try {
       const element = printRef.current;
       
-      const canvas = await html2canvas(element, {
-        scale: 2,
-        useCORS: true,
-        logging: true, // Enable logging to see the exact issue in console
-        backgroundColor: "#ffffff",
-      });
+      // Wait a moment for any lazy images/fonts to settle
+      await new Promise(r => setTimeout(r, 500));
       
-      const imgData = canvas.toDataURL("image/jpeg", 1.0);
+      const scale = 2;
+      const imgData = await domtoimage.toJpeg(element, {
+        quality: 1.0,
+        bgcolor: "#ffffff",
+        width: element.clientWidth * scale,
+        height: element.clientHeight * scale,
+        style: {
+          transform: `scale(${scale})`,
+          transformOrigin: 'top left',
+          width: `${element.clientWidth}px`,
+          height: `${element.clientHeight}px`
+        }
+      });
       const pdf = new jsPDF({
         orientation: "portrait",
         unit: "mm",
@@ -43,7 +51,7 @@ export default function FinalizeStep() {
       });
       
       const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+      const pdfHeight = (element.clientHeight * pdfWidth) / element.clientWidth;
       
       pdf.addImage(imgData, "JPEG", 0, 0, pdfWidth, pdfHeight);
       
