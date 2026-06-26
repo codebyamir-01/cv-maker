@@ -148,13 +148,6 @@ export default function BuilderPage() {
     }
   }, [stepIdx, hasMounted]);
 
-  if (!hasMounted) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-[#f8fafc]">
-        <div className="w-10 h-10 border-4 border-blue-500/30 border-t-blue-500 rounded-full animate-spin" />
-      </div>
-    );
-  }
 
   const accentColor = resumeData.accentColor ?? "#0d9488";
 
@@ -189,6 +182,14 @@ export default function BuilderPage() {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   }, [stepIdx]);
+
+  if (!hasMounted) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#f8fafc]">
+        <div className="w-10 h-10 border-4 border-blue-500/30 border-t-blue-500 rounded-full animate-spin" />
+      </div>
+    );
+  }
 
   const renderForm = () => {
     switch (STEPS[stepIdx].id) {
