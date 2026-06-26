@@ -45,7 +45,11 @@ export default function UploadPage() {
           skills: data.data.skills || [],
           optionalSections: {
             projects: data.data.projects || [],
-            certifications: data.data.certifications || []
+            certifications: data.data.certifications || [],
+            languages: [],
+            awards: [],
+            volunteer: [],
+            publications: []
           }
         };
 
