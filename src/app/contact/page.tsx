@@ -1,8 +1,6 @@
 import Link from "next/link";
 import { FileText, Mail, MapPin, Phone, Send, MessageSquare, Clock, CheckCircle2 } from "lucide-react";
 import type { Metadata } from "next";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 
@@ -11,12 +9,11 @@ export const metadata: Metadata = {
   description: "Get in touch with the CV Maker team. We're here to help with your resume questions, feedback, or support needs.",
 };
 
-export default async function ContactPage() {
-  const session = await getServerSession(authOptions);
+export default function ContactPage() {
   return (
     <div className="flex flex-col min-h-screen bg-[#f8fafc] font-sans">
 
-      <Navbar session={session} />
+      <Navbar />
 
       <main className="flex-1 pt-28 pb-20">
 

@@ -1,18 +1,15 @@
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, FileText, Sparkles, LayoutTemplate, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import TemplatesSectionLoader from "@/components/home/TemplatesSectionLoader";
 
-export default async function LandingPage() {
-  const session = await getServerSession(authOptions);
+export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-screen bg-[#f8fafc] font-sans selection:bg-blue-200">
 
-      <Navbar session={session} />
+      <Navbar />
       <main className="flex-1">
         {/* Hero Section – Above the fold, no lazy-load */}
         <section className="relative pt-40 pb-32 overflow-hidden flex flex-col items-center justify-center min-h-[90vh] bg-[#020617]">

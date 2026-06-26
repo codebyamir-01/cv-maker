@@ -1,8 +1,6 @@
 import Link from "next/link";
 import { FileText, Clock, ArrowRight, Tag, TrendingUp, BookOpen, Sparkles } from "lucide-react";
 import type { Metadata } from "next";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 
@@ -18,12 +16,11 @@ const POSTS = BLOG_POSTS.slice(1);
 
 const CATEGORIES = ["All", "ATS Tips", "Writing Tips", "Resume Advice", "Tech Careers", "Job Search", "Career Tips"];
 
-export default async function BlogPage() {
-  const session = await getServerSession(authOptions);
+export default function BlogPage() {
   return (
     <div className="flex flex-col min-h-screen bg-[#f8fafc] font-sans">
 
-      <Navbar session={session} />
+      <Navbar />
 
       <main className="flex-1 pt-28 pb-20">
 

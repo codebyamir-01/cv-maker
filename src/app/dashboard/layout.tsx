@@ -6,7 +6,6 @@ import { FileText, LayoutDashboard, Settings, LogOut, User, Search, Bell, Sparkl
 import { useSession, signOut } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
 
 export default function DashboardLayout({
   children,
@@ -105,12 +104,7 @@ export default function DashboardLayout({
                   }`}
                 >
                   {isActive && (
-                    <motion.div 
-                      layoutId="sidebar-active"
-                      className="absolute left-0 w-1 h-6 bg-blue-600 rounded-r-full"
-                      initial={false}
-                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                    />
+                    <div className="absolute left-0 w-1 h-6 bg-blue-600 rounded-r-full" />
                   )}
                   <Icon className={`w-5 h-5 transition-colors ${isActive ? "text-blue-600" : "text-slate-400 group-hover:text-slate-600"}`} />
                   {item.name}

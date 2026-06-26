@@ -4,7 +4,6 @@ import Link from "next/link";
 import { Plus, FileText, MoreVertical, Search, Filter, Sparkles, CheckCircle2, Copy, Trash2, Edit2, Download, AlertCircle, Eye, MoreHorizontal, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
@@ -15,8 +14,6 @@ interface Resume {
   atsScore: number | null;
 }
 
-// Fallback for toast if not installed, though shadcn usually has it.
-// We'll use a simple state-based custom toast for maximum reliability if we don't know the exact toast library.
 export default function ResumesContent() {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [resumes, setResumes] = useState<Resume[]>([]);
@@ -66,21 +63,6 @@ export default function ResumesContent() {
     }
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0, transition: { type: "spring" as const, stiffness: 300, damping: 24 } },
-  };
-
   const filteredResumes = resumes.filter((r) =>
     r.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -94,27 +76,15 @@ export default function ResumesContent() {
     <div className="space-y-5 w-full max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-6 pb-12 overflow-x-hidden">
       
       {/* Custom Toast Notification */}
-      <AnimatePresence>
-        {toastMessage && (
-          <motion.div
-            initial={{ opacity: 0, y: -50, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -20, scale: 0.9 }}
-            className="fixed top-24 left-1/2 -translate-x-1/2 z-50 bg-slate-900 text-white px-6 py-3 rounded-full shadow-2xl flex items-center gap-3"
-          >
-            <Sparkles className="w-4 h-4 text-blue-400" />
-            <span className="font-medium text-sm">{toastMessage}</span>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {toastMessage && (
+        <div className="fixed top-24 left-1/2 -translate-x-1/2 z-50 bg-slate-900 text-white px-6 py-3 rounded-full shadow-2xl flex items-center gap-3 animate-fade-in-up">
+          <Sparkles className="w-4 h-4 text-blue-400" />
+          <span className="font-medium text-sm">{toastMessage}</span>
+        </div>
+      )}
 
       {/* Header Section */}
-      <motion.div 
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
-        className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 w-full"
-      >
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 w-full animate-fade-in-up">
         <div>
           <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">My Resumes</h1>
           <p className="text-slate-500 mt-2 text-base">View and manage all your created resumes.</p>
@@ -124,15 +94,10 @@ export default function ResumesContent() {
             <Plus className="w-5 h-5 mr-2" /> Create New
           </Button>
         </Link>
-      </motion.div>
+      </div>
 
       {/* Search & Filter Section */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.2 }}
-        className="flex flex-col sm:flex-row gap-4 mb-8 w-full"
-      >
+      <div className="flex flex-col sm:flex-row gap-4 mb-8 w-full animate-fade-in-up" style={{ animationDelay: '100ms', animationFillMode: 'both' }}>
         <div className="relative flex-1 w-full group">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-blue-500 transition-colors" />
           <input 
@@ -150,15 +115,11 @@ export default function ResumesContent() {
         >
           <Filter className="w-4 h-4 mr-2" /> Filter
         </Button>
-      </motion.div>
+      </div>
 
       {/* Empty State */}
       {!loading && resumes.length === 0 && !searchQuery ? (
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="bg-white border border-slate-200 rounded-3xl p-12 text-center max-w-2xl mx-auto shadow-sm mt-12 flex flex-col items-center"
-        >
+        <div className="bg-white border border-slate-200 rounded-3xl p-12 text-center max-w-2xl mx-auto shadow-sm mt-12 flex flex-col items-center animate-fade-in-up" style={{ animationDelay: '200ms', animationFillMode: 'both' }}>
           <div className="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mb-6">
             <FileText className="w-10 h-10 text-blue-500" />
           </div>
@@ -169,15 +130,10 @@ export default function ResumesContent() {
               <Plus className="w-5 h-5 mr-2" /> Create New Resume
             </Button>
           </Link>
-        </motion.div>
+        </div>
       ) : (
         /* Resume Cards Grid */
-        <motion.div 
-          variants={containerVariants}
-          initial="hidden"
-          animate="show"
-          className="grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(280px,1fr))] w-full"
-        >
+        <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(280px,1fr))] w-full">
           {loading ? (
             // Skeleton Loader
             Array.from({ length: 3 }).map((_, i) => (
@@ -196,12 +152,13 @@ export default function ResumesContent() {
             ))
           ) : filteredResumes.length > 0 ? (
             // Existing Resumes
-            filteredResumes.map((resume) => {
+            filteredResumes.map((resume, idx) => {
               const score = resume.atsScore || 0;
               const hasScore = score > 0;
+              const delay = `${150 + idx * 50}ms`;
               
               return (
-                <motion.div key={resume.id} variants={itemVariants} className="min-w-0 flex h-full">
+                <div key={resume.id} className="min-w-0 flex h-full animate-fade-in-up" style={{ animationDelay: delay, animationFillMode: 'both' }}>
                   <Card className="w-full border border-slate-200/60 shadow-sm hover:shadow-xl hover:shadow-blue-900/5 transition-all duration-300 group relative flex flex-col h-full min-h-[260px] rounded-2xl bg-white hover:-translate-y-1">
                     
                     {/* Thumbnail Area */}
@@ -280,7 +237,7 @@ export default function ResumesContent() {
                       </div>
                     </CardContent>
                   </Card>
-                </motion.div>
+                </div>
               );
             })
           ) : (
@@ -291,7 +248,7 @@ export default function ResumesContent() {
 
           {/* Create New Card (moved to end) */}
           {!loading && (
-            <motion.div variants={itemVariants} className="min-w-0 flex h-full">
+            <div className="min-w-0 flex h-full animate-fade-in-up" style={{ animationDelay: `${150 + filteredResumes.length * 50}ms`, animationFillMode: 'both' }}>
               <Link href="/builder" className="w-full block outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-2xl h-full min-h-[260px]">
                 <Card className="border border-dashed border-blue-200 shadow-none hover:border-blue-400 hover:bg-blue-50/50 transition-all duration-300 h-full flex flex-col items-center justify-center group rounded-2xl cursor-pointer hover:-translate-y-1 bg-slate-50/30 p-6">
                   <div className="w-16 h-16 bg-blue-50 group-hover:bg-blue-100 rounded-full flex items-center justify-center mb-4 transition-colors">
@@ -301,18 +258,13 @@ export default function ResumesContent() {
                   <p className="text-[13px] text-slate-500 mt-1.5 text-center px-2">Start from scratch using our guided builder</p>
                 </Card>
               </Link>
-            </motion.div>
+            </div>
           )}
-        </motion.div>
+        </div>
       )}
 
       {/* Bottom CTA Section */}
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="mt-8"
-      >
+      <div className="mt-8 animate-fade-in-up" style={{ animationDelay: '400ms', animationFillMode: 'both' }}>
         <Card className="bg-gradient-to-br from-blue-50 to-indigo-50/50 border border-blue-100/50 rounded-3xl overflow-hidden relative shadow-sm">
           <div className="absolute top-0 right-0 p-6 opacity-10 pointer-events-none">
             <Sparkles className="w-24 h-24 text-blue-600" />
@@ -332,7 +284,7 @@ export default function ResumesContent() {
             </Button>
           </CardContent>
         </Card>
-      </motion.div>
+      </div>
 
     </div>
   );

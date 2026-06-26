@@ -1,8 +1,6 @@
 import Link from "next/link";
 import { FileText, Star, CheckCircle2, Sparkles, Download, Eye } from "lucide-react";
 import type { Metadata } from "next";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import { Button } from "@/components/ui/button";
@@ -112,12 +110,11 @@ const TEMPLATES = [
 
 const CATEGORIES = ["All", "Professional", "Modern", "Tech"];
 
-export default async function TemplatesPage() {
-  const session = await getServerSession(authOptions);
+export default function TemplatesPage() {
   return (
     <div className="flex flex-col min-h-screen bg-[#f8fafc] font-sans">
 
-      <Navbar session={session} />
+      <Navbar />
 
       <main className="flex-1 pt-28 pb-20">
 

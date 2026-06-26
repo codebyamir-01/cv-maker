@@ -41,7 +41,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
-  const session = await getServerSession(authOptions);
   
   const postIndex = BLOG_POSTS.findIndex((p) => p.slug === slug);
   const post = BLOG_POSTS[postIndex];
@@ -57,7 +56,7 @@ export default async function BlogPostPage({ params }: Props) {
 
   return (
     <div className="flex flex-col min-h-screen bg-[#f8fafc] font-sans">
-      <Navbar session={session} />
+      <Navbar />
 
       <main className="flex-1 pt-28 pb-20">
         <article className="container mx-auto px-6 max-w-4xl">

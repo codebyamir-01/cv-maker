@@ -4,13 +4,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useSession } from "next-auth/react";
 
-interface NavbarProps {
-  session: any;
-}
-
-export function Navbar({ session }: NavbarProps) {
+export function Navbar() {
   const pathname = usePathname();
+  const { data: session, status } = useSession();
 
   const links = [
     { href: "/", label: "Home" },
@@ -48,7 +46,9 @@ export function Navbar({ session }: NavbarProps) {
         </nav>
         
         <div className="flex items-center gap-4">
-          {session ? (
+          {status === "loading" ? (
+            <div className="w-[120px] h-11 bg-slate-200 animate-pulse rounded-full" />
+          ) : session ? (
             <Link href="/dashboard">
               <Button className="bg-slate-900 hover:bg-black text-white rounded-full px-8 h-11 text-[15px] font-semibold shadow-md hover:shadow-lg transition-all">
                 Dashboard
