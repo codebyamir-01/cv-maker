@@ -5,8 +5,10 @@ import Link from "next/link";
 import {
   ArrowLeft, ArrowRight, ChevronLeft, ChevronRight,
   Download, CheckCircle2, FileText, ZoomIn, ZoomOut,
-  RotateCcw, Sparkles, Lightbulb, Eye
+  RotateCcw, Sparkles, Lightbulb, Eye, Loader2
 } from "lucide-react";
+import domtoimage from "dom-to-image-more";
+import jsPDF from "jspdf";
 import { Footer } from "@/components/layout/Footer";
 import { useResumeStore } from "@/store/useResumeStore";
 import { useReactToPrint } from "react-to-print";
@@ -120,6 +122,7 @@ export default function BuilderPage() {
   const [zoom, setZoom] = useState(60);
   // On mobile, preview panel is hidden by default to boost FCP/LCP
   const [showPreviewOnMobile, setShowPreviewOnMobile] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [hasMounted, setHasMounted] = useState(false);
 
@@ -151,12 +154,47 @@ export default function BuilderPage() {
 
   const accentColor = resumeData.accentColor ?? "#0d9488";
 
-  const handlePrint = useReactToPrint({
-    contentRef: printRef,
-    documentTitle: resumeData.personalInfo.fullName
-      ? `${resumeData.personalInfo.fullName}_Resume`
-      : "Resume",
-  });
+  const handleDownloadPdf = async () => {
+    if (isDownloading) return;
+    if (!printRef.current) return;
+    
+    setIsDownloading(true);
+    try {
+      const element = printRef.current;
+      await new Promise(r => setTimeout(r, 500));
+      
+      const scale = 2;
+      const imgData = await domtoimage.toJpeg(element, {
+        quality: 1.0,
+        bgcolor: "#ffffff",
+        width: element.clientWidth * scale,
+        height: element.clientHeight * scale,
+        style: {
+          transform: `scale(${scale})`,
+          transformOrigin: 'top left',
+          width: `${element.clientWidth}px`,
+          height: `${element.clientHeight}px`
+        }
+      });
+      
+      const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (element.clientHeight * pdfWidth) / element.clientWidth;
+      
+      pdf.addImage(imgData, "JPEG", 0, 0, pdfWidth, pdfHeight);
+      
+      const filename = resumeData.personalInfo.fullName 
+          ? `${resumeData.personalInfo.fullName.replace(/\s+/g, '_')}_Resume.pdf` 
+          : 'Resume.pdf';
+          
+      pdf.save(filename);
+    } catch (error: any) {
+      console.error("PDF generation error:", error);
+      alert(`Download failed: ${error.message || 'Unknown error'}`);
+    } finally {
+      setIsDownloading(false);
+    }
+  };
 
   const templatesList = ["ats-classic", "modern", "developer", "monochrome", "aether", "executive"];
   const cycleTemplate = useCallback((dir: 1 | -1) => {
@@ -351,8 +389,13 @@ export default function BuilderPage() {
 
               {/* Actions */}
               <div className="mb-4 flex flex-wrap items-center justify-end gap-2">
-                <button onClick={() => handlePrint()} className="inline-flex items-center gap-1.5 rounded-lg bg-slate-900 px-3 py-1.5 text-xs font-bold text-white transition hover:bg-black active:scale-[0.98]">
-                  <Download className="h-3.5 w-3.5" /> Download
+                <button 
+                  onClick={handleDownloadPdf} 
+                  disabled={isDownloading}
+                  className="inline-flex items-center gap-1.5 rounded-lg bg-slate-900 px-3 py-1.5 text-xs font-bold text-white transition hover:bg-black active:scale-[0.98] disabled:opacity-70 disabled:pointer-events-none"
+                >
+                  {isDownloading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Download className="h-3.5 w-3.5" />}
+                  {isDownloading ? "Downloading..." : "Download"}
                 </button>
               </div>
 
