@@ -146,12 +146,12 @@ export default function DashboardLayout({
         <header className={`h-20 flex items-center justify-between px-8 sticky top-0 z-10 transition-all duration-300 ${isScrolled ? "bg-white/80 backdrop-blur-md border-b border-slate-200/50 shadow-sm" : "bg-transparent"}`}>
           
           {/* Mobile Header elements (shown only on small screens) */}
-          <div className="flex items-center md:hidden gap-3">
-             <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center">
+          <Link href="/" className="flex items-center md:hidden gap-3 active:opacity-70 transition-opacity">
+             <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center shadow-sm">
                 <FileText className="text-white w-4 h-4" />
              </div>
-             <span className="font-bold text-lg text-slate-900">CV Maker</span>
-          </div>
+             <span className="font-bold text-lg text-slate-900 tracking-tight">CV Maker</span>
+          </Link>
 
           <div className="hidden md:flex items-center flex-1 max-w-xl">
             <div className="relative w-full">
@@ -207,28 +207,36 @@ export default function DashboardLayout({
         </header>
 
         {/* Page Content */}
-        <main id="main-content" className="flex-1 overflow-x-hidden overflow-y-auto pb-20 md:pb-0">
+        <main id="main-content" className="flex-1 overflow-x-hidden overflow-y-auto pb-28 md:pb-0">
           {children}
         </main>
       </div>
 
-      {/* Mobile Bottom Navigation */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 z-50 px-6 py-3 flex justify-between items-center shadow-[0_-4px_24px_rgba(0,0,0,0.04)]">
-        {navItems.map((item) => {
-          const isActive = pathname === item.href;
-          const Icon = item.icon;
-          return (
-            <Link 
-              key={item.name} 
-              href={item.href}
-              className={`flex flex-col items-center gap-1 ${isActive ? "text-blue-600" : "text-slate-400 hover:text-slate-600"}`}
-            >
-              <Icon className={`w-5 h-5 ${isActive ? "stroke-[2.5]" : ""}`} />
-              <span className="text-[10px] font-semibold">{item.name}</span>
-            </Link>
-          );
-        })}
-      </nav>
+      {/* Mobile Bottom Navigation (Floating Dock) */}
+      <div className="md:hidden fixed bottom-5 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
+        <nav className="pointer-events-auto flex items-center justify-between w-full max-w-[360px] bg-white/90 backdrop-blur-xl border border-slate-200/50 shadow-[0_8px_32px_rgba(0,0,0,0.08)] rounded-2xl p-1.5">
+          {navItems.map((item) => {
+            const isActive = pathname === item.href;
+            const Icon = item.icon;
+            return (
+              <Link 
+                key={item.name} 
+                href={item.href}
+                className={`relative flex flex-col items-center justify-center w-full h-14 rounded-xl transition-all duration-300 ${
+                  isActive 
+                    ? "bg-blue-600 text-white shadow-md shadow-blue-500/20" 
+                    : "text-slate-500 hover:text-slate-900 active:bg-slate-100"
+                }`}
+              >
+                <Icon className={`w-5 h-5 mb-0.5 ${isActive ? "stroke-[2.5]" : "stroke-2"}`} />
+                <span className={`text-[10px] font-semibold tracking-wide ${isActive ? "opacity-100" : "opacity-80"}`}>
+                  {item.name}
+                </span>
+              </Link>
+            );
+          })}
+        </nav>
+      </div>
     </div>
   );
 }
