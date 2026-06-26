@@ -15,6 +15,7 @@ export default function DashboardContent() {
   const [resumes, setResumes] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [creating, setCreating] = useState(false);
 
   useEffect(() => {
     async function fetchResumes() {
@@ -67,6 +68,35 @@ export default function DashboardContent() {
     }
   };
 
+  const handleCreateNew = async () => {
+    if (creating) return;
+    setCreating(true);
+    try {
+      const res = await fetch("/api/resumes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title: "My New Resume",
+          templateId: "ats-classic"
+        })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.resume && data.resume.id) {
+          router.push(`/builder?id=${data.resume.id}`);
+          return;
+        }
+      }
+      // Fallback
+      router.push("/builder");
+    } catch (error) {
+      console.error(error);
+      router.push("/builder");
+    } finally {
+      setCreating(false);
+    }
+  };
+
   return (
     <div className="p-6 md:p-8 max-w-7xl mx-auto space-y-8">
 
@@ -107,25 +137,25 @@ export default function DashboardContent() {
 
         {/* Action Cards */}
         <div className="grid sm:grid-cols-2 gap-6 animate-fade-in-up-delay-2">
-          <Link href="/builder" className="block h-full group">
+          <button onClick={handleCreateNew} disabled={creating} className="block h-full group text-left">
             <Card className="h-full bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white border-0 shadow-[0_8px_30px_rgb(37,99,235,0.2)] overflow-hidden relative transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_40px_rgb(37,99,235,0.3)]">
               <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity group-hover:scale-110 duration-500">
                 <FileText className="w-32 h-32 transform rotate-12" />
               </div>
               <CardHeader className="relative z-10 pb-2">
                 <div className="w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center mb-4">
-                  <Plus className="w-6 h-6 text-white" />
+                  {creating ? <Loader2 className="w-6 h-6 text-white animate-spin" /> : <Plus className="w-6 h-6 text-white" />}
                 </div>
                 <CardTitle className="text-2xl font-bold text-white">Create New Resume</CardTitle>
               </CardHeader>
               <CardContent className="relative z-10">
                 <p className="text-blue-100/90 mb-6 font-medium leading-relaxed">Build an ATS-optimized resume from scratch using our guided step-by-step wizard.</p>
                 <div className="inline-flex items-center text-white font-semibold group-hover:underline decoration-2 underline-offset-4">
-                  Start Building <ChevronRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
+                  {creating ? "Creating..." : "Start Building"} <ChevronRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
                 </div>
               </CardContent>
             </Card>
-          </Link>
+          </button>
 
           <Link href="/upload" className="block h-full group">
             <Card className="h-full bg-white/60 backdrop-blur-xl border border-slate-200/60 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 overflow-hidden relative">

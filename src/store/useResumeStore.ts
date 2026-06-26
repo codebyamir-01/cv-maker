@@ -120,7 +120,10 @@ export interface ResumeData {
 }
 
 interface ResumeState {
+  databaseId: string | null;
   resumeData: ResumeData;
+  setDatabaseId: (id: string | null) => void;
+  setResumeData: (data: ResumeData) => void;
   updatePersonalInfo: (data: Partial<PersonalInfo>) => void;
   updateSummary: (summary: string) => void;
   
@@ -186,9 +189,14 @@ const initialData: ResumeData = {
 export const useResumeStore = create<ResumeState>()(
   persist(
     (set) => ({
+      databaseId: null,
       resumeData: initialData,
 
-      updatePersonalInfo: (data) => 
+      setDatabaseId: (id) => set({ databaseId: id }),
+      
+      setResumeData: (data) => set({ resumeData: data }),
+
+      updatePersonalInfo: (data) =>
         set((state) => ({
           resumeData: {
             ...state.resumeData,

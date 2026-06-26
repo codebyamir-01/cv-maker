@@ -102,16 +102,116 @@ const SummaryForm = memo(function SummaryForm() {
   );
 });
 
-/* ─── Template search params loader ─────────────────────────────── */
-function TemplateLoader() {
+/* ─── DataLoader and AutoSaver ───────────────────────────────────── */
+function DataLoader() {
   const searchParams = useSearchParams();
-  const { updateTemplateId } = useResumeStore();
+  const { updateTemplateId, setDatabaseId, setResumeData, databaseId } = useResumeStore();
+  
   useEffect(() => {
     const t = searchParams.get("t");
     if (t) updateTemplateId(t);
   }, [searchParams, updateTemplateId]);
+
+  useEffect(() => {
+    const id = searchParams.get("id");
+    if (id && id !== databaseId) {
+      setDatabaseId(id);
+      fetch(`/api/resumes`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.resumes) {
+            const resume = data.resumes.find((r: any) => r.id === id);
+            if (resume) {
+              setResumeData({
+                personalInfo: resume.personalInfo || {},
+                summary: resume.summary || "",
+                experience: resume.experience || [],
+                education: resume.education || [],
+                skills: resume.skills || [],
+                optionalSections: {
+                  projects: resume.projects || [],
+                  certifications: resume.certifications || [],
+                  languages: resume.languages || [],
+                  awards: resume.customSections?.awards || [],
+                  volunteer: resume.customSections?.volunteer || [],
+                  publications: resume.customSections?.publications || [],
+                },
+                templateId: resume.templateId || "ats-classic",
+                accentColor: resume.accentColor || "#0d9488"
+              });
+            }
+          }
+        })
+        .catch(err => console.error("Error loading resume:", err));
+    }
+  }, [searchParams, setDatabaseId, setResumeData, databaseId]);
+
   return null;
 }
+
+function AutoSaver() {
+  const { resumeData, databaseId } = useResumeStore();
+  const [isSaving, setIsSaving] = useState(false);
+  
+  // Track previous resume data to avoid unnecessary saves on first load
+  const prevDataRef = useRef(JSON.stringify(resumeData));
+
+  useEffect(() => {
+    const currentDataStr = JSON.stringify(resumeData);
+    if (currentDataStr === prevDataRef.current) return;
+    
+    // Auto-save debounce
+    const handler = setTimeout(async () => {
+      setIsSaving(true);
+      try {
+        const payload: any = { ...resumeData };
+        if (databaseId) payload.id = databaseId;
+        
+        const res = await fetch("/api/resumes", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        
+        // If it's a new resume, update the store with the new ID
+        // (Wait, /builder shouldn't create new resumes out of thin air, it should just save.
+        // But if there's no DB id yet, the POST will create one!)
+        if (res.ok && !databaseId) {
+          const result = await res.json();
+          if (result.resume && result.resume.id) {
+             useResumeStore.getState().setDatabaseId(result.resume.id);
+             // Update URL silently
+             window.history.replaceState(null, "", `/builder?id=${result.resume.id}`);
+          }
+        }
+      } catch (e) {
+        console.error("Auto-save failed", e);
+      } finally {
+        setIsSaving(false);
+        prevDataRef.current = currentDataStr;
+      }
+    }, 2000);
+
+    return () => clearTimeout(handler);
+  }, [resumeData, databaseId]);
+
+  return (
+    <div className="flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-600">
+      {isSaving ? (
+        <>
+          <Loader2 className="h-3 w-3 animate-spin text-emerald-500" />
+          Saving...
+        </>
+      ) : (
+        <>
+          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
+          Auto-saved
+        </>
+      )}
+    </div>
+  );
+}
+
 
 /* ─── Page ───────────────────────────────────────────────────────── */
 export default function BuilderPage() {
@@ -251,7 +351,7 @@ export default function BuilderPage() {
   return (
     <div className="min-h-screen flex flex-col bg-[#f8fafc]" style={{ fontFamily: "Inter, Arial, system-ui, sans-serif" }}>
       <Suspense fallback={null}>
-        <TemplateLoader />
+        <DataLoader />
       </Suspense>
 
       {/* ── HEADER ── */}
@@ -275,9 +375,7 @@ export default function BuilderPage() {
                 {showPreviewOnMobile ? "Hide" : "Preview"}
               </button>
             )}
-            <div className="flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-600">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
-              Auto-saved
+            <AutoSaver />
             </div>
           </div>
         </div>

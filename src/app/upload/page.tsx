@@ -37,24 +37,40 @@ export default function UploadPage() {
       const data = await res.json();
 
       if (res.ok && data.success) {
-        // Overwrite Zustand store with full extracted AI data
+        const payload = {
+          personalInfo: data.data.personalInfo || {},
+          summary: data.data.summary || "",
+          experience: data.data.experience || [],
+          education: data.data.education || [],
+          skills: data.data.skills || [],
+          optionalSections: {
+            projects: data.data.projects || [],
+            certifications: data.data.certifications || []
+          }
+        };
+
+        // Create new resume in DB
+        const saveRes = await fetch("/api/resumes", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        if (saveRes.ok) {
+          const saveData = await saveRes.json();
+          if (saveData.resume && saveData.resume.id) {
+            router.push(`/builder?id=${saveData.resume.id}`);
+            return;
+          }
+        }
+        
+        // Fallback to local store if DB save fails for some reason
         useResumeStore.setState((state) => ({
           resumeData: {
             ...state.resumeData,
-            personalInfo: { ...state.resumeData.personalInfo, ...data.data.personalInfo },
-            summary: data.data.summary || "",
-            experience: data.data.experience || [],
-            education: data.data.education || [],
-            skills: data.data.skills || [],
-            projects: data.data.projects || [],
-            optionalSections: {
-              ...state.resumeData.optionalSections,
-              certifications: data.data.certifications || []
-            }
+            ...payload
           }
         }));
-        
-        // Redirect to builder
         router.push("/builder");
       } else {
         setError(data.error || "Failed to parse resume.");
