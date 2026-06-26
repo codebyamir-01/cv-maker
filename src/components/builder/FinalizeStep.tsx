@@ -51,9 +51,23 @@ export default function FinalizeStep() {
       });
       
       const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (element.clientHeight * pdfWidth) / element.clientWidth;
+      const pageHeight = pdf.internal.pageSize.getHeight();
+      const imgHeight = (element.clientHeight * pdfWidth) / element.clientWidth;
       
-      pdf.addImage(imgData, "JPEG", 0, 0, pdfWidth, pdfHeight);
+      let heightLeft = imgHeight;
+      let position = 0;
+      
+      // First page
+      pdf.addImage(imgData, "JPEG", 0, position, pdfWidth, imgHeight);
+      heightLeft -= pageHeight;
+      
+      // Subsequent pages if content overflows
+      while (heightLeft > 0) {
+        position = position - pageHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, "JPEG", 0, position, pdfWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
       
       const filename = resumeData.personalInfo.fullName 
           ? `${resumeData.personalInfo.fullName.replace(/\s+/g, '_')}_Resume.pdf` 
