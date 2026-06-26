@@ -3,7 +3,7 @@ import { ArrowRight, CheckCircle2, FileText, Sparkles, LayoutTemplate, ShieldChe
 import { Button } from "@/components/ui/button";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
-import TemplatesSectionLoader from "@/components/home/TemplatesSectionLoader";
+import TemplatesSection from "@/components/home/TemplatesSection";
 
 export default function LandingPage() {
   return (
@@ -79,9 +79,9 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* Templates Section – Lazy loaded, client-only (below the fold) */}
+        {/* Templates Section – Server Rendered */}
         <div className="cv-below-fold">
-          <TemplatesSectionLoader />
+          <TemplatesSection />
         </div>
 
       </main>

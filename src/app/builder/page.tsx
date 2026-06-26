@@ -7,11 +7,8 @@ import {
   Download, CheckCircle2, FileText, ZoomIn, ZoomOut,
   RotateCcw, Sparkles, Lightbulb, Eye, Loader2
 } from "lucide-react";
-import domtoimage from "dom-to-image-more";
-import jsPDF from "jspdf";
 import { Footer } from "@/components/layout/Footer";
 import { useResumeStore } from "@/store/useResumeStore";
-import { useReactToPrint } from "react-to-print";
 import dynamic from "next/dynamic";
 import { useSearchParams } from "next/navigation";
 
@@ -263,6 +260,9 @@ export default function BuilderPage() {
       const element = printRef.current;
       await new Promise(r => setTimeout(r, 500));
       
+      const domtoimage = (await import("dom-to-image-more")).default;
+      const jsPDF = (await import("jspdf")).default;
+      
       const scale = 2;
       const imgData = await domtoimage.toJpeg(element, {
         quality: 1.0,
@@ -279,11 +279,23 @@ export default function BuilderPage() {
       
       const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
       const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (element.clientHeight * pdfWidth) / element.clientWidth;
+      const pageHeight = pdf.internal.pageSize.getHeight();
+      const imgHeight = (element.clientHeight * pdfWidth) / element.clientWidth;
       
-      pdf.addImage(imgData, "JPEG", 0, 0, pdfWidth, pdfHeight);
+      let heightLeft = imgHeight;
+      let position = 0;
       
-      const filename = resumeData.personalInfo.fullName 
+      pdf.addImage(imgData, "JPEG", 0, position, pdfWidth, imgHeight);
+      heightLeft -= pageHeight;
+      
+      while (heightLeft > 0) {
+        position = position - pageHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, "JPEG", 0, position, pdfWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+      
+      const filename = resumeData.personalInfo?.fullName 
           ? `${resumeData.personalInfo.fullName.replace(/\s+/g, '_')}_Resume.pdf` 
           : 'Resume.pdf';
           
@@ -527,7 +539,9 @@ export default function BuilderPage() {
                 >
                   <div style={{ width: `${A4_W}px`, transformOrigin: "top left", transform: `scale(${zoom / 100})` }}>
                     <div ref={printRef}>
-                      <LivePreview accentColor={accentColor} />
+                      {hasMounted && (!isMobile || showPreviewOnMobile) && (
+                        <LivePreview accentColor={accentColor} />
+                      )}
                     </div>
                   </div>
                 </div>
