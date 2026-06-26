@@ -33,6 +33,7 @@ export function Navbar() {
   const closeMenu = () => setIsMobileMenuOpen(false);
 
   return (
+    <>
     <header className="fixed top-0 w-full z-50 transition-all duration-300 bg-white/80 backdrop-blur-lg border-b border-slate-200/60">
       <div className="container mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2" onClick={closeMenu}>
@@ -95,6 +96,8 @@ export function Navbar() {
         </button>
       </div>
 
+    </header>
+
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
         <div className="md:hidden fixed left-0 right-0 bottom-0 top-[64px] sm:top-[80px] bg-white z-[60] overflow-y-auto border-t border-slate-100 shadow-xl">
@@ -140,6 +143,6 @@ export function Navbar() {
           </nav>
         </div>
       )}
-    </header>
+    </>
   );
 }
