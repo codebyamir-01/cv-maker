@@ -98,10 +98,18 @@ export function Navbar() {
 
     </header>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu Backdrop */}
       {isMobileMenuOpen && (
-        <div className="md:hidden fixed left-0 right-0 bottom-0 top-[64px] sm:top-[80px] bg-white z-[60] overflow-y-auto border-t border-slate-100 shadow-xl">
-          <nav className="flex flex-col p-4 sm:p-6 space-y-2">
+        <div 
+          className="md:hidden fixed inset-0 z-40 bg-slate-900/20 backdrop-blur-sm" 
+          onClick={closeMenu}
+        />
+      )}
+
+      {/* Mobile Menu Popup */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden fixed left-4 right-4 top-[72px] sm:top-[88px] bg-white rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.12)] border border-slate-100 z-[60] overflow-hidden animate-in fade-in slide-in-from-top-4 duration-200">
+          <nav className="flex flex-col p-3 space-y-1">
             {links.map((link) => {
               const isActive = pathname === link.href;
               return (
@@ -109,31 +117,31 @@ export function Navbar() {
                   key={link.href} 
                   href={link.href} 
                   onClick={closeMenu}
-                  className={`px-4 py-3 rounded-xl text-base font-bold transition-colors ${isActive ? "bg-blue-50 text-blue-700" : "text-slate-700 hover:bg-slate-50"}`}
+                  className={`px-4 py-3 rounded-xl text-sm font-bold transition-colors ${isActive ? "bg-blue-50 text-blue-700" : "text-slate-700 hover:bg-slate-50"}`}
                 >
                   {link.label}
                 </Link>
               );
             })}
             
-            <div className="pt-6 mt-4 border-t border-slate-100 flex flex-col gap-3">
+            <div className="pt-4 mt-2 border-t border-slate-100 flex flex-col gap-2 px-1 pb-1">
               {status === "loading" ? (
-                <div className="w-full h-12 bg-slate-200 animate-pulse rounded-xl" />
+                <div className="w-full h-11 bg-slate-200 animate-pulse rounded-xl" />
               ) : session ? (
                 <Link href="/dashboard" onClick={closeMenu}>
-                  <Button className="w-full bg-slate-900 text-white rounded-xl h-12 text-base font-bold">
+                  <Button className="w-full bg-slate-900 text-white rounded-xl h-11 text-sm font-bold">
                     Dashboard
                   </Button>
                 </Link>
               ) : (
                 <>
                   <Link href="/login" onClick={closeMenu}>
-                    <Button variant="outline" className="w-full rounded-xl h-12 text-base font-bold border-slate-200 text-slate-700">
+                    <Button variant="outline" className="w-full rounded-xl h-11 text-sm font-bold border-slate-200 text-slate-700">
                       Log In
                     </Button>
                   </Link>
                   <Link href="/signup" onClick={closeMenu}>
-                    <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-xl h-12 text-base font-bold">
+                    <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-xl h-11 text-sm font-bold">
                       Get Started Free
                     </Button>
                   </Link>
