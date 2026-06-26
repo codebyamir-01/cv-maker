@@ -36,25 +36,7 @@ export default function FinalizeStep() {
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
       };
       
-      // Briefly show for printing if hidden by tailwind `print:block`
-      const parent = element.parentElement;
-      if (parent) {
-        parent.classList.remove("hidden");
-        parent.classList.add("block");
-        parent.style.position = "absolute";
-        parent.style.left = "-9999px";
-        parent.style.top = "-9999px";
-      }
-      
       await html2pdf().set(opt).from(element).save();
-      
-      if (parent) {
-        parent.classList.add("hidden");
-        parent.classList.remove("block");
-        parent.style.position = "";
-        parent.style.left = "";
-        parent.style.top = "";
-      }
       
       setDownloadStatus("success");
       setDownloadMessage("PDF downloaded successfully");
@@ -151,8 +133,8 @@ export default function FinalizeStep() {
         <h3 className="text-xl font-bold text-slate-900 mb-2">Download Your Resume</h3>
         <p className="text-sm text-slate-500 mb-8 max-w-sm">Save as a PDF — ready to send to employers!</p>
 
-        {/* Hidden printable resume */}
-        <div className="hidden print:block w-[210mm] min-h-[297mm]">
+        {/* Visually hidden but accessible printable resume */}
+        <div className="absolute top-[-9999px] left-[-9999px] w-[210mm] min-h-[297mm] opacity-0 pointer-events-none">
           <div ref={printRef} className="w-full h-full bg-white">
             <LivePreview accentColor={resumeData.accentColor} />
           </div>
