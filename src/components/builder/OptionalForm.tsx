@@ -142,7 +142,7 @@ export default function OptionalForm() {
         <h2 className="text-lg font-bold text-slate-900">Optional Sections</h2>
         <p className="mt-0.5 mb-5 text-sm text-slate-400">Add extra sections to make your resume stand out.</p>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {SECTIONS.map(s => {
             const hasData = (resumeData.optionalSections?.[s.id]?.length || 0) > 0;
             const isActive = activeSections[s.id];

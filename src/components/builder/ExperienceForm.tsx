@@ -96,7 +96,7 @@ export default function ExperienceForm() {
                       placeholder="e.g. New York, USA"
                     />
                   </div>
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     <div className="space-y-2">
                       <Label>Start Date</Label>
                       <Input 

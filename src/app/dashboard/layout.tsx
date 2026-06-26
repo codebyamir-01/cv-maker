@@ -174,7 +174,7 @@ export default function DashboardLayout({
             </button>
 
             {showNotifications && (
-              <div className="absolute top-full right-0 mt-2 w-80 bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden z-50">
+              <div className="absolute top-full -right-4 sm:right-0 mt-2 w-[calc(100vw-2rem)] sm:w-80 max-w-sm bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden z-50">
                 <div className="p-4 border-b border-slate-100 flex items-center justify-between">
                   <h3 className="font-semibold text-slate-900">Notifications</h3>
                   <span className="text-xs font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded-full">1 New</span>

@@ -377,16 +377,7 @@ export default function BuilderPage() {
             <p className="text-xs text-slate-400 font-medium">Step {stepIdx + 1} of {STEPS.length} • My Resume</p>
           </div>
           <div className="flex shrink-0 items-center gap-2">
-            {/* Mobile: toggle preview button */}
-            {isMobile && (
-              <button
-                onClick={() => setShowPreviewOnMobile(v => !v)}
-                className="flex items-center gap-1.5 rounded-full bg-slate-100 px-3 py-1.5 text-xs font-semibold text-slate-600 transition hover:bg-slate-200"
-              >
-                <Eye className="h-3.5 w-3.5" />
-                {showPreviewOnMobile ? "Hide" : "Preview"}
-              </button>
-            )}
+            {/* Preview toggle moved to tabs below stepper */}
             <AutoSaver />
           </div>
         </div>
@@ -395,8 +386,8 @@ export default function BuilderPage() {
       {/* ── STEPPER ── */}
       <section className="border-b border-slate-200 bg-white">
         <div className="mx-auto max-w-[1400px] px-4 py-6 sm:px-6">
-          <div className="relative pb-2">
-            <ol className="flex w-full items-center justify-between">
+          <div className="relative pb-2 overflow-x-auto scrollbar-hide">
+            <ol className="flex w-full items-center justify-between min-w-[600px] lg:min-w-0">
               {STEPS.map((step, idx) => {
                 const done   = idx < stepIdx;
                 const active = idx === stepIdx;
@@ -442,12 +433,30 @@ export default function BuilderPage() {
         </div>
       </section>
 
+      {/* ── MOBILE TABS ── */}
+      {isMobile && (
+        <div className="flex border-b border-slate-200 bg-white sticky top-[68px] z-30">
+          <button 
+            className={`flex-1 py-3 text-sm font-bold text-center border-b-2 transition-colors ${!showPreviewOnMobile ? "border-blue-600 text-blue-700" : "border-transparent text-slate-500 hover:bg-slate-50"}`}
+            onClick={() => setShowPreviewOnMobile(false)}
+          >
+            Edit Form
+          </button>
+          <button 
+            className={`flex-1 py-3 text-sm font-bold text-center border-b-2 transition-colors ${showPreviewOnMobile ? "border-blue-600 text-blue-700" : "border-transparent text-slate-500 hover:bg-slate-50"}`}
+            onClick={() => setShowPreviewOnMobile(true)}
+          >
+            Live Preview
+          </button>
+        </div>
+      )}
+
       {/* ── MAIN ── */}
-      <main className="mx-auto w-full max-w-[1400px] px-4 py-8 sm:px-6">
+      <main className="mx-auto w-full max-w-[1400px] px-4 py-8 sm:px-6 pb-32">
         <div className="grid gap-6 lg:grid-cols-2">
 
           {/* Left column – Form */}
-          <div className="flex flex-col gap-6">
+          <div className={`flex-col gap-6 ${isMobile && showPreviewOnMobile ? "hidden" : "flex"}`}>
             {renderForm()}
 
             {/* Navigation */}
