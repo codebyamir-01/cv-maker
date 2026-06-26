@@ -22,7 +22,7 @@ export default function Developer({ resumeData }: Props) {
               </h1>
             </div>
             {personalInfo.jobTitle && (
-              <p className="text-xl font-bold text-slate-700 mb-4">
+              <p className="text-xl font-bold text-blue-700 mb-4">
                 &gt; {personalInfo.jobTitle}
               </p>
             )}
@@ -30,8 +30,8 @@ export default function Developer({ resumeData }: Props) {
             <div className="grid grid-cols-2 gap-2 text-sm font-semibold">
               {personalInfo.email && <div>Email: {personalInfo.email}</div>}
               {personalInfo.phone && <div>Phone: {personalInfo.phone}</div>}
-              {personalInfo.github && <div>GitHub: <a href={personalInfo.github} className="text-slate-700 underline">Link</a></div>}
-              {personalInfo.portfolio && <div>Portfolio: <a href={personalInfo.portfolio} className="text-slate-700 underline">Link</a></div>}
+              {personalInfo.github && <div>GitHub: <a href={personalInfo.github} className="text-blue-700 underline">Link</a></div>}
+              {personalInfo.portfolio && <div>Portfolio: <a href={personalInfo.portfolio} className="text-blue-700 underline">Link</a></div>}
             </div>
           </div>
           
@@ -67,7 +67,7 @@ export default function Developer({ resumeData }: Props) {
               {experience.map((exp) => (
                 <div key={exp.id} className="pl-4 border-l-2 border-slate-900">
                   <div className="flex flex-wrap items-center justify-between mb-1">
-                    <h3 className="font-bold text-lg text-slate-800">
+                    <h3 className="font-bold text-lg text-blue-800">
                       &lt;{exp.jobTitle} /&gt;
                     </h3>
                     <span className="text-xs font-bold bg-slate-200 px-2 py-1 rounded">
@@ -120,7 +120,7 @@ export default function Developer({ resumeData }: Props) {
           ) : (
             <div className="flex flex-wrap gap-2 pl-4 border-l-2 border-slate-900">
               {resumeData.skills.map((skill) => (
-                <span key={skill.id} className="text-sm font-bold bg-slate-100 text-slate-800 border border-slate-300 px-2 py-1 rounded">
+                <span key={skill.id} className="text-sm font-bold bg-blue-50 text-blue-800 border border-blue-200 px-2 py-1 rounded">
                   {skill.name}
                 </span>
               ))}
@@ -140,7 +140,7 @@ export default function Developer({ resumeData }: Props) {
                   <div className="flex flex-wrap items-center justify-between mb-1">
                     <h3 className="font-bold text-lg text-slate-900">{proj.name}</h3>
                     {proj.link && (
-                      <a href={proj.link} className="text-xs font-bold text-slate-700 underline">
+                      <a href={proj.link} className="text-xs font-bold text-blue-700 underline">
                         [Link]
                       </a>
                     )}
@@ -170,7 +170,7 @@ export default function Developer({ resumeData }: Props) {
                   </div>
                   <div className="font-semibold text-sm mb-1">{cert.issuer}</div>
                   {cert.link && (
-                    <a href={cert.link} className="text-xs font-bold text-slate-700 underline">
+                    <a href={cert.link} className="text-xs font-bold text-blue-700 underline">
                       [View Credential]
                     </a>
                   )}

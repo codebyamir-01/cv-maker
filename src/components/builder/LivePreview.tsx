@@ -56,8 +56,7 @@ interface Props {
 // not on every parent state update (typing, zoom, etc.)
 const LivePreview = memo(function LivePreview({ accentColor }: Props) {
   const { resumeData } = useResumeStore();
-  // Force black color for ALL templates as requested by the user
-  const color = "#000000";
+  const color = accentColor ?? resumeData.accentColor ?? "#0f172a"; // dark slate default
 
   const renderTemplate = () => {
     switch (resumeData.templateId) {
@@ -73,7 +72,8 @@ const LivePreview = memo(function LivePreview({ accentColor }: Props) {
         return <Developer resumeData={resumeData} />;
       case "ats-classic":
       default:
-        return <AtsClassic resumeData={resumeData} accentColor={color} />;
+        // ATS Classic is strictly black for best parsing and professional look
+        return <AtsClassic resumeData={resumeData} accentColor="#000000" />;
     }
   };
 
