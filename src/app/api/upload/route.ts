@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import PDFParser from "pdf2json";
+import { GoogleGenAI } from "@google/genai";
 
 export async function POST(req: NextRequest) {
   try {
@@ -24,28 +25,94 @@ export async function POST(req: NextRequest) {
       pdfParser.parseBuffer(buffer);
     });
 
-    // Regex extraction
-    const emailMatch = text.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/);
-    const phoneMatch = text.match(/(\+?\d{1,2}[\s.-]?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}/);
+    if (!process.env.GEMINI_API_KEY) {
+       console.error("Missing GEMINI_API_KEY");
+       return NextResponse.json({ error: "Server configuration error: Missing AI Key" }, { status: 500 });
+    }
+
+    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
     
-    const lines = text.split('\n').map(l => l.trim()).filter(l => l.length > 2);
-    const nameMatch = lines.length > 0 ? lines[0].replace(/[^a-zA-Z\s]/g, '') : "Unknown";
+    const prompt = `
+      You are an expert resume parser. Extract the information from the following resume text and format it EXACTLY as a JSON object matching this structure. Do not return markdown, only the raw JSON.
+      Generate random string IDs (like "exp-1", "edu-1", "skill-1", etc.) for arrays.
+
+      Structure:
+      {
+        "personalInfo": {
+          "fullName": "",
+          "jobTitle": "",
+          "email": "",
+          "phone": "",
+          "location": "",
+          "github": "",
+          "portfolio": ""
+        },
+        "summary": "Professional summary paragraph here",
+        "experience": [
+          {
+            "id": "exp-1",
+            "jobTitle": "",
+            "company": "",
+            "startDate": "",
+            "endDate": "",
+            "description": "Write a cohesive paragraph or bullet points"
+          }
+        ],
+        "education": [
+          {
+            "id": "edu-1",
+            "school": "",
+            "degree": "",
+            "startDate": "",
+            "endDate": "",
+            "grade": ""
+          }
+        ],
+        "skills": [
+          {
+            "id": "skill-1",
+            "name": ""
+          }
+        ],
+        "projects": [
+          {
+            "id": "proj-1",
+            "name": "",
+            "description": "",
+            "link": ""
+          }
+        ],
+        "certifications": [
+          {
+            "id": "cert-1",
+            "name": "",
+            "issuer": "",
+            "date": "",
+            "link": ""
+          }
+        ]
+      }
+
+      Resume Text:
+      ${text}
+    `;
+
+    const response = await ai.models.generateContent({
+        model: 'gemini-2.5-flash',
+        contents: prompt,
+    });
+
+    let jsonString = response.text || "{}";
+    
+    // Clean up potential markdown code block formatting
+    jsonString = jsonString.replace(/```json/g, '').replace(/```/g, '').trim();
+    
+    const parsedData = JSON.parse(jsonString);
 
     return NextResponse.json({
       success: true,
-      message: "Resume parsed successfully",
-      data: {
-        personalInfo: {
-          fullName: nameMatch,
-          jobTitle: "",
-          email: emailMatch ? emailMatch[0] : "",
-          phone: phoneMatch ? phoneMatch[0] : "",
-        },
-        summary: "We extracted your contact details from the PDF. Our AI parsing for full structure is coming soon in the next update!",
-        experience: [],
-        education: [],
-        skills: [],
-      }
+      message: "Resume parsed successfully by AI",
+      data: parsedData
     });
 
   } catch (error) {

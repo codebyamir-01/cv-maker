@@ -11,7 +11,7 @@ export default function UploadPage() {
   const [error, setError] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
-  const { resumeData, updatePersonalInfo, updateSummary } = useResumeStore();
+  const { resumeData } = useResumeStore();
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -37,14 +37,22 @@ export default function UploadPage() {
       const data = await res.json();
 
       if (res.ok && data.success) {
-        // Update Zustand store with extracted data
-        updatePersonalInfo({
-          ...resumeData.personalInfo,
-          fullName: data.data.personalInfo.fullName,
-          email: data.data.personalInfo.email,
-          phone: data.data.personalInfo.phone,
-        });
-        updateSummary(data.data.summary);
+        // Overwrite Zustand store with full extracted AI data
+        useResumeStore.setState((state) => ({
+          resumeData: {
+            ...state.resumeData,
+            personalInfo: { ...state.resumeData.personalInfo, ...data.data.personalInfo },
+            summary: data.data.summary || "",
+            experience: data.data.experience || [],
+            education: data.data.education || [],
+            skills: data.data.skills || [],
+            projects: data.data.projects || [],
+            optionalSections: {
+              ...state.resumeData.optionalSections,
+              certifications: data.data.certifications || []
+            }
+          }
+        }));
         
         // Redirect to builder
         router.push("/builder");
