@@ -169,14 +169,14 @@ export default function SettingsPage() {
 
       <div className="flex flex-col md:flex-row gap-8">
         {/* Settings Sidebar */}
-        <aside className="w-full md:w-64 flex-shrink-0 space-y-1">
-          <button onClick={() => setActiveTab("profile")} className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-colors ${activeTab === "profile" ? "bg-blue-50 text-blue-700" : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"}`}>
+        <aside className="w-full md:w-64 flex-shrink-0 flex md:flex-col overflow-x-auto gap-2 md:gap-0 md:space-y-1 pb-2 md:pb-0 scrollbar-hide">
+          <button onClick={() => setActiveTab("profile")} className={`whitespace-nowrap w-auto md:w-full flex items-center gap-2 md:gap-3 px-4 py-2.5 md:py-3 rounded-xl text-sm font-semibold transition-colors ${activeTab === "profile" ? "bg-blue-50 text-blue-700" : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"}`}>
             <User className="w-4 h-4" /> Profile
           </button>
-          <button onClick={() => setActiveTab("security")} className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-colors ${activeTab === "security" ? "bg-blue-50 text-blue-700" : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"}`}>
+          <button onClick={() => setActiveTab("security")} className={`whitespace-nowrap w-auto md:w-full flex items-center gap-2 md:gap-3 px-4 py-2.5 md:py-3 rounded-xl text-sm font-semibold transition-colors ${activeTab === "security" ? "bg-blue-50 text-blue-700" : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"}`}>
             <Lock className="w-4 h-4" /> Security
           </button>
-          <button onClick={() => setActiveTab("notifications")} className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-colors ${activeTab === "notifications" ? "bg-blue-50 text-blue-700" : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"}`}>
+          <button onClick={() => setActiveTab("notifications")} className={`whitespace-nowrap w-auto md:w-full flex items-center gap-2 md:gap-3 px-4 py-2.5 md:py-3 rounded-xl text-sm font-semibold transition-colors ${activeTab === "notifications" ? "bg-blue-50 text-blue-700" : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"}`}>
             <Bell className="w-4 h-4" /> Notifications
           </button>
         </aside>
