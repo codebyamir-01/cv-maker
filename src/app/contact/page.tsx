@@ -3,7 +3,7 @@ import { FileText, Mail, MapPin, Phone, Send, MessageSquare, Clock, CheckCircle2
 import type { Metadata } from "next";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
-import { SupportForm } from "@/components/contact/SupportForm";
+import { SupportForm } from "@/components/support/SupportForm";
 
 export const metadata: Metadata = {
   title: "Contact Us — CV Maker",
