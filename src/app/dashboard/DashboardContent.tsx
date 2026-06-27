@@ -48,7 +48,7 @@ export default function DashboardContent() {
   const user = session?.user;
 
   const averageAtsScore = resumes.length > 0
-    ? Math.round(resumes.reduce((acc, curr) => acc + (curr.atsScore || 0), 0) / resumes.length)
+    ? Math.round(resumes.reduce((acc: number, curr: any) => acc + (curr.atsScore || 0), 0) / resumes.length)
     : 0;
 
   const handleDelete = async (id: string) => {
