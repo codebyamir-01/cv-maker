@@ -20,14 +20,14 @@ export const metadata: Metadata = {
   title: "ATS-Friendly Resume & CV Maker - Land Your Dream Job",
   description: "Create professional, modern, and ATS-friendly resumes. Get step-by-step guidance, resume scoring, mistake detection, and job-description matching.",
   keywords: "resume builder, cv maker, ats friendly resume, resume templates, job match, career",
-  metadataBase: new URL("https://cvmaker.vercel.app"),
+  metadataBase: new URL("https://www.smartresumemaker.com"),
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://cvmaker.vercel.app",
+    url: "https://www.smartresumemaker.com",
     title: "ATS-Friendly Resume & CV Maker - Land Your Dream Job",
     description: "Create professional, modern, and ATS-friendly resumes in minutes.",
-    siteName: "CV Maker",
+    siteName: "Smart Resume Maker",
   },
   twitter: {
     card: "summary_large_image",
