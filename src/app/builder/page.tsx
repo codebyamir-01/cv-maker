@@ -216,22 +216,19 @@ export default function BuilderPage() {
   const printRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   
-  const handleExit = async () => {
+  const handleExit = () => {
     if (resumeData && Object.keys(resumeData).length > 0) {
-      try {
-        const payload: any = { ...resumeData };
-        if (databaseId) payload.id = databaseId;
-        
-        await fetch("/api/resumes", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        });
-      } catch (e) {
-        console.error("Save on exit failed", e);
-      }
+      const payload: any = { ...resumeData };
+      if (databaseId) payload.id = databaseId;
+      
+      // Save in background without blocking navigation
+      fetch("/api/resumes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+        keepalive: true
+      }).catch(e => console.error("Save on exit failed", e));
     }
-    router.push("/");
   };
 
   const [stepIdx, setStepIdx] = useState(0);
@@ -388,9 +385,9 @@ export default function BuilderPage() {
       {/* ── HEADER ── */}
       <header className="sticky top-0 z-40 bg-white border-b border-slate-200">
         <div className="mx-auto flex max-w-[1400px] items-center gap-4 px-4 py-3 sm:px-6">
-          <button onClick={handleExit} className="flex shrink-0 items-center gap-2 rounded-lg px-2 py-1.5 text-sm font-semibold text-slate-600 transition hover:bg-slate-100 hover:text-slate-900">
+          <Link href="/" onClick={handleExit} prefetch={true} className="flex shrink-0 items-center gap-2 rounded-lg px-2 py-1.5 text-sm font-semibold text-slate-600 transition hover:bg-slate-100 hover:text-slate-900">
             <ArrowLeft className="h-4 w-4" /> Exit
-          </button>
+          </Link>
           <div className="min-w-0 flex-1">
             <h1 className="truncate text-base font-extrabold tracking-tight sm:text-lg text-slate-900">Resume Builder</h1>
             <p className="text-xs text-slate-400 font-medium">Step {stepIdx + 1} of {STEPS.length} • My Resume</p>
