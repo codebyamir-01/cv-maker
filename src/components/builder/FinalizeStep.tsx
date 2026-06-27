@@ -8,7 +8,7 @@ import domtoimage from "dom-to-image-more";
 import jsPDF from "jspdf";
 
 export default function FinalizeStep() {
-  const { resumeData } = useResumeStore();
+  const { resumeData, databaseId } = useResumeStore();
   const printRef = useRef<HTMLDivElement>(null);
   
   const [isDownloading, setIsDownloading] = useState(false);
@@ -91,8 +91,20 @@ export default function FinalizeStep() {
   };
 
   const handleShareLink = () => {
-    setShareMessage("Coming soon");
-    setTimeout(() => setShareMessage(""), 3000);
+    if (!databaseId) {
+      setShareMessage("Please sign in or save your resume to share it.");
+      setTimeout(() => setShareMessage(""), 4000);
+      return;
+    }
+    
+    const url = `${window.location.origin}/r/${databaseId}`;
+    navigator.clipboard.writeText(url).then(() => {
+      setShareMessage("Link copied to clipboard!");
+      setTimeout(() => setShareMessage(""), 4000);
+    }).catch(() => {
+      setShareMessage("Failed to copy link. Try again.");
+      setTimeout(() => setShareMessage(""), 4000);
+    });
   };
 
   /* Completion checklist */
@@ -207,7 +219,7 @@ export default function FinalizeStep() {
             </p>
           )}
           {shareMessage && !downloadMessage && (
-            <p className="text-sm font-semibold text-slate-600">
+            <p className={`text-sm font-semibold ${shareMessage.includes("copied") ? "text-emerald-600" : "text-amber-600"}`}>
               {shareMessage}
             </p>
           )}
