@@ -156,7 +156,25 @@ export default function SettingsPage() {
 
   return (
     <div className="max-w-4xl mx-auto">
-      <div className="mb-8">
+
+      {/* ── Mobile Top Bar ── */}
+      <div className="md:hidden sticky top-0 z-10 bg-[#F8FAFC]/95 backdrop-blur-sm border-b border-slate-100 -mx-4 px-4 py-3 mb-6 flex items-center gap-3">
+        <a
+          href="/dashboard"
+          className="w-9 h-9 rounded-xl bg-white border border-slate-200 shadow-sm flex items-center justify-center text-slate-600 active:scale-95 transition-transform"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+        </a>
+        <div>
+          <h1 className="text-base font-bold text-slate-900 leading-none">Settings</h1>
+          <p className="text-xs text-slate-500 mt-0.5">Account preferences</p>
+        </div>
+      </div>
+
+      {/* ── Desktop Title ── */}
+      <div className="hidden md:block mb-8">
         <h1 className="text-3xl font-bold text-slate-900">Settings</h1>
         <p className="text-slate-600 mt-2">Manage your account settings and preferences.</p>
       </div>
@@ -167,32 +185,66 @@ export default function SettingsPage() {
         </div>
       )}
 
-      <div className="flex flex-col md:flex-row gap-8">
-        {/* Settings Sidebar */}
-        <aside className="w-full md:w-64 flex-shrink-0 flex md:flex-col overflow-x-auto gap-2 md:gap-0 md:space-y-1 pb-2 md:pb-0 scrollbar-hide">
-          <button onClick={() => setActiveTab("profile")} className={`whitespace-nowrap w-auto md:w-full flex items-center gap-2 md:gap-3 px-4 py-2.5 md:py-3 rounded-xl text-sm font-semibold transition-colors ${activeTab === "profile" ? "bg-blue-50 text-blue-700" : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"}`}>
-            <User className="w-4 h-4" /> Profile
-          </button>
-          <button onClick={() => setActiveTab("security")} className={`whitespace-nowrap w-auto md:w-full flex items-center gap-2 md:gap-3 px-4 py-2.5 md:py-3 rounded-xl text-sm font-semibold transition-colors ${activeTab === "security" ? "bg-blue-50 text-blue-700" : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"}`}>
-            <Lock className="w-4 h-4" /> Security
-          </button>
-          <button onClick={() => setActiveTab("notifications")} className={`whitespace-nowrap w-auto md:w-full flex items-center gap-2 md:gap-3 px-4 py-2.5 md:py-3 rounded-xl text-sm font-semibold transition-colors ${activeTab === "notifications" ? "bg-blue-50 text-blue-700" : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"}`}>
-            <Bell className="w-4 h-4" /> Notifications
-          </button>
+      <div className="flex flex-col md:flex-row gap-6 md:gap-8">
+        
+        {/* ── Tab Navigation ── */}
+        <aside className="w-full md:w-64 flex-shrink-0">
+          {/* Mobile: pill tabs with animated indicator */}
+          <div className="md:hidden relative bg-white border border-slate-200 rounded-2xl p-1.5 flex gap-1 shadow-sm">
+            {[
+              { id: "profile", icon: <User className="w-4 h-4" />, label: "Profile" },
+              { id: "security", icon: <Lock className="w-4 h-4" />, label: "Security" },
+              { id: "notifications", icon: <Bell className="w-4 h-4" />, label: "Alerts" },
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`relative flex-1 flex flex-col items-center gap-1 py-2.5 rounded-xl text-xs font-bold transition-all duration-200 ${
+                  activeTab === tab.id
+                    ? "bg-blue-600 text-white shadow-md shadow-blue-500/20 scale-[1.02]"
+                    : "text-slate-500 hover:text-slate-700 hover:bg-slate-50"
+                }`}
+              >
+                {tab.icon}
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Desktop: sidebar list */}
+          <div className="hidden md:flex flex-col space-y-1">
+            {[
+              { id: "profile", icon: <User className="w-4 h-4" />, label: "Profile" },
+              { id: "security", icon: <Lock className="w-4 h-4" />, label: "Security" },
+              { id: "notifications", icon: <Bell className="w-4 h-4" />, label: "Notifications" },
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-200 ${
+                  activeTab === tab.id
+                    ? "bg-blue-50 text-blue-700"
+                    : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                }`}
+              >
+                {tab.icon} {tab.label}
+              </button>
+            ))}
+          </div>
         </aside>
 
-        {/* Settings Content */}
-        <div className="flex-1 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm">
+        {/* ── Settings Content ── */}
+        <div className="flex-1 bg-white border border-slate-200 rounded-2xl p-5 sm:p-8 shadow-sm">
           
           {activeTab === "profile" && (
             <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
               <div>
                 <h2 className="text-xl font-bold text-slate-900">Profile Information</h2>
-                <p className="text-sm text-slate-500 mt-1">Update your account's profile information and email address.</p>
+                <p className="text-sm text-slate-500 mt-1">Update your account&apos;s profile information and email address.</p>
               </div>
               
-              <div className="flex items-center gap-6 pb-6 border-b border-slate-100">
-                <div className="w-20 h-20 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-400 text-2xl font-bold overflow-hidden relative group">
+              <div className="flex items-center gap-5 pb-6 border-b border-slate-100">
+                <div className="w-20 h-20 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-400 text-2xl font-bold overflow-hidden relative group shrink-0">
                   {avatarBase64 ? (
                     <img src={avatarBase64} alt="Avatar" className="w-full h-full object-cover" />
                   ) : (
@@ -202,11 +254,11 @@ export default function SettingsPage() {
                     <Camera className="w-6 h-6 text-white" />
                   </div>
                 </div>
-                <div>
+                <div className="flex flex-col gap-2">
                   <input type="file" accept="image/*" className="hidden" ref={fileInputRef} onChange={handleAvatarChange} />
                   <Button variant="outline" className="text-sm h-9 rounded-lg" onClick={() => fileInputRef.current?.click()}>Change Avatar</Button>
                   {avatarBase64 && (
-                    <Button variant="ghost" className="text-sm h-9 rounded-lg text-red-500 ml-2" onClick={() => setAvatarBase64("")}>Remove</Button>
+                    <Button variant="ghost" className="text-sm h-9 rounded-lg text-red-500" onClick={() => setAvatarBase64("")}>Remove</Button>
                   )}
                 </div>
               </div>
@@ -246,7 +298,7 @@ export default function SettingsPage() {
               <div className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="current_password">Current Password</Label>
-                  <div className="relative max-w-md">
+                  <div className="relative">
                     <Input id="current_password" type={showCurrentPassword ? "text" : "password"} value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} className="h-11 rounded-xl pr-10" />
                     <button type="button" onClick={() => setShowCurrentPassword(!showCurrentPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 focus:outline-none">
                       {showCurrentPassword ? <Eye className="w-5 h-5" /> : <EyeOff className="w-5 h-5" />}
@@ -255,7 +307,7 @@ export default function SettingsPage() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="new_password">New Password</Label>
-                  <div className="relative max-w-md">
+                  <div className="relative">
                     <Input id="new_password" type={showNewPassword ? "text" : "password"} value={newPassword} onChange={(e) => setNewPassword(e.target.value)} className="h-11 rounded-xl pr-10" />
                     <button type="button" onClick={() => setShowNewPassword(!showNewPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 focus:outline-none">
                       {showNewPassword ? <Eye className="w-5 h-5" /> : <EyeOff className="w-5 h-5" />}
@@ -264,7 +316,7 @@ export default function SettingsPage() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="confirm_password">Confirm Password</Label>
-                  <div className="relative max-w-md">
+                  <div className="relative">
                     <Input id="confirm_password" type={showConfirmPassword ? "text" : "password"} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="h-11 rounded-xl pr-10" />
                     <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 focus:outline-none">
                       {showConfirmPassword ? <Eye className="w-5 h-5" /> : <EyeOff className="w-5 h-5" />}
@@ -273,7 +325,7 @@ export default function SettingsPage() {
                 </div>
               </div>
 
-              <div className="pt-4 flex justify-start">
+              <div className="pt-4">
                 <Button onClick={handleSecuritySave} disabled={isSaving} className="bg-slate-900 hover:bg-black text-white h-11 px-6 rounded-xl shadow-md">
                    {isSaving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : "Update Password"}
                 </Button>
@@ -288,37 +340,23 @@ export default function SettingsPage() {
                 <p className="text-sm text-slate-500 mt-1">Choose what updates you want to receive.</p>
               </div>
 
-              <div className="space-y-4">
-                <div className="flex items-start justify-between p-4 rounded-xl border border-slate-100 bg-slate-50/50">
-                  <div>
-                    <h3 className="font-semibold text-slate-900 text-sm">Weekly ATS Tips</h3>
-                    <p className="text-sm text-slate-500">Get strategies to beat applicant tracking systems.</p>
+              <div className="space-y-3">
+                {[
+                  { key: "weeklyTips" as const, title: "Weekly ATS Tips", desc: "Get strategies to beat applicant tracking systems." },
+                  { key: "productUpdates" as const, title: "Product Updates", desc: "Receive news about new templates and features." },
+                  { key: "accountActivity" as const, title: "Account Activity", desc: "Important notifications about your account security." },
+                ].map((item) => (
+                  <div key={item.key} className="flex items-center justify-between p-4 rounded-xl border border-slate-100 bg-slate-50/50">
+                    <div className="mr-4">
+                      <h3 className="font-semibold text-slate-900 text-sm">{item.title}</h3>
+                      <p className="text-xs text-slate-500 mt-0.5">{item.desc}</p>
+                    </div>
+                    <label className="relative inline-flex items-center cursor-pointer shrink-0">
+                      <input type="checkbox" className="sr-only peer" checked={notifications[item.key]} onChange={(e) => setNotifications({...notifications, [item.key]: e.target.checked})} />
+                      <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                    </label>
                   </div>
-                  <label className="relative inline-flex items-center cursor-pointer mt-1">
-                    <input type="checkbox" className="sr-only peer" checked={notifications.weeklyTips} onChange={(e) => setNotifications({...notifications, weeklyTips: e.target.checked})} />
-                    <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-                  </label>
-                </div>
-                <div className="flex items-start justify-between p-4 rounded-xl border border-slate-100 bg-slate-50/50">
-                  <div>
-                    <h3 className="font-semibold text-slate-900 text-sm">Product Updates</h3>
-                    <p className="text-sm text-slate-500">Receive news about new templates and features.</p>
-                  </div>
-                  <label className="relative inline-flex items-center cursor-pointer mt-1">
-                    <input type="checkbox" className="sr-only peer" checked={notifications.productUpdates} onChange={(e) => setNotifications({...notifications, productUpdates: e.target.checked})} />
-                    <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-                  </label>
-                </div>
-                <div className="flex items-start justify-between p-4 rounded-xl border border-slate-100 bg-slate-50/50">
-                  <div>
-                    <h3 className="font-semibold text-slate-900 text-sm">Account Activity</h3>
-                    <p className="text-sm text-slate-500">Important notifications about your account security.</p>
-                  </div>
-                  <label className="relative inline-flex items-center cursor-pointer mt-1">
-                    <input type="checkbox" className="sr-only peer" checked={notifications.accountActivity} onChange={(e) => setNotifications({...notifications, accountActivity: e.target.checked})} />
-                    <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-                  </label>
-                </div>
+                ))}
               </div>
 
               <div className="pt-4 flex justify-end">
