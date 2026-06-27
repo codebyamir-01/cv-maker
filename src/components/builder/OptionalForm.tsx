@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Plus, Trash2, Edit2, FolderOpen, ExternalLink, Award, Globe, Medal, HeartHandshake, BookOpen } from "lucide-react";
 import { useResumeStore, OptionalSections } from "@/store/useResumeStore";
+import { MonthYearPicker } from "@/components/ui/month-year-picker";
 
 type SectionKey = keyof OptionalSections;
 
@@ -11,8 +12,13 @@ interface FieldConfig {
   label: string;
   placeholder: string;
   fullWidth?: boolean;
-  type?: "text" | "select";
+  type?: "text" | "select" | "date";
   options?: string[];
+  checkbox?: {
+    key: string;
+    label: string;
+    disabledValue: string;
+  };
 }
 
 interface SectionConfig {
@@ -49,8 +55,10 @@ const SECTIONS: SectionConfig[] = [
     fields: [
       { key: "name", label: "Certification Name *", placeholder: "e.g. AWS Solutions Architect" },
       { key: "issuer", label: "Issuing Organization", placeholder: "e.g. Amazon Web Services" },
-      { key: "issueDate", label: "Issue Date", placeholder: "e.g. Jan 2023" },
-      { key: "expiryDate", label: "Expiry Date", placeholder: "e.g. Jan 2026 (Optional)" },
+      { key: "issueDate", label: "Issue Date", placeholder: "e.g. Jan 2023", type: "date" },
+      { key: "expiryDate", label: "Expiry Date", placeholder: "e.g. Jan 2026 (Optional)", type: "date",
+        checkbox: { key: "doesNotExpire", label: "This certification does not expire", disabledValue: "No expiry" }
+      },
       { key: "link", label: "Credential Link", placeholder: "https://...", fullWidth: true },
     ],
     renderListTitle: (item) => item.name || "(No name)",
@@ -76,7 +84,7 @@ const SECTIONS: SectionConfig[] = [
     fields: [
       { key: "title", label: "Award Title *", placeholder: "e.g. Employee of the Year" },
       { key: "organization", label: "Organization", placeholder: "e.g. Tech Corp Inc." },
-      { key: "date", label: "Date", placeholder: "e.g. Dec 2023", fullWidth: true },
+      { key: "date", label: "Date", placeholder: "e.g. Dec 2023", fullWidth: true, type: "date" },
     ],
     textArea: { key: "description", label: "Description", placeholder: "Briefly describe what this award was for..." },
     renderListTitle: (item) => item.title || "(No title)",
@@ -88,11 +96,13 @@ const SECTIONS: SectionConfig[] = [
     desc: "Include your community service and volunteer work.",
     icon: <HeartHandshake className="w-5 h-5" />,
     fields: [
-      { key: "role", label: "Role *", placeholder: "e.g. Event Coordinator" },
+      { key: "role", label: "Role *", placeholder: "e.g. Community Organizer" },
       { key: "organization", label: "Organization", placeholder: "e.g. Red Cross" },
-      { key: "location", label: "Location", placeholder: "e.g. New York, NY" },
-      { key: "startDate", label: "Start Date", placeholder: "e.g. Jan 2022" },
-      { key: "endDate", label: "End Date", placeholder: "e.g. Present" },
+      { key: "location", label: "Location", placeholder: "e.g. New York, USA" },
+      { key: "startDate", label: "Start Date", placeholder: "e.g. Jan 2021", type: "date" },
+      { key: "endDate", label: "End Date", placeholder: "e.g. Present", type: "date",
+        checkbox: { key: "currentlyVolunteering", label: "I currently volunteer here", disabledValue: "Present" }
+      },
     ],
     textArea: { key: "description", label: "Description", placeholder: "Describe your responsibilities and impact..." },
     renderListTitle: (item) => item.role || "(No role)",
@@ -104,9 +114,9 @@ const SECTIONS: SectionConfig[] = [
     desc: "List your published articles, papers, or books.",
     icon: <BookOpen className="w-5 h-5" />,
     fields: [
-      { key: "title", label: "Publication Title *", placeholder: "e.g. Modern Web Architecture" },
-      { key: "publisher", label: "Publisher/Journal", placeholder: "e.g. Tech Review" },
-      { key: "date", label: "Date", placeholder: "e.g. May 2023" },
+      { key: "title", label: "Publication Title *", placeholder: "e.g. Advanced React Patterns" },
+      { key: "publisher", label: "Publisher", placeholder: "e.g. O'Reilly Media" },
+      { key: "date", label: "Date", placeholder: "e.g. Mar 2024", type: "date" },
       { key: "link", label: "Link", placeholder: "https://...", fullWidth: true },
     ],
     textArea: { key: "description", label: "Description", placeholder: "Briefly describe the publication content..." },
@@ -204,7 +214,7 @@ function SectionEditor({ config, items, onAdd, onUpdate, onRemove }: { config: S
     setCurrent(newItem);
   };
 
-  const handleChange = (key: string, value: string) => {
+  const handleChange = (key: string, value: any) => {
     setCurrent((prev: any) => {
       const next = { ...prev, [key]: value };
       if (editingId) {
@@ -248,6 +258,37 @@ function SectionEditor({ config, items, onAdd, onUpdate, onRemove }: { config: S
                             <option key={opt} value={opt}>{opt}</option>
                           ))}
                         </select>
+                      ) : f.type === "date" ? (
+                        <>
+                          <MonthYearPicker
+                            value={
+                              f.checkbox && current[f.checkbox.key]
+                                ? f.checkbox.disabledValue
+                                : (current[f.key] || "")
+                            }
+                            onChange={val => handleChange(f.key, val)}
+                            placeholder={f.placeholder}
+                            disabled={f.checkbox ? current[f.checkbox.key] : false}
+                          />
+                          {f.checkbox && (
+                            <div className="flex items-center gap-2 mt-1">
+                              <input
+                                type="checkbox"
+                                id={`${f.checkbox.key}-${item.id}`}
+                                className="rounded border-slate-300 text-blue-600 focus:ring-blue-500 h-4 w-4"
+                                checked={current[f.checkbox.key] || false}
+                                onChange={(e) => {
+                                  handleChange(f.checkbox!.key, e.target.checked);
+                                  if (e.target.checked) handleChange(f.key, f.checkbox!.disabledValue);
+                                  else handleChange(f.key, "");
+                                }}
+                              />
+                              <label htmlFor={`${f.checkbox.key}-${item.id}`} className="text-sm font-medium text-slate-700 cursor-pointer">
+                                {f.checkbox.label}
+                              </label>
+                            </div>
+                          )}
+                        </>
                       ) : (
                         <input
                           className="h-[42px] rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm placeholder:text-slate-300 text-slate-800 focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-200 transition"

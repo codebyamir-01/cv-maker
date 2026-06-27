@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Plus, Trash2, Edit2, GraduationCap } from "lucide-react";
+import { GraduationCap, Plus, Trash2, Edit2, Calendar } from "lucide-react";
+import { MonthYearPicker } from "@/components/ui/month-year-picker";
 import { useResumeStore, Education } from "@/store/useResumeStore";
 
 export default function EducationForm() {
@@ -12,7 +13,7 @@ export default function EducationForm() {
   const handleAddNew = () => {
     const id = Date.now().toString();
     const newEdu: Education = {
-      id, degree: "", institution: "", location: "", startYear: "", endYear: "", grade: "",
+      id, degree: "", institution: "", location: "", startYear: "", endYear: "", grade: "", currentlyStudying: false,
     };
     addEducation(newEdu);
     setEditingId(id);
@@ -23,7 +24,7 @@ export default function EducationForm() {
     setEditingId(null);
   };
 
-  const handleChange = (key: keyof Education, value: string) => {
+  const handleChange = (key: keyof Education, value: any) => {
     setCurrent(prev => {
       const next = { ...prev, [key]: value };
       if (editingId) {
@@ -69,18 +70,41 @@ export default function EducationForm() {
                       />
                     </div>
                   ))}
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-[13px] font-semibold text-slate-700">Start Year</label>
-                    <input className="rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm placeholder:text-slate-300 focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-200 transition"
-                      placeholder="2018" value={current.startYear || ""} onChange={e => handleChange("startYear", e.target.value)} />
+                  <div className="grid gap-2">
+                    <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Start Date</label>
+                    <MonthYearPicker 
+                      value={current.startYear || ""} 
+                      onChange={val => handleChange("startYear", val)} 
+                      placeholder="e.g. Sep 2020" 
+                    />
                   </div>
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-[13px] font-semibold text-slate-700">End Year</label>
-                    <input className="rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm placeholder:text-slate-300 focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-200 transition"
-                      placeholder="2022" value={current.endYear || ""} onChange={e => handleChange("endYear", e.target.value)} />
+                  <div className="grid gap-2">
+                    <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">End Date (or Expected)</label>
+                    <MonthYearPicker 
+                      value={current.currentlyStudying ? "Expected" : (current.endYear || "")} 
+                      onChange={val => handleChange("endYear", val)} 
+                      placeholder="e.g. May 2024" 
+                      disabled={current.currentlyStudying}
+                    />
                   </div>
                 </div>
-                <div className="flex justify-end gap-2 pt-2 border-t border-slate-200">
+                <div className="flex items-center gap-2 mt-2">
+                  <input 
+                    type="checkbox" 
+                    id="currentlyStudying" 
+                    className="rounded border-slate-300 text-blue-600 focus:ring-blue-500 h-4 w-4"
+                    checked={current.currentlyStudying || false}
+                    onChange={(e) => {
+                      handleChange("currentlyStudying", e.target.checked);
+                      if (e.target.checked) handleChange("endYear", "Expected");
+                      else handleChange("endYear", "");
+                    }}
+                  />
+                  <label htmlFor="currentlyStudying" className="text-sm font-medium text-slate-700 cursor-pointer">
+                    I currently study here
+                  </label>
+                </div>
+                <div className="flex justify-end gap-2 pt-2 border-t border-slate-200 mt-2">
                   <button onClick={() => setEditingId(null)} className="rounded-lg border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-50 transition">Cancel</button>
                   <button onClick={handleSave} className="rounded-lg bg-slate-900 px-4 py-2 text-sm font-bold text-white hover:bg-black transition">Save Education</button>
                 </div>

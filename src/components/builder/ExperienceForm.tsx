@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { MonthYearPicker } from "@/components/ui/month-year-picker";
 
 export default function ExperienceForm() {
   const { resumeData, addExperience, updateExperience, removeExperience } = useResumeStore();
@@ -99,20 +100,37 @@ export default function ExperienceForm() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     <div className="space-y-2">
                       <Label>Start Date</Label>
-                      <Input 
+                      <MonthYearPicker 
                         value={currentExp.startDate || ""} 
-                        onChange={(e) => handleChange("startDate", e.target.value)}
+                        onChange={(val) => handleChange("startDate", val)}
                         placeholder="e.g. Jan 2020"
                       />
                     </div>
                     <div className="space-y-2">
                       <Label>End Date</Label>
-                      <Input 
-                        value={currentExp.endDate || ""} 
-                        onChange={(e) => handleChange("endDate", e.target.value)}
+                      <MonthYearPicker 
+                        value={currentExp.currentlyWorking ? "Present" : (currentExp.endDate || "")} 
+                        onChange={(val) => handleChange("endDate", val)}
                         placeholder="e.g. Present"
+                        disabled={currentExp.currentlyWorking}
                       />
                     </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <input 
+                      type="checkbox" 
+                      id="currentlyWorking" 
+                      className="rounded border-slate-300 text-blue-600 focus:ring-blue-500 h-4 w-4"
+                      checked={currentExp.currentlyWorking || false}
+                      onChange={(e) => {
+                        handleChange("currentlyWorking", e.target.checked);
+                        if (e.target.checked) handleChange("endDate", "Present");
+                        else handleChange("endDate", "");
+                      }}
+                    />
+                    <label htmlFor="currentlyWorking" className="text-sm font-medium text-slate-700 cursor-pointer">
+                      I currently work here
+                    </label>
                   </div>
                 </div>
                 

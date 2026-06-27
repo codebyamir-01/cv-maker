@@ -36,6 +36,7 @@ export interface Education {
   location: string;
   startYear: string;
   endYear: string;
+  currentlyStudying?: boolean;
   grade: string;
 }
 
@@ -59,6 +60,7 @@ export interface Certification {
   issuer: string;
   issueDate: string;
   expiryDate: string;
+  doesNotExpire?: boolean;
   link: string;
 }
 
@@ -83,6 +85,7 @@ export interface Volunteer {
   location: string;
   startDate: string;
   endDate: string;
+  currentlyVolunteering?: boolean;
   description: string;
 }
 
