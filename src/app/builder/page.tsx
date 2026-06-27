@@ -10,7 +10,7 @@ import {
 import { Footer } from "@/components/layout/Footer";
 import { useResumeStore } from "@/store/useResumeStore";
 import dynamic from "next/dynamic";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 
 /* ─── Lazy-load ALL heavy form components ─────────────────────────
    This is the main mobile win. Without this, all 6 form components
@@ -212,8 +212,27 @@ function AutoSaver() {
 
 /* ─── Page ───────────────────────────────────────────────────────── */
 export default function BuilderPage() {
-  const { resumeData, updateTemplateId, updateAccentColor } = useResumeStore();
+  const { resumeData, updateTemplateId, updateAccentColor, databaseId } = useResumeStore();
   const printRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+  
+  const handleExit = async () => {
+    if (resumeData && Object.keys(resumeData).length > 0) {
+      try {
+        const payload: any = { ...resumeData };
+        if (databaseId) payload.id = databaseId;
+        
+        await fetch("/api/resumes", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+      } catch (e) {
+        console.error("Save on exit failed", e);
+      }
+    }
+    router.push("/");
+  };
 
   const [stepIdx, setStepIdx] = useState(0);
   const [zoom, setZoom] = useState(60);
@@ -369,9 +388,9 @@ export default function BuilderPage() {
       {/* ── HEADER ── */}
       <header className="sticky top-0 z-40 bg-white border-b border-slate-200">
         <div className="mx-auto flex max-w-[1400px] items-center gap-4 px-4 py-3 sm:px-6">
-          <Link href="/dashboard" className="flex shrink-0 items-center gap-2 rounded-lg px-2 py-1.5 text-sm font-semibold text-slate-600 transition hover:bg-slate-100 hover:text-slate-900">
+          <button onClick={handleExit} className="flex shrink-0 items-center gap-2 rounded-lg px-2 py-1.5 text-sm font-semibold text-slate-600 transition hover:bg-slate-100 hover:text-slate-900">
             <ArrowLeft className="h-4 w-4" /> Exit
-          </Link>
+          </button>
           <div className="min-w-0 flex-1">
             <h1 className="truncate text-base font-extrabold tracking-tight sm:text-lg text-slate-900">Resume Builder</h1>
             <p className="text-xs text-slate-400 font-medium">Step {stepIdx + 1} of {STEPS.length} • My Resume</p>
