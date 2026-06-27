@@ -8,42 +8,38 @@ import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
+import useSWR from "swr";
+import { fetcher } from "@/lib/utils";
 
 export default function DashboardContent() {
   const router = useRouter();
   const { data: session, status } = useSession();
-  const [resumes, setResumes] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [creating, setCreating] = useState(false);
 
+  const { data, error, isLoading, mutate } = useSWR(
+    status === "authenticated" ? "/api/resumes" : null,
+    fetcher
+  );
+
+  const resumes = data?.resumes || [];
+
   useEffect(() => {
-    async function fetchResumes() {
-      try {
-        const res = await fetch("/api/resumes");
-        if (res.ok) {
-          const data = await res.json();
-          setResumes(data.resumes || []);
-        }
-      } catch (error) {
-        console.error("Error fetching resumes:", error);
-      } finally {
-        setLoading(false);
-      }
-    }
-    if (status === "authenticated") {
-      fetchResumes();
-    } else if (status === "unauthenticated") {
+    if (status === "unauthenticated") {
       router.push("/login");
     }
   }, [status, router]);
 
-  if (status === "loading" || loading) {
+  if (status === "loading" || isLoading) {
     return (
-      <div className="flex h-[60vh] w-full items-center justify-center p-12 animate-fade-in-up">
-        <div className="flex flex-col items-center gap-4">
-          <Loader2 className="h-10 w-10 animate-spin text-blue-600" />
-          <p className="text-sm font-semibold text-slate-500 animate-pulse">Loading dashboard...</p>
+      <div className="space-y-8 animate-pulse p-2">
+        <div className="h-10 bg-slate-200 rounded w-1/3 mb-8"></div>
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+           {[...Array(4)].map((_, i) => <div key={i} className="h-28 bg-slate-100 rounded-xl"></div>)}
+        </div>
+        <div className="mt-12 h-8 bg-slate-200 rounded w-1/4 mb-6"></div>
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+           {[...Array(3)].map((_, i) => <div key={i} className="h-56 bg-slate-100 rounded-2xl"></div>)}
         </div>
       </div>
     );
@@ -59,10 +55,12 @@ export default function DashboardContent() {
     if (!confirm("Delete this resume?")) return;
     setDeletingId(id);
     try {
-      await fetch(`/api/resumes/${id}`, { method: "DELETE" });
-      setResumes(prev => prev.filter(r => r.id !== id));
-    } catch {
-      // silent
+      const res = await fetch(`/api/resumes/${id}`, { method: "DELETE" });
+      if (res.ok) {
+        mutate();
+      }
+    } catch (error) {
+      console.error("Error deleting resume:", error);
     } finally {
       setDeletingId(null);
     }

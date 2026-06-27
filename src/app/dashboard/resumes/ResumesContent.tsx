@@ -4,8 +4,10 @@ import Link from "next/link";
 import { Plus, FileText, MoreVertical, Search, Filter, Sparkles, CheckCircle2, Copy, Trash2, Edit2, Download, AlertCircle, Eye, MoreHorizontal, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
+import useSWR from "swr";
+import { fetcher } from "@/lib/utils";
 
 interface Resume {
   id: string;
@@ -16,8 +18,6 @@ interface Resume {
 
 export default function ResumesContent() {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
-  const [resumes, setResumes] = useState<Resume[]>([]);
-  const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const router = useRouter();
 
@@ -26,25 +26,13 @@ export default function ResumesContent() {
     setTimeout(() => setToastMessage(null), 3000);
   };
 
-  useEffect(() => {
-    async function fetchResumes() {
-      try {
-        const res = await fetch("/api/resumes");
-        if (res.ok) {
-          const data = await res.json();
-          setResumes(data.resumes || []);
-        } else {
-          showToast("Failed to load resumes.");
-        }
-      } catch (error) {
-        console.error("Error fetching resumes:", error);
-        showToast("An error occurred while loading.");
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchResumes();
-  }, []);
+  const { data, error, isLoading: loading, mutate } = useSWR("/api/resumes", fetcher);
+  const resumes: Resume[] = data?.resumes || [];
+
+  if (error) {
+    // show error toast only once via effect or just console
+    console.error("Error fetching resumes:", error);
+  }
 
   const handleDelete = async (id: string, e: React.MouseEvent) => {
     e.preventDefault();
@@ -53,7 +41,7 @@ export default function ResumesContent() {
     try {
       const res = await fetch(`/api/resumes/${id}`, { method: "DELETE" });
       if (res.ok) {
-        setResumes((prev) => prev.filter(r => r.id !== id));
+        mutate();
         showToast("Resume deleted successfully.");
       } else {
         showToast("Failed to delete resume.");

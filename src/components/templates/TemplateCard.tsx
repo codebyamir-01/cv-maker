@@ -4,12 +4,14 @@ import { useState } from "react";
 import Link from "next/link";
 import { Eye, Download, Star, X } from "lucide-react";
 
-import AtsClassic from "@/components/builder/templates/AtsClassic";
-import ModernProfessional from "@/components/builder/templates/ModernProfessional";
-import Developer from "@/components/builder/templates/Developer";
-import Executive from "@/components/builder/templates/Executive";
-import Aether from "@/components/builder/templates/Aether";
-import Monochrome from "@/components/builder/templates/Monochrome";
+import dynamic from "next/dynamic";
+
+const AtsClassic = dynamic(() => import("@/components/builder/templates/AtsClassic"), { ssr: false, loading: () => <div className="animate-pulse bg-slate-100 w-full h-full rounded" /> });
+const ModernProfessional = dynamic(() => import("@/components/builder/templates/ModernProfessional"), { ssr: false, loading: () => <div className="animate-pulse bg-slate-100 w-full h-full rounded" /> });
+const Developer = dynamic(() => import("@/components/builder/templates/Developer"), { ssr: false, loading: () => <div className="animate-pulse bg-slate-100 w-full h-full rounded" /> });
+const Executive = dynamic(() => import("@/components/builder/templates/Executive"), { ssr: false, loading: () => <div className="animate-pulse bg-slate-100 w-full h-full rounded" /> });
+const Aether = dynamic(() => import("@/components/builder/templates/Aether"), { ssr: false, loading: () => <div className="animate-pulse bg-slate-100 w-full h-full rounded" /> });
+const Monochrome = dynamic(() => import("@/components/builder/templates/Monochrome"), { ssr: false, loading: () => <div className="animate-pulse bg-slate-100 w-full h-full rounded" /> });
 
 export default function TemplateCard({ template, dummyData }: { template: any, dummyData: any }) {
   const [showPreview, setShowPreview] = useState(false);

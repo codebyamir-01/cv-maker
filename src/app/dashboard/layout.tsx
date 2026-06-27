@@ -97,6 +97,7 @@ export default function DashboardLayout({
                 <Link 
                   key={item.name} 
                   href={item.href} 
+                  prefetch={true}
                   className={`flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium transition-all duration-200 group relative ${
                     isActive 
                       ? "text-blue-700 bg-blue-50" 
@@ -222,6 +223,7 @@ export default function DashboardLayout({
               <Link 
                 key={item.name} 
                 href={item.href}
+                prefetch={true}
                 className={`relative flex flex-col items-center justify-center w-full h-14 rounded-xl transition-all duration-300 ${
                   isActive 
                     ? "bg-blue-600 text-white shadow-md shadow-blue-500/20" 

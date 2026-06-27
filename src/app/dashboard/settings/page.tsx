@@ -6,12 +6,14 @@ import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import useSWR from "swr";
+import { fetcher } from "@/lib/utils";
 
 export default function SettingsPage() {
   const { data: session, status, update } = useSession();
   const [activeTab, setActiveTab] = useState("profile");
-  const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
+  const [initialized, setInitialized] = useState(false);
   const [message, setMessage] = useState({ type: "", text: "" });
 
   // Profile State
@@ -36,27 +38,24 @@ export default function SettingsPage() {
     accountActivity: true,
   });
 
+  const { data, isLoading } = useSWR(status === "authenticated" ? "/api/user/profile" : null, fetcher, {
+    revalidateOnFocus: false, // Don't wipe form state on window focus
+  });
+
   useEffect(() => {
-    if (status === "authenticated") {
-      fetch("/api/user/profile")
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.user) {
-            const nameParts = data.user.name?.split(" ") || ["", ""];
-            setFirstName(nameParts[0] || "");
-            setLastName(nameParts.slice(1).join(" ") || "");
-            setEmail(data.user.email || "");
-            setAvatarBase64(data.user.image || "");
-            if (data.user.notifications) {
-              setNotifications(data.user.notifications);
-            }
-          }
-          setIsLoading(false);
-        });
-    } else if (status === "unauthenticated") {
-      setIsLoading(false);
+    if (data?.user && !initialized) {
+      const nameParts = data.user.name?.split(" ") || ["", ""];
+      setFirstName(nameParts[0] || "");
+      setLastName(nameParts.slice(1).join(" ") || "");
+      setEmail(data.user.email || "");
+      setAvatarBase64(data.user.image || "");
+      if (data.user.notifications) {
+        setNotifications(data.user.notifications);
+      }
+      setInitialized(true);
     }
-  }, [status]);
+  }, [data, initialized]);
+
 
   const showMessage = (type: "success" | "error", text: string) => {
     setMessage({ type, text });
@@ -146,10 +145,20 @@ export default function SettingsPage() {
     setIsSaving(false);
   };
 
-  if (isLoading) {
+  if (isLoading || !initialized) {
     return (
-      <div className="max-w-4xl mx-auto flex items-center justify-center min-h-[400px]">
-        <Loader2 className="animate-spin text-blue-600 w-8 h-8" />
+      <div className="max-w-4xl mx-auto space-y-8 animate-pulse p-4">
+        <div className="h-10 bg-slate-200 rounded w-1/4 mb-12"></div>
+        
+        <div className="flex gap-4 mb-8">
+          <div className="h-12 bg-slate-100 rounded-full w-1/3"></div>
+          <div className="h-12 bg-slate-100 rounded-full w-1/3"></div>
+          <div className="h-12 bg-slate-100 rounded-full w-1/3"></div>
+        </div>
+
+        <div className="h-40 bg-slate-100 rounded-2xl w-full"></div>
+        <div className="h-12 bg-slate-100 rounded-2xl w-full"></div>
+        <div className="h-12 bg-slate-100 rounded-2xl w-full"></div>
       </div>
     );
   }
