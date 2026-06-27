@@ -374,7 +374,26 @@ export default function BuilderPage() {
     }
   };
 
-  const pct = Math.round(((stepIdx + 1) / STEPS.length) * 100);
+  const isStepValid = useCallback((index: number) => {
+    if (!resumeData) return false;
+    switch(index) {
+      case 0: return Object.values(resumeData.personalInfo || {}).some(v => v && String(v).trim() !== "");
+      case 1: return !!resumeData.summary?.trim();
+      case 2: return resumeData.experience && resumeData.experience.length > 0;
+      case 3: return resumeData.education && resumeData.education.length > 0;
+      case 4: return resumeData.skills && resumeData.skills.length > 0;
+      case 5: {
+        const opt = resumeData.optionalSections as any;
+        if (!opt) return false;
+        return (opt.projects?.length > 0 || opt.certifications?.length > 0 || opt.custom?.length > 0 || opt.languages?.length > 0);
+      }
+      case 6: return true; // Finalize is always "valid" if they reach it
+      default: return false;
+    }
+  }, [resumeData]);
+
+  const validStepsCount = STEPS.filter((_, idx) => isStepValid(idx)).length;
+  const pct = Math.round((validStepsCount / STEPS.length) * 100);
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f8fafc]" style={{ fontFamily: "Inter, Arial, system-ui, sans-serif" }}>
@@ -405,7 +424,7 @@ export default function BuilderPage() {
           <div className="relative pb-2 overflow-x-auto scrollbar-hide">
             <ol className="flex w-full items-center justify-between min-w-[600px] lg:min-w-0">
               {STEPS.map((step, idx) => {
-                const done   = idx < stepIdx;
+                const done   = idx < stepIdx && isStepValid(idx);
                 const active = idx === stepIdx;
                 return (
                   <li key={step.id} className="relative flex items-center flex-1 last:flex-none">
@@ -476,17 +495,26 @@ export default function BuilderPage() {
             {renderForm()}
 
             {/* Navigation */}
-            <div className={`flex items-center pt-2 ${stepIdx === 0 ? "justify-end" : "justify-between"}`}>
-              {stepIdx > 0 && (
-                <button onClick={goPrev} className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50 active:scale-[0.98]">
-                  <ArrowLeft className="h-4 w-4" /> Back
-                </button>
-              )}
-              {stepIdx < STEPS.length - 1 && (
-                <button onClick={goNext} className="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-6 py-3.5 text-sm font-bold text-white shadow-md transition hover:bg-black active:scale-[0.98]">
-                  Next: {STEPS[stepIdx + 1].title} <ArrowRight className="h-4 w-4" />
-                </button>
-              )}
+            <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
+              <div className="flex-1">
+                {stepIdx > 0 && (
+                  <button onClick={goPrev} className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 sm:px-5 py-3 text-sm font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50 active:scale-[0.98]">
+                    <ArrowLeft className="h-4 w-4" /> Back
+                  </button>
+                )}
+              </div>
+              <div className="flex items-center gap-2 sm:gap-3">
+                {stepIdx < STEPS.length - 1 && (
+                  <button onClick={goNext} className="inline-flex items-center justify-center gap-2 rounded-xl bg-transparent px-3 sm:px-4 py-3 text-sm font-semibold text-slate-500 hover:text-slate-700 transition active:scale-[0.98]">
+                    {stepIdx === 5 ? "Skip All" : "Skip for now"}
+                  </button>
+                )}
+                {stepIdx < STEPS.length - 1 && (
+                  <button onClick={goNext} className="inline-flex items-center justify-center gap-2 rounded-xl bg-slate-900 px-5 sm:px-6 py-3.5 text-sm font-bold text-white shadow-md transition hover:bg-black active:scale-[0.98]">
+                    {stepIdx === 5 ? "Next: Finalize & Download" : `Next: ${STEPS[stepIdx + 1].title}`} <ArrowRight className="h-4 w-4" />
+                  </button>
+                )}
+              </div>
             </div>
           </div>
 
