@@ -349,6 +349,24 @@ export default function BuilderPage() {
     }
   }, [stepIdx]);
 
+  const isStepValid = useCallback((index: number) => {
+    if (!resumeData) return false;
+    switch(index) {
+      case 0: return Object.values(resumeData.personalInfo || {}).some(v => v && String(v).trim() !== "");
+      case 1: return !!resumeData.summary?.trim();
+      case 2: return resumeData.experience && resumeData.experience.length > 0;
+      case 3: return resumeData.education && resumeData.education.length > 0;
+      case 4: return resumeData.skills && resumeData.skills.length > 0;
+      case 5: {
+        const opt = resumeData.optionalSections as any;
+        if (!opt) return false;
+        return (opt.projects?.length > 0 || opt.certifications?.length > 0 || opt.custom?.length > 0 || opt.languages?.length > 0);
+      }
+      case 6: return true; // Finalize is always "valid" if they reach it
+      default: return false;
+    }
+  }, [resumeData]);
+
   if (!hasMounted) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#f8fafc]">
@@ -373,24 +391,6 @@ export default function BuilderPage() {
       default:           return null;
     }
   };
-
-  const isStepValid = useCallback((index: number) => {
-    if (!resumeData) return false;
-    switch(index) {
-      case 0: return Object.values(resumeData.personalInfo || {}).some(v => v && String(v).trim() !== "");
-      case 1: return !!resumeData.summary?.trim();
-      case 2: return resumeData.experience && resumeData.experience.length > 0;
-      case 3: return resumeData.education && resumeData.education.length > 0;
-      case 4: return resumeData.skills && resumeData.skills.length > 0;
-      case 5: {
-        const opt = resumeData.optionalSections as any;
-        if (!opt) return false;
-        return (opt.projects?.length > 0 || opt.certifications?.length > 0 || opt.custom?.length > 0 || opt.languages?.length > 0);
-      }
-      case 6: return true; // Finalize is always "valid" if they reach it
-      default: return false;
-    }
-  }, [resumeData]);
 
   const validStepsCount = STEPS.filter((_, idx) => isStepValid(idx)).length;
   const pct = Math.round((validStepsCount / STEPS.length) * 100);
