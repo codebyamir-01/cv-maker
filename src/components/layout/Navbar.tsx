@@ -36,11 +36,11 @@ export function Navbar() {
     <>
     <header className="fixed top-0 w-full z-50 transition-all duration-300 bg-white/80 backdrop-blur-lg border-b border-slate-200/60">
       <div className="container mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2" onClick={closeMenu}>
-          <div className="w-8 h-8 flex items-center justify-center">
-            <LogoIcon className="w-7 h-7" />
+        <Link href="/" className="flex items-center gap-2.5" onClick={closeMenu}>
+          <div className="w-8 h-8 flex items-center justify-center rounded-xl bg-blue-600 shadow-sm shadow-blue-500/30">
+            <LogoIcon className="w-5 h-5 text-white" />
           </div>
-          <span className="font-bold text-lg sm:text-xl tracking-tight text-slate-900 flex items-center gap-1">
+          <span className="font-bold text-lg sm:text-xl tracking-tight text-slate-900">
             Smart <span className="text-blue-600">Resume Maker</span>
           </span>
         </Link>
