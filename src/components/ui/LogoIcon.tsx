@@ -4,28 +4,33 @@ export function LogoIcon({ className = "" }: { className?: string }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 100 100"
+      viewBox="0 0 24 24"
       fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
       className={className}
     >
-      {/* Document Outline */}
-      <rect x="15" y="15" width="60" height="75" rx="8" stroke="#3b82f6" strokeWidth="6" />
-      
-      {/* Bullet Lines */}
-      <circle cx="28" cy="40" r="4" fill="#3b82f6" />
-      <line x1="38" y1="40" x2="60" y2="40" stroke="#3b82f6" strokeWidth="5" strokeLinecap="round" />
-      
-      <circle cx="28" cy="55" r="4" fill="#3b82f6" />
-      <line x1="38" y1="55" x2="60" y2="55" stroke="#3b82f6" strokeWidth="5" strokeLinecap="round" />
-      
-      <circle cx="28" cy="70" r="4" fill="#3b82f6" />
-      <line x1="38" y1="70" x2="60" y2="70" stroke="#3b82f6" strokeWidth="5" strokeLinecap="round" />
+      {/* Outer Document Shape */}
+      <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" className="text-slate-800" />
+      <path d="M14 2v6h6" className="text-slate-800" />
 
-      {/* Swoosh Checkmark / Spark */}
-      <path d="M45 35 L60 50 L95 10" stroke="#3b82f6" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" />
+      {/* Bullet Lines */}
+      <circle cx="8" cy="11" r="0.8" fill="currentColor" stroke="none" className="text-slate-800" />
+      <line x1="10" y1="11" x2="16" y2="11" className="text-slate-800" />
       
-      {/* Tiny Sparkles */}
-      <path d="M80 30 L85 20 L90 30 L100 35 L90 40 L85 50 L80 40 L70 35 Z" fill="#3b82f6" />
+      <circle cx="8" cy="15" r="0.8" fill="currentColor" stroke="none" className="text-slate-800" />
+      <line x1="10" y1="15" x2="16" y2="15" className="text-slate-800" />
+      
+      <circle cx="8" cy="19" r="0.8" fill="currentColor" stroke="none" className="text-slate-800" />
+      <line x1="10" y1="19" x2="13" y2="19" className="text-slate-800" />
+
+      {/* Dynamic Swoosh / Checkmark with Sparkle */}
+      <g className="text-blue-600">
+        <path d="M9 13.5l2.5 2.5 5.5-6.5" stroke="currentColor" strokeWidth="2.5" />
+        <path d="M17 7.5l.5-1.5 1.5-.5-1.5-.5-.5-1.5-.5 1.5-1.5.5 1.5.5z" fill="currentColor" stroke="none" />
+      </g>
     </svg>
   );
 }

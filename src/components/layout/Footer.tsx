@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FileText } from "lucide-react";
+import { LogoIcon } from "@/components/ui/LogoIcon";
 
 export function Footer() {
   return (
@@ -9,7 +9,7 @@ export function Footer() {
           <div>
             <div className="flex items-center gap-2 mb-3">
               <div className="grid h-8 w-8 place-items-center rounded-lg bg-slate-900 text-white">
-                <FileText className="h-4 w-4" />
+                <LogoIcon className="h-5 w-5" />
               </div>
               <span className="text-base font-extrabold tracking-tight text-slate-900">Smart Resume Maker</span>
             </div>
