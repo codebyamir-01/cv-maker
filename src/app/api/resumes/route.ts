@@ -11,20 +11,38 @@ export async function GET() {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    // Single optimized query — no extra user lookup round trip
     const user = await prisma.user.findUnique({
       where: { email: session.user.email },
+      select: {
+        id: true,
+        resumes: {
+          orderBy: { updatedAt: "desc" },
+          select: {
+            id: true,
+            title: true,
+            templateId: true,
+            atsScore: true,
+            updatedAt: true,
+            createdAt: true,
+          },
+        },
+      },
     });
 
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    const resumes = await prisma.resume.findMany({
-      where: { userId: user.id },
-      orderBy: { updatedAt: "desc" },
-    });
-
-    return NextResponse.json({ resumes }, { status: 200 });
+    return NextResponse.json(
+      { resumes: user.resumes },
+      {
+        status: 200,
+        headers: {
+          "Cache-Control": "private, max-age=10, stale-while-revalidate=30",
+        },
+      }
+    );
   } catch (error) {
     console.error("Error fetching resumes:", error);
     return NextResponse.json({ error: "Failed to fetch resumes" }, { status: 500 });

@@ -19,7 +19,13 @@ export default function DashboardContent() {
 
   const { data, error, isLoading, mutate } = useSWR(
     status === "authenticated" ? "/api/resumes" : null,
-    fetcher
+    fetcher,
+    {
+      dedupingInterval: 10000,       // don't re-fetch within 10s
+      revalidateOnFocus: false,      // don't refetch on tab switch
+      revalidateOnReconnect: false,  // don't refetch on reconnect
+      keepPreviousData: true,        // show old data while loading new
+    }
   );
 
   const resumes = data?.resumes || [];
