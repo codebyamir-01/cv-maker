@@ -11,7 +11,7 @@ import { Loader2 } from "lucide-react";
 import useSWR from "swr";
 import { fetcher } from "@/lib/utils";
 
-export default function DashboardContent() {
+export default function DashboardContent({ initialResumes }: { initialResumes?: any[] }) {
   const router = useRouter();
   const { data: session, status } = useSession();
   const [deletingId, setDeletingId] = useState<string | null>(null);
@@ -21,6 +21,7 @@ export default function DashboardContent() {
     status === "authenticated" ? "/api/resumes" : null,
     fetcher,
     {
+      fallbackData: initialResumes ? { resumes: initialResumes } : undefined,
       dedupingInterval: 10000,       // don't re-fetch within 10s
       revalidateOnFocus: false,      // don't refetch on tab switch
       revalidateOnReconnect: false,  // don't refetch on reconnect

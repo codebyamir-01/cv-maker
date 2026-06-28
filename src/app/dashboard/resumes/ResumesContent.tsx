@@ -16,7 +16,7 @@ interface Resume {
   atsScore: number | null;
 }
 
-export default function ResumesContent() {
+export default function ResumesContent({ initialResumes }: { initialResumes?: Resume[] }) {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const router = useRouter();
@@ -26,7 +26,12 @@ export default function ResumesContent() {
     setTimeout(() => setToastMessage(null), 3000);
   };
 
-  const { data, error, isLoading: loading, mutate } = useSWR("/api/resumes", fetcher);
+  const { data, error, isLoading: loading, mutate } = useSWR("/api/resumes", fetcher, {
+    fallbackData: initialResumes ? { resumes: initialResumes } : undefined,
+    dedupingInterval: 10000,
+    revalidateOnFocus: false,
+    keepPreviousData: true,
+  });
   const resumes: Resume[] = data?.resumes || [];
 
   if (error) {
