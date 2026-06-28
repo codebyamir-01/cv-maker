@@ -203,7 +203,6 @@ export default function SettingsPage() {
             {[
               { id: "profile", icon: <User className="w-4 h-4" />, label: "Profile" },
               { id: "security", icon: <Lock className="w-4 h-4" />, label: "Security" },
-              { id: "notifications", icon: <Bell className="w-4 h-4" />, label: "Alerts" },
             ].map((tab) => (
               <button
                 key={tab.id}
@@ -225,7 +224,6 @@ export default function SettingsPage() {
             {[
               { id: "profile", icon: <User className="w-4 h-4" />, label: "Profile" },
               { id: "security", icon: <Lock className="w-4 h-4" />, label: "Security" },
-              { id: "notifications", icon: <Bell className="w-4 h-4" />, label: "Notifications" },
             ].map((tab) => (
               <button
                 key={tab.id}
@@ -342,39 +340,6 @@ export default function SettingsPage() {
             </div>
           )}
 
-          {activeTab === "notifications" && (
-            <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
-              <div>
-                <h2 className="text-xl font-bold text-slate-900">Email Notifications</h2>
-                <p className="text-sm text-slate-500 mt-1">Choose what updates you want to receive.</p>
-              </div>
-
-              <div className="space-y-3">
-                {[
-                  { key: "weeklyTips" as const, title: "Weekly ATS Tips", desc: "Get strategies to beat applicant tracking systems." },
-                  { key: "productUpdates" as const, title: "Product Updates", desc: "Receive news about new templates and features." },
-                  { key: "accountActivity" as const, title: "Account Activity", desc: "Important notifications about your account security." },
-                ].map((item) => (
-                  <div key={item.key} className="flex items-center justify-between p-4 rounded-xl border border-slate-100 bg-slate-50/50">
-                    <div className="mr-4">
-                      <h3 className="font-semibold text-slate-900 text-sm">{item.title}</h3>
-                      <p className="text-xs text-slate-500 mt-0.5">{item.desc}</p>
-                    </div>
-                    <label className="relative inline-flex items-center cursor-pointer shrink-0">
-                      <input type="checkbox" className="sr-only peer" checked={notifications[item.key]} onChange={(e) => setNotifications({...notifications, [item.key]: e.target.checked})} />
-                      <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-                    </label>
-                  </div>
-                ))}
-              </div>
-
-              <div className="pt-4 flex justify-end">
-                <Button onClick={handleNotificationsSave} disabled={isSaving} className="bg-slate-900 hover:bg-black text-white h-11 px-6 rounded-xl shadow-md">
-                  {isSaving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Save className="w-4 h-4 mr-2" />} Save Preferences
-                </Button>
-              </div>
-            </div>
-          )}
 
         </div>
       </div>
