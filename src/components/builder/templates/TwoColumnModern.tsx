@@ -6,118 +6,159 @@ interface Props {
 }
 
 export default function TwoColumnModern({ resumeData, accentColor = "#2563eb" }: Props) {
-  const { personalInfo, experience, education, skills, optionalSections, summary } = resumeData;
+  const { personalInfo, experience, summary, education, skills, optionalSections } = resumeData;
 
-  const LeftHeading = ({ children }: { children: React.ReactNode }) => (
-    <h2 className="text-[14px] font-bold uppercase tracking-wider mb-4 border-b border-white/30 pb-1 text-white">
-      {children}
-    </h2>
-  );
+  const leftHeaderStyle = {
+    fontSize: "14px",
+    fontWeight: "bold" as const,
+    textTransform: "uppercase" as const,
+    borderBottom: `2px solid ${accentColor}`,
+    marginBottom: "12px",
+    paddingBottom: "4px",
+    color: "#1f2937",
+    letterSpacing: "0.5px"
+  };
 
-  const RightHeading = ({ children }: { children: React.ReactNode }) => (
-    <h2 className="text-[16px] font-bold uppercase tracking-wider mb-4 pb-1" style={{ color: accentColor, borderBottom: `2px solid ${accentColor}` }}>
-      {children}
-    </h2>
-  );
+  const rightHeaderStyle = {
+    fontSize: "16px",
+    fontWeight: "bold" as const,
+    textTransform: "uppercase" as const,
+    color: accentColor,
+    borderBottom: "2px solid #e5e7eb",
+    marginBottom: "12px",
+    paddingBottom: "4px",
+    letterSpacing: "0.5px"
+  };
 
   return (
     <div
-      className="flex font-sans text-left"
+      className="bg-white flex text-left font-sans"
       style={{
         width: "816px",
         minHeight: "1056px",
         boxSizing: "border-box",
+        color: "#374151",
       }}
     >
-      {/* LEFT COLUMN (35%) */}
-      <div 
-        className="text-white p-8"
-        style={{ width: "35%", backgroundColor: accentColor }}
-      >
-        {/* Photo would go here if supported, but we'll stick to text for now */}
-        <div className="mb-10 text-center">
-          {personalInfo.photo ? (
-            <div className="w-32 h-32 mx-auto rounded-full bg-white/20 mb-4 overflow-hidden border-4 border-white/30">
-               {/* eslint-disable-next-line @next/next/no-img-element */}
-               <img src={personalInfo.photo} alt="Profile" className="w-full h-full object-cover" />
-            </div>
-          ) : (
-             <div className="w-24 h-24 mx-auto rounded-full bg-white/20 mb-4 flex items-center justify-center text-3xl font-bold border-4 border-white/30 text-white">
-                {personalInfo.fullName?.charAt(0) || "U"}
-             </div>
+      {/* Left Column (30%) */}
+      <div className="w-[30%] p-8" style={{ backgroundColor: "#f3f4f6" }}>
+        {/* Name & Title */}
+        <div className="mb-8">
+          <h1 className="font-bold uppercase tracking-tight mb-1" style={{ fontSize: "24px", color: accentColor, lineHeight: "1.1" }}>
+            {personalInfo.fullName || "YOUR NAME"}
+          </h1>
+          {personalInfo.jobTitle && (
+            <p className="text-[14px] font-medium text-gray-600 mt-2">{personalInfo.jobTitle}</p>
           )}
-          <h1 className="text-[22px] font-bold leading-tight mb-1">{personalInfo.fullName || "YOUR NAME"}</h1>
-          <p className="text-[13px] text-white/80 uppercase tracking-widest">{personalInfo.jobTitle}</p>
         </div>
 
-        <div className="space-y-8">
-          <div>
-            <LeftHeading>Contact</LeftHeading>
-            <div className="space-y-2 text-[11px] text-white/90">
-              {personalInfo.phone && <div>{personalInfo.phone}</div>}
-              {personalInfo.email && <div className="break-all">{personalInfo.email}</div>}
-              {personalInfo.location && <div>{personalInfo.location}</div>}
-              {personalInfo.linkedIn && <div className="break-all"><a href={personalInfo.linkedIn}>{personalInfo.linkedIn.replace(/^https?:\/\//, '')}</a></div>}
-              {personalInfo.portfolio && <div className="break-all"><a href={personalInfo.portfolio}>{personalInfo.portfolio.replace(/^https?:\/\//, '')}</a></div>}
-            </div>
+        {/* Contact Info */}
+        <div className="mb-8">
+          <h2 style={leftHeaderStyle}>Contact</h2>
+          <div className="flex flex-col gap-2 text-[11px] break-all">
+            {personalInfo.email && <div><strong>Email:</strong><br />{personalInfo.email}</div>}
+            {personalInfo.phone && <div><strong>Phone:</strong><br />{personalInfo.phone}</div>}
+            {personalInfo.location && <div><strong>Location:</strong><br />{personalInfo.location}</div>}
+            {personalInfo.linkedIn && <div><strong>LinkedIn:</strong><br /><a href={personalInfo.linkedIn} className="underline">{personalInfo.linkedIn.replace(/^https?:\/\//, '')}</a></div>}
+            {personalInfo.portfolio && <div><strong>Portfolio:</strong><br /><a href={personalInfo.portfolio} className="underline">{personalInfo.portfolio.replace(/^https?:\/\//, '')}</a></div>}
+            {personalInfo.github && <div><strong>GitHub:</strong><br /><a href={personalInfo.github} className="underline">{personalInfo.github.replace(/^https?:\/\//, '')}</a></div>}
           </div>
-
-          {skills.length > 0 && (
-            <div>
-              <LeftHeading>Skills</LeftHeading>
-              <div className="flex flex-wrap gap-2">
-                {skills.map((skill) => (
-                  <span key={skill.id} className="text-[11px] px-2 py-1 bg-white/10 rounded border border-white/20 text-white">
-                    {skill.name}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {optionalSections?.languages && optionalSections.languages.length > 0 && (
-            <div>
-              <LeftHeading>Languages</LeftHeading>
-              <ul className="space-y-1.5 text-[11px] text-white/90">
-                {optionalSections.languages.map(lang => (
-                  <li key={lang.id} className="flex justify-between">
-                    <span className="font-semibold text-white">{lang.name}</span>
-                    <span className="text-white/70">{lang.proficiency}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
         </div>
-      </div>
 
-      {/* RIGHT COLUMN (65%) */}
-      <div 
-        className="bg-white p-8"
-        style={{ width: "65%" }}
-      >
-        {summary && (
+        {/* Skills */}
+        {skills.length > 0 && (
           <div className="mb-8">
-            <RightHeading>Profile</RightHeading>
-            <p className="text-[12px] leading-relaxed text-slate-600">{summary}</p>
+            <h2 style={leftHeaderStyle}>Skills</h2>
+            <div className="flex flex-wrap gap-2">
+              {skills.map((s, i) => (
+                <span key={i} className="text-[11px] bg-white px-2 py-1 rounded-sm border border-gray-200 shadow-sm text-gray-700">
+                  {s.name}
+                </span>
+              ))}
+            </div>
           </div>
         )}
 
+        {/* Education */}
+        {education.length > 0 && (
+          <div className="mb-8">
+            <h2 style={leftHeaderStyle}>Education</h2>
+            <div className="space-y-4">
+              {education.map((edu) => (
+                <div key={edu.id}>
+                  <h3 className="font-bold text-[12px] text-gray-800">{edu.degree}</h3>
+                  <p className="text-[11px] text-gray-600 italic">{edu.institution}</p>
+                  <p className="text-[10px] text-gray-500">{edu.startYear} - {edu.endYear}</p>
+                  {edu.grade && <p className="text-[10px] text-gray-500 mt-0.5">Grade: {edu.grade}</p>}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Languages */}
+        {optionalSections?.languages && optionalSections.languages.length > 0 && (
+          <div className="mb-8">
+            <h2 style={leftHeaderStyle}>Languages</h2>
+            <div className="space-y-1">
+              {optionalSections.languages.map((l, i) => (
+                <div key={i} className="text-[11px]">
+                  <strong>{l.name}</strong> {l.proficiency && <span className="text-gray-500">- {l.proficiency}</span>}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Certifications */}
+        {optionalSections?.certifications && optionalSections.certifications.length > 0 && (
+          <div className="mb-8">
+            <h2 style={leftHeaderStyle}>Certifications</h2>
+            <div className="space-y-3">
+              {optionalSections.certifications.map((cert) => (
+                <div key={cert.id}>
+                  <h3 className="font-bold text-[11px] text-gray-800 leading-tight">{cert.name}</h3>
+                  <p className="text-[10px] text-gray-600">{cert.issuer}</p>
+                  <p className="text-[10px] text-gray-500">{cert.issueDate}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Right Column (70%) */}
+      <div className="w-[70%] p-8 bg-white">
+        
+        {/* Summary */}
+        {summary && (
+          <div className="mb-8">
+            <h2 style={rightHeaderStyle}>Profile</h2>
+            <p className="text-[12px] leading-relaxed text-gray-700 whitespace-pre-wrap">{summary}</p>
+          </div>
+        )}
+
+        {/* Experience */}
         {experience.length > 0 && (
           <div className="mb-8">
-            <RightHeading>Experience</RightHeading>
-            <div className="space-y-6">
+            <h2 style={rightHeaderStyle}>Experience</h2>
+            <div className="space-y-5">
               {experience.map((exp) => (
                 <div key={exp.id}>
-                  <h3 className="font-bold text-[14px] text-slate-800">{exp.jobTitle}</h3>
-                  <div className="flex justify-between items-baseline mb-2 text-[12px]">
-                    <span className="font-semibold text-slate-600">{exp.company}</span>
-                    <span className="text-slate-500 font-medium">
-                      {exp.startDate} - {exp.currentlyWorking ? "Present" : exp.endDate}
+                  <div className="flex justify-between items-baseline mb-1">
+                    <h3 className="font-bold text-[14px] text-gray-900">{exp.jobTitle}</h3>
+                    <span className="text-[11px] font-semibold text-gray-500 bg-gray-100 px-2 py-0.5 rounded">
+                      {exp.startDate} – {exp.currentlyWorking ? "Present" : exp.endDate}
                     </span>
                   </div>
+                  <div className="flex justify-between items-baseline mb-2">
+                    <p className="text-[13px] font-medium text-gray-700" style={{ color: accentColor }}>{exp.company}</p>
+                    <span className="text-[11px] text-gray-500 italic">{exp.location}</span>
+                  </div>
                   {exp.description && (
-                    <p className="text-[12px] leading-relaxed text-slate-600 whitespace-pre-wrap">{exp.description}</p>
+                    <p className="text-[12px] leading-relaxed whitespace-pre-wrap text-gray-700 pl-4" style={{ listStyleType: "circle", display: "list-item" }}>
+                      {exp.description}
+                    </p>
                   )}
                 </div>
               ))}
@@ -125,51 +166,80 @@ export default function TwoColumnModern({ resumeData, accentColor = "#2563eb" }:
           </div>
         )}
 
-        {education.length > 0 && (
-          <div className="mb-8">
-            <RightHeading>Education</RightHeading>
-            <div className="space-y-4">
-              {education.map((edu) => (
-                <div key={edu.id}>
-                  <h3 className="font-bold text-[13px] text-slate-800">{edu.degree}</h3>
-                  <div className="flex justify-between items-baseline text-[12px] mt-0.5">
-                    <span className="text-slate-600">{edu.institution}</span>
-                    <span className="text-slate-500 font-medium">{edu.startYear} - {edu.endYear}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
+        {/* Projects */}
         {optionalSections?.projects && optionalSections.projects.length > 0 && (
           <div className="mb-8">
-            <RightHeading>Projects</RightHeading>
+            <h2 style={rightHeaderStyle}>Projects</h2>
             <div className="space-y-5">
               {optionalSections.projects.map((proj) => (
                 <div key={proj.id}>
                   <div className="flex justify-between items-baseline mb-1">
-                    <h3 className="font-bold text-[13px] text-slate-800">{proj.name}</h3>
-                    {proj.link && <a href={proj.link} className="text-[11px] text-blue-500 underline">{proj.link.replace(/^https?:\/\//, '')}</a>}
+                    <h3 className="font-bold text-[14px] text-gray-900">{proj.name}</h3>
+                    {proj.link && <a href={proj.link} className="text-[11px] text-blue-600 underline">{proj.link.replace(/^https?:\/\//, '')}</a>}
                   </div>
-                  {proj.description && <p className="text-[12px] leading-relaxed text-slate-600 whitespace-pre-wrap">{proj.description}</p>}
+                  {proj.techStack && <p className="text-[11px] font-semibold text-gray-500 mb-1.5 uppercase tracking-wide">{proj.techStack}</p>}
+                  {proj.description && (
+                    <p className="text-[12px] leading-relaxed whitespace-pre-wrap text-gray-700 pl-4" style={{ listStyleType: "circle", display: "list-item" }}>
+                      {proj.description}
+                    </p>
+                  )}
                 </div>
               ))}
             </div>
           </div>
         )}
 
-        {optionalSections?.certifications && optionalSections.certifications.length > 0 && (
+        {/* Volunteer */}
+        {optionalSections?.volunteer && optionalSections.volunteer.length > 0 && (
           <div className="mb-8">
-            <RightHeading>Certifications</RightHeading>
-            <div className="space-y-3">
-              {optionalSections.certifications.map((cert) => (
-                <div key={cert.id} className="flex justify-between items-baseline text-[12px]">
-                  <div>
-                    <span className="font-bold text-slate-800">{cert.name}</span>
-                    <span className="text-slate-500 ml-1">| {cert.issuer}</span>
+            <h2 style={rightHeaderStyle}>Volunteer Experience</h2>
+            <div className="space-y-4">
+              {optionalSections.volunteer.map((vol) => (
+                <div key={vol.id}>
+                  <div className="flex justify-between items-baseline mb-1">
+                    <h3 className="font-bold text-[13px] text-gray-900">{vol.role}</h3>
+                    <span className="text-[11px] text-gray-500">{vol.startDate} – {vol.endDate}</span>
                   </div>
-                  <span className="text-slate-500">{cert.issueDate}</span>
+                  <p className="text-[12px] font-medium" style={{ color: accentColor }}>{vol.organization}</p>
+                  {vol.description && <p className="text-[12px] leading-relaxed whitespace-pre-wrap text-gray-700 mt-1">{vol.description}</p>}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Awards */}
+        {optionalSections?.awards && optionalSections.awards.length > 0 && (
+          <div className="mb-8">
+            <h2 style={rightHeaderStyle}>Awards & Honors</h2>
+            <div className="space-y-4">
+              {optionalSections.awards.map((award) => (
+                <div key={award.id}>
+                  <div className="flex justify-between items-baseline mb-0.5">
+                    <h3 className="font-bold text-[13px] text-gray-900">{award.title}</h3>
+                    <span className="text-[11px] text-gray-500">{award.date}</span>
+                  </div>
+                  <p className="text-[12px]" style={{ color: accentColor }}>{award.organization}</p>
+                  {award.description && <p className="text-[12px] leading-relaxed whitespace-pre-wrap text-gray-700 mt-1">{award.description}</p>}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Publications */}
+        {optionalSections?.publications && optionalSections.publications.length > 0 && (
+          <div className="mb-8">
+            <h2 style={rightHeaderStyle}>Publications</h2>
+            <div className="space-y-4">
+              {optionalSections.publications.map((pub) => (
+                <div key={pub.id}>
+                  <div className="flex justify-between items-baseline mb-0.5">
+                    <h3 className="font-bold text-[13px] text-gray-900">{pub.title}</h3>
+                    <span className="text-[11px] text-gray-500">{pub.date}</span>
+                  </div>
+                  <p className="text-[12px] italic text-gray-600">Published by: <span style={{ color: accentColor }}>{pub.publisher}</span></p>
+                  {pub.description && <p className="text-[12px] leading-relaxed whitespace-pre-wrap text-gray-700 mt-1">{pub.description}</p>}
                 </div>
               ))}
             </div>
