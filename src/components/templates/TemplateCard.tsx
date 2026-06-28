@@ -12,6 +12,15 @@ const Developer = dynamic(() => import("@/components/builder/templates/Developer
 const Executive = dynamic(() => import("@/components/builder/templates/Executive"), { ssr: false, loading: () => <div className="animate-pulse bg-slate-100 w-full h-full rounded" /> });
 const Aether = dynamic(() => import("@/components/builder/templates/Aether"), { ssr: false, loading: () => <div className="animate-pulse bg-slate-100 w-full h-full rounded" /> });
 const Monochrome = dynamic(() => import("@/components/builder/templates/Monochrome"), { ssr: false, loading: () => <div className="animate-pulse bg-slate-100 w-full h-full rounded" /> });
+const AtsMinimal = dynamic(() => import("@/components/builder/templates/AtsMinimal"), { ssr: false, loading: () => <div className="animate-pulse bg-slate-100 w-full h-full rounded" /> });
+const CorporateClassic = dynamic(() => import("@/components/builder/templates/CorporateClassic"), { ssr: false, loading: () => <div className="animate-pulse bg-slate-100 w-full h-full rounded" /> });
+const CreativeClean = dynamic(() => import("@/components/builder/templates/CreativeClean"), { ssr: false, loading: () => <div className="animate-pulse bg-slate-100 w-full h-full rounded" /> });
+const AcademicCv = dynamic(() => import("@/components/builder/templates/AcademicCv"), { ssr: false, loading: () => <div className="animate-pulse bg-slate-100 w-full h-full rounded" /> });
+const TwoColumnModern = dynamic(() => import("@/components/builder/templates/TwoColumnModern"), { ssr: false, loading: () => <div className="animate-pulse bg-slate-100 w-full h-full rounded" /> });
+const GraduateStarter = dynamic(() => import("@/components/builder/templates/GraduateStarter"), { ssr: false, loading: () => <div className="animate-pulse bg-slate-100 w-full h-full rounded" /> });
+const FinanceProfessional = dynamic(() => import("@/components/builder/templates/FinanceProfessional"), { ssr: false, loading: () => <div className="animate-pulse bg-slate-100 w-full h-full rounded" /> });
+const MarketingCreative = dynamic(() => import("@/components/builder/templates/MarketingCreative"), { ssr: false, loading: () => <div className="animate-pulse bg-slate-100 w-full h-full rounded" /> });
+const SimpleBw = dynamic(() => import("@/components/builder/templates/SimpleBw"), { ssr: false, loading: () => <div className="animate-pulse bg-slate-100 w-full h-full rounded" /> });
 
 export default function TemplateCard({ template, dummyData }: { template: any, dummyData: any }) {
   const [showPreview, setShowPreview] = useState(false);
@@ -24,6 +33,15 @@ export default function TemplateCard({ template, dummyData }: { template: any, d
       case "modern": return ModernProfessional;
       case "developer": return Developer;
       case "executive": return Executive;
+      case "ats-minimal": return AtsMinimal;
+      case "corporate": return CorporateClassic;
+      case "creative-clean": return CreativeClean;
+      case "academic": return AcademicCv;
+      case "two-column": return TwoColumnModern;
+      case "graduate": return GraduateStarter;
+      case "finance": return FinanceProfessional;
+      case "marketing": return MarketingCreative;
+      case "simple-bw": return SimpleBw;
       default: return AtsClassic;
     }
   };
