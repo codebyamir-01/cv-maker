@@ -10,6 +10,7 @@ import {
 import { useResumeStore } from "@/store/useResumeStore";
 import dynamic from "next/dynamic";
 import { useSearchParams, useRouter } from "next/navigation";
+import PersonalInfoForm from "@/components/builder/PersonalInfoForm";
 
 /* ─── Lazy-load ALL heavy form components ─────────────────────────
    This is the main mobile win. Without this, all 6 form components
@@ -25,9 +26,6 @@ const FormSkeleton = () => (
   </div>
 );
 
-const PersonalInfoForm = dynamic(() => import("@/components/builder/PersonalInfoForm"), {
-  ssr: false, loading: () => <FormSkeleton />,
-});
 const ExperienceForm = dynamic(() => import("@/components/builder/ExperienceForm"), {
   ssr: false, loading: () => <FormSkeleton />,
 });

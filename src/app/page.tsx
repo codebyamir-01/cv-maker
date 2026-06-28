@@ -3,7 +3,9 @@ import { ArrowRight, CheckCircle2, FileText, Sparkles, LayoutTemplate, ShieldChe
 import { Button } from "@/components/ui/button";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
-import TemplatesSection from "@/components/home/TemplatesSection";
+import dynamic from "next/dynamic";
+
+const TemplatesSection = dynamic(() => import("@/components/home/TemplatesSection"));
 
 export default function LandingPage() {
   return (
@@ -30,23 +32,23 @@ export default function LandingPage() {
           <div className="container mx-auto px-4 relative z-10 text-center max-w-5xl flex flex-col items-center">
 
             {/* Pill Badge */}
-            <div className="animate-fade-in inline-flex items-center justify-center gap-2 px-5 py-2 rounded-full bg-slate-900/50 backdrop-blur-md border border-slate-700 shadow-[0_0_15px_rgba(59,130,246,0.15)] text-blue-300 text-sm font-medium mb-10 tracking-wide">
+            <div className="md:animate-fade-in inline-flex items-center justify-center gap-2 px-5 py-2 rounded-full bg-slate-900/50 backdrop-blur-md border border-slate-700 shadow-[0_0_15px_rgba(59,130,246,0.15)] text-blue-300 text-sm font-medium mb-10 tracking-wide">
               <Sparkles className="w-4 h-4 text-emerald-400" />
               <span className="opacity-90">The Ultimate Resume Builder</span>
             </div>
 
             {/* Main Headline */}
-            <h1 className="animate-fade-in-up text-[3.5rem] md:text-[6rem] font-extrabold tracking-tight text-white mb-6 leading-[1.05]">
+            <h1 className="md:animate-fade-in-up text-[3.5rem] md:text-[6rem] font-extrabold tracking-tight text-white mb-6 leading-[1.05]">
               Build Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400">Professional CV</span>
             </h1>
 
             {/* Subheadline */}
-            <p className="animate-fade-in-up-delay-1 text-[1.1rem] md:text-[1.35rem] text-slate-400 mb-12 max-w-2xl mx-auto leading-relaxed font-light">
+            <p className="md:animate-fade-in-up-delay-1 text-[1.1rem] md:text-[1.35rem] text-slate-400 mb-12 max-w-2xl mx-auto leading-relaxed font-light">
               Create an ATS-friendly resume in minutes. Use our premium templates and smart tools to build a CV that commands attention and secures interviews.
             </p>
 
             {/* CTA Buttons */}
-            <div className="animate-fade-in-up-delay-2 flex flex-col sm:flex-row items-center justify-center gap-5 w-full sm:w-auto">
+            <div className="md:animate-fade-in-up-delay-2 flex flex-col sm:flex-row items-center justify-center gap-5 w-full sm:w-auto">
               <Link href="/builder">
                 <Button size="lg" className="w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white rounded-full px-10 h-14 text-[1rem] font-semibold shadow-[0_0_30px_rgba(37,99,235,0.4)] transition-all hover:scale-[1.03] border border-blue-500 hover:border-blue-400">
                   Start Building <ArrowRight className="ml-2 w-4 h-4" />
@@ -60,7 +62,7 @@ export default function LandingPage() {
             </div>
 
             {/* Social Proof metrics */}
-            <div className="animate-fade-in-up-delay-3 mt-16 pt-10 border-t border-slate-800/60 w-full max-w-3xl flex items-center justify-between gap-4 text-slate-400">
+            <div className="md:animate-fade-in-up-delay-3 mt-16 pt-10 border-t border-slate-800/60 w-full max-w-3xl flex items-center justify-between gap-4 text-slate-400">
               <div className="text-center">
                 <div className="text-2xl font-bold text-white mb-1">98%</div>
                 <div className="text-xs uppercase tracking-widest font-semibold opacity-70">ATS Pass Rate</div>
@@ -79,7 +81,7 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* Templates Section – Server Rendered */}
+        {/* Templates Section – Server Rendered / Lazily Loaded on Client */}
         <div className="cv-below-fold">
           <TemplatesSection />
         </div>

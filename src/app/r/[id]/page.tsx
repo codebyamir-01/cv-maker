@@ -3,15 +3,24 @@ import { prisma } from "@/lib/prisma";
 import PublicPreview from "@/components/builder/PublicPreview";
 import PublicDownloadButton from "@/components/builder/PublicDownloadButton";
 import { ResumeData } from "@/store/useResumeStore";
+import { Metadata } from "next";
 
-export const metadata = {
-  title: "Resume | CV Maker",
-  description: "View this resume created with CV Maker.",
+type Props = {
+  params: Promise<{ id: string }>;
 };
 
-export default async function PublicResumePage({ params }: { params: { id: string } }) {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id } = await params;
+  return {
+    title: "Resume | CV Maker",
+    description: "View this resume created with CV Maker.",
+  };
+}
+
+export default async function PublicResumePage({ params }: Props) {
+  const { id } = await params;
   const resume = await prisma.resume.findUnique({
-    where: { id: params.id },
+    where: { id },
   });
 
   if (!resume) {
