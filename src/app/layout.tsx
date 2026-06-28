@@ -28,11 +28,20 @@ export const metadata: Metadata = {
     title: "ATS-Friendly Resume & CV Maker - Land Your Dream Job",
     description: "Create professional, modern, and ATS-friendly resumes in minutes.",
     siteName: "Smart Resume Maker",
+    images: [
+      {
+        url: "/opengraph-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Smart Resume Maker - Build ATS-Friendly Resumes",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "CV Maker - Land Your Dream Job",
+    title: "Smart Resume Maker - Land Your Dream Job",
     description: "Create professional, modern, and ATS-friendly resumes in minutes.",
+    images: ["/opengraph-image.png"],
   },
 };
 
