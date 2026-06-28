@@ -113,33 +113,37 @@ function DataLoader() {
     const id = searchParams.get("id");
     if (id && id !== databaseId) {
       setDatabaseId(id);
-      fetch(`/api/resumes`)
-        .then(res => res.json())
+      // Fetch directly by ID — no need to load all resumes
+      fetch(`/api/resumes/${id}`)
+        .then(res => {
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          return res.json();
+        })
         .then(data => {
-          if (data.resumes) {
-            const resume = data.resumes.find((r: any) => r.id === id);
-            if (resume) {
-              setResumeData({
-                personalInfo: resume.personalInfo || {},
-                summary: resume.summary || "",
-                experience: resume.experience || [],
-                education: resume.education || [],
-                skills: resume.skills || [],
-                optionalSections: {
-                  projects: resume.projects || [],
-                  certifications: resume.certifications || [],
-                  languages: resume.languages || [],
-                  awards: resume.customSections?.awards || [],
-                  volunteer: resume.customSections?.volunteer || [],
-                  publications: resume.customSections?.publications || [],
-                },
-                templateId: resume.templateId || "ats-classic",
-                accentColor: resume.accentColor || "#0d9488"
-              });
-            }
+          const resume = data.resume;
+          if (resume) {
+            setResumeData({
+              personalInfo: resume.personalInfo || {},
+              summary: resume.summary || "",
+              experience: resume.experience || [],
+              education: resume.education || [],
+              skills: resume.skills || [],
+              optionalSections: {
+                projects: resume.projects || [],
+                certifications: resume.certifications || [],
+                languages: resume.languages || [],
+                awards: resume.customSections?.awards || [],
+                volunteer: resume.customSections?.volunteer || [],
+                publications: resume.customSections?.publications || [],
+              },
+              templateId: resume.templateId || "ats-classic",
+              accentColor: resume.accentColor || "#0d9488"
+            });
           }
         })
-        .catch(err => console.error("Error loading resume:", err));
+        .catch(() => {
+          // Silently fall back to locally stored data
+        });
     }
   }, [searchParams, setDatabaseId, setResumeData, databaseId]);
 
@@ -148,65 +152,75 @@ function DataLoader() {
 
 function AutoSaver() {
   const { resumeData, databaseId } = useResumeStore();
-  const [isSaving, setIsSaving] = useState(false);
-  
-  // Track previous resume data to avoid unnecessary saves on first load
+  const [saveStatus, setSaveStatus] = useState<"idle" | "saving" | "saved" | "error">("idle");
+  const [pendingPayload, setPendingPayload] = useState<string | null>(null);
   const prevDataRef = useRef(JSON.stringify(resumeData));
+
+  const doSave = useCallback(async (payload: any) => {
+    setSaveStatus("saving");
+    try {
+      const res = await fetch("/api/resumes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      if (!databaseId) {
+        const result = await res.json();
+        if (result.resume?.id) {
+          useResumeStore.getState().setDatabaseId(result.resume.id);
+          window.history.replaceState(null, "", `/builder?id=${result.resume.id}`);
+        }
+      }
+      setSaveStatus("saved");
+      setPendingPayload(null);
+      setTimeout(() => setSaveStatus("idle"), 3000);
+    } catch {
+      setSaveStatus("error");
+    }
+  }, [databaseId]);
 
   useEffect(() => {
     const currentDataStr = JSON.stringify(resumeData);
     if (currentDataStr === prevDataRef.current) return;
-    
-    // Auto-save debounce
-    const handler = setTimeout(async () => {
-      setIsSaving(true);
-      try {
-        const payload: any = { ...resumeData };
-        if (databaseId) payload.id = databaseId;
-        
-        const res = await fetch("/api/resumes", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        });
-        
-        // If it's a new resume, update the store with the new ID
-        // (Wait, /builder shouldn't create new resumes out of thin air, it should just save.
-        // But if there's no DB id yet, the POST will create one!)
-        if (res.ok && !databaseId) {
-          const result = await res.json();
-          if (result.resume && result.resume.id) {
-             useResumeStore.getState().setDatabaseId(result.resume.id);
-             // Update URL silently
-             window.history.replaceState(null, "", `/builder?id=${result.resume.id}`);
-          }
-        }
-      } catch (e) {
-        console.error("Auto-save failed", e);
-      } finally {
-        setIsSaving(false);
-        prevDataRef.current = currentDataStr;
-      }
-    }, 2000);
-
+    prevDataRef.current = currentDataStr;
+    const payload: any = { ...resumeData };
+    if (databaseId) payload.id = databaseId;
+    setPendingPayload(JSON.stringify(payload));
+    const handler = setTimeout(() => doSave(payload), 2000);
     return () => clearTimeout(handler);
-  }, [resumeData, databaseId]);
+  }, [resumeData, databaseId, doSave]);
 
-  return (
-    <div className="flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-600">
-      {isSaving ? (
-        <>
-          <Loader2 className="h-3 w-3 animate-spin text-emerald-500" />
-          Saving...
-        </>
-      ) : (
-        <>
-          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
-          Auto-saved
-        </>
-      )}
-    </div>
-  );
+  if (saveStatus === "error") {
+    return (
+      <div className="flex items-center gap-2 rounded-full bg-red-50 px-3 py-1.5 text-xs font-semibold text-red-600">
+        <span>Save failed</span>
+        <button
+          onClick={() => { if (pendingPayload) doSave(JSON.parse(pendingPayload)); }}
+          className="underline hover:no-underline"
+        >
+          Retry
+        </button>
+      </div>
+    );
+  }
+  if (saveStatus === "saving") {
+    return (
+      <div className="flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-600">
+        <Loader2 className="h-3 w-3 animate-spin text-emerald-500" />
+        Saving...
+      </div>
+    );
+  }
+  if (saveStatus === "saved") {
+    return (
+      <div className="flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-600">
+        <CheckCircle2 className="h-3 w-3 text-emerald-500" />
+        Saved
+      </div>
+    );
+  }
+  return null;
 }
 
 

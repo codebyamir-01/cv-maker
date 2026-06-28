@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { BLOG_POSTS } from '@/lib/blog-data';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://cvmaker.vercel.app'; // We can change this to the custom domain later
+  const baseUrl = 'https://www.smartresumemaker.com';
 
   const routes: MetadataRoute.Sitemap = [
     {

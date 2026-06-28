@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FileText, LayoutDashboard, Settings, LogOut, User, Search, Bell, Sparkles, BookOpen, PenTool, BarChart3, ChevronDown } from "lucide-react";
+import { LayoutDashboard, Settings, LogOut, User, Search, Bell, Sparkles, BookOpen, PenTool, BarChart3, ChevronDown, FileText } from "lucide-react";
 import { useSession, signOut } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { LogoIcon } from "@/components/ui/LogoIcon";
 
 export default function DashboardLayout({
   children,
@@ -73,12 +74,12 @@ export default function DashboardLayout({
       <aside className="w-[260px] bg-white border-r border-slate-200 flex flex-col hidden md:flex shadow-[4px_0_24px_rgba(0,0,0,0.02)] z-20 relative">
         <div className="h-20 flex items-center px-6 border-b border-slate-100/50">
           <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-md shadow-blue-500/20">
-              <FileText className="text-white w-5 h-5" />
+            <div className="w-9 h-9 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-md shadow-blue-500/20 shrink-0">
+              <LogoIcon className="text-white w-5 h-5" />
             </div>
-            <div>
-              <span className="font-bold text-sm tracking-tight text-slate-900 leading-none block">Smart Resume Maker</span>
-              <span className="text-[11px] font-semibold text-blue-600 uppercase tracking-wider block mt-0.5">ATS Friendly</span>
+            <div className="min-w-0">
+              <span className="font-extrabold text-base tracking-tight text-slate-900 leading-none block truncate">Smart Resume Maker</span>
+              <span className="text-[10px] font-bold text-blue-600 uppercase tracking-widest block mt-0.5">ATS Friendly</span>
             </div>
           </Link>
         </div>

@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/dashboard', '/api/'], // Hide private routes from Google
     },
-    sitemap: 'https://cvmaker.vercel.app/sitemap.xml',
+    sitemap: 'https://www.smartresumemaker.com/sitemap.xml',
   };
 }
