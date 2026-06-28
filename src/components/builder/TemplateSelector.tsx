@@ -41,6 +41,60 @@ const templates = [
     description: "Bold and authoritative design ideal for senior management roles.",
     previewColor: "bg-slate-200 border-t-8 border-slate-800",
   },
+  {
+    id: "ats-minimal",
+    name: "ATS Minimal",
+    description: "Ultra-clean, single-column layout strictly optimized for ATS parsing.",
+    previewColor: "bg-white border-2 border-slate-100",
+  },
+  {
+    id: "corporate",
+    name: "Corporate Classic",
+    description: "A formal, traditional serif template with a classic structure.",
+    previewColor: "bg-slate-50 border-t-4 border-slate-800",
+  },
+  {
+    id: "creative-clean",
+    name: "Creative Clean",
+    description: "Generous whitespace, unique modern typography for creative roles.",
+    previewColor: "bg-pink-50 border-l-8 border-pink-500",
+  },
+  {
+    id: "academic",
+    name: "Academic CV",
+    description: "A traditional academic CV prioritizing Education and Publications.",
+    previewColor: "bg-slate-50",
+  },
+  {
+    id: "two-column",
+    name: "Two Column Modern",
+    description: "A clean 30/70 split layout separating contact/skills and experience.",
+    previewColor: "bg-blue-600 text-white",
+  },
+  {
+    id: "graduate",
+    name: "Graduate Starter",
+    description: "Designed for entry-level candidates, highlighting Education and Projects.",
+    previewColor: "bg-emerald-50 border-l-4 border-emerald-500",
+  },
+  {
+    id: "finance",
+    name: "Finance Professional",
+    description: "Strict, data-focused layout with neat columns.",
+    previewColor: "bg-white border-t-2 border-blue-900",
+  },
+  {
+    id: "marketing",
+    name: "Marketing Creative",
+    description: "Bold accents and a layout that highlights portfolio links.",
+    previewColor: "bg-rose-500 text-white",
+  },
+  {
+    id: "simple-bw",
+    name: "Simple B&W",
+    description: "High-contrast black and white template focusing purely on readability.",
+    previewColor: "bg-white border-4 border-black",
+  },
 ];
 
 export default function TemplateSelector() {

@@ -31,6 +31,15 @@ const Executive = dynamic(() => import("./templates/Executive"), {
   ssr: false,
   loading: () => <TemplateSkeleton />,
 });
+const AtsMinimal = dynamic(() => import("./templates/AtsMinimal"), { ssr: false, loading: () => <TemplateSkeleton /> });
+const CorporateClassic = dynamic(() => import("./templates/CorporateClassic"), { ssr: false, loading: () => <TemplateSkeleton /> });
+const CreativeClean = dynamic(() => import("./templates/CreativeClean"), { ssr: false, loading: () => <TemplateSkeleton /> });
+const AcademicCv = dynamic(() => import("./templates/AcademicCv"), { ssr: false, loading: () => <TemplateSkeleton /> });
+const TwoColumnModern = dynamic(() => import("./templates/TwoColumnModern"), { ssr: false, loading: () => <TemplateSkeleton /> });
+const GraduateStarter = dynamic(() => import("./templates/GraduateStarter"), { ssr: false, loading: () => <TemplateSkeleton /> });
+const FinanceProfessional = dynamic(() => import("./templates/FinanceProfessional"), { ssr: false, loading: () => <TemplateSkeleton /> });
+const MarketingCreative = dynamic(() => import("./templates/MarketingCreative"), { ssr: false, loading: () => <TemplateSkeleton /> });
+const SimpleBw = dynamic(() => import("./templates/SimpleBw"), { ssr: false, loading: () => <TemplateSkeleton /> });
 
 function TemplateSkeleton() {
   return (
@@ -70,6 +79,24 @@ const LivePreview = memo(function LivePreview({ accentColor }: Props) {
         return <ModernProfessional resumeData={resumeData} />;
       case "developer":
         return <Developer resumeData={resumeData} />;
+      case "ats-minimal":
+        return <AtsMinimal resumeData={resumeData} accentColor="#000000" />;
+      case "corporate":
+        return <CorporateClassic resumeData={resumeData} accentColor={color} />;
+      case "creative-clean":
+        return <CreativeClean resumeData={resumeData} accentColor={color} />;
+      case "academic":
+        return <AcademicCv resumeData={resumeData} accentColor={color} />;
+      case "two-column":
+        return <TwoColumnModern resumeData={resumeData} accentColor={color} />;
+      case "graduate":
+        return <GraduateStarter resumeData={resumeData} accentColor={color} />;
+      case "finance":
+        return <FinanceProfessional resumeData={resumeData} accentColor={color} />;
+      case "marketing":
+        return <MarketingCreative resumeData={resumeData} accentColor={color} />;
+      case "simple-bw":
+        return <SimpleBw resumeData={resumeData} accentColor="#000000" />;
       case "ats-classic":
       default:
         // ATS Classic is strictly black for best parsing and professional look
