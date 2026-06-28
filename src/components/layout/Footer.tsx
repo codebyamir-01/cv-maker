@@ -11,7 +11,7 @@ export function Footer() {
               <div className="grid h-8 w-8 place-items-center rounded-lg bg-slate-900 text-white">
                 <FileText className="h-4 w-4" />
               </div>
-              <span className="text-base font-extrabold tracking-tight text-slate-900">CV Maker</span>
+              <span className="text-base font-extrabold tracking-tight text-slate-900">Smart Resume Maker</span>
             </div>
             <p className="mt-3 max-w-xs text-sm text-slate-500 leading-relaxed">
               Build a professional resume or CV in minutes. Smart guidance, ATS-friendly templates, and instant download.
@@ -52,7 +52,7 @@ export function Footer() {
           </div>
         </div>
         <div className="mt-10 flex justify-center border-t border-slate-100 pt-6 text-xs text-slate-400">
-          <p>© {new Date().getFullYear()} CV Maker. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Smart Resume Maker. All rights reserved.</p>
         </div>
       </div>
     </footer>

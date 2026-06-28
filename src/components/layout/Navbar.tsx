@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FileText } from "lucide-react";
+import { LogoIcon } from "@/components/ui/LogoIcon";
 import { Button } from "@/components/ui/button";
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
@@ -38,10 +38,10 @@ export function Navbar() {
       <div className="container mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2" onClick={closeMenu}>
           <div className="w-8 h-8 flex items-center justify-center">
-            <FileText className="text-slate-800 w-6 h-6 stroke-[2.5]" />
+            <LogoIcon className="w-7 h-7" />
           </div>
-          <span className="font-bold text-lg sm:text-xl tracking-tight text-slate-900">
-            CV Maker
+          <span className="font-bold text-lg sm:text-xl tracking-tight text-slate-900 flex items-center gap-1">
+            Smart <span className="text-blue-600">Resume Maker</span>
           </span>
         </Link>
         

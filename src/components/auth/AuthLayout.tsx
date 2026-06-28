@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { CheckCircle2, FileText, Download, Save, Sparkles } from "lucide-react";
+import { LogoIcon } from "@/components/ui/LogoIcon";
 import { ReactNode } from "react";
 
 interface AuthLayoutProps {
@@ -24,9 +25,9 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
         <div className="relative z-10 flex flex-col p-[clamp(1.5rem,4vh,3rem)]">
           <Link href="/" className="flex items-center gap-2 text-[clamp(1.25rem,2.5vh,1.5rem)] font-black tracking-tighter text-white">
             <div className="grid h-[clamp(1.75rem,3.5vh,2rem)] w-[clamp(1.75rem,3.5vh,2rem)] place-items-center rounded-lg bg-emerald-500 text-slate-900">
-              <FileText className="h-[clamp(1rem,2vh,1.25rem)] w-[clamp(1rem,2vh,1.25rem)]" />
+              <LogoIcon className="h-[clamp(1rem,2vh,1.25rem)] w-[clamp(1rem,2vh,1.25rem)]" />
             </div>
-            CV Maker
+            Smart Resume Maker
           </Link>
           <div className="mt-[clamp(1.5rem,4vh,3rem)] max-w-lg">
             <div className="animate-fade-in-up">
@@ -110,11 +111,13 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
       <div className="flex h-[100dvh] w-full flex-col overflow-y-auto px-4 py-[clamp(1.5rem,3vh,3rem)] sm:px-6 lg:w-1/2 lg:px-12 xl:px-24">
         {/* Mobile branding (only shows on small screens) */}
         <div className="mb-6 flex justify-center lg:hidden">
-          <Link href="/" className="flex items-center gap-2 text-2xl font-black tracking-tighter text-slate-900">
-            <div className="grid h-8 w-8 place-items-center rounded-lg bg-emerald-500 text-slate-900">
-              <FileText className="h-5 w-5" />
+          <Link href="/" className="inline-flex items-center gap-2 transition-opacity hover:opacity-80">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600 shadow-lg shadow-blue-500/20">
+              <LogoIcon className="h-6 w-6 text-white" />
             </div>
-            CV Maker
+            <span className="text-xl font-bold tracking-tight text-slate-900">
+              Smart <span className="text-blue-600">Resume Maker</span>
+            </span>
           </Link>
         </div>
 
