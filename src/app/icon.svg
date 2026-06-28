@@ -6,9 +6,13 @@
     </linearGradient>
   </defs>
   <rect width="512" height="512" rx="128" fill="url(#bg)" />
-  <path fill="none" stroke="#ffffff" stroke-width="36" stroke-linecap="round" stroke-linejoin="round" d="M336 80H176a48 48 0 0 0-48 48v256a48 48 0 0 0 48 48h160a48 48 0 0 0 48-48V176z"/>
-  <path fill="none" stroke="#ffffff" stroke-width="36" stroke-linecap="round" stroke-linejoin="round" d="M320 80v64a48 48 0 0 0 48 48h64"/>
-  <path fill="none" stroke="#ffffff" stroke-width="36" stroke-linecap="round" stroke-linejoin="round" d="M224 208h-48"/>
-  <path fill="none" stroke="#ffffff" stroke-width="36" stroke-linecap="round" stroke-linejoin="round" d="M352 288H176"/>
-  <path fill="none" stroke="#ffffff" stroke-width="36" stroke-linecap="round" stroke-linejoin="round" d="M352 352H176"/>
+  
+  <g transform="scale(16) translate(4, 4)">
+    <!-- Document Shape -->
+    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M14 2v6h6" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    
+    <!-- Spark / Sparkle inside -->
+    <path d="M10 11.5l1.5 3 3 1.5-3 1.5-1.5 3-1.5-3-3-1.5 3-1.5z" fill="#ffffff" stroke="#ffffff" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
 </svg>
