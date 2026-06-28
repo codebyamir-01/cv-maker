@@ -95,6 +95,12 @@ const templates = [
     description: "High-contrast black and white template focusing purely on readability.",
     previewColor: "bg-white border-4 border-black",
   },
+  {
+    id: "startup-leader",
+    name: "Startup Leader",
+    description: "Modern Enhancv-style executive template with dotted timeline features.",
+    previewColor: "bg-gray-50 border-t-8 border-gray-900",
+  },
 ];
 
 export default function TemplateSelector() {

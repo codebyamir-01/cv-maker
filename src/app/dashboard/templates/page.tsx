@@ -144,6 +144,12 @@ const TEMPLATES = [
     accent: "#000000", popular: false, ats: true,
     desc: "High-contrast black and white template focusing purely on readability.",
     tags: ["Minimal", "B&W", "Clean"]
+  },
+  {
+    id: "startup-leader", name: "Startup Leader", category: "Modern",
+    accent: "#111827", popular: true, ats: true,
+    desc: "Modern Enhancv-style executive template with dotted timeline features.",
+    tags: ["Startup", "Executive", "Timeline"]
   }
 ];
 

@@ -19,6 +19,7 @@ const GraduateStarter = dynamic(() => import("./templates/GraduateStarter"), { s
 const FinanceProfessional = dynamic(() => import("./templates/FinanceProfessional"), { ssr: false, loading: () => <TemplateSkeleton /> });
 const MarketingCreative = dynamic(() => import("./templates/MarketingCreative"), { ssr: false, loading: () => <TemplateSkeleton /> });
 const SimpleBw = dynamic(() => import("./templates/SimpleBw"), { ssr: false, loading: () => <TemplateSkeleton /> });
+const StartupLeader = dynamic(() => import("./templates/StartupLeader"), { ssr: false, loading: () => <TemplateSkeleton /> });
 
 function TemplateSkeleton() {
   return (
@@ -72,6 +73,8 @@ const PublicPreview = memo(function PublicPreview({ resumeData, accentColor }: P
         return <MarketingCreative resumeData={resumeData} accentColor={color} />;
       case "simple-bw":
         return <SimpleBw resumeData={resumeData} accentColor="#000000" />;
+      case "startup-leader":
+        return <StartupLeader resumeData={resumeData} accentColor={color} />;
       case "ats-classic":
       default:
         return <AtsClassic resumeData={resumeData} accentColor="#000000" />;
