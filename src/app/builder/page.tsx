@@ -7,7 +7,6 @@ import {
   Download, CheckCircle2, FileText, ZoomIn, ZoomOut,
   RotateCcw, Sparkles, Lightbulb, Eye, Loader2
 } from "lucide-react";
-import { Footer } from "@/components/layout/Footer";
 import { useResumeStore } from "@/store/useResumeStore";
 import dynamic from "next/dynamic";
 import { useSearchParams, useRouter } from "next/navigation";
@@ -623,7 +622,9 @@ export default function BuilderPage() {
         </div>
       </main>
 
-      <Footer />
+      <footer className="border-t border-slate-200 bg-white py-4 text-center text-xs text-slate-400">
+        © {new Date().getFullYear()} Smart Resume Maker. All rights reserved.
+      </footer>
     </div>
   );
 }
