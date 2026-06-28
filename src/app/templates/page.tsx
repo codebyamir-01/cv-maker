@@ -101,14 +101,80 @@ const TEMPLATES = [
     tags: ["Tech", "GitHub", "Skills-first"]
   },
   {
-    id: "executive", name: "Executive Leader", category: "Professional",
+    id: "executive", name: "Executive Leader", category: "Executive",
     accent: "#1e293b", popular: false, ats: true,
     desc: "Bold and authoritative design ideal for senior management roles.",
     tags: ["Executive", "Bold", "Leadership"]
+  },
+  {
+    id: "ats-minimal", name: "ATS Minimal", category: "Professional",
+    accent: "#000000", popular: false, ats: true,
+    desc: "Ultra-clean, single-column layout strictly optimized for ATS parsing.",
+    tags: ["ATS", "Minimal", "Text-only"]
+  },
+  {
+    id: "corporate", name: "Corporate Classic", category: "Professional",
+    accent: "#1e293b", popular: false, ats: true,
+    desc: "A formal, traditional serif template with a classic structure.",
+    tags: ["Corporate", "Serif", "Formal"]
+  },
+  {
+    id: "creative-clean", name: "Creative Clean", category: "Creative",
+    accent: "#ec4899", popular: true, ats: false,
+    desc: "Generous whitespace, unique modern typography for creative roles.",
+    tags: ["Creative", "Modern", "Colorful"]
+  },
+  {
+    id: "academic", name: "Academic CV", category: "Professional",
+    accent: "#0f172a", popular: false, ats: true,
+    desc: "A traditional academic CV prioritizing Education and Publications.",
+    tags: ["Academic", "CV", "Research"]
+  },
+  {
+    id: "two-column", name: "Two Column Modern", category: "Modern",
+    accent: "#2563eb", popular: false, ats: false,
+    desc: "A clean 30/70 split layout separating contact/skills and experience.",
+    tags: ["Two-column", "Clean", "Professional"]
+  },
+  {
+    id: "graduate", name: "Graduate Starter", category: "Student",
+    accent: "#10b981", popular: true, ats: true,
+    desc: "Designed for entry-level candidates, highlighting Education and Projects.",
+    tags: ["Student", "Entry-level", "Education-first"]
+  },
+  {
+    id: "finance", name: "Finance Professional", category: "Professional",
+    accent: "#1e3a8a", popular: false, ats: true,
+    desc: "Strict, data-focused layout with neat columns.",
+    tags: ["Finance", "Banking", "Conservative"]
+  },
+  {
+    id: "marketing", name: "Marketing Creative", category: "Creative",
+    accent: "#f43f5e", popular: false, ats: false,
+    desc: "Bold accents and a layout that highlights portfolio links.",
+    tags: ["Marketing", "Bold", "Portfolio"]
+  },
+  {
+    id: "simple-bw", name: "Simple B&W", category: "Professional",
+    accent: "#000000", popular: false, ats: true,
+    desc: "High-contrast black and white template focusing purely on readability.",
+    tags: ["Minimal", "B&W", "Clean"]
+  },
+  {
+    id: "startup-leader", name: "Startup Leader", category: "Modern",
+    accent: "#111827", popular: true, ats: true,
+    desc: "Modern Enhancv-style executive template with dotted timeline features.",
+    tags: ["Startup", "Executive", "Timeline"]
+  },
+  {
+    id: "elegant-serif", name: "Elegant Serif", category: "Professional",
+    accent: "#000000", popular: false, ats: true,
+    desc: "A clean, pure serif layout with bold headings and classic structural lines.",
+    tags: ["Serif", "Classic", "Clean"]
   }
 ];
 
-const CATEGORIES = ["All", "Professional", "Modern", "Tech"];
+const CATEGORIES = ["All", "Professional", "Modern", "Tech", "Creative", "Student", "Executive"];
 
 export default function TemplatesPage() {
   return (
