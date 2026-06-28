@@ -22,6 +22,7 @@ const FinanceProfessional = dynamic(() => import("@/components/builder/templates
 const MarketingCreative = dynamic(() => import("@/components/builder/templates/MarketingCreative"), { ssr: false, loading: () => <div className="animate-pulse bg-slate-100 w-full h-full rounded" /> });
 const SimpleBw = dynamic(() => import("@/components/builder/templates/SimpleBw"), { ssr: false, loading: () => <div className="animate-pulse bg-slate-100 w-full h-full rounded" /> });
 const StartupLeader = dynamic(() => import("@/components/builder/templates/StartupLeader"), { ssr: false, loading: () => <div className="animate-pulse bg-slate-100 w-full h-full rounded" /> });
+const ElegantSerif = dynamic(() => import("@/components/builder/templates/ElegantSerif"), { ssr: false, loading: () => <div className="animate-pulse bg-slate-100 w-full h-full rounded" /> });
 
 export default function TemplateCard({ template, dummyData }: { template: any, dummyData: any }) {
   const [showPreview, setShowPreview] = useState(false);
@@ -44,6 +45,7 @@ export default function TemplateCard({ template, dummyData }: { template: any, d
       case "marketing": return MarketingCreative;
       case "simple-bw": return SimpleBw;
       case "startup-leader": return StartupLeader;
+      case "elegant-serif": return ElegantSerif;
       default: return AtsClassic;
     }
   };

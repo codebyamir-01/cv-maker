@@ -101,6 +101,12 @@ const templates = [
     description: "Modern Enhancv-style executive template with dotted timeline features.",
     previewColor: "bg-gray-50 border-t-8 border-gray-900",
   },
+  {
+    id: "elegant-serif",
+    name: "Elegant Serif",
+    description: "A clean, pure serif layout with bold headings and classic structural lines.",
+    previewColor: "bg-stone-50 border-y-4 border-stone-800",
+  },
 ];
 
 export default function TemplateSelector() {

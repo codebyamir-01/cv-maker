@@ -150,6 +150,12 @@ const TEMPLATES = [
     accent: "#111827", popular: true, ats: true,
     desc: "Modern Enhancv-style executive template with dotted timeline features.",
     tags: ["Startup", "Executive", "Timeline"]
+  },
+  {
+    id: "elegant-serif", name: "Elegant Serif", category: "Professional",
+    accent: "#000000", popular: false, ats: true,
+    desc: "A clean, pure serif layout with bold headings and classic structural lines.",
+    tags: ["Serif", "Classic", "Clean"]
   }
 ];
 

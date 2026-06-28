@@ -41,6 +41,7 @@ const FinanceProfessional = dynamic(() => import("./templates/FinanceProfessiona
 const MarketingCreative = dynamic(() => import("./templates/MarketingCreative"), { ssr: false, loading: () => <TemplateSkeleton /> });
 const SimpleBw = dynamic(() => import("./templates/SimpleBw"), { ssr: false, loading: () => <TemplateSkeleton /> });
 const StartupLeader = dynamic(() => import("./templates/StartupLeader"), { ssr: false, loading: () => <TemplateSkeleton /> });
+const ElegantSerif = dynamic(() => import("./templates/ElegantSerif"), { ssr: false, loading: () => <TemplateSkeleton /> });
 
 function TemplateSkeleton() {
   return (
@@ -100,6 +101,8 @@ const LivePreview = memo(function LivePreview({ accentColor }: Props) {
         return <SimpleBw resumeData={resumeData} accentColor="#000000" />;
       case "startup-leader":
         return <StartupLeader resumeData={resumeData} accentColor={color} />;
+      case "elegant-serif":
+        return <ElegantSerif resumeData={resumeData} accentColor="#000000" />;
       case "ats-classic":
       default:
         // ATS Classic is strictly black for best parsing and professional look
