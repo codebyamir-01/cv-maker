@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { calculateATSScore } from "@/lib/atsScoring";
 
 // GET all resumes for the authenticated user
 export async function GET() {
@@ -93,6 +94,7 @@ export async function POST(req: Request) {
         volunteer: data.optionalSections?.volunteer || [],
         publications: data.optionalSections?.publications || [],
       },
+      atsScore: calculateATSScore(data).score,
     };
 
     // If ID is provided, update existing resume. Otherwise create new.
