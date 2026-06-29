@@ -11,6 +11,10 @@ export interface ResumeExample {
     summary: string;
     experience: string[];
   };
+  formattingTips: string[];
+  commonMistakes: string[];
+  faqs: { question: string; answer: string }[];
+  relatedExamples: { slug: string; title: string }[];
 }
 
 export const RESUME_EXAMPLES: ResumeExample[] = [
@@ -30,7 +34,25 @@ export const RESUME_EXAMPLES: ResumeExample[] = [
         'Spearheaded the migration of a legacy monolithic application to a modern microservices architecture using Docker and Kubernetes.',
         'Collaborated with a cross-functional team of 5 developers to implement new features using React and Redux.',
       ]
-    }
+    },
+    formattingTips: [
+      'Include a prominent Technical Skills section near the top.',
+      'Link your GitHub or personal portfolio in the contact section.',
+      'Use bullet points to quantify your impact (e.g., "reduced load time by 20%").'
+    ],
+    commonMistakes: [
+      'Listing every technology ever used, instead of focusing on what you actually know well.',
+      'Failing to explain the business impact of the code you wrote.',
+      'Using a two-column format that breaks ATS parsing.'
+    ],
+    faqs: [
+      { question: 'Should I include projects on my software engineer resume?', answer: 'Yes! Personal or academic projects are crucial, especially if you have less than 3 years of professional experience.' },
+      { question: 'Do I need a summary section?', answer: 'A short summary is helpful to establish your years of experience and core tech stack at a glance.' }
+    ],
+    relatedExamples: [
+      { slug: 'data-analyst', title: 'Data Analyst' },
+      { slug: 'student-resume', title: 'Computer Science Student' }
+    ]
   },
   {
     slug: 'student-resume',
@@ -48,7 +70,23 @@ export const RESUME_EXAMPLES: ResumeExample[] = [
         'Conducted extensive market research for a senior capstone project, analyzing data from 500+ survey respondents.',
         'Assisted professors with grading papers and tutoring freshmen students in introductory economics courses.',
       ]
-    }
+    },
+    formattingTips: [
+      'Place your Education section at the top, right under your summary.',
+      'Include your GPA if it is 3.5 or higher.',
+      'Leverage relevant coursework to show subject-matter exposure.'
+    ],
+    commonMistakes: [
+      'Including high school information after your sophomore year of college.',
+      'Ignoring part-time jobs—even retail jobs show teamwork and reliability.',
+      'Not including extracurricular leadership roles.'
+    ],
+    faqs: [
+      { question: 'What if I have zero work experience?', answer: 'Focus heavily on academic projects, volunteering, clubs, and relevant coursework. Employers look for potential and soft skills at the student level.' }
+    ],
+    relatedExamples: [
+      { slug: 'fresh-graduate', title: 'Fresh Graduate' }
+    ]
   },
   {
     slug: 'fresh-graduate',
@@ -66,7 +104,24 @@ export const RESUME_EXAMPLES: ResumeExample[] = [
         'Collaborated with senior analysts to create interactive dashboards in Tableau for client presentations.',
         'Completed a comprehensive senior project developing a predictive machine learning model with 85% accuracy.',
       ]
-    }
+    },
+    formattingTips: [
+      'Highlight internships and co-ops as primary work experience.',
+      'Keep the resume strictly to one page.',
+      'Include a clear summary that states the role you are targeting.'
+    ],
+    commonMistakes: [
+      'Using a "one size fits all" approach instead of tailoring to specific entry-level roles.',
+      'Focusing too much on what you want to learn rather than the value you can bring immediately.',
+      'Forgetting to proofread for basic spelling and grammar errors.'
+    ],
+    faqs: [
+      { question: 'Should education still go first?', answer: 'Yes, if you graduated within the last year, Education should still be near the top. After your first full-time role, move it to the bottom.' }
+    ],
+    relatedExamples: [
+      { slug: 'student-resume', title: 'College Student' },
+      { slug: 'marketing-specialist', title: 'Marketing Specialist' }
+    ]
   },
   {
     slug: 'teacher',
@@ -84,7 +139,23 @@ export const RESUME_EXAMPLES: ResumeExample[] = [
         'Fostered a highly inclusive classroom environment by integrating differentiated instruction techniques for students with diverse learning needs.',
         'Facilitated weekly parent-teacher communication through digital newsletters and an interactive classroom portal.',
       ]
-    }
+    },
+    formattingTips: [
+      'Clearly state your certifications and licensures near the top.',
+      'Use numbers to show class sizes and grade levels taught.',
+      'Include specific educational technologies you are proficient in (e.g., Google Classroom, Canvas).'
+    ],
+    commonMistakes: [
+      'Writing vague statements like "taught students" instead of specifying subjects, grades, and methodologies.',
+      'Omitting state certifications, which are usually hard requirements.',
+      'Forgetting to mention parent communication and administrative duties.'
+    ],
+    faqs: [
+      { question: 'Can a teacher resume be two pages?', answer: 'Yes, especially if you have over 5-7 years of experience or extensive continuing education and committee involvement. However, one page is still preferred for newer teachers.' }
+    ],
+    relatedExamples: [
+      { slug: 'student-resume', title: 'Student/Tutor' }
+    ]
   },
   {
     slug: 'sales-representative',
@@ -102,7 +173,24 @@ export const RESUME_EXAMPLES: ResumeExample[] = [
         'Secured and onboarded 15 new enterprise-level clients through targeted cold calling and personalized email campaigns.',
         'Negotiated complex, multi-year enterprise contracts, resulting in a 20% increase in average deal size.',
       ]
-    }
+    },
+    formattingTips: [
+      'Numbers are everything. Quantify your sales, quota achievements, and revenue generated.',
+      'Highlight specific sales methodologies you are trained in (e.g., SPIN, Challenger).',
+      'Use a clean, corporate layout that gets straight to the numbers.'
+    ],
+    commonMistakes: [
+      'Describing daily duties (e.g., "made cold calls") instead of achievements (e.g., "closed 50 deals via cold calling").',
+      'Leaving out context for your numbers (e.g., what was the quota?).',
+      'Failing to mention the CRM tools used.'
+    ],
+    faqs: [
+      { question: 'Should I list my specific sales metrics?', answer: 'Absolutely. Mentioning exact revenue figures, percentage of quota attained, and territory size provides crucial context to hiring managers.' }
+    ],
+    relatedExamples: [
+      { slug: 'marketing-specialist', title: 'Marketing Specialist' },
+      { slug: 'customer-support', title: 'Customer Support' }
+    ]
   },
   {
     slug: 'marketing-specialist',
@@ -120,7 +208,24 @@ export const RESUME_EXAMPLES: ResumeExample[] = [
         'Launched and managed a targeted email marketing campaign that achieved a 25% open rate and a 10% conversion rate.',
         'Authored over 50 high-performing blog posts and whitepapers to establish industry thought leadership and generate inbound leads.',
       ]
-    }
+    },
+    formattingTips: [
+      'Use a slightly more modern or creative template to show design sensibility, but keep it ATS-friendly.',
+      'Focus on campaign metrics: CTR, conversion rates, and ROI.',
+      'Include a link to an online portfolio if you are involved in content creation.'
+    ],
+    commonMistakes: [
+      'Relying solely on buzzwords ("growth hacker", "synergy") without backing them up with data.',
+      'Not specifying the scale of the campaigns managed (budget size, audience size).',
+      'Ignoring the analytical side of marketing in favor of just creative tasks.'
+    ],
+    faqs: [
+      { question: 'Do I need a portfolio for a marketing role?', answer: 'If your role involves copywriting, social media graphics, or campaign design, a portfolio is highly recommended to prove your creative chops.' }
+    ],
+    relatedExamples: [
+      { slug: 'sales-representative', title: 'Sales Representative' },
+      { slug: 'graphic-designer', title: 'Graphic Designer' }
+    ]
   },
   {
     slug: 'project-manager',
@@ -138,7 +243,23 @@ export const RESUME_EXAMPLES: ResumeExample[] = [
         'Managed an annual project budget of $2M, consistently delivering projects 10-15% under budget through efficient resource allocation.',
         'Streamlined the Agile sprint planning process, reducing meeting times by 20% and increasing team velocity.',
       ]
-    }
+    },
+    formattingTips: [
+      'State your PM certifications (PMP, Scrum Master) prominently in your title or summary.',
+      'Detail the scale of your projects: team size, budget, and timeline.',
+      'Use a clean, executive-level resume format.'
+    ],
+    commonMistakes: [
+      'Failing to mention the project methodologies used (Agile, Waterfall, Kanban).',
+      'Focusing only on project completion without mentioning business impact or stakeholder satisfaction.',
+      'Being too vague about cross-functional team sizes.'
+    ],
+    faqs: [
+      { question: 'Should I list every project I managed?', answer: 'No, focus on 3-4 major projects per role that highlight different aspects of your management skills (budgeting, crisis resolution, scaling).' }
+    ],
+    relatedExamples: [
+      { slug: 'software-engineer', title: 'Software Engineer' }
+    ]
   },
   {
     slug: 'customer-support',
@@ -156,7 +277,23 @@ export const RESUME_EXAMPLES: ResumeExample[] = [
         'De-escalated complex customer complaints, successfully retaining 90% of at-risk accounts through empathetic problem-solving.',
         'Assisted in creating a comprehensive internal knowledge base that reduced repetitive queries by 15%.',
       ]
-    }
+    },
+    formattingTips: [
+      'Include metrics like daily ticket volume, CSAT scores, and average handling time.',
+      'Mention specific helpdesk software you are proficient in (e.g., Zendesk, Jira Service Desk).',
+      'Highlight multilingual skills if you have them.'
+    ],
+    commonMistakes: [
+      'Not quantifying the volume of customers handled daily.',
+      'Using generic terms like "good communication skills" instead of showing conflict resolution examples.',
+      'Omitting technical troubleshooting skills.'
+    ],
+    faqs: [
+      { question: 'How can I stand out for remote support roles?', answer: 'Highlight your experience with asynchronous communication, remote collaboration tools (Slack, Zoom), and self-motivated time management.' }
+    ],
+    relatedExamples: [
+      { slug: 'sales-representative', title: 'Sales Representative' }
+    ]
   },
   {
     slug: 'data-analyst',
@@ -174,7 +311,23 @@ export const RESUME_EXAMPLES: ResumeExample[] = [
         'Visualized complex datasets in Tableau, creating automated weekly dashboards for the executive leadership team.',
         'Extracted and cleaned data from multiple messy sources, improving overall data accuracy by 20% for marketing reports.',
       ]
-    }
+    },
+    formattingTips: [
+      'Create a dedicated section for technical skills and categorize them (Languages, Tools, Databases).',
+      'Always tie your data analysis back to a business outcome (e.g., increased revenue, saved time).',
+      'Link to a GitHub repo containing your Jupyter notebooks or data projects.'
+    ],
+    commonMistakes: [
+      'Listing tools without demonstrating how they were used to solve a problem.',
+      'Failing to mention the size of the datasets you worked with.',
+      'Writing bullet points that are too technical for a non-technical recruiter to understand.'
+    ],
+    faqs: [
+      { question: 'Do I need to know Python to be a data analyst?', answer: 'While SQL and Excel are often the bare minimum, Python or R is highly preferred and will significantly boost your resume.' }
+    ],
+    relatedExamples: [
+      { slug: 'software-engineer', title: 'Software Engineer' }
+    ]
   },
   {
     slug: 'graphic-designer',
@@ -192,7 +345,23 @@ export const RESUME_EXAMPLES: ResumeExample[] = [
         'Designed over 100 digital marketing assets, including social media graphics, email templates, and banner ads.',
         'Collaborated with the marketing team to draft engaging print materials for 5 national trade shows.',
       ]
-    }
+    },
+    formattingTips: [
+      'Provide a prominent link to your portfolio (Behance, Dribbble, or personal site).',
+      'Use a clean, visually balanced template that shows your understanding of whitespace.',
+      'Avoid heavy graphics that break ATS parsing—save your wild designs for your portfolio.'
+    ],
+    commonMistakes: [
+      'Using unreadable decorative fonts for body text.',
+      'Forgetting to describe the business goal of the designs you created.',
+      'Submitting an image-only resume that cannot be read by tracking software.'
+    ],
+    faqs: [
+      { question: 'Should my resume be a design masterpiece?', answer: 'It should be aesthetically pleasing but fundamentally readable. If an ATS cannot parse the text, a recruiter will never see your masterpiece.' }
+    ],
+    relatedExamples: [
+      { slug: 'marketing-specialist', title: 'Marketing Specialist' }
+    ]
   },
   {
     slug: 'accountant',
@@ -210,7 +379,24 @@ export const RESUME_EXAMPLES: ResumeExample[] = [
         'Prepared and filed quarterly and annual tax returns, identifying deductions that saved clients over $45,000.',
         'Audited internal financial processes, recommending changes that reduced reporting time by 3 days per month.',
       ]
-    }
+    },
+    formattingTips: [
+      'Place your CPA or relevant certifications next to your name or in a dedicated top section.',
+      'Use a highly conservative, traditional resume format without colors or graphics.',
+      'Quantify the size of the budgets or portfolios you managed.'
+    ],
+    commonMistakes: [
+      'Failing to specify the accounting software platforms used (e.g., SAP, Oracle, NetSuite).',
+      'Describing standard accounting duties without highlighting efficiency improvements or cost savings.',
+      'Making formatting errors—accountants must demonstrate flawless attention to detail.'
+    ],
+    faqs: [
+      { question: 'Do I need to list every type of tax return I prepared?', answer: 'Summarize them (e.g., Corporate 1120, Individual 1040) rather than exhaustively listing every single form, unless applying for a highly specialized tax role.' }
+    ],
+    relatedExamples: [
+      { slug: 'data-analyst', title: 'Data Analyst' },
+      { slug: 'project-manager', title: 'Project Manager' }
+    ]
   },
   {
     slug: 'nurse-healthcare',
@@ -228,6 +414,22 @@ export const RESUME_EXAMPLES: ResumeExample[] = [
         'Administered medications and IV therapies with 100% compliance to safety protocols and five rights of medication administration.',
         'Educated patients and their families on post-discharge care, reducing 30-day readmission rates by 10%.',
       ]
-    }
+    },
+    formattingTips: [
+      'List your nursing license number, state, and expiration date clearly at the top.',
+      'Detail the types of units you worked in (e.g., Med-Surg, ICU, ER) and patient ratios.',
+      'Include all active certifications (BLS, ACLS, PALS).'
+    ],
+    commonMistakes: [
+      'Forgetting to mention the specific EHR systems used (Epic, Cerner, Meditech).',
+      'Omitting details about charge nurse duties or committee involvement.',
+      'Using a summary that focuses entirely on compassion without highlighting clinical competencies.'
+    ],
+    faqs: [
+      { question: 'Should I include my clinical rotations?', answer: 'Only if you are a new graduate with less than 1 year of professional RN experience.' }
+    ],
+    relatedExamples: [
+      { slug: 'teacher', title: 'Teacher' }
+    ]
   }
 ];

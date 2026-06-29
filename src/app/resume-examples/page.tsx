@@ -39,19 +39,22 @@ export default function ResumeExamplesPage() {
                 <Link 
                   key={example.slug} 
                   href={`/resume-examples/${example.slug}`}
-                  className="group bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-200 transition-all"
+                  className="group bg-white p-8 rounded-2xl border border-slate-200 shadow-sm hover:shadow-lg hover:border-blue-300 transition-all flex flex-col h-full"
                 >
-                  <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center mb-5 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                  <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center mb-6 group-hover:bg-blue-600 group-hover:text-white transition-colors shrink-0">
                     <FileText className="w-6 h-6" />
                   </div>
-                  <h2 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-blue-700 transition-colors">
+                  <h2 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-700 transition-colors">
                     {example.role} Resume
                   </h2>
-                  <p className="text-slate-500 text-sm mb-4 line-clamp-2">
+                  <p className="text-slate-500 text-sm mb-8 line-clamp-2 flex-grow leading-relaxed">
                     {example.description}
                   </p>
-                  <div className="flex items-center text-sm font-semibold text-blue-600">
-                    View Example <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                  <div className="flex items-center justify-between w-full mt-auto pt-4 border-t border-slate-100">
+                    <span className="text-sm font-bold text-slate-900 group-hover:text-blue-700 transition-colors">View Example</span>
+                    <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center group-hover:bg-blue-100 transition-colors">
+                      <ChevronRight className="w-4 h-4 text-blue-600 group-hover:translate-x-0.5 transition-transform" />
+                    </div>
                   </div>
                 </Link>
               ))}

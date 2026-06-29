@@ -32,7 +32,7 @@ export default function AboutPage() {
 
           <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-4">Why Choose Us?</h2>
           <ul className="list-disc pl-6 space-y-2">
-            <li><strong>ATS-Optimized Templates:</strong> Our designs are rigorously tested to ensure they pass through automated resume screeners without losing critical data.</li>
+            <li><strong>ATS-Friendly Templates:</strong> Our designs follow common ATS best practices to help automated resume screeners parse your data reliably.</li>
             <li><strong>Intuitive Builder:</strong> A seamless, real-time live preview builder that lets you see your changes instantly.</li>
             <li><strong>Privacy First:</strong> We believe your personal data belongs to you. We follow strict security practices to keep your data safe.</li>
           </ul>

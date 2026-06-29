@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, ShieldAlert, CheckSquare, Settings2, FileCheck } from "lucide-react";
+import { ArrowRight, CheckCircle2, ShieldAlert, CheckSquare, Settings2, FileCheck, FileText } from "lucide-react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
@@ -43,8 +43,8 @@ export default function AtsResumeBuilderPage() {
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-500" /> Standard Headings
               </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-emerald-500" /> Live ATS Score Checker
+              <div className="flex items-center gap-2 text-slate-700">
+                <CheckCircle2 className="w-4 h-4 text-emerald-500" /> Resume formatting checklist
               </div>
             </div>
           </div>
@@ -58,7 +58,7 @@ export default function AtsResumeBuilderPage() {
               
               <div className="prose prose-slate max-w-none text-slate-600">
                 <p className="text-lg mb-6">
-                  An <strong>Applicant Tracking System (ATS)</strong> is a software application used by over 98% of Fortune 500 companies to manage their recruitment process. Before a human recruiter ever sees your resume, the ATS scans it, extracts your text, and ranks you based on keywords.
+                  An <strong>Applicant Tracking System (ATS)</strong> is a software application commonly used by employers to manage their recruitment process. Before a human recruiter ever sees your resume, the ATS scans it, extracts your text, and ranks you based on keywords.
                 </p>
                 
                 <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4">Why good resumes get rejected</h3>
@@ -93,16 +93,16 @@ export default function AtsResumeBuilderPage() {
         {/* Features */}
         <section className="py-20 px-4 bg-white border-y border-slate-100">
           <div className="max-w-5xl mx-auto">
-            <h2 className="text-3xl font-bold text-center text-slate-900 mb-12">How our builder helps you beat the ATS</h2>
+            <h2 className="text-3xl font-bold center text-center text-slate-900 mb-12">How our builder helps you beat the ATS</h2>
             
             <div className="grid md:grid-cols-3 gap-8">
-              <div className="bg-slate-50 p-8 rounded-2xl border border-slate-100 text-center">
-                <div className="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <FileCheck className="w-7 h-7" />
+              <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm text-center md:text-left hover:shadow-md transition-shadow">
+                <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center mb-6 mx-auto md:mx-0">
+                  <FileText className="w-6 h-6" />
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">ATS-Tested Templates</h3>
+                <h3 className="text-xl font-bold text-slate-900 mb-3">ATS-Friendly Templates</h3>
                 <p className="text-slate-600">
-                  Every template in our library has been rigorously tested against modern Applicant Tracking Systems to ensure perfect text parsing.
+                  Every template in our library has been designed with common ATS best practices in mind to support reliable text parsing.
                 </p>
               </div>
 

@@ -98,7 +98,7 @@ export default function LandingPage() {
             <div>
               <h2 className="text-3xl md:text-4xl font-bold mb-6">What is an ATS and why does it matter?</h2>
               <p className="text-slate-300 text-lg mb-6 leading-relaxed">
-                Over 98% of Fortune 500 companies use an <strong>Applicant Tracking System (ATS)</strong> to filter resumes before a human ever sees them. If your resume isn't formatted correctly, the robot will reject it.
+                Many modern employers use an <strong>Applicant Tracking System (ATS)</strong> to filter resumes before a human ever sees them. If your resume isn't formatted correctly, the robot will reject it.
               </p>
               <ul className="space-y-4 mb-8">
                 <li className="flex items-start gap-3">

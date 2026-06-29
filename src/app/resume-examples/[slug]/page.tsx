@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight, CheckCircle2, ChevronRight, PenTool } from "lucide-react";
+import { ArrowRight, CheckCircle2, ChevronRight, PenTool, XCircle, HelpCircle, FileText } from "lucide-react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
@@ -115,6 +115,56 @@ export default async function ResumeExampleDynamicPage({ params }: { params: Pro
                 </div>
               </div>
 
+              {/* Formatting Tips & Mistakes */}
+              <div className="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm">
+                <h2 className="text-2xl font-bold text-slate-900 mb-6">Formatting Tips & Common Mistakes</h2>
+                
+                <div className="mb-8">
+                  <h3 className="text-lg font-bold text-slate-800 mb-3 flex items-center gap-2">
+                    <CheckCircle2 className="w-5 h-5 text-emerald-600" /> Do's (Best Practices)
+                  </h3>
+                  <ul className="space-y-3">
+                    {example.formattingTips.map((tip, i) => (
+                      <li key={i} className="flex items-start gap-3 text-slate-600">
+                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-600 mt-2 shrink-0" />
+                        <span>{tip}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-bold text-slate-800 mb-3 flex items-center gap-2">
+                    <XCircle className="w-5 h-5 text-rose-600" /> Don'ts (Common Mistakes)
+                  </h3>
+                  <ul className="space-y-3">
+                    {example.commonMistakes.map((mistake, i) => (
+                      <li key={i} className="flex items-start gap-3 text-slate-600">
+                        <div className="w-1.5 h-1.5 rounded-full bg-rose-600 mt-2 shrink-0" />
+                        <span>{mistake}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              {/* FAQs */}
+              {example.faqs && example.faqs.length > 0 && (
+                <div className="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm">
+                  <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+                    <HelpCircle className="w-6 h-6 text-blue-600" /> Frequently Asked Questions
+                  </h2>
+                  <div className="space-y-6">
+                    {example.faqs.map((faq, i) => (
+                      <div key={i}>
+                        <h3 className="text-lg font-bold text-slate-800 mb-2">{faq.question}</h3>
+                        <p className="text-slate-600">{faq.answer}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
             </div>
 
             {/* Right Column (Sidebar) */}
@@ -144,6 +194,38 @@ export default async function ResumeExampleDynamicPage({ params }: { params: Pro
                 </Link>
               </div>
 
+            </div>
+          </div>
+        </section>
+
+        {/* Related Examples & Final CTA */}
+        <section className="py-16 px-4 bg-white border-t border-slate-100">
+          <div className="max-w-4xl mx-auto text-center">
+            {example.relatedExamples && example.relatedExamples.length > 0 && (
+              <div className="mb-16">
+                <h2 className="text-2xl font-bold text-slate-900 mb-8">Related Resume Examples</h2>
+                <div className="flex flex-wrap justify-center gap-4">
+                  {example.relatedExamples.map((rel) => (
+                    <Link key={rel.slug} href={`/resume-examples/${rel.slug}`}>
+                      <Button variant="outline" className="rounded-full flex items-center gap-2 text-slate-700 hover:text-blue-700 hover:border-blue-200">
+                        <FileText className="w-4 h-4" /> {rel.title}
+                      </Button>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+            
+            <div className="bg-slate-900 text-white rounded-3xl p-10 md:p-16 shadow-xl">
+              <h2 className="text-3xl font-bold mb-4">Ready to land your dream {example.role} job?</h2>
+              <p className="text-slate-300 text-lg mb-8 max-w-xl mx-auto">
+                Use our ATS-friendly builder to create your professional resume in minutes. No design skills required.
+              </p>
+              <Link href={`/builder?t=${example.recommendedTemplate}`}>
+                <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white rounded-full px-10 h-14 text-lg font-bold shadow-md transition-transform hover:scale-105">
+                  Build My Resume <ArrowRight className="ml-2 w-5 h-5" />
+                </Button>
+              </Link>
             </div>
           </div>
         </section>
