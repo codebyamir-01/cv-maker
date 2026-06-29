@@ -90,7 +90,7 @@ export default function TemplatesSection() {
                 {/* Avatar */}
                 <div className="w-16 h-16 rounded-full bg-slate-700 mb-4 mx-auto border-2 border-blue-400/30 overflow-hidden relative">
                   <Image 
-                    src="/images/user-profile.jpg" 
+                    src="/images/amir-pfp.jpeg" 
                     alt="User Profile" 
                     fill 
                     className="object-cover"

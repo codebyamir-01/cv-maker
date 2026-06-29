@@ -22,7 +22,7 @@ const DUMMY_DATA = {
     linkedIn: "",
     github: "",
     portfolio: "",
-    photo: "/images/user-profile.jpg"
+    photo: "/images/amir-pfp.jpeg"
   },
   summary: "Human resources generalist with 8 years of experience in HR, including hiring and terminating, disciplining employees, and helping department managers improve employee performance. Worked with labor unions to negotiate compensation packages for workers.",
   experience: [
