@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import { BLOG_POSTS } from "@/lib/blog-data";
+import BlogGrid from "@/components/blog/BlogGrid";
 
 export const metadata: Metadata = {
   title: "Career Blog — CV Maker",
@@ -42,110 +43,7 @@ export default function BlogPage() {
         </section>
 
         <div className="container mx-auto px-6 max-w-7xl">
-          {/* ── FILTER TABS ── */}
-          <div className="flex flex-wrap gap-2 justify-center mb-10">
-            {CATEGORIES.map((cat, i) => (
-              <button
-                key={cat}
-                className={`rounded-full px-5 py-2 text-sm font-bold transition border
-                  ${i === 0
-                    ? "bg-slate-900 text-white border-slate-900"
-                    : "bg-white text-slate-600 border-slate-200 hover:border-slate-400 hover:text-slate-900"}`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-
-          {/* ── FEATURED POST ── */}
-          <div className="mb-10">
-            <Link href={`/blog/${FEATURED.slug}`} className="group relative block rounded-3xl border border-slate-200 bg-white shadow-sm overflow-hidden hover:shadow-md transition">
-              <div className="grid grid-cols-1 lg:grid-cols-2">
-                {/* Left: banner image */}
-                <div className="relative h-64 lg:h-auto bg-slate-100 overflow-hidden">
-                  <Image 
-                    src={FEATURED.bannerImage}
-                    alt={FEATURED.bannerAlt}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    priority
-                  />
-                  <span className="absolute top-5 left-5 inline-flex items-center gap-1.5 rounded-full bg-white/90 backdrop-blur-sm px-3 py-1.5 text-xs font-bold text-slate-900 border border-white/30 shadow-sm">
-                    <Sparkles className="h-3 w-3 text-yellow-500" /> Must Read
-                  </span>
-                </div>
-
-                {/* Right: content */}
-                <div className="p-8 lg:p-10 flex flex-col justify-center">
-                  <div className="flex items-center gap-3 mb-4">
-                    <span className={`rounded-full px-3 py-1 text-xs font-bold ${FEATURED.categoryColor}`}>
-                      {FEATURED.category}
-                    </span>
-                    <span className="flex items-center gap-1 text-xs text-slate-400 font-medium">
-                      <Clock className="h-3 w-3" /> {FEATURED.readTime}
-                    </span>
-                    <span className="text-xs text-slate-400">{FEATURED.date}</span>
-                  </div>
-
-                  <h2 className="text-2xl lg:text-3xl font-extrabold text-slate-900 mb-4 leading-tight group-hover:text-blue-600 transition-colors">
-                    {FEATURED.title}
-                  </h2>
-                  <p className="text-slate-500 leading-relaxed mb-6 text-sm lg:text-base">
-                    {FEATURED.excerpt}
-                  </p>
-                  <span className="inline-flex items-center gap-2 text-sm font-bold text-blue-600 group-hover:gap-3 transition-all">
-                    Read Full Article <ArrowRight className="h-4 w-4" />
-                  </span>
-                </div>
-              </div>
-            </Link>
-          </div>
-
-          {/* ── POSTS GRID ── */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {POSTS.map(post => (
-              <Link key={post.id} href={`/blog/${post.slug}`} className="group flex flex-col rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden transition hover:shadow-md hover:-translate-y-0.5">
-                <div className="relative h-48 w-full bg-slate-100 overflow-hidden border-b border-slate-200">
-                  <Image 
-                    src={post.bannerImage}
-                    alt={post.bannerAlt}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-
-                <div className="flex flex-col flex-1 p-6">
-                  {/* Meta */}
-                  <div className="flex items-center gap-3 mb-3">
-                    <span className={`rounded-full px-2.5 py-1 text-[11px] font-bold ${post.categoryColor}`}>
-                      {post.category}
-                    </span>
-                    <span className="flex items-center gap-1 text-[11px] text-slate-400 font-medium">
-                      <Clock className="h-3 w-3" /> {post.readTime}
-                    </span>
-                  </div>
-
-                  {/* Title */}
-                  <h3 className="text-lg font-bold text-slate-900 mb-2 leading-snug group-hover:text-blue-600 transition-colors flex-1">
-                    {post.title}
-                  </h3>
-
-                  {/* Excerpt */}
-                  <p className="text-sm text-slate-500 leading-relaxed mb-4 line-clamp-3">
-                    {post.excerpt}
-                  </p>
-
-                  {/* Footer */}
-                  <div className="flex items-center justify-between pt-4 border-t border-slate-100">
-                    <span className="text-[11px] text-slate-400 font-medium">{post.date}</span>
-                    <span className="inline-flex items-center gap-1 text-xs font-bold text-blue-600 group-hover:gap-2 transition-all">
-                      Read More <ArrowRight className="h-3.5 w-3.5" />
-                    </span>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
+          <BlogGrid categories={CATEGORIES} posts={POSTS} featuredPost={FEATURED} />
 
           {/* ── NEWSLETTER CTA ── */}
           <div className="mt-16 rounded-3xl border border-slate-200 bg-gradient-to-br from-slate-900 to-slate-800 p-12 text-center">

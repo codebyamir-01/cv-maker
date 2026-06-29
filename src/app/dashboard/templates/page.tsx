@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { FileText, Star, CheckCircle2, Sparkles, Download, Eye } from "lucide-react";
 import type { Metadata } from "next";
-
+import { Button } from "@/components/ui/button";
 import TemplateCard from "@/components/templates/TemplateCard";
+import TemplatesGrid from "@/components/templates/TemplatesGrid";
 
 export const metadata: Metadata = {
   title: "Resume Templates — CV Maker",
@@ -200,25 +201,7 @@ export default function DashboardTemplatesPage() {
 
         {/* ── FILTER TABS ── */}
         <section className="container mx-auto max-w-7xl">
-          <div className="flex flex-wrap gap-2 justify-center mb-10">
-            {CATEGORIES.map((cat, i) => (
-              <button
-                key={cat}
-                className={`rounded-full px-5 py-2 text-sm font-bold transition border
-                  ${i === 0
-                    ? "bg-slate-900 text-white border-slate-900"
-                    : "bg-white text-slate-600 border-slate-200 hover:border-slate-400 hover:text-slate-900"}`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {TEMPLATES.map(t => (
-              <TemplateCard key={t.id} template={t} dummyData={DUMMY_DATA} />
-            ))}
-          </div>
+          <TemplatesGrid categories={CATEGORIES} templates={TEMPLATES} dummyData={DUMMY_DATA} />
 
           {/* CTA */}
           <div className="mt-16 text-center rounded-2xl border border-blue-100 bg-gradient-to-br from-blue-50 to-indigo-50 p-12">
