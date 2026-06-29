@@ -335,7 +335,11 @@ export default function BuilderPage() {
     }
   };
 
-  const templatesList = ["ats-classic", "modern", "developer", "monochrome", "aether", "executive"];
+  const templatesList = [
+    "monochrome", "ats-classic", "aether", "modern", "developer", "executive",
+    "ats-minimal", "corporate", "creative-clean", "academic", "two-column",
+    "graduate", "finance", "marketing", "simple-bw", "startup-leader", "elegant-serif"
+  ];
   const cycleTemplate = useCallback((dir: 1 | -1) => {
     const i = templatesList.indexOf(resumeData.templateId);
     let n = i + dir;
