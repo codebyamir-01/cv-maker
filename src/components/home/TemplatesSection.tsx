@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { LayoutTemplate, ArrowRight } from "lucide-react";
+import Image from "next/image";
 
 // This is a pure server component — no JS sent to client for static content
 export default function TemplatesSection() {
@@ -86,9 +87,14 @@ export default function TemplatesSection() {
 
               {/* Sidebar */}
               <div className="w-[35%] bg-slate-900 text-white p-5 border-r border-slate-200">
-                {/* Avatar placeholder – no external request */}
-                <div className="w-16 h-16 rounded-full bg-slate-700 mb-4 mx-auto border-2 border-blue-400/30 flex items-center justify-center text-slate-500 text-2xl font-bold">
-                  AM
+                {/* Avatar */}
+                <div className="w-16 h-16 rounded-full bg-slate-700 mb-4 mx-auto border-2 border-blue-400/30 overflow-hidden relative">
+                  <Image 
+                    src="/images/user-profile.jpg" 
+                    alt="User Profile" 
+                    fill 
+                    className="object-cover"
+                  />
                 </div>
 
                 <div className="mb-6 text-center">
