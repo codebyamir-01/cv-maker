@@ -17,7 +17,7 @@ export default function BlogGrid({ categories, posts, featuredPost }: BlogGridPr
 
   const filteredPosts = activeCategory === "All"
     ? posts
-    : posts.filter(p => p.category === activeCategory);
+    : [featuredPost, ...posts].filter(p => p.category === activeCategory);
 
   return (
     <>
