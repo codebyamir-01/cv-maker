@@ -61,30 +61,126 @@ export default function LandingPage() {
               </Link>
             </div>
 
-            {/* Social Proof metrics */}
-            <div className="md:animate-fade-in-up-delay-3 mt-16 pt-10 border-t border-slate-800/60 w-full max-w-3xl flex items-center justify-between gap-4 text-slate-400">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-white mb-1">98%</div>
-                <div className="text-xs uppercase tracking-widest font-semibold opacity-70">ATS Pass Rate</div>
+            {/* Trust claims */}
+            <div className="md:animate-fade-in-up-delay-3 mt-16 pt-10 border-t border-slate-800/60 w-full max-w-4xl flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-slate-400">
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+                <span className="font-semibold text-slate-300">Free PDF Download</span>
               </div>
-              <div className="w-px h-10 bg-slate-800/60" />
-              <div className="text-center">
-                <div className="text-2xl font-bold text-white mb-1">10k+</div>
-                <div className="text-xs uppercase tracking-widest font-semibold opacity-70">Careers Upgraded</div>
+              <div className="hidden sm:block w-1.5 h-1.5 rounded-full bg-slate-700" />
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+                <span className="font-semibold text-slate-300">No Watermark</span>
               </div>
-              <div className="w-px h-10 bg-slate-800/60" />
-              <div className="text-center">
-                <div className="text-2xl font-bold text-white mb-1">Free</div>
-                <div className="text-xs uppercase tracking-widest font-semibold opacity-70">Premium Access</div>
+              <div className="hidden sm:block w-1.5 h-1.5 rounded-full bg-slate-700" />
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+                <span className="font-semibold text-slate-300">ATS-Friendly</span>
+              </div>
+              <div className="hidden sm:block w-1.5 h-1.5 rounded-full bg-slate-700" />
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+                <span className="font-semibold text-slate-300">Auto-Save</span>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Templates Section – Server Rendered / Lazily Loaded on Client */}
-        <div className="cv-below-fold">
+        {/* Templates Section */}
+        <div className="cv-below-fold" id="templates">
           <TemplatesSection />
         </div>
+
+        {/* ATS Education Section */}
+        <section className="py-24 px-4 bg-slate-900 text-white overflow-hidden relative">
+          <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '32px 32px' }}></div>
+          <div className="max-w-5xl mx-auto relative z-10 grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">What is an ATS and why does it matter?</h2>
+              <p className="text-slate-300 text-lg mb-6 leading-relaxed">
+                Over 98% of Fortune 500 companies use an <strong>Applicant Tracking System (ATS)</strong> to filter resumes before a human ever sees them. If your resume isn't formatted correctly, the robot will reject it.
+              </p>
+              <ul className="space-y-4 mb-8">
+                <li className="flex items-start gap-3">
+                  <CheckCircle2 className="w-6 h-6 text-emerald-400 shrink-0" />
+                  <span className="text-slate-300"><strong>Simple formatting:</strong> No confusing tables or columns that break parsers.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle2 className="w-6 h-6 text-emerald-400 shrink-0" />
+                  <span className="text-slate-300"><strong>Standard headings:</strong> "Work Experience" instead of "My Journey".</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle2 className="w-6 h-6 text-emerald-400 shrink-0" />
+                  <span className="text-slate-300"><strong>Machine-readable fonts:</strong> Clean, standard typography.</span>
+                </li>
+              </ul>
+              <Link href="/ats-resume-builder">
+                <Button variant="outline" className="text-slate-900 bg-white hover:bg-slate-100 border-none rounded-full px-8 h-12">
+                  Learn more about ATS Resumes
+                </Button>
+              </Link>
+            </div>
+            <div className="relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-3xl blur-2xl opacity-20"></div>
+              <div className="bg-slate-800 border border-slate-700 p-8 rounded-3xl shadow-2xl relative">
+                <div className="flex items-center justify-between mb-8 pb-6 border-b border-slate-700">
+                  <div className="font-bold text-xl">Resume Score</div>
+                  <div className="text-3xl font-extrabold text-emerald-400">95%</div>
+                </div>
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-slate-400">Contact Info</span>
+                    <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-slate-400">Professional Summary</span>
+                    <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-slate-400">Experience Formatting</span>
+                    <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-slate-400">Keyword Density</span>
+                    <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Trust & Privacy Section */}
+        <section className="py-24 px-4 bg-white border-b border-slate-100">
+          <div className="max-w-4xl mx-auto text-center">
+            <ShieldCheck className="w-16 h-16 text-blue-600 mx-auto mb-6" />
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">Your data is safe with us</h2>
+            <p className="text-lg text-slate-600 mb-12 max-w-2xl mx-auto">
+              We believe your career information belongs to you. We've built Smart Resume Maker with privacy and security at its core.
+            </p>
+            
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8 text-left">
+              <div>
+                <h3 className="font-bold text-slate-900 mb-2 flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-blue-600" /> Private by default
+                </h3>
+                <p className="text-sm text-slate-600">Your resume is never shared publicly unless you explicitly choose to share a link.</p>
+              </div>
+              <div>
+                <h3 className="font-bold text-slate-900 mb-2 flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-blue-600" /> Auto-saved securely
+                </h3>
+                <p className="text-sm text-slate-600">Your progress is automatically saved to your account so you never lose your work.</p>
+              </div>
+              <div>
+                <h3 className="font-bold text-slate-900 mb-2 flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-blue-600" /> Free PDF Download
+                </h3>
+                <p className="text-sm text-slate-600">Download your resume as a clean PDF instantly. No hidden fees or watermarks.</p>
+              </div>
+            </div>
+          </div>
+        </section>
 
       </main>
 

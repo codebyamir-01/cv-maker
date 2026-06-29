@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Plus, Trash2, Edit2 } from "lucide-react";
+import { Plus, Trash2, Edit2, Sparkles } from "lucide-react";
 import { useResumeStore, Experience } from "@/store/useResumeStore";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -137,7 +137,13 @@ export default function ExperienceForm() {
                 <div className="space-y-2 pt-2">
                   <div className="flex items-center justify-between">
                     <Label>Description (Bullet Points)</Label>
-                    <span className="text-xs text-blue-600 bg-blue-50 px-2 py-1 rounded">Try to use action verbs!</span>
+                    <button 
+                      type="button" 
+                      onClick={() => alert('Smart Suggestions will provide industry-specific action verbs and bullet points.')}
+                      className="text-[11px] text-blue-700 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-full font-bold tracking-wide transition-colors flex items-center gap-1.5 shadow-sm border border-blue-200"
+                    >
+                      <Sparkles className="w-3.5 h-3.5" /> SMART SUGGESTIONS
+                    </button>
                   </div>
                   <Textarea 
                     value={currentExp.description || ""} 

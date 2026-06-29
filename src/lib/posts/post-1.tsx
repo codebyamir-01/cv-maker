@@ -81,6 +81,14 @@ export const post1: BlogPost = {
       <p>
         Writing an ATS-friendly resume doesn't mean it has to be boring. It means it needs to be clean, organized, and highly relevant. By focusing on standard formatting and targeted keywords, you ensure that your resume actually makes it through the digital gates.
       </p>
+      
+      <div className="bg-blue-50 border border-blue-100 rounded-xl p-6 mt-8">
+        <h3 className="text-xl font-bold text-slate-900 mt-0 mb-3">Ready to build your ATS-friendly resume?</h3>
+        <p className="mb-4">
+          Try our <a href="/free-resume-builder" className="text-blue-600 hover:underline font-semibold">Free Resume Builder</a> to automatically format your CV for applicant tracking systems. 
+          Looking for inspiration? Browse our collection of <a href="/resume-examples" className="text-blue-600 hover:underline font-semibold">Resume Examples</a> for every industry.
+        </p>
+      </div>
     </>
   )
 };

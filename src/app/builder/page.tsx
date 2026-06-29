@@ -83,7 +83,16 @@ const SummaryForm = memo(function SummaryForm() {
   const { resumeData, updateSummary } = useResumeStore();
   return (
     <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-      <h2 className="text-lg font-bold text-slate-900">Professional Summary</h2>
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-lg font-bold text-slate-900">Professional Summary</h2>
+        <button 
+          type="button" 
+          onClick={() => alert('Smart Suggestions will provide industry-specific summary templates.')}
+          className="text-[11px] text-blue-700 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-full font-bold tracking-wide transition-colors flex items-center gap-1.5 shadow-sm border border-blue-200"
+        >
+          <Sparkles className="w-3.5 h-3.5" /> SMART SUGGESTIONS
+        </button>
+      </div>
       <p className="mt-0.5 mb-4 text-sm text-slate-400">Write 2–4 sentences that highlight your expertise and value.</p>
       <textarea
         className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-800 placeholder:text-slate-300 focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-200 transition resize-none"

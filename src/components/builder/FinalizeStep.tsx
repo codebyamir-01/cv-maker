@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { Download, CheckCircle2, AlertCircle, Star, Share2, FileDown } from "lucide-react";
+import { Download, CheckCircle2, AlertCircle, Star, Share2, FileDown, Sparkles } from "lucide-react";
 import { useResumeStore } from "@/store/useResumeStore";
 import LivePreview from "@/components/builder/LivePreview";
 import domtoimage from "dom-to-image-more";
@@ -226,24 +226,27 @@ export default function FinalizeStep() {
         </div>
 
         <div className="mt-4 pt-4 border-t border-slate-100 w-full">
-          <p className="text-[13px] text-slate-400 font-medium">
-            <CheckCircle2 className="inline h-3.5 w-3.5 text-emerald-500 mr-1" />
-            Your resume is automatically saved in this browser session.
-          </p>
+          <div className="flex flex-wrap items-center justify-center gap-3 text-[13px] font-semibold text-slate-500 mb-2">
+            <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" /> Free PDF</span>
+            <span className="w-1 h-1 bg-slate-300 rounded-full" />
+            <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" /> No Watermark</span>
+            <span className="w-1 h-1 bg-slate-300 rounded-full" />
+            <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" /> Auto-saved</span>
+          </div>
         </div>
       </div>
 
       {/* ATS tips */}
-      <div className="rounded-2xl border border-emerald-100 bg-emerald-50/60 p-6">
-        <h3 className="flex items-center gap-2 text-sm font-bold text-emerald-800 mb-3">
-          <Star className="h-4 w-4" /> ATS Pro Tips
+      <div className="rounded-2xl border border-emerald-100 bg-emerald-50 p-6 shadow-sm">
+        <h3 className="flex items-center gap-2 text-base font-bold text-emerald-800 mb-3">
+          <Sparkles className="h-4 w-4" /> Smart ATS Checklist
         </h3>
-        <ul className="space-y-2 text-xs text-emerald-700 font-medium">
-          <li className="flex gap-2"><span>•</span> Use standard section headings like "Work Experience" and "Education"</li>
-          <li className="flex gap-2"><span>•</span> Avoid tables, columns, and text boxes — ATS scanners may miss them</li>
-          <li className="flex gap-2"><span>•</span> Include keywords from the job description naturally in your text</li>
-          <li className="flex gap-2"><span>•</span> Submit as PDF unless the employer specifically requests .docx</li>
-          <li className="flex gap-2"><span>•</span> Keep your resume to 1–2 pages maximum</li>
+        <p className="text-sm text-emerald-700 mb-4 font-medium">Keep these in mind to ensure your resume passes automated screening:</p>
+        <ul className="space-y-3 text-sm text-emerald-700 font-medium">
+          <li className="flex gap-2 items-start"><CheckCircle2 className="w-4 h-4 mt-0.5 shrink-0" /> Avoid complex tables or columns which confuse ATS scanners.</li>
+          <li className="flex gap-2 items-start"><CheckCircle2 className="w-4 h-4 mt-0.5 shrink-0" /> Use exact keywords from the job description naturally in your experience.</li>
+          <li className="flex gap-2 items-start"><CheckCircle2 className="w-4 h-4 mt-0.5 shrink-0" /> Submit as a PDF format unless the employer explicitly requests a Word document.</li>
+          <li className="flex gap-2 items-start"><CheckCircle2 className="w-4 h-4 mt-0.5 shrink-0" /> Keep the length to 1-2 pages maximum to maintain readability.</li>
         </ul>
       </div>
     </div>

@@ -1,12 +1,39 @@
-import { MetadataRoute } from 'next';
+import { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: {
-      userAgent: '*',
-      allow: '/',
-      disallow: ['/dashboard', '/api/'], // Hide private routes from Google
-    },
-    sitemap: 'https://www.smartresumemaker.com/sitemap.xml',
+    rules: [
+      {
+        userAgent: "*",
+        allow: [
+          "/",
+          "/builder",
+          "/templates",
+          "/blog",
+          "/blog/",
+          "/contact",
+          "/about",
+          "/free-resume-builder",
+          "/ats-resume-builder",
+          "/resume-examples",
+          "/resume-examples/",
+          "/privacy",
+          "/terms",
+          "/cookies",
+        ],
+        disallow: [
+          "/dashboard",
+          "/dashboard/",
+          "/login",
+          "/signup",
+          "/forgot-password",
+          "/api/",
+          "/admin",
+          "/r/",
+          "/upload",
+        ],
+      },
+    ],
+    sitemap: "https://www.smartresumemaker.com/sitemap.xml",
   };
 }
