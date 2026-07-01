@@ -7,10 +7,10 @@ import {
   Download, CheckCircle2, FileText, ZoomIn, ZoomOut,
   RotateCcw, Sparkles, Lightbulb, Eye, Loader2
 } from "lucide-react";
+import PersonalInfoForm from "@/components/builder/PersonalInfoForm";
 import { useResumeStore } from "@/store/useResumeStore";
 import dynamic from "next/dynamic";
 import { useSearchParams, useRouter } from "next/navigation";
-import PersonalInfoForm from "@/components/builder/PersonalInfoForm";
 
 /* ─── Lazy-load ALL heavy form components ─────────────────────────
    This is the main mobile win. Without this, all 6 form components

@@ -17,6 +17,10 @@ const nextConfig: NextConfig = {
   // Reduce page header sizes
   poweredByHeader: false,
 
+  experimental: {
+    optimizePackageImports: ['lucide-react'],
+  },
+
   // HTTP headers for caching static assets
   async headers() {
     return [
