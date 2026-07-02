@@ -66,7 +66,7 @@ export default function ResumesContent({ initialResumes }: { initialResumes?: Re
   };
 
   return (
-    <div className="space-y-5 w-full max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-6 pb-12 overflow-x-hidden">
+    <div className="space-y-5 w-full max-w-7xl mx-auto px-4 sm:px-6 pt-6 pb-32 md:pb-10 overflow-x-hidden">
       
       {/* Custom Toast Notification */}
       {toastMessage && (
@@ -77,14 +77,14 @@ export default function ResumesContent({ initialResumes }: { initialResumes?: Re
       )}
 
       {/* Header Section */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 w-full animate-fade-in-up">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 w-full">
         <div>
-          <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">My Resumes</h1>
-          <p className="text-slate-500 mt-2 text-base">View and manage all your created resumes.</p>
+          <h1 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">My Resumes</h1>
+          <p className="text-slate-500 mt-1 text-sm md:text-base">View and manage all your created resumes.</p>
         </div>
-        <Link href="/builder" className="w-full sm:w-auto mt-2 sm:mt-0">
-          <Button className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-600/20 rounded-xl h-12 px-6 font-semibold transition-all hover:scale-[1.02]">
-            <Plus className="w-5 h-5 mr-2" /> Create New
+        <Link href="/builder" className="w-full sm:w-auto">
+          <Button className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-600/20 rounded-xl h-11 md:h-12 px-6 font-semibold transition-all hover:scale-[1.02]">
+            <Plus className="w-4 h-4 md:w-5 md:h-5 mr-2" /> Create New
           </Button>
         </Link>
       </div>

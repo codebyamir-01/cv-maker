@@ -165,7 +165,7 @@ const CATEGORIES = ["All", "Professional", "Modern", "Tech", "Creative", "Studen
 export default function DashboardTemplatesPage() {
   return (
     <div className="flex-1 overflow-y-auto w-full custom-scrollbar">
-      <main className="p-8">
+      <main className="p-4 md:p-8 pb-32 md:pb-10">
         {/* ── HERO ── */}
         <section className="relative overflow-hidden py-8 mb-8 bg-white rounded-3xl border border-slate-200 shadow-sm text-center">
           <div className="absolute inset-0 -z-10 pointer-events-none">

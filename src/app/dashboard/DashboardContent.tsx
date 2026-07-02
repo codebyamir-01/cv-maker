@@ -103,35 +103,35 @@ export default function DashboardContent({ initialResumes }: { initialResumes?: 
   };
 
   return (
-    <div className="p-6 md:p-8 max-w-7xl mx-auto space-y-8">
+    <div className="p-4 pt-6 md:p-8 pb-32 md:pb-10 max-w-7xl mx-auto space-y-6 md:space-y-8">
 
       {/* Hero Section */}
-      <div className="animate-fade-in-up flex flex-col md:flex-row md:items-end justify-between gap-6">
+      <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
+          <h1 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
             Welcome back, {user?.name?.split(" ")[0]}{" "}
-            <span className="text-4xl animate-wave origin-bottom-right inline-block">👋</span>
+            <span className="text-3xl md:text-4xl animate-wave origin-bottom-right inline-block">👋</span>
           </h1>
-          <p className="text-slate-500 mt-2 text-lg">Manage your resumes, track ATS scores, and improve your job chances.</p>
+          <p className="text-slate-500 mt-1.5 text-sm md:text-lg">Manage your resumes, track ATS scores, and improve your job chances.</p>
         </div>
-        <div className="flex gap-4 animate-fade-in-up-delay-1">
-          <div className="bg-white px-5 py-3 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4 transition-shadow hover:shadow-md">
-            <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-600">
-              <FileText className="w-5 h-5" />
+        <div className="flex gap-3">
+          <div className="flex-1 md:flex-none bg-white px-4 py-3 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-3 transition-shadow hover:shadow-md">
+            <div className="w-9 h-9 md:w-10 md:h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 shrink-0">
+              <FileText className="w-4 h-4 md:w-5 md:h-5" />
             </div>
             <div>
-              <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Total Resumes</p>
-              <p className="text-2xl font-bold text-slate-900 leading-none mt-1">{resumes.length}</p>
+              <p className="text-[10px] md:text-xs font-semibold text-slate-500 uppercase tracking-wider">Total Resumes</p>
+              <p className="text-xl md:text-2xl font-bold text-slate-900 leading-none mt-0.5">{resumes.length}</p>
             </div>
           </div>
-          <div className="bg-white px-5 py-3 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4 transition-shadow hover:shadow-md">
-            <div className="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center text-green-600">
-              <TrendingUp className="w-5 h-5" />
+          <div className="flex-1 md:flex-none bg-white px-4 py-3 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-3 transition-shadow hover:shadow-md">
+            <div className="w-9 h-9 md:w-10 md:h-10 rounded-full bg-green-50 flex items-center justify-center text-green-600 shrink-0">
+              <TrendingUp className="w-4 h-4 md:w-5 md:h-5" />
             </div>
             <div>
-              <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Avg ATS Score</p>
-              <p className="text-xl font-bold text-slate-900 leading-none mt-1">
-                {averageAtsScore > 0 ? `${averageAtsScore}%` : <span className="text-sm font-medium text-slate-500">Not checked yet</span>}
+              <p className="text-[10px] md:text-xs font-semibold text-slate-500 uppercase tracking-wider">Avg ATS Score</p>
+              <p className="text-lg md:text-xl font-bold text-slate-900 leading-none mt-0.5">
+                {averageAtsScore > 0 ? `${averageAtsScore}%` : <span className="text-xs md:text-sm font-medium text-slate-500">N/A</span>}
               </p>
             </div>
           </div>

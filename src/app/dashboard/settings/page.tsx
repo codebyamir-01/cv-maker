@@ -147,45 +147,27 @@ export default function SettingsPage() {
 
   if (isLoading || !initialized) {
     return (
-      <div className="max-w-4xl mx-auto space-y-8 animate-pulse p-4">
-        <div className="h-10 bg-slate-200 rounded w-1/4 mb-12"></div>
-        
-        <div className="flex gap-4 mb-8">
-          <div className="h-12 bg-slate-100 rounded-full w-1/3"></div>
-          <div className="h-12 bg-slate-100 rounded-full w-1/3"></div>
-          <div className="h-12 bg-slate-100 rounded-full w-1/3"></div>
+      <div className="max-w-2xl mx-auto space-y-6 animate-pulse px-4 pt-6 pb-32 md:pb-8 md:p-8">
+        <div className="h-8 bg-slate-200 rounded w-1/3"></div>
+        <div className="flex gap-3">
+          <div className="h-11 bg-slate-100 rounded-xl flex-1"></div>
+          <div className="h-11 bg-slate-100 rounded-xl flex-1"></div>
         </div>
-
-        <div className="h-40 bg-slate-100 rounded-2xl w-full"></div>
-        <div className="h-12 bg-slate-100 rounded-2xl w-full"></div>
-        <div className="h-12 bg-slate-100 rounded-2xl w-full"></div>
+        <div className="h-36 bg-slate-100 rounded-2xl w-full"></div>
+        <div className="h-11 bg-slate-100 rounded-xl w-full"></div>
+        <div className="h-11 bg-slate-100 rounded-xl w-full"></div>
+        <div className="h-11 bg-slate-100 rounded-xl w-full"></div>
       </div>
     );
   }
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-2xl md:max-w-4xl mx-auto px-4 pt-6 pb-32 md:pb-10 md:px-8">
 
-      {/* ── Mobile Top Bar ── */}
-      <div className="md:hidden sticky top-0 z-10 bg-[#F8FAFC]/95 backdrop-blur-sm border-b border-slate-100 -mx-4 px-4 py-3 mb-6 flex items-center gap-3">
-        <a
-          href="/dashboard"
-          className="w-9 h-9 rounded-xl bg-white border border-slate-200 shadow-sm flex items-center justify-center text-slate-600 active:scale-95 transition-transform"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
-            <path d="M15 18l-6-6 6-6" />
-          </svg>
-        </a>
-        <div>
-          <h1 className="text-base font-bold text-slate-900 leading-none">Settings</h1>
-          <p className="text-xs text-slate-500 mt-0.5">Account preferences</p>
-        </div>
-      </div>
-
-      {/* ── Desktop Title ── */}
-      <div className="hidden md:block mb-8">
-        <h1 className="text-3xl font-bold text-slate-900">Settings</h1>
-        <p className="text-slate-600 mt-2">Manage your account settings and preferences.</p>
+      {/* Page title — single clean header for both mobile and desktop */}
+      <div className="mb-6 md:mb-8">
+        <h1 className="text-2xl md:text-3xl font-bold text-slate-900">Settings</h1>
+        <p className="text-slate-500 md:text-slate-600 text-sm md:text-base mt-1">Manage your account settings and preferences.</p>
       </div>
 
       {message.text && (
