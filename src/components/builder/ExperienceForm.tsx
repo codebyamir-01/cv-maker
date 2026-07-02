@@ -12,40 +12,32 @@ export default function ExperienceForm() {
   const [isEditing, setIsEditing] = useState<string | null>(null);
   const [currentExp, setCurrentExp] = useState<Partial<Experience>>({});
   const [showSuggestions, setShowSuggestions] = useState(false);
-
-  const title = currentExp.jobTitle || resumeData.personalInfo?.jobTitle || "";
-  const t = title.toLowerCase();
-  let suggestions = [];
-
-  if (t.includes("software") || t.includes("developer") || t.includes("engineer")) {
-    suggestions = [
-      "• Spearheaded the development of a scalable web application, increasing user engagement by 40%.",
-      "• Optimized database queries and backend architecture, reducing load times by 30%.",
-      "• Collaborated with cross-functional teams to design and deploy innovative software solutions.",
-      "• Implemented automated CI/CD pipelines, reducing deployment errors by 25%."
-    ];
-  } else if (t.includes("marketing") || t.includes("seo") || t.includes("content")) {
-    suggestions = [
-      "• Designed and executed comprehensive digital marketing campaigns that increased web traffic by 50%.",
-      "• Analyzed market trends and competitor strategies to identify new growth opportunities.",
-      "• Managed social media channels, growing follower base by 10k+ within six months.",
-      "• Optimized website content for SEO, resulting in a 35% increase in organic search rankings."
-    ];
-  } else if (t.includes("sales") || t.includes("account")) {
-    suggestions = [
-      "• Exceeded quarterly sales targets by 120%, generating $500k in new revenue.",
-      "• Cultivated and maintained strong relationships with key enterprise clients.",
-      "• Negotiated and closed high-value contracts, increasing profit margins by 15%.",
-      "• Developed targeted sales strategies to penetrate new regional markets."
-    ];
-  } else {
-    suggestions = [
-      "• Successfully managed end-to-end project lifecycles, ensuring timely delivery within budget.",
-      "• Streamlined internal processes, reducing operational costs by 15% in the first quarter.",
-      "• Mentored and trained junior team members, improving overall team productivity and morale.",
-      "• Analyzed performance data to identify bottlenecks and implement effective solutions."
-    ];
-  }
+  const [isLoading, setIsLoading] = useState(false);
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+  
+  const handleFetchSuggestions = async () => {
+    setShowSuggestions(true);
+    if (suggestions.length > 0) return;
+    
+    setIsLoading(true);
+    const title = currentExp.jobTitle || resumeData.personalInfo?.jobTitle || "Professional";
+    try {
+      const res = await fetch("/api/ai/suggestions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title, type: "experience" })
+      });
+      const data = await res.json();
+      if (data.suggestions) {
+        setSuggestions(data.suggestions);
+      }
+    } catch (e) {
+      console.error(e);
+      setSuggestions(["• Failed to load AI suggestions. Please try again later."]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleAddNew = () => {
     const newId = Date.now().toString();
@@ -174,18 +166,22 @@ export default function ExperienceForm() {
                     <Label>Description (Bullet Points)</Label>
                     <button 
                       type="button" 
-                      onClick={() => setShowSuggestions(!showSuggestions)}
-                      className="text-[11px] text-blue-700 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-full font-bold tracking-wide transition-colors flex items-center gap-1.5 shadow-sm border border-blue-200"
+                      onClick={showSuggestions ? () => setShowSuggestions(false) : handleFetchSuggestions}
+                      disabled={isLoading}
+                      className="text-[11px] text-blue-700 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-full font-bold tracking-wide transition-colors flex items-center gap-1.5 shadow-sm border border-blue-200 disabled:opacity-50"
                     >
-                      <Sparkles className="w-3.5 h-3.5" /> SMART SUGGESTIONS
+                      {isLoading ? <span className="w-3.5 h-3.5 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" /> : <Sparkles className="w-3.5 h-3.5" />} 
+                      SMART SUGGESTIONS
                     </button>
                   </div>
                   
                   {showSuggestions && (
                     <div className="mb-2 p-4 bg-slate-50 border border-blue-100 rounded-xl">
-                      <p className="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Click a bullet to add it</p>
+                      <p className="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">
+                        {isLoading ? "Generating AI suggestions..." : "Click a bullet to add it"}
+                      </p>
                       <div className="space-y-2">
-                        {suggestions.map((text, i) => (
+                        {!isLoading && suggestions.map((text, i) => (
                           <div 
                             key={i}
                             onClick={() => {

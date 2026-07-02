@@ -82,43 +82,32 @@ const A4_W = 816;
 const SummaryForm = memo(function SummaryForm() {
   const { resumeData, updateSummary } = useResumeStore();
   const [showSuggestions, setShowSuggestions] = useState(false);
-
-  const title = resumeData.personalInfo?.jobTitle || "";
-  const t = title.toLowerCase();
-  let suggestions = [];
+  const [isLoading, setIsLoading] = useState(false);
+  const [suggestions, setSuggestions] = useState<string[]>([]);
   
-  if (t.includes("software") || t.includes("developer") || t.includes("engineer")) {
-    suggestions = [
-      `Results-driven ${title || 'Software Developer'} with a proven track record of designing and implementing scalable applications.`,
-      `Detail-oriented ${title || 'Engineer'} with expertise in full-stack development and optimizing backend performance.`,
-      `Innovative ${title || 'Developer'} passionate about writing clean, maintainable code and fostering team collaboration.`
-    ];
-  } else if (t.includes("marketing") || t.includes("seo") || t.includes("content")) {
-    suggestions = [
-      `Creative ${title || 'Marketing Professional'} with 5+ years of experience driving brand awareness and campaign success.`,
-      `Data-driven ${title || 'Specialist'} with a strong background in digital strategy, SEO optimization, and audience growth.`,
-      `Dynamic ${title || 'Strategist'} specializing in multi-channel campaigns and maximizing ROI through targeted outreach.`
-    ];
-  } else if (t.includes("sales") || t.includes("account") || t.includes("manager")) {
-    suggestions = [
-      `High-performing ${title || 'Sales Professional'} with a consistent record of exceeding quotas and expanding market share.`,
-      `Strategic ${title || 'Account Manager'} dedicated to building long-term client relationships and driving revenue growth.`,
-      `Results-oriented ${title || 'Manager'} skilled in negotiating contracts and leading high-impact teams to success.`
-    ];
-  } else if (t.includes("designer") || t.includes("ui") || t.includes("ux")) {
-    suggestions = [
-      `Visionary ${title || 'Designer'} with a passion for creating intuitive, user-centric interfaces and engaging visual experiences.`,
-      `Detail-oriented ${title || 'UX/UI Designer'} focused on bridging the gap between user needs and business goals through design.`,
-      `Creative ${title || 'Graphic Designer'} with expertise in brand identity, typography, and delivering visually compelling assets.`
-    ];
-  } else {
-    const fallbackTitle = title || "professional";
-    suggestions = [
-      `Results-driven ${fallbackTitle} with 5+ years of experience delivering high-quality solutions and driving business growth.`,
-      `Detail-oriented ${fallbackTitle} with a proven track record of managing complex projects and exceeding performance metrics.`,
-      `Innovative thinker and dedicated ${fallbackTitle} with strong leadership skills, committed to optimizing workflows.`
-    ];
-  }
+  const handleFetchSuggestions = async () => {
+    setShowSuggestions(true);
+    if (suggestions.length > 0) return; // already loaded
+    
+    setIsLoading(true);
+    const title = resumeData.personalInfo?.jobTitle || "Professional";
+    try {
+      const res = await fetch("/api/ai/suggestions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title, type: "summary" })
+      });
+      const data = await res.json();
+      if (data.suggestions) {
+        setSuggestions(data.suggestions);
+      }
+    } catch (e) {
+      console.error(e);
+      setSuggestions(["Failed to load suggestions. Please try again later."]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
@@ -126,18 +115,22 @@ const SummaryForm = memo(function SummaryForm() {
         <h2 className="text-lg font-bold text-slate-900">Professional Summary</h2>
         <button 
           type="button" 
-          onClick={() => setShowSuggestions(!showSuggestions)}
-          className="text-[11px] text-blue-700 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-full font-bold tracking-wide transition-colors flex items-center gap-1.5 shadow-sm border border-blue-200"
+          onClick={showSuggestions ? () => setShowSuggestions(false) : handleFetchSuggestions}
+          disabled={isLoading}
+          className="text-[11px] text-blue-700 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-full font-bold tracking-wide transition-colors flex items-center gap-1.5 shadow-sm border border-blue-200 disabled:opacity-50"
         >
-          <Sparkles className="w-3.5 h-3.5" /> SMART SUGGESTIONS
+          {isLoading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Sparkles className="w-3.5 h-3.5" />} 
+          SMART SUGGESTIONS
         </button>
       </div>
       
       {showSuggestions && (
         <div className="mb-4 p-4 bg-slate-50 border border-blue-100 rounded-xl">
-          <p className="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Click a template to use it</p>
+          <p className="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">
+            {isLoading ? "Generating AI suggestions..." : "Click a template to use it"}
+          </p>
           <div className="space-y-2">
-            {suggestions.map((text, i) => (
+            {!isLoading && suggestions.map((text, i) => (
               <div 
                 key={i}
                 onClick={() => {
