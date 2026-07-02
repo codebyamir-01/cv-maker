@@ -130,9 +130,19 @@ export default function DashboardLayout({
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden relative">
         
-        {/* Top Header Bar — desktop only; mobile uses bottom dock nav */}
-        <header className={`hidden md:flex h-20 items-center justify-between px-8 sticky top-0 z-10 transition-all duration-300 ${isScrolled ? "bg-white/80 backdrop-blur-md border-b border-slate-200/50 shadow-sm" : "bg-transparent"}`}>
-          <div className="flex items-center flex-1 max-w-xl">
+        {/* Top Header Bar */}
+        <header className={`h-16 md:h-20 flex items-center justify-between px-4 md:px-8 sticky top-0 z-10 transition-all duration-300 ${isScrolled ? "bg-white/80 backdrop-blur-md border-b border-slate-200/50 shadow-sm" : "bg-transparent"}`}>
+          
+          {/* Mobile Home Link */}
+          <Link href="/" className="flex items-center md:hidden gap-2.5 active:opacity-70 transition-opacity">
+            <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center shadow-sm">
+              <LogoIcon className="text-white w-4 h-4" />
+            </div>
+            <span className="font-bold text-lg text-slate-900 tracking-tight">CV Maker</span>
+          </Link>
+
+          {/* Desktop Search Bar */}
+          <div className="hidden md:flex items-center flex-1 max-w-xl">
             <div className="relative w-full">
               <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
               <input
