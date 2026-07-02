@@ -291,6 +291,7 @@ export default function BuilderPage() {
   const { resumeData, updateTemplateId, updateAccentColor, databaseId } = useResumeStore();
   const printRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const { status } = useSession();
   
   const handleExit = () => {
     if (resumeData && Object.keys(resumeData).length > 0) {
@@ -344,6 +345,11 @@ export default function BuilderPage() {
   const accentColor = resumeData.accentColor ?? "#0d9488";
 
   const handleDownloadPdf = async () => {
+    if (status !== "authenticated") {
+      router.push("/login?callbackUrl=/builder");
+      return;
+    }
+    
     if (isDownloading) return;
     if (!printRef.current) return;
     

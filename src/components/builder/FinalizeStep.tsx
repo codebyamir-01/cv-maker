@@ -7,9 +7,14 @@ import LivePreview from "@/components/builder/LivePreview";
 import domtoimage from "dom-to-image-more";
 import jsPDF from "jspdf";
 
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+
 export default function FinalizeStep() {
   const { resumeData, databaseId } = useResumeStore();
   const printRef = useRef<HTMLDivElement>(null);
+  const { status } = useSession();
+  const router = useRouter();
   
   const [isDownloading, setIsDownloading] = useState(false);
   const [downloadMessage, setDownloadMessage] = useState("");
@@ -18,6 +23,11 @@ export default function FinalizeStep() {
   const [shareMessage, setShareMessage] = useState("");
 
   const handleDownloadPdf = async () => {
+    if (status !== "authenticated") {
+      router.push("/login?callbackUrl=/builder");
+      return;
+    }
+    
     if (isDownloading) return; // Prevent multiple clicks freezing the UI
     if (!printRef.current) return;
     
