@@ -1,8 +1,8 @@
-﻿import { ShieldCheck } from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 
 export default function TrustSection() {
   return (
-    <section className="py-24 px-4 bg-white border-b border-slate-100">
+    <section className="py-24 px-4 bg-white">
       <div className="max-w-4xl mx-auto text-center">
         <ShieldCheck className="w-16 h-16 text-blue-600 mx-auto mb-6" />
         <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">Your data is safe with us</h2>
