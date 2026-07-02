@@ -167,22 +167,22 @@ export default function DashboardTemplatesPage() {
     <div className="flex-1 overflow-y-auto w-full custom-scrollbar">
       <main className="p-4 md:p-8 pb-32 md:pb-10">
         {/* ── HERO ── */}
-        <section className="relative overflow-hidden py-8 mb-8 bg-white rounded-3xl border border-slate-200 shadow-sm text-center">
+        <section className="relative overflow-hidden py-6 md:py-8 mb-6 md:mb-8 bg-white rounded-3xl border border-slate-200 shadow-sm text-center">
           <div className="absolute inset-0 -z-10 pointer-events-none">
             <div className="absolute top-[-10%] left-[-5%] w-[35%] h-[80%] rounded-full bg-blue-100/50 blur-[120px]" />
             <div className="absolute bottom-0 right-[-5%] w-[30%] h-[60%] rounded-full bg-purple-100/40 blur-[100px]" />
           </div>
-          <div className="container mx-auto px-6 max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 shadow-sm text-blue-600 text-sm font-semibold mb-6">
-              <Sparkles className="w-4 h-4" /> 15+ Professional Templates
+          <div className="container mx-auto px-4 md:px-6 max-w-3xl">
+            <div className="inline-flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-white border border-slate-200 shadow-sm text-blue-600 text-[11px] md:text-sm font-semibold mb-4 md:mb-6">
+              <Sparkles className="w-3.5 h-3.5 md:w-4 md:h-4" /> 15+ Professional Templates
             </div>
-            <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 mb-5 leading-tight">
+            <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900 mb-3 md:mb-5 leading-tight">
               Resume <span className="text-blue-600">Templates</span>
             </h1>
-            <p className="text-lg text-slate-500 font-medium leading-relaxed mb-8">
+            <p className="text-sm md:text-lg text-slate-500 font-medium leading-relaxed mb-4 md:mb-8 max-w-[280px] md:max-w-none mx-auto">
               Choose from professionally designed, ATS-optimised resume templates.
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-3">
+            <div className="hidden md:flex flex-wrap items-center justify-center gap-3">
               {[
                 { icon: CheckCircle2, label: "100% Free",         color: "text-emerald-500" },
                 { icon: CheckCircle2, label: "ATS Optimised",     color: "text-emerald-500" },
