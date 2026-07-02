@@ -11,6 +11,7 @@ import PersonalInfoForm from "@/components/builder/PersonalInfoForm";
 import { useResumeStore } from "@/store/useResumeStore";
 import dynamic from "next/dynamic";
 import { useSearchParams, useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 /* ─── Lazy-load ALL heavy form components ─────────────────────────
    This is the main mobile win. Without this, all 6 form components
@@ -211,6 +212,7 @@ function DataLoader() {
 
 function AutoSaver() {
   const { resumeData, databaseId } = useResumeStore();
+  const { status } = useSession();
   const [saveStatus, setSaveStatus] = useState<"idle" | "saving" | "saved" | "error">("idle");
   const [pendingPayload, setPendingPayload] = useState<string | null>(null);
   const prevDataRef = useRef(JSON.stringify(resumeData));
@@ -240,6 +242,7 @@ function AutoSaver() {
   }, [databaseId]);
 
   useEffect(() => {
+    if (status !== "authenticated") return; // Do not auto-save for guests
     const currentDataStr = JSON.stringify(resumeData);
     if (currentDataStr === prevDataRef.current) return;
     prevDataRef.current = currentDataStr;
