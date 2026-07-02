@@ -81,18 +81,47 @@ const A4_W = 816;
 /* ─── Summary inline form (kept here — no separate import needed) ── */
 const SummaryForm = memo(function SummaryForm() {
   const { resumeData, updateSummary } = useResumeStore();
+  const [showSuggestions, setShowSuggestions] = useState(false);
+
+  const suggestions = [
+    "Results-driven professional with 5+ years of experience delivering high-quality solutions and driving business growth.",
+    "Detail-oriented specialist with a proven track record of managing complex projects and exceeding performance metrics.",
+    "Innovative thinker with strong leadership skills, dedicated to optimizing workflows and fostering team collaboration."
+  ];
+
   return (
     <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-bold text-slate-900">Professional Summary</h2>
         <button 
           type="button" 
-          onClick={() => alert('Smart Suggestions will provide industry-specific summary templates.')}
+          onClick={() => setShowSuggestions(!showSuggestions)}
           className="text-[11px] text-blue-700 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-full font-bold tracking-wide transition-colors flex items-center gap-1.5 shadow-sm border border-blue-200"
         >
           <Sparkles className="w-3.5 h-3.5" /> SMART SUGGESTIONS
         </button>
       </div>
+      
+      {showSuggestions && (
+        <div className="mb-4 p-4 bg-slate-50 border border-blue-100 rounded-xl">
+          <p className="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Click a template to use it</p>
+          <div className="space-y-2">
+            {suggestions.map((text, i) => (
+              <div 
+                key={i}
+                onClick={() => {
+                  updateSummary(text);
+                  setShowSuggestions(false);
+                }}
+                className="text-sm text-slate-700 bg-white border border-slate-200 p-3 rounded-lg hover:border-blue-400 hover:shadow-sm cursor-pointer transition-all"
+              >
+                {text}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       <p className="mt-0.5 mb-4 text-sm text-slate-400">Write 2–4 sentences that highlight your expertise and value.</p>
       <textarea
         className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-800 placeholder:text-slate-300 focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-200 transition resize-none"

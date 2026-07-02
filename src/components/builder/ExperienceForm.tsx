@@ -11,6 +11,13 @@ export default function ExperienceForm() {
   const { resumeData, addExperience, updateExperience, removeExperience } = useResumeStore();
   const [isEditing, setIsEditing] = useState<string | null>(null);
   const [currentExp, setCurrentExp] = useState<Partial<Experience>>({});
+  const [showSuggestions, setShowSuggestions] = useState(false);
+
+  const suggestions = [
+    "• Spearheaded the development of a scalable web application, increasing user engagement by 40%.",
+    "• Streamlined internal processes, reducing operational costs by 15% in the first quarter.",
+    "• Collaborated with cross-functional teams to design and deploy innovative software solutions."
+  ];
 
   const handleAddNew = () => {
     const newId = Date.now().toString();
@@ -139,12 +146,33 @@ export default function ExperienceForm() {
                     <Label>Description (Bullet Points)</Label>
                     <button 
                       type="button" 
-                      onClick={() => alert('Smart Suggestions will provide industry-specific action verbs and bullet points.')}
+                      onClick={() => setShowSuggestions(!showSuggestions)}
                       className="text-[11px] text-blue-700 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-full font-bold tracking-wide transition-colors flex items-center gap-1.5 shadow-sm border border-blue-200"
                     >
                       <Sparkles className="w-3.5 h-3.5" /> SMART SUGGESTIONS
                     </button>
                   </div>
+                  
+                  {showSuggestions && (
+                    <div className="mb-2 p-4 bg-slate-50 border border-blue-100 rounded-xl">
+                      <p className="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">Click a bullet to add it</p>
+                      <div className="space-y-2">
+                        {suggestions.map((text, i) => (
+                          <div 
+                            key={i}
+                            onClick={() => {
+                              const newDesc = currentExp.description ? `${currentExp.description}\n${text}` : text;
+                              handleChange("description", newDesc);
+                              setShowSuggestions(false);
+                            }}
+                            className="text-sm text-slate-700 bg-white border border-slate-200 p-3 rounded-lg hover:border-blue-400 hover:shadow-sm cursor-pointer transition-all"
+                          >
+                            {text}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                   <Textarea 
                     value={currentExp.description || ""} 
                     onChange={(e) => handleChange("description", e.target.value)}
