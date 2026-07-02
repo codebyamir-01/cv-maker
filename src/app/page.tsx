@@ -26,7 +26,7 @@ const TrustSection = dynamic(() => import("@/components/home/TrustSection"), {
 
 export default function LandingPage() {
   return (
-    <div className="flex flex-col min-h-screen bg-[#020617] font-sans selection:bg-blue-200">
+    <div className="flex flex-col min-h-screen bg-white font-sans selection:bg-blue-200">
 
       {/* Zero-JS server-rendered navbar — no useSession, no hydration cost */}
       <NavbarStatic />
