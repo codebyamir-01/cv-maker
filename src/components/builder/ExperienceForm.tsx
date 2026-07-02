@@ -13,11 +13,39 @@ export default function ExperienceForm() {
   const [currentExp, setCurrentExp] = useState<Partial<Experience>>({});
   const [showSuggestions, setShowSuggestions] = useState(false);
 
-  const suggestions = [
-    "• Spearheaded the development of a scalable web application, increasing user engagement by 40%.",
-    "• Streamlined internal processes, reducing operational costs by 15% in the first quarter.",
-    "• Collaborated with cross-functional teams to design and deploy innovative software solutions."
-  ];
+  const title = currentExp.jobTitle || resumeData.personalInfo?.jobTitle || "";
+  const t = title.toLowerCase();
+  let suggestions = [];
+
+  if (t.includes("software") || t.includes("developer") || t.includes("engineer")) {
+    suggestions = [
+      "• Spearheaded the development of a scalable web application, increasing user engagement by 40%.",
+      "• Optimized database queries and backend architecture, reducing load times by 30%.",
+      "• Collaborated with cross-functional teams to design and deploy innovative software solutions.",
+      "• Implemented automated CI/CD pipelines, reducing deployment errors by 25%."
+    ];
+  } else if (t.includes("marketing") || t.includes("seo") || t.includes("content")) {
+    suggestions = [
+      "• Designed and executed comprehensive digital marketing campaigns that increased web traffic by 50%.",
+      "• Analyzed market trends and competitor strategies to identify new growth opportunities.",
+      "• Managed social media channels, growing follower base by 10k+ within six months.",
+      "• Optimized website content for SEO, resulting in a 35% increase in organic search rankings."
+    ];
+  } else if (t.includes("sales") || t.includes("account")) {
+    suggestions = [
+      "• Exceeded quarterly sales targets by 120%, generating $500k in new revenue.",
+      "• Cultivated and maintained strong relationships with key enterprise clients.",
+      "• Negotiated and closed high-value contracts, increasing profit margins by 15%.",
+      "• Developed targeted sales strategies to penetrate new regional markets."
+    ];
+  } else {
+    suggestions = [
+      "• Successfully managed end-to-end project lifecycles, ensuring timely delivery within budget.",
+      "• Streamlined internal processes, reducing operational costs by 15% in the first quarter.",
+      "• Mentored and trained junior team members, improving overall team productivity and morale.",
+      "• Analyzed performance data to identify bottlenecks and implement effective solutions."
+    ];
+  }
 
   const handleAddNew = () => {
     const newId = Date.now().toString();

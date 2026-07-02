@@ -83,11 +83,42 @@ const SummaryForm = memo(function SummaryForm() {
   const { resumeData, updateSummary } = useResumeStore();
   const [showSuggestions, setShowSuggestions] = useState(false);
 
-  const suggestions = [
-    "Results-driven professional with 5+ years of experience delivering high-quality solutions and driving business growth.",
-    "Detail-oriented specialist with a proven track record of managing complex projects and exceeding performance metrics.",
-    "Innovative thinker with strong leadership skills, dedicated to optimizing workflows and fostering team collaboration."
-  ];
+  const title = resumeData.personalInfo?.jobTitle || "";
+  const t = title.toLowerCase();
+  let suggestions = [];
+  
+  if (t.includes("software") || t.includes("developer") || t.includes("engineer")) {
+    suggestions = [
+      `Results-driven ${title || 'Software Developer'} with a proven track record of designing and implementing scalable applications.`,
+      `Detail-oriented ${title || 'Engineer'} with expertise in full-stack development and optimizing backend performance.`,
+      `Innovative ${title || 'Developer'} passionate about writing clean, maintainable code and fostering team collaboration.`
+    ];
+  } else if (t.includes("marketing") || t.includes("seo") || t.includes("content")) {
+    suggestions = [
+      `Creative ${title || 'Marketing Professional'} with 5+ years of experience driving brand awareness and campaign success.`,
+      `Data-driven ${title || 'Specialist'} with a strong background in digital strategy, SEO optimization, and audience growth.`,
+      `Dynamic ${title || 'Strategist'} specializing in multi-channel campaigns and maximizing ROI through targeted outreach.`
+    ];
+  } else if (t.includes("sales") || t.includes("account") || t.includes("manager")) {
+    suggestions = [
+      `High-performing ${title || 'Sales Professional'} with a consistent record of exceeding quotas and expanding market share.`,
+      `Strategic ${title || 'Account Manager'} dedicated to building long-term client relationships and driving revenue growth.`,
+      `Results-oriented ${title || 'Manager'} skilled in negotiating contracts and leading high-impact teams to success.`
+    ];
+  } else if (t.includes("designer") || t.includes("ui") || t.includes("ux")) {
+    suggestions = [
+      `Visionary ${title || 'Designer'} with a passion for creating intuitive, user-centric interfaces and engaging visual experiences.`,
+      `Detail-oriented ${title || 'UX/UI Designer'} focused on bridging the gap between user needs and business goals through design.`,
+      `Creative ${title || 'Graphic Designer'} with expertise in brand identity, typography, and delivering visually compelling assets.`
+    ];
+  } else {
+    const fallbackTitle = title || "professional";
+    suggestions = [
+      `Results-driven ${fallbackTitle} with 5+ years of experience delivering high-quality solutions and driving business growth.`,
+      `Detail-oriented ${fallbackTitle} with a proven track record of managing complex projects and exceeding performance metrics.`,
+      `Innovative thinker and dedicated ${fallbackTitle} with strong leadership skills, committed to optimizing workflows.`
+    ];
+  }
 
   return (
     <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
