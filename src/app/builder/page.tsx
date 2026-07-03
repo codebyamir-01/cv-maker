@@ -5,7 +5,7 @@ import Link from "next/link";
 import {
   ArrowLeft, ArrowRight, ChevronLeft, ChevronRight,
   Download, CheckCircle2, FileText, ZoomIn, ZoomOut,
-  RotateCcw, Sparkles, Lightbulb, Eye, Loader2
+  RotateCcw, Sparkles, Lightbulb, Eye, Loader2, Star, ThumbsUp, X
 } from "lucide-react";
 import PersonalInfoForm from "@/components/builder/PersonalInfoForm";
 import { useResumeStore } from "@/store/useResumeStore";
@@ -54,26 +54,26 @@ const LivePreview = dynamic(() => import("@/components/builder/LivePreview"), {
 
 /* ─── Steps ──────────────────────────────────────────────────────── */
 const STEPS = [
-  { id: "personal",   title: "Contact",    subtitle: "Personal information"    },
-  { id: "summary",    title: "Summary",    subtitle: "Professional summary"    },
-  { id: "experience", title: "Experience", subtitle: "Work history"            },
-  { id: "education",  title: "Education",  subtitle: "Academic background"     },
-  { id: "skills",     title: "Skills",     subtitle: "Your abilities"          },
-  { id: "optional",   title: "Optional",   subtitle: "Additional sections"     },
-  { id: "ats",        title: "Finalize",   subtitle: "Review & download"       },
+  { id: "personal", title: "Contact", subtitle: "Personal information" },
+  { id: "summary", title: "Summary", subtitle: "Professional summary" },
+  { id: "experience", title: "Experience", subtitle: "Work history" },
+  { id: "education", title: "Education", subtitle: "Academic background" },
+  { id: "skills", title: "Skills", subtitle: "Your abilities" },
+  { id: "optional", title: "Optional", subtitle: "Additional sections" },
+  { id: "ats", title: "Finalize", subtitle: "Review & download" },
 ];
 
 /* ─── Colour palette ─────────────────────────────────────────────── */
 const COLORS = [
-  { label: "blue",    hex: "#3b82f6" },
-  { label: "indigo",  hex: "#4f46e5" },
-  { label: "teal",    hex: "#0d9488" },
-  { label: "black",   hex: "#1e293b" },
-  { label: "slate",   hex: "#64748b" },
-  { label: "red",     hex: "#b91c1c" },
-  { label: "green",   hex: "#16a34a" },
-  { label: "purple",  hex: "#7c3aed" },
-  { label: "orange",  hex: "#f97316" },
+  { label: "blue", hex: "#3b82f6" },
+  { label: "indigo", hex: "#4f46e5" },
+  { label: "teal", hex: "#0d9488" },
+  { label: "black", hex: "#1e293b" },
+  { label: "slate", hex: "#64748b" },
+  { label: "red", hex: "#b91c1c" },
+  { label: "green", hex: "#16a34a" },
+  { label: "purple", hex: "#7c3aed" },
+  { label: "orange", hex: "#f97316" },
 ];
 
 const ZOOM_OPTIONS = [30, 50, 60, 75, 100];
@@ -85,11 +85,11 @@ const SummaryForm = memo(function SummaryForm() {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [suggestions, setSuggestions] = useState<string[]>([]);
-  
+
   const handleFetchSuggestions = async () => {
     setShowSuggestions(true);
     if (suggestions.length > 0) return; // already loaded
-    
+
     setIsLoading(true);
     const title = resumeData.personalInfo?.jobTitle || "Professional";
     try {
@@ -114,17 +114,17 @@ const SummaryForm = memo(function SummaryForm() {
     <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-bold text-slate-900">Professional Summary</h2>
-        <button 
-          type="button" 
+        <button
+          type="button"
           onClick={showSuggestions ? () => setShowSuggestions(false) : handleFetchSuggestions}
           disabled={isLoading}
           className="text-[11px] text-blue-700 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-full font-bold tracking-wide transition-colors flex items-center gap-1.5 shadow-sm border border-blue-200 disabled:opacity-50"
         >
-          {isLoading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Sparkles className="w-3.5 h-3.5" />} 
+          {isLoading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Sparkles className="w-3.5 h-3.5" />}
           SMART SUGGESTIONS
         </button>
       </div>
-      
+
       {showSuggestions && (
         <div className="mb-4 p-4 bg-slate-50 border border-blue-100 rounded-xl">
           <p className="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">
@@ -132,7 +132,7 @@ const SummaryForm = memo(function SummaryForm() {
           </p>
           <div className="space-y-2">
             {!isLoading && suggestions.map((text, i) => (
-              <div 
+              <div
                 key={i}
                 onClick={() => {
                   updateSummary(text);
@@ -163,7 +163,7 @@ const SummaryForm = memo(function SummaryForm() {
 function DataLoader() {
   const searchParams = useSearchParams();
   const { updateTemplateId, setDatabaseId, setResumeData, databaseId } = useResumeStore();
-  
+
   useEffect(() => {
     const t = searchParams.get("t");
     if (t) updateTemplateId(t);
@@ -292,12 +292,12 @@ export default function BuilderPage() {
   const printRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const { status } = useSession();
-  
+
   const handleExit = () => {
     if (resumeData && Object.keys(resumeData).length > 0) {
       const payload: any = { ...resumeData };
       if (databaseId) payload.id = databaseId;
-      
+
       // Save in background without blocking navigation
       fetch("/api/resumes", {
         method: "POST",
@@ -315,10 +315,14 @@ export default function BuilderPage() {
   const [isDownloading, setIsDownloading] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [hasMounted, setHasMounted] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [feedbackRating, setFeedbackRating] = useState(0);
+  const [feedbackSubmitted, setFeedbackSubmitted] = useState(false);
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     setHasMounted(true);
-    
+
     // Restore step
     const savedStep = sessionStorage.getItem("builderCurrentStep");
     if (savedStep !== null) {
@@ -327,13 +331,32 @@ export default function BuilderPage() {
         setStepIdx(parsed);
       }
     }
-    
+
     const w = window.innerWidth;
     const mobile = w < 1024;
     setIsMobile(mobile);
     if (w < 640) setZoom(40);
     else if (w < 1024) setZoom(50);
   }, []);
+
+  // Auto-trigger download after returning from login
+  const hasAutoDownloaded = useRef(false);
+  useEffect(() => {
+    if (
+      status === "authenticated" &&
+      searchParams.get("action") === "download" &&
+      !hasAutoDownloaded.current &&
+      hasMounted
+    ) {
+      hasAutoDownloaded.current = true;
+      // Jump to final step and trigger download
+      setStepIdx(STEPS.length - 1);
+      // Small delay to let preview render
+      setTimeout(() => handleDownloadPdf(), 1200);
+      // Clean the URL
+      window.history.replaceState(null, "", "/builder");
+    }
+  }, [status, searchParams, hasMounted]);
 
   useEffect(() => {
     if (hasMounted) {
@@ -346,21 +369,21 @@ export default function BuilderPage() {
 
   const handleDownloadPdf = async () => {
     if (status !== "authenticated") {
-      router.push("/login?callbackUrl=/builder");
+      router.push("/login?callbackUrl=/builder%3Faction%3Ddownload");
       return;
     }
-    
+
     if (isDownloading) return;
     if (!printRef.current) return;
-    
+
     setIsDownloading(true);
     try {
       const element = printRef.current;
       await new Promise(r => setTimeout(r, 500));
-      
+
       const domtoimage = (await import("dom-to-image-more")).default;
       const jsPDF = (await import("jspdf")).default;
-      
+
       const scale = 2;
       const imgData = await domtoimage.toJpeg(element, {
         quality: 1.0,
@@ -374,36 +397,46 @@ export default function BuilderPage() {
           height: `${element.clientHeight}px`
         }
       });
-      
+
       const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
       const pdfWidth = pdf.internal.pageSize.getWidth();
       const pageHeight = pdf.internal.pageSize.getHeight();
       const imgHeight = (element.clientHeight * pdfWidth) / element.clientWidth;
-      
+
       let heightLeft = imgHeight;
       let position = 0;
-      
+
       pdf.addImage(imgData, "JPEG", 0, position, pdfWidth, imgHeight);
       heightLeft -= pageHeight;
-      
+
       while (heightLeft > 0) {
         position = position - pageHeight;
         pdf.addPage();
         pdf.addImage(imgData, "JPEG", 0, position, pdfWidth, imgHeight);
         heightLeft -= pageHeight;
       }
-      
-      const filename = resumeData.personalInfo?.fullName 
-          ? `${resumeData.personalInfo.fullName.replace(/\s+/g, '_')}_Resume.pdf` 
-          : 'Resume.pdf';
-          
+
+      const filename = resumeData.personalInfo?.fullName
+        ? `${resumeData.personalInfo.fullName.replace(/\s+/g, '_')}_Resume.pdf`
+        : 'Resume.pdf';
+
       pdf.save(filename);
+      // Show success + feedback modal after download
+      setShowSuccessModal(true);
     } catch (error: any) {
       console.error("PDF generation error:", error);
       alert(`Download failed: ${error.message || 'Unknown error'}`);
     } finally {
       setIsDownloading(false);
     }
+  };
+
+  const submitFeedback = (rating: number) => {
+    setFeedbackRating(rating);
+    setFeedbackSubmitted(true);
+    // In a real app, POST this to an API
+    console.log("Feedback rating:", rating);
+    setTimeout(() => setShowSuccessModal(false), 1800);
   };
 
   const templatesList = [
@@ -437,7 +470,7 @@ export default function BuilderPage() {
 
   const isStepValid = useCallback((index: number) => {
     if (!resumeData) return false;
-    switch(index) {
+    switch (index) {
       case 0: return Object.values(resumeData.personalInfo || {}).some(v => v && String(v).trim() !== "");
       case 1: return !!resumeData.summary?.trim();
       case 2: return resumeData.experience && resumeData.experience.length > 0;
@@ -463,18 +496,18 @@ export default function BuilderPage() {
 
   const renderForm = () => {
     switch (STEPS[stepIdx].id) {
-      case "personal":   return <PersonalInfoForm />;
-      case "summary":    return <SummaryForm />;
+      case "personal": return <PersonalInfoForm />;
+      case "summary": return <SummaryForm />;
       case "experience": return (
         <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
           <ExperienceForm />
         </div>
       );
-      case "education":  return <EducationForm />;
-      case "skills":     return <SkillsForm />;
-      case "optional":   return <OptionalForm />;
-      case "ats":        return <FinalizeStep />;
-      default:           return null;
+      case "education": return <EducationForm />;
+      case "skills": return <SkillsForm />;
+      case "optional": return <OptionalForm />;
+      case "ats": return <FinalizeStep />;
+      default: return null;
     }
   };
 
@@ -510,7 +543,7 @@ export default function BuilderPage() {
           <div className="relative pb-2 overflow-x-auto scrollbar-hide">
             <ol className="flex w-full items-center justify-between min-w-[600px] lg:min-w-0">
               {STEPS.map((step, idx) => {
-                const done   = idx < stepIdx && isStepValid(idx);
+                const done = idx < stepIdx && isStepValid(idx);
                 const active = idx === stepIdx;
                 return (
                   <li key={step.id} className="relative flex items-center flex-1 last:flex-none">
@@ -519,8 +552,8 @@ export default function BuilderPage() {
                         onClick={() => done && setStepIdx(idx)}
                         className={`relative grid h-8 w-8 lg:h-11 lg:w-11 place-items-center rounded-full text-xs lg:text-base font-bold transition-all
                           ${active ? "bg-[#0b132b] text-white shadow-md cursor-default" :
-                            done   ? "bg-emerald-500 text-white shadow-sm cursor-pointer hover:bg-emerald-600" :
-                                     "border-2 border-slate-100 bg-white text-slate-700 cursor-default"}`}
+                            done ? "bg-emerald-500 text-white shadow-sm cursor-pointer hover:bg-emerald-600" :
+                              "border-2 border-slate-100 bg-white text-slate-700 cursor-default"}`}
                       >
                         {done ? <CheckCircle2 className="h-4 w-4 lg:h-5 lg:w-5" /> : (idx + 1)}
                         {active && (
@@ -557,13 +590,13 @@ export default function BuilderPage() {
       {/* ── MOBILE TABS ── */}
       {isMobile && (
         <div className="flex border-b border-slate-200 bg-white sticky top-[68px] z-30">
-          <button 
+          <button
             className={`flex-1 py-3 text-sm font-bold text-center border-b-2 transition-colors ${!showPreviewOnMobile ? "border-blue-600 text-blue-700" : "border-transparent text-slate-500 hover:bg-slate-50"}`}
             onClick={() => setShowPreviewOnMobile(false)}
           >
             Edit Form
           </button>
-          <button 
+          <button
             className={`flex-1 py-3 text-sm font-bold text-center border-b-2 transition-colors ${showPreviewOnMobile ? "border-blue-600 text-blue-700" : "border-transparent text-slate-500 hover:bg-slate-50"}`}
             onClick={() => setShowPreviewOnMobile(true)}
           >
@@ -637,8 +670,8 @@ export default function BuilderPage() {
 
               {/* Actions */}
               <div className="mb-4 flex flex-wrap items-center justify-end gap-2">
-                <button 
-                  onClick={handleDownloadPdf} 
+                <button
+                  onClick={handleDownloadPdf}
                   disabled={isDownloading}
                   className="inline-flex items-center gap-1.5 rounded-lg bg-slate-900 px-3 py-1.5 text-xs font-bold text-white transition hover:bg-black active:scale-[0.98] disabled:opacity-70 disabled:pointer-events-none"
                 >
@@ -698,6 +731,95 @@ export default function BuilderPage() {
       <footer className="border-t border-slate-200 bg-white py-4 text-center text-xs text-slate-400">
         © {new Date().getFullYear()} Smart Resume Maker. All rights reserved.
       </footer>
+
+      {/* ── Success + Feedback Modal ── */}
+      {showSuccessModal && (
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+          <div className="relative w-full max-w-md rounded-3xl bg-white shadow-2xl overflow-hidden animate-[scale-in_0.3s_ease-out]">
+            {/* Close */}
+            <button
+              onClick={() => setShowSuccessModal(false)}
+              className="absolute top-4 right-4 grid h-8 w-8 place-items-center rounded-full text-slate-400 hover:bg-slate-100 transition-colors z-10"
+            >
+              <X className="h-4 w-4" />
+            </button>
+
+            {/* Green top banner */}
+            <div className="bg-gradient-to-br from-emerald-500 to-teal-600 px-8 pt-10 pb-8 text-center text-white">
+              <div className="mx-auto mb-4 grid h-16 w-16 place-items-center rounded-full bg-white/20 ring-4 ring-white/30">
+                <Download className="h-8 w-8 text-white" />
+              </div>
+              <h2 className="text-2xl font-extrabold mb-1">Resume Downloaded! 🎉</h2>
+              <p className="text-emerald-100 text-sm font-medium">
+                Your CV is saved as a PDF — ready to send to employers!
+              </p>
+            </div>
+
+            {/* Feedback section */}
+            <div className="px-8 py-6 text-center">
+              {!feedbackSubmitted ? (
+                <>
+                  <p className="text-slate-800 font-bold text-base mb-1">How was your experience?</p>
+                  <p className="text-slate-500 text-sm mb-5">Your feedback helps us improve the builder.</p>
+
+                  {/* Star rating */}
+                  <div className="flex items-center justify-center gap-2 mb-6">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <button
+                        key={star}
+                        onClick={() => submitFeedback(star)}
+                        className="group transition-transform hover:scale-125 active:scale-110"
+                        aria-label={`${star} star`}
+                      >
+                        <Star
+                          className={`h-9 w-9 transition-colors ${
+                            star <= feedbackRating
+                              ? "fill-amber-400 text-amber-400"
+                              : "fill-slate-100 text-slate-200 group-hover:fill-amber-300 group-hover:text-amber-300"
+                          }`}
+                        />
+                      </button>
+                    ))}
+                  </div>
+
+                  <button
+                    onClick={() => setShowSuccessModal(false)}
+                    className="text-xs text-slate-400 hover:text-slate-600 underline transition-colors"
+                  >
+                    Skip feedback
+                  </button>
+                </>
+              ) : (
+                <div className="py-4 flex flex-col items-center gap-3">
+                  <div className="grid h-12 w-12 place-items-center rounded-full bg-emerald-50">
+                    <ThumbsUp className="h-6 w-6 text-emerald-500" />
+                  </div>
+                  <p className="font-bold text-slate-800">Thank you for your feedback!</p>
+                  <p className="text-sm text-slate-500">We appreciate you taking the time. 😊</p>
+                </div>
+              )}
+            </div>
+
+            {/* Actions */}
+            <div className="px-8 pb-7 flex flex-col gap-2.5">
+              <button
+                onClick={handleDownloadPdf}
+                disabled={isDownloading}
+                className="inline-flex items-center justify-center gap-2 w-full rounded-xl bg-slate-900 py-3 text-sm font-bold text-white hover:bg-black transition-colors disabled:opacity-60"
+              >
+                <Download className="h-4 w-4" />
+                Download Again
+              </button>
+              <button
+                onClick={() => { setShowSuccessModal(false); router.push("/dashboard"); }}
+                className="inline-flex items-center justify-center w-full rounded-xl bg-slate-100 py-3 text-sm font-bold text-slate-700 hover:bg-slate-200 transition-colors"
+              >
+                Go to Dashboard
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
