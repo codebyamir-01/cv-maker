@@ -18,6 +18,7 @@ export default function DashboardLayout({
   const pathname = usePathname();
   const [avatar, setAvatar] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [showUserMenu, setShowUserMenu] = useState(false);
 
   // Use session image directly — no extra API call needed
   useEffect(() => {
@@ -151,6 +152,58 @@ export default function DashboardLayout({
                 className="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all shadow-sm shadow-slate-100"
               />
             </div>
+          </div>
+
+          {/* Mobile — Avatar + Dropdown */}
+          <div className="md:hidden relative">
+            <button
+              onClick={() => setShowUserMenu(v => !v)}
+              className="w-9 h-9 rounded-full border-2 border-slate-200 bg-white flex items-center justify-center overflow-hidden shadow-sm active:scale-95 transition-transform"
+            >
+              {avatar ? (
+                <img src={avatar} alt="Avatar" className="w-full h-full object-cover" />
+              ) : (
+                <User className="w-4 h-4 text-slate-400" />
+              )}
+            </button>
+
+            {/* Backdrop */}
+            {showUserMenu && (
+              <div
+                className="fixed inset-0 z-40"
+                onClick={() => setShowUserMenu(false)}
+              />
+            )}
+
+            {/* Dropdown */}
+            {showUserMenu && (
+              <div className="absolute right-0 top-11 z-50 w-60 bg-white rounded-2xl border border-slate-200 shadow-[0_8px_32px_rgba(0,0,0,0.12)] overflow-hidden">
+                {/* User Info */}
+                <div className="px-4 py-4 border-b border-slate-100">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full border border-slate-200 bg-slate-100 flex items-center justify-center overflow-hidden shrink-0">
+                      {avatar ? (
+                        <img src={avatar} alt="Avatar" className="w-full h-full object-cover" />
+                      ) : (
+                        <User className="w-5 h-5 text-slate-400" />
+                      )}
+                    </div>
+                    <div className="overflow-hidden">
+                      <p className="text-sm font-bold text-slate-900 truncate">{session?.user?.name || "User"}</p>
+                      <p className="text-xs text-slate-500 truncate">{session?.user?.email}</p>
+                    </div>
+                  </div>
+                </div>
+                {/* Sign Out */}
+                <button
+                  onClick={() => { setShowUserMenu(false); handleSignOut(); }}
+                  className="flex items-center gap-3 w-full px-4 py-3.5 text-sm font-semibold text-red-600 hover:bg-red-50 active:bg-red-100 transition-colors"
+                >
+                  <LogOut className="w-4 h-4" />
+                  Sign Out
+                </button>
+              </div>
+            )}
           </div>
         </header>
 
