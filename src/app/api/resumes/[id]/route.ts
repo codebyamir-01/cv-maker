@@ -14,17 +14,9 @@ export async function GET(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const user = await prisma.user.findUnique({
-      where: { email: session.user.email },
-      select: { id: true },
-    });
-
-    if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
-    }
-
     const resume = await prisma.resume.findUnique({
       where: { id },
+      include: { user: { select: { email: true } } },
     });
 
     if (!resume) {
@@ -32,11 +24,13 @@ export async function GET(
     }
 
     // Ownership check — never serve another user's resume
-    if (resume.userId !== user.id) {
+    if (resume.user.email !== session.user.email) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
-    return NextResponse.json({ resume }, { status: 200 });
+    const { user: _, ...resumeData } = resume;
+
+    return NextResponse.json({ resume: resumeData }, { status: 200 });
   } catch (error) {
     console.error("Error fetching resume:", error);
     return NextResponse.json({ error: "Failed to fetch resume" }, { status: 500 });

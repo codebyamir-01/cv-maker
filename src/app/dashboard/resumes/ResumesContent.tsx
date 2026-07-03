@@ -6,8 +6,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import useSWR from "swr";
+import useSWR, { preload } from "swr";
 import { fetcher } from "@/lib/utils";
+import AtsCheckerModal from "./AtsCheckerModal";
 
 interface Resume {
   id: string;
@@ -19,6 +20,8 @@ interface Resume {
 export default function ResumesContent({ initialResumes }: { initialResumes?: Resume[] }) {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedResumeForAts, setSelectedResumeForAts] = useState<string | null>(null);
+  const [isAtsModalOpen, setIsAtsModalOpen] = useState(false);
   const router = useRouter();
 
   const showToast = (message: string) => {
@@ -270,7 +273,20 @@ export default function ResumesContent({ initialResumes }: { initialResumes?: Re
               </p>
             </div>
             <Button 
-              onClick={() => showToast("ATS Checker coming soon!")}
+              onMouseEnter={() => {
+                if (filteredResumes.length > 0) {
+                  preload(`/api/resumes/${filteredResumes[0].id}`, fetcher);
+                }
+              }}
+              onClick={() => {
+                if (filteredResumes.length > 0) {
+                  // Default to the most recent resume
+                  setSelectedResumeForAts(filteredResumes[0].id);
+                  setIsAtsModalOpen(true);
+                } else {
+                  showToast("Please create a resume first to check its ATS score.");
+                }
+              }}
               className="bg-white text-blue-600 hover:bg-blue-50 shadow-md shadow-blue-900/5 border border-blue-100 rounded-xl h-12 px-8 font-bold whitespace-nowrap transition-all hover:scale-105"
             >
               <Sparkles className="w-4 h-4 mr-2" /> Check ATS Score
@@ -279,6 +295,11 @@ export default function ResumesContent({ initialResumes }: { initialResumes?: Re
         </Card>
       </div>
 
+      <AtsCheckerModal 
+        isOpen={isAtsModalOpen} 
+        onClose={() => setIsAtsModalOpen(false)} 
+        resumeId={selectedResumeForAts} 
+      />
     </div>
   );
 }
