@@ -8,7 +8,7 @@ import Link from "next/link";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Footer } from "@/components/layout/Footer";
-import { NavbarStatic } from "@/components/layout/NavbarStatic";
+import { NavbarClient } from "@/components/layout/NavbarClient";
 import dynamic from "next/dynamic";
 
 // Dynamically import ALL below-the-fold sections
@@ -28,8 +28,8 @@ export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-screen bg-white font-sans selection:bg-blue-200">
 
-      {/* Zero-JS server-rendered navbar — no useSession, no hydration cost */}
-      <NavbarStatic />
+      {/* Session-aware navbar — shows Dashboard for logged-in users, Log In for guests */}
+      <NavbarClient />
 
       <main className="flex-1">
         {/* ─── Hero Section ─────────────────────────────────────────────────
