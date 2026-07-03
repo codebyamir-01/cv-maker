@@ -10,10 +10,12 @@ import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import useSWR from "swr";
 import { fetcher } from "@/lib/utils";
+import { useResumeStore } from "@/store/useResumeStore";
 
 export default function DashboardContent({ initialResumes }: { initialResumes?: any[] }) {
   const router = useRouter();
   const { data: session, status } = useSession();
+  const { resetStore } = useResumeStore();
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [creating, setCreating] = useState(false);
 
@@ -76,6 +78,9 @@ export default function DashboardContent({ initialResumes }: { initialResumes?: 
   const handleCreateNew = async () => {
     if (creating) return;
     setCreating(true);
+    // Clear any old resume data so builder starts fresh
+    resetStore();
+    sessionStorage.removeItem("builderCurrentStep");
     try {
       const res = await fetch("/api/resumes", {
         method: "POST",

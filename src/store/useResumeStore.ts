@@ -154,6 +154,7 @@ interface ResumeState {
 
   updateTemplateId: (templateId: string) => void;
   updateAccentColor: (color: string) => void;
+  resetStore: () => void;
 }
 
 const initialData: ResumeData = {
@@ -198,6 +199,8 @@ export const useResumeStore = create<ResumeState>()(
       setDatabaseId: (id) => set({ databaseId: id }),
       
       setResumeData: (data) => set({ resumeData: data }),
+
+      resetStore: () => set({ databaseId: null, resumeData: initialData }),
 
       updatePersonalInfo: (data) =>
         set((state) => ({
