@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import {
-  User, Lock, Bell, Save, Loader2, Camera,
+  User, Lock, Save, Loader2, Camera,
   Eye, EyeOff, CheckCircle2, AlertCircle,
 } from "lucide-react";
 import { useSession } from "next-auth/react";
@@ -11,27 +11,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import useSWR from "swr";
 import { fetcher } from "@/lib/utils";
-
-/* ─── Animated Toggle ────────────────────────────────────────────── */
-function Toggle({ checked, onChange }: { checked: boolean; onChange: (v: boolean) => void }) {
-  return (
-    <button
-      type="button"
-      role="switch"
-      aria-checked={checked}
-      onClick={() => onChange(!checked)}
-      className={`relative inline-flex h-6 w-11 shrink-0 rounded-full border-2 border-transparent transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 ${
-        checked ? "bg-blue-600" : "bg-slate-200"
-      }`}
-    >
-      <span
-        className={`pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow-md transition-transform duration-200 ${
-          checked ? "translate-x-5" : "translate-x-0"
-        }`}
-      />
-    </button>
-  );
-}
 
 /* ─── Password Input ─────────────────────────────────────────────── */
 function PasswordInput({
@@ -89,12 +68,6 @@ export default function SettingsPage() {
   const [showNew, setShowNew] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
 
-  const [notifications, setNotifications] = useState({
-    weeklyTips: true,
-    productUpdates: false,
-    accountActivity: true,
-  });
-
   const { data, isLoading } = useSWR(
     status === "authenticated" ? "/api/user/profile" : null,
     fetcher,
@@ -108,7 +81,6 @@ export default function SettingsPage() {
       setLastName(parts.slice(1).join(" ") || "");
       setEmail(data.user.email || "");
       setAvatarBase64(data.user.image || "");
-      if (data.user.notifications) setNotifications(data.user.notifications);
       setInitialized(true);
     }
   }, [data, initialized]);
@@ -164,20 +136,6 @@ export default function SettingsPage() {
     setIsSaving(false);
   };
 
-  const handleNotificationsSave = async () => {
-    setIsSaving(true);
-    try {
-      const res = await fetch("/api/user/notifications", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(notifications),
-      });
-      if (res.ok) flash("success", "Preferences saved!");
-      else flash("error", "Failed to save preferences.");
-    } catch { flash("error", "Something went wrong."); }
-    setIsSaving(false);
-  };
-
   const initials = `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase() || session?.user?.name?.charAt(0) || "U";
   const passwordsMatch = newPassword && confirmPassword && newPassword === confirmPassword;
   const passwordsMismatch = newPassword && confirmPassword && newPassword !== confirmPassword;
@@ -224,7 +182,6 @@ export default function SettingsPage() {
         {[
           { id: "profile",       icon: User, label: "Profile" },
           { id: "security",      icon: Lock, label: "Security" },
-          { id: "notifications", icon: Bell, label: "Alerts" },
         ].map(({ id, icon: Icon, label }) => (
           <button
             key={id}
@@ -378,46 +335,6 @@ export default function SettingsPage() {
             {isSaving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Lock className="w-4 h-4 mr-2" />}
             Update Password
           </Button>
-        </div>
-      )}
-
-      {/* ══════ NOTIFICATIONS ══════ */}
-      {activeTab === "notifications" && (
-        <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
-          <div className="px-5 py-4 sm:px-6 border-b border-slate-100">
-            <h3 className="text-sm font-bold text-slate-800 uppercase tracking-wider">Email Preferences</h3>
-            <p className="text-xs text-slate-500 mt-1">Choose what emails you receive from us.</p>
-          </div>
-
-          <div className="divide-y divide-slate-100">
-            {[
-              { key: "weeklyTips" as const,       title: "Weekly Resume Tips",   desc: "Actionable tips to improve your resume every week" },
-              { key: "productUpdates" as const,   title: "Product Updates",      desc: "New features, templates and improvements" },
-              { key: "accountActivity" as const,  title: "Account Activity",     desc: "Login alerts and important security notices" },
-            ].map(({ key, title, desc }) => (
-              <div key={key} className="flex items-center justify-between px-5 sm:px-6 py-4 gap-4">
-                <div>
-                  <p className="text-sm font-semibold text-slate-900">{title}</p>
-                  <p className="text-xs text-slate-500 mt-0.5">{desc}</p>
-                </div>
-                <Toggle
-                  checked={notifications[key]}
-                  onChange={(v) => setNotifications(prev => ({ ...prev, [key]: v }))}
-                />
-              </div>
-            ))}
-          </div>
-
-          <div className="px-5 sm:px-6 py-4 border-t border-slate-100">
-            <Button
-              onClick={handleNotificationsSave}
-              disabled={isSaving}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white h-11 rounded-xl font-semibold shadow-sm"
-            >
-              {isSaving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Save className="w-4 h-4 mr-2" />}
-              Save Preferences
-            </Button>
-          </div>
         </div>
       )}
 
