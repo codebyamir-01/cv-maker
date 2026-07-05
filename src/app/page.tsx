@@ -9,20 +9,22 @@ import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Footer } from "@/components/layout/Footer";
 import { NavbarClient } from "@/components/layout/NavbarClient";
-import dynamic from "next/dynamic";
+import nextDynamic from "next/dynamic";
 
 // Dynamically import ALL below-the-fold sections
-const TemplatesSection = dynamic(() => import("@/components/home/TemplatesSection"), {
+const TemplatesSection = nextDynamic(() => import("@/components/home/TemplatesSection"), {
   loading: () => <div className="py-32 bg-[#1e293b]" aria-hidden="true" />,
 });
 
-const AtsSection = dynamic(() => import("@/components/home/AtsSection"), {
+const AtsSection = nextDynamic(() => import("@/components/home/AtsSection"), {
   loading: () => <div className="py-24 bg-slate-900" aria-hidden="true" />,
 });
 
-const TrustSection = dynamic(() => import("@/components/home/TrustSection"), {
+const TrustSection = nextDynamic(() => import("@/components/home/TrustSection"), {
   loading: () => <div className="py-24 bg-white" aria-hidden="true" />,
 });
+
+export const dynamic = "force-static";
 
 export default function LandingPage() {
   return (

@@ -65,48 +65,52 @@ interface Props {
 
 // Memoized so it only re-renders when resumeData or accentColor changes,
 // not on every parent state update (typing, zoom, etc.)
+import { useDeferredValue } from "react";
+
 const LivePreview = memo(function LivePreview({ accentColor }: Props) {
   const { resumeData } = useResumeStore();
-  const color = accentColor ?? resumeData.accentColor ?? "#0f172a"; // dark slate default
+  const deferredResumeData = useDeferredValue(resumeData);
+  
+  const color = accentColor ?? deferredResumeData.accentColor ?? "#0f172a"; // dark slate default
 
   const renderTemplate = () => {
-    switch (resumeData.templateId) {
+    switch (deferredResumeData.templateId) {
       case "monochrome":
-        return <Monochrome resumeData={resumeData} accentColor="#000000" />;
+        return <Monochrome resumeData={deferredResumeData} accentColor="#000000" />;
       case "aether":
-        return <Aether resumeData={resumeData} accentColor={color} />;
+        return <Aether resumeData={deferredResumeData} accentColor={color} />;
       case "executive":
-        return <Executive resumeData={resumeData} accentColor={color} />;
+        return <Executive resumeData={deferredResumeData} accentColor={color} />;
       case "modern":
-        return <ModernProfessional resumeData={resumeData} />;
+        return <ModernProfessional resumeData={deferredResumeData} />;
       case "developer":
-        return <Developer resumeData={resumeData} />;
+        return <Developer resumeData={deferredResumeData} />;
       case "ats-minimal":
-        return <AtsMinimal resumeData={resumeData} accentColor="#000000" />;
+        return <AtsMinimal resumeData={deferredResumeData} accentColor="#000000" />;
       case "corporate":
-        return <CorporateClassic resumeData={resumeData} accentColor={color} />;
+        return <CorporateClassic resumeData={deferredResumeData} accentColor={color} />;
       case "creative-clean":
-        return <CreativeClean resumeData={resumeData} accentColor={color} />;
+        return <CreativeClean resumeData={deferredResumeData} accentColor={color} />;
       case "academic":
-        return <AcademicCv resumeData={resumeData} accentColor={color} />;
+        return <AcademicCv resumeData={deferredResumeData} accentColor={color} />;
       case "two-column":
-        return <TwoColumnModern resumeData={resumeData} accentColor={color} />;
+        return <TwoColumnModern resumeData={deferredResumeData} accentColor={color} />;
       case "graduate":
-        return <GraduateStarter resumeData={resumeData} accentColor={color} />;
+        return <GraduateStarter resumeData={deferredResumeData} accentColor={color} />;
       case "finance":
-        return <FinanceProfessional resumeData={resumeData} accentColor={color} />;
+        return <FinanceProfessional resumeData={deferredResumeData} accentColor={color} />;
       case "marketing":
-        return <MarketingCreative resumeData={resumeData} accentColor={color} />;
+        return <MarketingCreative resumeData={deferredResumeData} accentColor={color} />;
       case "simple-bw":
-        return <SimpleBw resumeData={resumeData} accentColor="#000000" />;
+        return <SimpleBw resumeData={deferredResumeData} accentColor="#000000" />;
       case "startup-leader":
-        return <StartupLeader resumeData={resumeData} accentColor={color} />;
+        return <StartupLeader resumeData={deferredResumeData} accentColor={color} />;
       case "elegant-serif":
-        return <ElegantSerif resumeData={resumeData} accentColor="#000000" />;
+        return <ElegantSerif resumeData={deferredResumeData} accentColor="#000000" />;
       case "ats-classic":
       default:
         // ATS Classic is strictly black for best parsing and professional look
-        return <AtsClassic resumeData={resumeData} accentColor="#000000" />;
+        return <AtsClassic resumeData={deferredResumeData} accentColor="#000000" />;
     }
   };
 
