@@ -313,16 +313,12 @@ export default function BuilderPage() {
   // On mobile, preview panel is hidden by default to boost FCP/LCP
   const [showPreviewOnMobile, setShowPreviewOnMobile] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-  const [hasMounted, setHasMounted] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [feedbackRating, setFeedbackRating] = useState(0);
   const [feedbackSubmitted, setFeedbackSubmitted] = useState(false);
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    setHasMounted(true);
-
     // Restore step
     const savedStep = sessionStorage.getItem("builderCurrentStep");
     if (savedStep !== null) {
@@ -333,8 +329,6 @@ export default function BuilderPage() {
     }
 
     const w = window.innerWidth;
-    const mobile = w < 1024;
-    setIsMobile(mobile);
     if (w < 640) setZoom(40);
     else if (w < 1024) setZoom(50);
   }, []);
@@ -345,8 +339,7 @@ export default function BuilderPage() {
     if (
       status === "authenticated" &&
       searchParams.get("action") === "download" &&
-      !hasAutoDownloaded.current &&
-      hasMounted
+      !hasAutoDownloaded.current
     ) {
       hasAutoDownloaded.current = true;
       // Jump to final step and trigger download
@@ -356,13 +349,11 @@ export default function BuilderPage() {
       // Clean the URL
       window.history.replaceState(null, "", "/builder");
     }
-  }, [status, searchParams, hasMounted]);
+  }, [status, searchParams]);
 
   useEffect(() => {
-    if (hasMounted) {
-      sessionStorage.setItem("builderCurrentStep", stepIdx.toString());
-    }
-  }, [stepIdx, hasMounted]);
+    sessionStorage.setItem("builderCurrentStep", stepIdx.toString());
+  }, [stepIdx]);
 
 
   const accentColor = resumeData.accentColor ?? "#0d9488";
@@ -486,13 +477,7 @@ export default function BuilderPage() {
     }
   }, [resumeData]);
 
-  if (!hasMounted) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-[#f8fafc]">
-        <div className="w-10 h-10 border-4 border-blue-500/30 border-t-blue-500 rounded-full animate-spin" />
-      </div>
-    );
-  }
+
 
   const renderForm = () => {
     switch (STEPS[stepIdx].id) {
@@ -588,29 +573,27 @@ export default function BuilderPage() {
       </section>
 
       {/* ── MOBILE TABS ── */}
-      {isMobile && (
-        <div className="flex border-b border-slate-200 bg-white sticky top-[68px] z-30">
-          <button
-            className={`flex-1 py-3 text-sm font-bold text-center border-b-2 transition-colors ${!showPreviewOnMobile ? "border-blue-600 text-blue-700" : "border-transparent text-slate-500 hover:bg-slate-50"}`}
-            onClick={() => setShowPreviewOnMobile(false)}
-          >
-            Edit Form
-          </button>
-          <button
-            className={`flex-1 py-3 text-sm font-bold text-center border-b-2 transition-colors ${showPreviewOnMobile ? "border-blue-600 text-blue-700" : "border-transparent text-slate-500 hover:bg-slate-50"}`}
-            onClick={() => setShowPreviewOnMobile(true)}
-          >
-            Live Preview
-          </button>
-        </div>
-      )}
+      <div className="lg:hidden flex border-b border-slate-200 bg-white sticky top-[68px] z-30">
+        <button
+          className={`flex-1 py-3 text-sm font-bold text-center border-b-2 transition-colors ${!showPreviewOnMobile ? "border-blue-600 text-blue-700" : "border-transparent text-slate-500 hover:bg-slate-50"}`}
+          onClick={() => setShowPreviewOnMobile(false)}
+        >
+          Edit Form
+        </button>
+        <button
+          className={`flex-1 py-3 text-sm font-bold text-center border-b-2 transition-colors ${showPreviewOnMobile ? "border-blue-600 text-blue-700" : "border-transparent text-slate-500 hover:bg-slate-50"}`}
+          onClick={() => setShowPreviewOnMobile(true)}
+        >
+          Live Preview
+        </button>
+      </div>
 
       {/* ── MAIN ── */}
       <main className="mx-auto w-full max-w-[1400px] px-4 py-8 sm:px-6 pb-32">
         <div className="grid gap-6 lg:grid-cols-2">
 
           {/* Left column – Form */}
-          <div className={`flex-col gap-6 ${isMobile && showPreviewOnMobile ? "hidden" : "flex"}`}>
+          <div className={`flex-col gap-6 ${showPreviewOnMobile ? "hidden lg:flex" : "flex"}`}>
             {renderForm()}
 
             {/* Navigation */}
@@ -640,7 +623,7 @@ export default function BuilderPage() {
           {/* Right column – Live Preview
               On mobile: hidden by default, shown when user taps "Preview"
               On desktop: always visible and sticky             */}
-          <div className={`lg:sticky lg:top-24 lg:h-fit ${isMobile && !showPreviewOnMobile ? "hidden" : ""}`}>
+          <div className={`lg:sticky lg:top-24 lg:h-fit ${showPreviewOnMobile ? "block" : "hidden lg:block"}`}>
             <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
 
               {/* Title + template pagination */}
@@ -711,9 +694,7 @@ export default function BuilderPage() {
                 >
                   <div style={{ width: `${A4_W}px`, transformOrigin: "top left", transform: `scale(${zoom / 100})` }}>
                     <div ref={printRef}>
-                      {hasMounted && (!isMobile || showPreviewOnMobile) && (
-                        <LivePreview accentColor={accentColor} />
-                      )}
+                      <LivePreview accentColor={accentColor} />
                     </div>
                   </div>
                 </div>
