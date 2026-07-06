@@ -24,7 +24,7 @@ export function NavbarClient() {
 
   return (
     <>
-      <header className="fixed top-0 w-full z-50 bg-white/90 border-b border-slate-200/60" style={{ backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)" }}>
+      <header className="fixed top-0 w-full z-50 bg-white/95 md:bg-white/85 md:backdrop-blur-md border-b border-slate-200/60 shadow-sm transition-colors">
         <div className="container mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
 
           {/* Logo */}
