@@ -51,7 +51,7 @@ export function Footer() {
             </ul>
           </div>
         </div>
-        <div className="mt-10 flex justify-center border-t border-slate-100 pt-6 text-xs text-slate-400">
+        <div className="mt-10 flex justify-center border-t border-slate-100 pt-6 text-xs text-slate-500">
           <p>© {new Date().getFullYear()} Smart Resume Maker. All rights reserved.</p>
         </div>
       </div>
