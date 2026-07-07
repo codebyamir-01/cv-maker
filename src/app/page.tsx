@@ -60,18 +60,18 @@ export default function LandingPage() {
               The Ultimate Resume Builder
             </div>
 
-            {/* LCP element — <h1> — fully visible from first paint */}
+            {/* LCP element — <h1> — keyword-matched for "free resume builder" & "cv maker" */}
             <h1 className="text-4xl sm:text-5xl md:text-[5.5rem] font-extrabold tracking-tight text-white mb-5 leading-[1.08]">
-              Build Your{" "}
+              Free{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400">
-                Professional CV
+                Resume Builder
               </span>
+              {" "}& CV Maker Online
             </h1>
 
-            {/* Subheadline — visible immediately */}
+            {/* Subheadline — keyword rich, visible immediately */}
             <p className="text-base sm:text-lg md:text-[1.3rem] text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed font-light">
-              Create an ATS-friendly resume in minutes. Use our premium templates
-              and smart tools to build a CV that commands attention and secures interviews.
+              Create a professional, ATS-friendly resume in minutes — for free. Use our online resume builder with premium templates, AI suggestions, and instant PDF download. No watermarks, no hidden fees.
             </p>
 
             {/* CTA buttons */}

@@ -6,8 +6,8 @@ import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
-  title: "ATS Resume Builder — Beat Applicant Tracking Systems",
-  description: "Create an ATS-friendly resume that passes automated screening software. Our ATS resume builder ensures your resume gets read by human recruiters.",
+  title: "ATS Resume Builder: Create ATS-Friendly Resumes Free Online",
+  description: "Build an ATS-friendly resume that passes automated screening systems. Free online ATS resume builder with optimized templates to help your resume reach human recruiters.",
   alternates: {
     canonical: "https://www.smartresumemaker.com/ats-resume-builder",
   }

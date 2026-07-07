@@ -6,8 +6,8 @@ import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
-  title: "Free Resume Builder — Create & Download PDF Instantly",
-  description: "Build a professional resume for free. No hidden fees, no watermarks, and instant PDF download. Choose from ATS-friendly templates and start building today.",
+  title: "Free Resume Builder: Create & Download PDF — No Watermarks",
+  description: "Create a professional resume online for free and download it as a PDF instantly. No watermarks, no hidden fees. ATS-friendly templates ready to use.",
   alternates: {
     canonical: "https://www.smartresumemaker.com/free-resume-builder",
   }
