@@ -27,7 +27,8 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-      allowDangerousEmailAccountLinking: true,
+      // allowDangerousEmailAccountLinking removed: email verification is not
+      // enforced in this app, so enabling it creates an account-takeover risk.
     }),
     CredentialsProvider({
       name: "Credentials",
@@ -38,11 +39,6 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
           return null;
-        }
-
-        // For now, allow a mock login if the DB is not yet populated
-        if (credentials.email === "test@example.com" && credentials.password === "password") {
-          return { id: "1", email: "test@example.com", name: "Test User" };
         }
 
         const user = await prisma.user.findUnique({

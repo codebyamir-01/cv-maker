@@ -1,7 +1,32 @@
+import { redirect } from "next/navigation";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
 import { Users, FileText, Activity, ShieldCheck } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-export default function AdminDashboard() {
+export const metadata = {
+  robots: { index: false, follow: false },
+};
+
+export default async function AdminDashboard() {
+  // Server-side ADMIN role check — redirect any non-admin immediately
+  const session = await getServerSession(authOptions);
+
+  if (!session?.user?.email) {
+    redirect("/login");
+  }
+
+  const user = await prisma.user.findUnique({
+    where: { email: session.user.email },
+    select: { role: true },
+  });
+
+  if (!user || user.role !== "ADMIN") {
+    // Non-admin authenticated users get a 404-style redirect to dashboard
+    redirect("/dashboard");
+  }
+
   return (
     <div className="p-8 bg-slate-50 min-h-screen">
       <div className="max-w-6xl mx-auto space-y-8">
