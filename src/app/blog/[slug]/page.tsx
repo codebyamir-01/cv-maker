@@ -114,6 +114,32 @@ export default async function BlogPostPage({ params }: Props) {
     }))
   } : null;
 
+  // BreadcrumbList schema — Home → Blog → Post Title
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.smartresumemaker.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Blog",
+        "item": "https://www.smartresumemaker.com/blog"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": post.title,
+        "item": `https://www.smartresumemaker.com/blog/${post.slug}`
+      }
+    ]
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-[#f8fafc] font-sans">
       <Navbar />
@@ -129,6 +155,10 @@ export default async function BlogPostPage({ params }: Props) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
         />
       )}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
 
       <main className="flex-1 pt-28 pb-20">
         <article className="container mx-auto px-6 max-w-4xl">

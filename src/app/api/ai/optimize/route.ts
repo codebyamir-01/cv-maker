@@ -44,6 +44,30 @@ export async function POST(req: Request) {
       );
     }
 
+    // Input length guards — prevent oversized Gemini prompts
+    if (summary && summary.length > 5000) {
+      return NextResponse.json(
+        { error: "Summary is too long. Please shorten it before optimizing." },
+        { status: 400 }
+      );
+    }
+    if (jobDescription && jobDescription.length > 10000) {
+      return NextResponse.json(
+        { error: "Job description is too long. Please trim it to 10,000 characters or fewer." },
+        { status: 400 }
+      );
+    }
+    if (Array.isArray(experience)) {
+      for (const exp of experience) {
+        if (exp.description && exp.description.length > 2000) {
+          return NextResponse.json(
+            { error: "One or more experience descriptions are too long. Please shorten them before optimizing." },
+            { status: 400 }
+          );
+        }
+      }
+    }
+
     const systemPrompt = `You are an expert resume writer and ATS optimization assistant.
 Your task is to rewrite the provided resume summary and experience descriptions to naturally incorporate the missing keywords from the job description.
 CRITICAL RULES:

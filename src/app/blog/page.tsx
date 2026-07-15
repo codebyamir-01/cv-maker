@@ -8,8 +8,11 @@ import { BLOG_POSTS } from "@/lib/blog-data";
 import BlogGrid from "@/components/blog/BlogGrid";
 
 export const metadata: Metadata = {
-  title: "Career Blog — CV Maker",
-  description: "Expert resume tips, career advice, and job search strategies from the CV Maker team.",
+  title: "Career Blog | Smart Resume Maker",
+  description: "Expert resume tips, ATS guides, career advice, and job search strategies from the Smart Resume Maker team.",
+  alternates: {
+    canonical: "https://www.smartresumemaker.com/blog",
+  },
 };
 
 const FEATURED = BLOG_POSTS[0];

@@ -88,13 +88,6 @@ export default function RootLayout({
                 "Auto-Save",
                 "Multiple Resume Templates"
               ],
-              "aggregateRating": {
-                "@type": "AggregateRating",
-                "ratingValue": "4.8",
-                "reviewCount": "1240",
-                "bestRating": "5",
-                "worstRating": "1"
-              },
               "publisher": {
                 "@type": "Organization",
                 "name": "Smart Resume Maker",

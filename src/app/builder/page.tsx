@@ -425,8 +425,6 @@ export default function BuilderPage() {
   const submitFeedback = (rating: number) => {
     setFeedbackRating(rating);
     setFeedbackSubmitted(true);
-    // In a real app, POST this to an API
-    console.log("Feedback rating:", rating);
     setTimeout(() => setShowSuccessModal(false), 1800);
   };
 
@@ -468,9 +466,16 @@ export default function BuilderPage() {
       case 3: return resumeData.education && resumeData.education.length > 0;
       case 4: return resumeData.skills && resumeData.skills.length > 0;
       case 5: {
-        const opt = resumeData.optionalSections as any;
+        const opt = resumeData.optionalSections;
         if (!opt) return false;
-        return (opt.projects?.length > 0 || opt.certifications?.length > 0 || opt.custom?.length > 0 || opt.languages?.length > 0);
+        return (
+          (opt.projects?.length ?? 0) > 0 ||
+          (opt.certifications?.length ?? 0) > 0 ||
+          (opt.languages?.length ?? 0) > 0 ||
+          (opt.awards?.length ?? 0) > 0 ||
+          (opt.volunteer?.length ?? 0) > 0 ||
+          (opt.publications?.length ?? 0) > 0
+        );
       }
       case 6: return true; // Finalize is always "valid" if they reach it
       default: return false;
@@ -491,7 +496,7 @@ export default function BuilderPage() {
       case "education": return <EducationForm />;
       case "skills": return <SkillsForm />;
       case "optional": return <OptionalForm />;
-      case "ats": return <FinalizeStep />;
+      case "ats": return <FinalizeStep onDownload={handleDownloadPdf} isDownloading={isDownloading} />;
       default: return null;
     }
   };

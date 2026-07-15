@@ -90,6 +90,36 @@ export function calculateATSScore(data: ResumeData): ATSFeedback {
   formattingTips.push("Ensure your resume uses standard section headings (e.g., 'Work Experience', 'Education').");
   formattingTips.push("Avoid complex tables, columns, or graphics if applying through standard ATS portals.");
 
+  // Word count & Readability (Heuristics)
+  const fullText = [
+    data.summary || "",
+    ...(data.experience?.map(e => e.description || "") || [])
+  ].join(" ").trim();
+
+  if (fullText) {
+    const wordCount = fullText.split(/\s+/).filter(w => w.length > 0).length;
+    
+    if (wordCount < 200) {
+      score -= 5;
+      completionIssues.push(`Your resume is very short (${wordCount} words). Aim for 400-800 words to provide enough detail and keywords for ATS.`);
+    } else if (wordCount > 1200) {
+      score -= 5;
+      completionIssues.push(`Your resume is very long (${wordCount} words). Try to condense it to under 1,000 words for better readability.`);
+    } else {
+      sectionQuality.push(`Good length (${wordCount} words).`);
+    }
+
+    // Basic readability check: long sentences
+    const sentences = fullText.split(/[.!?]+/).map(s => s.trim()).filter(s => s.length > 0);
+    if (sentences.length > 0) {
+      const longSentences = sentences.filter(s => s.split(/\s+/).length > 30);
+      if (longSentences.length > 2) {
+        score -= 5;
+        formattingTips.push("You have several very long sentences (30+ words). Break them up or use bullet points to improve readability.");
+      }
+    }
+  }
+
   // Clamp score
   score = Math.max(0, Math.min(100, score));
 

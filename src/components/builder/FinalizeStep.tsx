@@ -1,104 +1,20 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { Download, CheckCircle2, AlertCircle, Star, Share2, FileDown, Sparkles } from "lucide-react";
+import { useState } from "react";
+import { Download, CheckCircle2, AlertCircle, Star, Share2, FileDown, Sparkles, Loader2 } from "lucide-react";
 import { useResumeStore } from "@/store/useResumeStore";
-import LivePreview from "@/components/builder/LivePreview";
-import domtoimage from "dom-to-image-more";
-import jsPDF from "jspdf";
 
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+interface FinalizeStepProps {
+  /** Called when the user clicks "Download PDF". Provided by builder/page.tsx. */
+  onDownload: () => void;
+  /** True while the PDF is being generated in the parent. */
+  isDownloading: boolean;
+}
 
-export default function FinalizeStep() {
+export default function FinalizeStep({ onDownload, isDownloading }: FinalizeStepProps) {
   const { resumeData, databaseId } = useResumeStore();
-  const printRef = useRef<HTMLDivElement>(null);
-  const { status } = useSession();
-  const router = useRouter();
-  
-  const [isDownloading, setIsDownloading] = useState(false);
-  const [downloadMessage, setDownloadMessage] = useState("");
-  const [downloadStatus, setDownloadStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
-  
-  const [shareMessage, setShareMessage] = useState("");
 
-  const handleDownloadPdf = async () => {
-    if (status !== "authenticated") {
-      router.push("/login?callbackUrl=/builder");
-      return;
-    }
-    
-    if (isDownloading) return; // Prevent multiple clicks freezing the UI
-    if (!printRef.current) return;
-    
-    setIsDownloading(true);
-    setDownloadStatus("loading");
-    setDownloadMessage("Preparing PDF...");
-    
-    try {
-      const element = printRef.current;
-      
-      // Wait a moment for any lazy images/fonts to settle
-      await new Promise(r => setTimeout(r, 500));
-      
-      const scale = 2;
-      const imgData = await domtoimage.toJpeg(element, {
-        quality: 1.0,
-        bgcolor: "#ffffff",
-        width: element.clientWidth * scale,
-        height: element.clientHeight * scale,
-        style: {
-          transform: `scale(${scale})`,
-          transformOrigin: 'top left',
-          width: `${element.clientWidth}px`,
-          height: `${element.clientHeight}px`
-        }
-      });
-      const pdf = new jsPDF({
-        orientation: "portrait",
-        unit: "mm",
-        format: "a4",
-      });
-      
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pageHeight = pdf.internal.pageSize.getHeight();
-      const imgHeight = (element.clientHeight * pdfWidth) / element.clientWidth;
-      
-      let heightLeft = imgHeight;
-      let position = 0;
-      
-      // First page
-      pdf.addImage(imgData, "JPEG", 0, position, pdfWidth, imgHeight);
-      heightLeft -= pageHeight;
-      
-      // Subsequent pages if content overflows
-      while (heightLeft > 0) {
-        position = position - pageHeight;
-        pdf.addPage();
-        pdf.addImage(imgData, "JPEG", 0, position, pdfWidth, imgHeight);
-        heightLeft -= pageHeight;
-      }
-      
-      const filename = resumeData.personalInfo.fullName 
-          ? `${resumeData.personalInfo.fullName.replace(/\s+/g, '_')}_Resume.pdf` 
-          : 'Resume.pdf'; // Fallback if name missing
-          
-      pdf.save(filename);
-      
-      setDownloadStatus("success");
-      setDownloadMessage("PDF downloaded successfully");
-    } catch (error: any) {
-      console.error("PDF generation error:", error);
-      setDownloadStatus("error");
-      setDownloadMessage(`Failed: ${error.message || 'Unknown error'}`);
-    } finally {
-      setIsDownloading(false);
-      setTimeout(() => {
-        setDownloadMessage("");
-        setDownloadStatus("idle");
-      }, 4000);
-    }
-  };
+  const [shareMessage, setShareMessage] = useState("");
 
   const handleShareLink = () => {
     if (!databaseId) {
@@ -106,15 +22,18 @@ export default function FinalizeStep() {
       setTimeout(() => setShareMessage(""), 4000);
       return;
     }
-    
+
     const url = `${window.location.origin}/r/${databaseId}`;
-    navigator.clipboard.writeText(url).then(() => {
-      setShareMessage("Link copied to clipboard!");
-      setTimeout(() => setShareMessage(""), 4000);
-    }).catch(() => {
-      setShareMessage("Failed to copy link. Try again.");
-      setTimeout(() => setShareMessage(""), 4000);
-    });
+    navigator.clipboard
+      .writeText(url)
+      .then(() => {
+        setShareMessage("Link copied to clipboard!");
+        setTimeout(() => setShareMessage(""), 4000);
+      })
+      .catch(() => {
+        setShareMessage("Failed to copy link. Try again.");
+        setTimeout(() => setShareMessage(""), 4000);
+      });
   };
 
   /* Completion checklist */
@@ -183,33 +102,28 @@ export default function FinalizeStep() {
       <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] relative overflow-hidden flex flex-col items-center text-center">
         {/* Background Accent */}
         <div className="absolute top-0 w-full h-1.5 bg-gradient-to-r from-blue-500 to-indigo-600"></div>
-        
+
         {/* Icon Header */}
         <div className="mb-4 mt-2 grid h-14 w-14 place-items-center rounded-full bg-blue-50 border border-blue-100 text-blue-600">
           <FileDown className="h-6 w-6" />
         </div>
-        
+
         <h3 className="text-xl font-bold text-slate-900 mb-2">Download Your Resume</h3>
         <p className="text-sm text-slate-500 mb-8 max-w-sm">Save as a PDF — ready to send to employers!</p>
 
-        {/* Visually hidden but accessible printable resume */}
-        <div id="pdf-export-container" style={{ position: 'fixed', left: '200vw', top: 0 }}>
-          <div ref={printRef} style={{ width: '816px', minHeight: '1056px', backgroundColor: 'white' }}>
-            <LivePreview accentColor={resumeData.accentColor} />
-          </div>
-        </div>
-
         <div className="flex flex-col w-full max-w-sm gap-3">
           <button
-            onClick={handleDownloadPdf}
+            onClick={onDownload}
             disabled={isDownloading}
             className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-4 text-[15px] font-bold text-white shadow-lg shadow-blue-600/20 transition-all hover:bg-blue-700 hover:-translate-y-0.5 disabled:opacity-80 disabled:pointer-events-none"
           >
-            <Download className="h-5 w-5" /> 
-            {isDownloading ? "Preparing PDF..." : "Download PDF"}
+            {isDownloading
+              ? <><Loader2 className="h-5 w-5 animate-spin" /> Preparing PDF...</>
+              : <><Download className="h-5 w-5" /> Download PDF</>
+            }
           </button>
-          
-          <button 
+
+          <button
             onClick={handleShareLink}
             className="inline-flex w-full items-center justify-center gap-2 rounded-xl border-2 border-slate-200 bg-white px-6 py-3.5 text-[15px] font-bold text-slate-700 transition hover:bg-slate-50 hover:border-slate-300"
           >
@@ -217,18 +131,9 @@ export default function FinalizeStep() {
           </button>
         </div>
 
-        {/* Download Status Messages */}
+        {/* Share message */}
         <div className="min-h-[24px] mt-4">
-          {downloadMessage && (
-            <p className={`text-sm font-semibold transition-all ${
-              downloadStatus === "success" ? "text-emerald-600" : 
-              downloadStatus === "error" ? "text-red-600" : 
-              "text-blue-600 animate-pulse"
-            }`}>
-              {downloadMessage}
-            </p>
-          )}
-          {shareMessage && !downloadMessage && (
+          {shareMessage && (
             <p className={`text-sm font-semibold ${shareMessage.includes("copied") ? "text-emerald-600" : "text-amber-600"}`}>
               {shareMessage}
             </p>

@@ -17,6 +17,13 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Current and new passwords are required" }, { status: 400 });
     }
 
+    if (newPassword.length < 8) {
+      return NextResponse.json(
+        { error: "New password must be at least 8 characters." },
+        { status: 400 }
+      );
+    }
+
     const user = await prisma.user.findUnique({
       where: { email: session.user.email },
     });
