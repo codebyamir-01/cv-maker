@@ -13,7 +13,7 @@ export const post16: BlogPost = {
   author: "Jerry",
   metaTitle: "How to Explain Employment Gaps on Your Resume in 2026",
   metaDescription: "Have a gap in your resume? Learn how to explain employment gaps honestly and professionally without hurting your job search chances.",
-  bannerImage: "/images/blog/blog_ats_resume.png",
+  bannerImage: "/images/blog/blog_employment_gaps.png",
   bannerAlt: "Timeline showing a gap in employment on a resume",
   relatedSlugs: ["ats-friendly-resume-2026", "resume-summary-vs-objective"],
   faqs: [

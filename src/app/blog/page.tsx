@@ -16,8 +16,12 @@ export const metadata: Metadata = {
   },
 };
 
-const FEATURED = BLOG_POSTS[0];
-const POSTS = BLOG_POSTS.slice(1);
+// Sort newest first so latest posts always appear at top
+const SORTED_POSTS = [...BLOG_POSTS].sort(
+  (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+);
+const FEATURED = SORTED_POSTS[0];
+const POSTS = SORTED_POSTS.slice(1);
 
 const CATEGORIES = ["All", "ATS Tips", "Writing Tips", "Resume Advice", "Tech Careers", "Job Search", "Career Tips"];
 

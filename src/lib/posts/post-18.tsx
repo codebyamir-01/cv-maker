@@ -13,7 +13,7 @@ export const post18: BlogPost = {
   author: "Jerry",
   metaTitle: "Best Resume Format for 2026: Which One Should You Use?",
   metaDescription: "Chronological, functional, or hybrid? Learn which resume format is best for your situation in 2026, with examples and ATS compatibility tips.",
-  bannerImage: "/images/blog/blog_ats_resume.png",
+  bannerImage: "/images/blog/blog_one_vs_two_page.png",
   bannerAlt: "Three different resume format layouts side by side",
   relatedSlugs: ["ats-friendly-resume-2026", "resume-summary-vs-objective"],
   faqs: [

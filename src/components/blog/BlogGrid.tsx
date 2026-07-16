@@ -62,6 +62,7 @@ export default function BlogGrid({ categories, posts, featuredPost }: BlogGridPr
                   <span className="flex items-center gap-1 text-xs text-slate-400 font-medium">
                     <Clock className="h-3 w-3" /> {featuredPost.readTime}
                   </span>
+                  <span className="text-xs text-slate-400 font-medium">By {featuredPost.author}</span>
                   <span className="text-xs text-slate-400">{featuredPost.date}</span>
                 </div>
                 <h2 className="text-2xl lg:text-3xl font-extrabold text-slate-900 mb-4 leading-tight group-hover:text-blue-600 transition-colors">
@@ -107,7 +108,10 @@ export default function BlogGrid({ categories, posts, featuredPost }: BlogGridPr
                 {post.excerpt}
               </p>
               <div className="flex items-center justify-between pt-4 border-t border-slate-100">
-                <span className="text-[11px] text-slate-400 font-medium">{post.date}</span>
+                <div className="flex flex-col">
+                  <span className="text-[11px] text-slate-900 font-bold mb-0.5">By {post.author}</span>
+                  <span className="text-[11px] text-slate-400 font-medium">{post.date}</span>
+                </div>
                 <span className="inline-flex items-center gap-1 text-xs font-bold text-blue-600 group-hover:gap-2 transition-all">
                   Read More <ArrowRight className="h-3.5 w-3.5" />
                 </span>
