@@ -40,6 +40,7 @@ export function Footer() {
               <li><Link href="/blog/ats-friendly-resume-2026" className="transition hover:text-slate-900">ATS-Friendly Guide</Link></li>
               <li><Link href="/blog/one-vs-two-page-resume" className="transition hover:text-slate-900">How to Write a CV</Link></li>
               <li><Link href="/blog/resume-action-verbs" className="transition hover:text-slate-900">Resume Action Verbs</Link></li>
+              <li><Link href="/resume-summary-generator" className="transition hover:text-blue-600 font-medium text-blue-500">Free AI Summary Generator</Link></li>
             </ul>
           </div>
           <div>
