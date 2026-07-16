@@ -21,6 +21,7 @@ export default function DashboardLayout({
   const [avatar, setAvatar] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const [showSignOutModal, setShowSignOutModal] = useState(false);
 
   const { data: profileData } = useSWR(
     status === "authenticated" ? "/api/user/profile" : null,
@@ -128,7 +129,7 @@ export default function DashboardLayout({
             </div>
           </div>
           <button 
-            onClick={handleSignOut}
+            onClick={() => setShowSignOutModal(true)}
             className="flex items-center justify-center gap-2 w-full px-3 py-2 text-sm text-slate-600 bg-white border border-slate-200 hover:bg-red-50 hover:text-red-600 hover:border-red-100 rounded-lg font-medium transition-colors"
           >
             <LogOut className="w-4 h-4" />
@@ -205,7 +206,7 @@ export default function DashboardLayout({
                 </div>
                 {/* Sign Out */}
                 <button
-                  onClick={() => { setShowUserMenu(false); handleSignOut(); }}
+                  onClick={() => { setShowUserMenu(false); setShowSignOutModal(true); }}
                   className="flex items-center gap-3 w-full px-4 py-3.5 text-sm font-semibold text-red-600 hover:bg-red-50 active:bg-red-100 transition-colors"
                 >
                   <LogOut className="w-4 h-4" />
@@ -252,6 +253,36 @@ export default function DashboardLayout({
           })}
         </nav>
       </div>
+
+      {/* Sign Out Modal */}
+      {showSignOutModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onClick={() => setShowSignOutModal(false)} />
+          <div className="bg-white rounded-2xl shadow-xl w-full max-w-sm overflow-hidden z-10 animate-in fade-in zoom-in-95 duration-200">
+            <div className="p-6 text-center">
+              <div className="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center mx-auto mb-4">
+                <LogOut className="w-6 h-6 text-red-600" />
+              </div>
+              <h3 className="text-lg font-bold text-slate-900 mb-2">Sign Out</h3>
+              <p className="text-sm text-slate-500">Are you sure you want to sign out of your account?</p>
+            </div>
+            <div className="flex border-t border-slate-100 bg-slate-50/50">
+              <button
+                onClick={() => setShowSignOutModal(false)}
+                className="flex-1 py-3.5 text-sm font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors border-r border-slate-100"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleSignOut}
+                className="flex-1 py-3.5 text-sm font-semibold text-red-600 hover:text-red-700 hover:bg-red-50 transition-colors"
+              >
+                Yes, Sign Out
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
