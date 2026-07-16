@@ -7,6 +7,8 @@ import { useSession, signOut } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { LogoIcon } from "@/components/ui/LogoIcon";
+import useSWR from "swr";
+import { fetcher } from "@/lib/utils";
 
 export default function DashboardLayout({
   children,
@@ -20,12 +22,19 @@ export default function DashboardLayout({
   const [isScrolled, setIsScrolled] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
 
-  // Use session image directly — no extra API call needed
+  const { data: profileData } = useSWR(
+    status === "authenticated" ? "/api/user/profile" : null,
+    fetcher,
+    { revalidateOnFocus: false }
+  );
+
   useEffect(() => {
-    if (session?.user?.image) {
+    if (profileData?.user) {
+      setAvatar(profileData.user.image || null);
+    } else if (session?.user?.image) {
       setAvatar(session.user.image);
     }
-  }, [session]);
+  }, [profileData, session]);
 
   useEffect(() => {
     const handleScroll = () => {

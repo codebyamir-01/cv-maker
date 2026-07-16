@@ -9,7 +9,7 @@ import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import useSWR from "swr";
+import useSWR, { useSWRConfig } from "swr";
 import { fetcher } from "@/lib/utils";
 
 /* ─── Password Input ─────────────────────────────────────────────── */
@@ -50,6 +50,7 @@ function PasswordInput({
 
 export default function SettingsPage() {
   const { data: session, status, update } = useSession();
+  const { mutate } = useSWRConfig();
   const [activeTab, setActiveTab] = useState("profile");
   const [isSaving, setIsSaving] = useState(false);
   const [initialized, setInitialized] = useState(false);
@@ -109,6 +110,7 @@ export default function SettingsPage() {
       });
       if (res.ok) {
         flash("success", "Profile updated successfully!");
+        mutate("/api/user/profile");
         update({ name: `${firstName} ${lastName}`.trim() });
       } else {
         const d = await res.json();
