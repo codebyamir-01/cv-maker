@@ -6,16 +6,106 @@ import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
-  title: "Free Resume Builder: Create & Download PDF — No Watermarks",
-  description: "Create a professional resume online for free and download it as a PDF instantly. No watermarks, no hidden fees. ATS-friendly templates ready to use.",
+  title: "Free Resume Builder 2026: Create & Download PDF — No Watermarks",
+  description: "Build a professional resume for free in under 5 minutes. Download as PDF instantly with no watermarks, no hidden fees. ATS-optimized templates. No credit card needed.",
   alternates: {
     canonical: "https://www.smartresumemaker.com/free-resume-builder",
-  }
+  },
+};
+
+// JSON-LD schemas injected via Next.js script tag below
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is this resume builder really free?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! You can create, edit, and download your resume in PDF format completely for free. We do not place watermarks on your document or force you to pay before downloading."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is an ATS-friendly resume?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Applicant Tracking Systems (ATS) are software used by employers to scan resumes before a human sees them. Our templates are specifically designed to be easily readable by these systems so your resume reaches a human recruiter."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I download my resume as a PDF for free?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, PDF is the best format for sending resumes because it preserves your formatting perfectly across all devices. We offer instant, high-quality PDF downloads with no watermarks."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I edit my resume later?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Absolutely. Your progress is auto-saved. You can log into your dashboard at any time to make updates, change templates, or create multiple versions of your resume."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need to create an account to build a resume?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No account is required to start building your resume. Simply go to the builder and start adding your information right away. Create a free account to save and manage multiple resumes."
+      }
+    }
+  ]
+};
+
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to Create a Free Resume in 3 Steps",
+  "description": "Build a professional, ATS-friendly resume for free using Smart Resume Maker and download it as a PDF instantly.",
+  "totalTime": "PT5M",
+  "supply": [
+    { "@type": "HowToSupply", "name": "A web browser" },
+    { "@type": "HowToSupply", "name": "Your work history and contact information" }
+  ],
+  "step": [
+    {
+      "@type": "HowToStep",
+      "name": "Pick a Template",
+      "text": "Browse our collection of ATS-friendly resume templates and pick the one that matches your industry and style. You can always change it later with a single click.",
+      "url": "https://www.smartresumemaker.com/templates"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Fill in your Details",
+      "text": "Use our smart AI suggestions to quickly add your experience, skills, and education. The builder auto-saves your progress as you type.",
+      "url": "https://www.smartresumemaker.com/builder"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Download Free PDF",
+      "text": "Once you are happy with how your resume looks, hit the download button to instantly export a clean, watermark-free PDF ready for job applications.",
+      "url": "https://www.smartresumemaker.com/builder"
+    }
+  ]
 };
 
 export default function FreeResumeBuilderPage() {
   return (
     <div className="flex flex-col min-h-screen bg-[#f8fafc]">
+      {/* JSON-LD: FAQ rich results */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      {/* JSON-LD: HowTo rich results */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
       <Navbar />
       
       <main className="flex-1">

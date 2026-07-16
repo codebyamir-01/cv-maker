@@ -12,6 +12,11 @@ import { post10 } from "./posts/post-10";
 import { post11 } from "./posts/post-11";
 import { post12 } from "./posts/post-12";
 import { post13 } from "./posts/post-13";
+import { post14 } from "./posts/post-14";
+import { post15 } from "./posts/post-15";
+import { post16 } from "./posts/post-16";
+import { post17 } from "./posts/post-17";
+import { post18 } from "./posts/post-18";
 
 export const BLOG_POSTS: BlogPost[] = [
   post1,
@@ -26,5 +31,10 @@ export const BLOG_POSTS: BlogPost[] = [
   post10,
   post11,
   post12,
-  post13
+  post13,
+  post14,
+  post15,
+  post16,
+  post17,
+  post18,
 ];
