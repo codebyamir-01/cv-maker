@@ -146,7 +146,7 @@ export default function SettingsPage() {
   /* ─── Skeleton ──────────────────────────────────────────────────── */
   if (isLoading || !initialized) {
     return (
-      <div className="max-w-xl mx-auto px-4 pt-6 pb-32 md:pb-10 md:px-8 space-y-4 animate-pulse">
+      <div className="max-w-4xl mx-auto px-4 pt-6 pb-32 md:pb-10 md:px-8 space-y-4 animate-pulse">
         <div className="h-7 bg-slate-200 rounded-lg w-28" />
         <div className="h-12 bg-slate-100 rounded-2xl" />
         <div className="h-48 bg-slate-100 rounded-2xl" />
@@ -157,10 +157,10 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="max-w-xl mx-auto px-4 pt-5 pb-32 md:pb-12 md:px-6 space-y-5">
+    <div className="max-w-4xl mx-auto px-4 pt-5 pb-32 md:pb-12 md:px-6 space-y-5">
 
       {/* ── Header ── */}
-      <div>
+      <div className="hidden md:block">
         <h1 className="text-2xl font-bold text-slate-900">Settings</h1>
         <p className="text-sm text-slate-500 mt-0.5">Manage your account and preferences</p>
       </div>
@@ -202,10 +202,10 @@ export default function SettingsPage() {
 
       {/* ══════ PROFILE ══════ */}
       {activeTab === "profile" && (
-        <div className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
 
           {/* Avatar */}
-          <div className="bg-white border border-slate-200 rounded-2xl p-6 flex flex-col items-center gap-4 shadow-sm">
+          <div className="md:col-span-1 bg-white border border-slate-200 rounded-2xl p-6 flex flex-col items-center justify-center gap-4 shadow-sm h-fit">
             {/* Avatar circle */}
             <div className="relative group">
               <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-white shadow-md bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-2xl font-bold">
@@ -249,7 +249,7 @@ export default function SettingsPage() {
           </div>
 
           {/* Name + Email */}
-          <div className="bg-white border border-slate-200 rounded-2xl p-5 sm:p-6 space-y-4 shadow-sm">
+          <div className="md:col-span-2 bg-white border border-slate-200 rounded-2xl p-5 sm:p-6 space-y-5 shadow-sm">
             <h3 className="text-sm font-bold text-slate-800 uppercase tracking-wider">Personal Info</h3>
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-1.5">
