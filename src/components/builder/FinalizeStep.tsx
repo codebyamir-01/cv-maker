@@ -12,7 +12,7 @@ interface FinalizeStepProps {
 }
 
 export default function FinalizeStep({ onDownload, isDownloading }: FinalizeStepProps) {
-  const { resumeData, databaseId } = useResumeStore();
+  const { resumeData, databaseId, slug } = useResumeStore();
 
   const [shareMessage, setShareMessage] = useState("");
 
@@ -23,7 +23,8 @@ export default function FinalizeStep({ onDownload, isDownloading }: FinalizeStep
       return;
     }
 
-    const url = `${window.location.origin}/r/${databaseId}`;
+    const urlId = slug || databaseId;
+    const url = `${window.location.origin}/r/${urlId}`;
     navigator.clipboard
       .writeText(url)
       .then(() => {

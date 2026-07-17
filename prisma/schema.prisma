@@ -39,6 +39,7 @@ model Resume {
   id             String   @id @default(cuid())
   userId         String
   title          String
+  slug           String?  @unique
   targetRole     String?
   templateId     String   @default("ats-classic")
   

@@ -22,6 +22,7 @@ export async function GET() {
           select: {
             id: true,
             title: true,
+            slug: true,
             templateId: true,
             atsScore: true,
             updatedAt: true,
@@ -73,8 +74,19 @@ export async function POST(req: Request) {
       ? `${data.personalInfo.fullName}'s Resume` 
       : "My Resume";
 
+    // Generate Slug if missing
+    let slug = data.slug;
+    if (!slug) {
+      const base = data.personalInfo?.fullName
+        ? data.personalInfo.fullName.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-')
+        : 'resume';
+      const randomStr = Math.random().toString(36).substring(2, 6);
+      slug = `${base}-${randomStr}`;
+    }
+
     const resumeData = {
       title,
+      slug,
       targetRole: data.personalInfo?.jobTitle || null,
       templateId: data.templateId || "ats-classic",
       personalInfo: data.personalInfo || {},

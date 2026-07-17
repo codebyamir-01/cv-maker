@@ -19,8 +19,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function PublicResumePage({ params }: Props) {
   const { id } = await params;
-  const resume = await prisma.resume.findUnique({
-    where: { id },
+  const resume = await prisma.resume.findFirst({
+    where: { 
+      OR: [
+        { id },
+        { slug: id }
+      ] 
+    },
   });
 
   if (!resume) {
