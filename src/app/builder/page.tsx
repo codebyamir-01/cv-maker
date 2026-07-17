@@ -626,9 +626,9 @@ export default function BuilderPage() {
           </div>
 
           {/* Right column – Live Preview
-              On mobile: hidden by default, shown when user taps "Preview"
+              On mobile: visually hidden but kept in DOM for PDF capture
               On desktop: always visible and sticky             */}
-          <div className={`lg:sticky lg:top-24 lg:h-fit ${showPreviewOnMobile ? "block" : "hidden lg:block"}`}>
+          <div className={`lg:sticky lg:top-24 lg:h-fit ${showPreviewOnMobile ? "block" : "absolute opacity-0 pointer-events-none -z-50 lg:static lg:opacity-100 lg:pointer-events-auto lg:z-auto lg:block"}`}>
             <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
 
               {/* Title + template pagination */}
