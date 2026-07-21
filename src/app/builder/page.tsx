@@ -42,6 +42,9 @@ const OptionalForm = dynamic(() => import("@/components/builder/OptionalForm"), 
 const FinalizeStep = dynamic(() => import("@/components/builder/FinalizeStep"), {
   ssr: false, loading: () => <FormSkeleton />,
 });
+const AtsMatchStep = dynamic(() => import("@/components/builder/AtsMatchStep"), {
+  ssr: false, loading: () => <FormSkeleton />,
+});
 // LivePreview is the heaviest: it pulls in template CSS + fonts
 const LivePreview = dynamic(() => import("@/components/builder/LivePreview"), {
   ssr: false,
@@ -60,7 +63,8 @@ const STEPS = [
   { id: "education", title: "Education", subtitle: "Academic background" },
   { id: "skills", title: "Skills", subtitle: "Your abilities" },
   { id: "optional", title: "Optional", subtitle: "Additional sections" },
-  { id: "ats", title: "Finalize", subtitle: "Review & download" },
+  { id: "ats-match", title: "ATS Match", subtitle: "Score your resume" },
+  { id: "finalize", title: "Finalize", subtitle: "Review & download" },
 ];
 
 /* ─── Colour palette ─────────────────────────────────────────────── */
@@ -477,7 +481,8 @@ export default function BuilderPage() {
           (opt.publications?.length ?? 0) > 0
         );
       }
-      case 6: return true; // Finalize is always "valid" if they reach it
+      case 6: return true; // ATS Match is optional
+      case 7: return true; // Finalize is always "valid" if they reach it
       default: return false;
     }
   }, [resumeData]);
@@ -496,7 +501,8 @@ export default function BuilderPage() {
       case "education": return <EducationForm />;
       case "skills": return <SkillsForm />;
       case "optional": return <OptionalForm />;
-      case "ats": return <FinalizeStep onDownload={handleDownloadPdf} isDownloading={isDownloading} />;
+      case "ats-match": return <AtsMatchStep />;
+      case "finalize": return <FinalizeStep onDownload={handleDownloadPdf} isDownloading={isDownloading} />;
       default: return null;
     }
   };
@@ -613,12 +619,12 @@ export default function BuilderPage() {
               <div className="flex items-center gap-2 sm:gap-3">
                 {stepIdx < STEPS.length - 1 && (
                   <button onClick={goNext} className="inline-flex items-center justify-center gap-2 rounded-xl bg-transparent px-3 sm:px-4 py-3 text-sm font-semibold text-slate-500 hover:text-slate-700 transition active:scale-[0.98]">
-                    {stepIdx === 5 ? "Skip All" : "Skip for now"}
+                    {stepIdx >= 5 ? "Skip All" : "Skip for now"}
                   </button>
                 )}
                 {stepIdx < STEPS.length - 1 && (
                   <button onClick={goNext} className="inline-flex items-center justify-center gap-2 rounded-xl bg-slate-900 px-5 sm:px-6 py-3.5 text-sm font-bold text-white shadow-md transition hover:bg-black active:scale-[0.98]">
-                    {stepIdx === 5 ? "Next: Finalize & Download" : `Next: ${STEPS[stepIdx + 1].title}`} <ArrowRight className="h-4 w-4" />
+                    {stepIdx === 6 ? "Next: Finalize & Download" : `Next: ${STEPS[stepIdx + 1].title}`} <ArrowRight className="h-4 w-4" />
                   </button>
                 )}
               </div>
