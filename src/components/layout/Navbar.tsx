@@ -46,7 +46,7 @@ export function Navbar() {
         </Link>
         
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8 text-[15px] font-semibold text-slate-600">
+        <nav className="hidden lg:flex items-center gap-8 text-[15px] font-semibold text-slate-600">
           {links.map((link) => {
             const isActive = pathname === link.href;
             return (
@@ -62,7 +62,7 @@ export function Navbar() {
         </nav>
         
         {/* Desktop Auth Buttons */}
-        <div className="hidden md:flex items-center gap-4">
+        <div className="hidden lg:flex items-center gap-4">
           {status === "loading" ? (
             <div className="w-[120px] h-11 bg-slate-200 animate-pulse rounded-full" />
           ) : session ? (
@@ -82,7 +82,7 @@ export function Navbar() {
 
         {/* Mobile Hamburger Button */}
         <button 
-          className="md:hidden p-2 -mr-2 text-slate-600 hover:text-slate-900 focus:outline-none"
+          className="lg:hidden p-2 -mr-2 text-slate-600 hover:text-slate-900 focus:outline-none"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label="Toggle menu"
         >
@@ -101,14 +101,14 @@ export function Navbar() {
       {/* Mobile Menu Backdrop */}
       {isMobileMenuOpen && (
         <div 
-          className="md:hidden fixed inset-0 z-40 bg-slate-900/20 backdrop-blur-sm" 
+          className="lg:hidden fixed inset-0 z-40 bg-slate-900/20 backdrop-blur-sm" 
           onClick={closeMenu}
         />
       )}
 
       {/* Mobile Menu Popup */}
       {isMobileMenuOpen && (
-        <div className="md:hidden fixed left-4 right-4 top-[72px] sm:top-[88px] bg-white rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.12)] border border-slate-100 z-[60] overflow-hidden animate-in fade-in slide-in-from-top-4 duration-200">
+        <div className="lg:hidden fixed left-4 right-4 top-[72px] sm:top-[88px] bg-white rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.12)] border border-slate-100 z-[60] overflow-hidden animate-in fade-in slide-in-from-top-4 duration-200">
           <nav className="flex flex-col p-3 space-y-1">
             {links.map((link) => {
               const isActive = pathname === link.href;

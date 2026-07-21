@@ -38,7 +38,7 @@ export function NavbarClient() {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-8 text-[15px] font-semibold text-slate-600">
+          <nav className="hidden lg:flex items-center gap-8 text-[15px] font-semibold text-slate-600">
             {links.map((link) => (
               <Link key={link.href} href={link.href} className="transition-colors hover:text-blue-600">
                 {link.label}
@@ -47,7 +47,7 @@ export function NavbarClient() {
           </nav>
 
           {/* Desktop CTA */}
-          <div className="hidden md:flex items-center gap-4">
+          <div className="hidden lg:flex items-center gap-4">
             {isLoggedIn ? (
               <Link
                 href="/dashboard"
@@ -67,7 +67,7 @@ export function NavbarClient() {
           </div>
 
           {/* Mobile Hamburger - pure CSS, zero JS */}
-          <details className="relative md:hidden group">
+          <details className="relative lg:hidden group">
             <summary className="list-none cursor-pointer p-2 -mr-2 text-slate-600 hover:text-slate-900 focus:outline-none" aria-label="Toggle menu">
               {/* Hamburger icon - shown when closed */}
               <svg className="w-6 h-6 group-open:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">

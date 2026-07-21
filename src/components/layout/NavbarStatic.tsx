@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import { LogoIcon } from "@/components/ui/LogoIcon";
 
 /**
@@ -31,7 +31,7 @@ export function NavbarStatic() {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-8 text-[15px] font-semibold text-slate-600">
+          <nav className="hidden lg:flex items-center gap-8 text-[15px] font-semibold text-slate-600">
             {links.map((link) => (
               <Link key={link.href} href={link.href} className="transition-colors hover:text-blue-600">
                 {link.label}
@@ -40,14 +40,14 @@ export function NavbarStatic() {
           </nav>
 
           {/* Desktop CTA */}
-          <div className="hidden md:flex items-center gap-4">
+          <div className="hidden lg:flex items-center gap-4">
             <Link href="/login" className="inline-flex items-center justify-center rounded-full bg-blue-600 hover:bg-blue-700 text-white px-8 h-11 text-[15px] font-semibold shadow-md transition-colors">
               Log In
             </Link>
           </div>
 
           {/* Mobile Hamburger - pure CSS, zero JS */}
-          <details className="relative md:hidden group">
+          <details className="relative lg:hidden group">
             <summary className="list-none cursor-pointer p-2 -mr-2 text-slate-600 hover:text-slate-900 focus:outline-none" aria-label="Toggle menu">
               {/* Hamburger icon - shown when closed */}
               <svg className="w-6 h-6 group-open:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
