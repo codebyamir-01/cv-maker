@@ -63,6 +63,13 @@ export default function RootLayout({
       className={`${inter.variable} font-sans h-full antialiased overflow-x-hidden`}
     >
       <head>
+        {/* Google AdSense */}
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5652941069170288"
+          crossOrigin="anonymous"
+        />
+
         {/* JSON-LD: WebApplication */}
         <script
           type="application/ld+json"
