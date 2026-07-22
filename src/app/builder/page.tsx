@@ -537,7 +537,7 @@ export default function BuilderPage() {
       <section className="border-b border-slate-200 bg-white">
         <div className="mx-auto max-w-[1400px] px-4 py-6 sm:px-6">
           <div className="relative pb-2 overflow-x-auto scrollbar-hide">
-            <ol className="flex w-full items-center justify-between min-w-max px-1">
+            <ol className="flex w-full items-center justify-between min-w-[600px] lg:min-w-0 px-1">
               {STEPS.map((step, idx) => {
                 const done = idx < stepIdx && isStepValid(idx);
                 const active = idx === stepIdx;
@@ -546,27 +546,27 @@ export default function BuilderPage() {
                     <div className="flex items-center gap-2 lg:gap-3 shrink-0">
                       <button
                         onClick={() => done && setStepIdx(idx)}
-                        className={`relative grid h-8 w-8 lg:h-11 lg:w-11 place-items-center rounded-full text-xs lg:text-base font-bold transition-all
+                        className={`relative grid h-8 w-8 lg:h-9 lg:w-9 xl:h-11 xl:w-11 place-items-center rounded-full text-xs xl:text-base font-bold transition-all
                           ${active ? "bg-[#0b132b] text-white shadow-md cursor-default" :
                             done ? "bg-emerald-500 text-white shadow-sm cursor-pointer hover:bg-emerald-600" :
                               "border-2 border-slate-100 bg-white text-slate-700 cursor-default"}`}
                       >
-                        {done ? <CheckCircle2 className="h-4 w-4 lg:h-5 lg:w-5" /> : (idx + 1)}
+                        {done ? <CheckCircle2 className="h-4 w-4 lg:h-4 lg:w-4 xl:h-5 xl:w-5" /> : (idx + 1)}
                         {active && (
-                          <div className="absolute -bottom-1 lg:-bottom-1.5 left-1/2 h-2 w-2 lg:h-3 lg:w-3 -translate-x-1/2 rotate-45 bg-[#0b132b] rounded-sm" />
+                          <div className="absolute -bottom-1 xl:-bottom-1.5 left-1/2 h-2 w-2 xl:h-3 xl:w-3 -translate-x-1/2 rotate-45 bg-[#0b132b] rounded-sm" />
                         )}
                       </button>
 
-                      <div className="hidden lg:flex flex-col justify-center">
-                        <p className={`text-sm font-bold ${active ? "text-[#0b132b]" : "text-slate-600"}`}>
+                      <div className="hidden lg:block">
+                        <p className={`text-xs xl:text-sm font-bold ${active ? "text-[#0b132b]" : "text-slate-600"}`}>
                           {step.title}
                         </p>
-                        <p className="text-[11px] font-medium text-slate-400">{step.subtitle}</p>
+                        <p className="hidden xl:block text-[11px] font-medium text-slate-400">{step.subtitle}</p>
                       </div>
                     </div>
 
                     {idx < STEPS.length - 1 && (
-                      <div className="mx-1.5 lg:mx-4 flex-1 flex items-center gap-1 lg:gap-1.5 min-w-[24px] lg:min-w-[50px]">
+                      <div className="mx-1.5 lg:mx-2 xl:mx-4 flex-1 flex items-center gap-1 xl:gap-1.5 min-w-[24px] lg:min-w-[32px] xl:min-w-[50px]">
                         <div className="h-px w-full bg-slate-200" />
                         <div className="h-1 w-1 rounded-full bg-slate-200 shrink-0" />
                       </div>
