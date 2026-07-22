@@ -28,6 +28,7 @@ export function Footer() {
               <li><Link href="/about" className="transition hover:text-slate-900">About Us</Link></li>
               <li><Link href="/free-resume-builder" className="transition hover:text-slate-900">Free Resume Builder</Link></li>
               <li><Link href="/ats-resume-builder" className="transition hover:text-slate-900">ATS Resume Builder</Link></li>
+              <li><Link href="/ats-resume-checker" className="transition hover:text-blue-600 font-medium text-blue-500">Free ATS Scanner</Link></li>
               <li><Link href="/templates" className="transition hover:text-slate-900">Templates</Link></li>
               <li><Link href="/contact" className="transition hover:text-slate-900">Contact Us</Link></li>
             </ul>
