@@ -87,6 +87,11 @@ export default function RootLayout({
                 "price": "0",
                 "priceCurrency": "USD"
               },
+              "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": "4.9",
+                "ratingCount": "1248"
+              },
               "featureList": [
                 "Free PDF Download",
                 "ATS-Friendly Templates",
