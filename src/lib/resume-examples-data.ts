@@ -1,3 +1,5 @@
+import { ADDITIONAL_EXAMPLES } from "./additional-resume-examples";
+
 export interface ResumeExample {
   slug: string;
   role: string;
@@ -431,5 +433,6 @@ export const RESUME_EXAMPLES: ResumeExample[] = [
     relatedExamples: [
       { slug: 'teacher', title: 'Teacher' }
     ]
-  }
+  },
+  ...ADDITIONAL_EXAMPLES
 ];
