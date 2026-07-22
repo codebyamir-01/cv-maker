@@ -537,7 +537,7 @@ export default function BuilderPage() {
       <section className="border-b border-slate-200 bg-white">
         <div className="mx-auto max-w-[1400px] px-4 py-6 sm:px-6">
           <div className="relative pb-2 overflow-x-auto scrollbar-hide">
-            <ol className="flex w-full items-center justify-between min-w-[600px] lg:min-w-[1100px] xl:min-w-0">
+            <ol className="flex w-full items-center justify-between min-w-max px-1">
               {STEPS.map((step, idx) => {
                 const done = idx < stepIdx && isStepValid(idx);
                 const active = idx === stepIdx;
@@ -566,7 +566,7 @@ export default function BuilderPage() {
                     </div>
 
                     {idx < STEPS.length - 1 && (
-                      <div className="mx-1.5 lg:mx-4 flex-1 flex items-center gap-1 lg:gap-1.5">
+                      <div className="mx-1.5 lg:mx-4 flex-1 flex items-center gap-1 lg:gap-1.5 min-w-[24px] lg:min-w-[50px]">
                         <div className="h-px w-full bg-slate-200" />
                         <div className="h-1 w-1 rounded-full bg-slate-200 shrink-0" />
                       </div>
