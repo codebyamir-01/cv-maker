@@ -31,6 +31,8 @@ model User {
   analyses      JobAnalysis[]
   accounts      Account[]
   sessions      Session[]
+  jobPreferences JobPreferences?
+  applicationLogs ApplicationLog[]
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 }
@@ -117,3 +119,30 @@ model NewsletterSubscriber {
   email       String   @unique
   subscribedAt DateTime @default(now())
 }
+
+model JobPreferences {
+  id               String   @id @default(cuid())
+  userId           String   @unique
+  jobTitles        String[] // Array of target job titles (e.g. ["Software Engineer", "Frontend Developer"])
+  location         String?  // Target location (e.g. "New York, NY")
+  remoteOnly       Boolean  @default(false)
+  minSalary        Int?     // Minimum acceptable salary
+  autoApplyEnabled Boolean  @default(false)
+  
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model ApplicationLog {
+  id          String   @id @default(cuid())
+  userId      String
+  company     String
+  jobTitle    String
+  url         String?  // Link to the job posting
+  status      String   @default("applied") // "applied", "interview", "rejected"
+  appliedAt   DateTime @default(now())
+  
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+

@@ -66,6 +66,7 @@ export default function DashboardLayout({
     { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
     { name: "My Resumes", href: "/dashboard/resumes", icon: FileText },
     { name: "Templates", href: "/dashboard/templates", icon: PenTool },
+    { name: "Autopilot", href: "/dashboard/autopilot", icon: Sparkles },
     { name: "Settings", href: "/dashboard/settings", icon: Settings },
   ];
 
