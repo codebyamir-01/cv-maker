@@ -30,7 +30,6 @@ export default function robots(): MetadataRoute.Robots {
           "/api/",
           "/admin",
           "/r/",
-          "/upload",
         ],
       },
     ],
