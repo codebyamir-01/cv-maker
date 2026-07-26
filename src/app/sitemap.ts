@@ -58,10 +58,34 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: `${baseUrl}/ats-resume-checker`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/cover-letter`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.88,
+    },
+    {
+      url: `${baseUrl}/resume-summary-generator`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.85,
+    },
+    {
       url: `${baseUrl}/resume-examples`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.85,
+    },
+    {
+      url: `${baseUrl}/upload`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
     },
     {
       url: `${baseUrl}/contact`,
@@ -87,6 +111,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'yearly',
       priority: 0.3,
     },
+    {
+      url: `${baseUrl}/cookies`,
+      lastModified: new Date(),
+      changeFrequency: 'yearly',
+      priority: 0.2,
+    },
   ];
 
   const blogRoutes: MetadataRoute.Sitemap = BLOG_POSTS.map((post) => ({
@@ -104,6 +134,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   // NOTE: Excluded from sitemap (noindex pages):
-  // /dashboard, /dashboard/*, /login, /signup, /forgot-password, /api/*, /admin, /upload
+  // /dashboard, /dashboard/*, /login, /signup, /forgot-password, /api/*, /admin, /r/*
   return [...staticRoutes, ...blogRoutes, ...exampleRoutes];
 }
