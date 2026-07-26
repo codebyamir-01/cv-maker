@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
+
 import { Loader2, Zap, Briefcase, MapPin, DollarSign, Activity, AlertCircle, CheckCircle2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 
@@ -97,11 +97,18 @@ export default function AutopilotDashboard() {
         <div className="relative z-10 flex flex-col items-center bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/10 min-w-[250px]">
           <p className="text-sm font-semibold text-slate-300 mb-4 uppercase tracking-wider">System Status</p>
           <div className="flex items-center gap-4">
-            <Switch 
-              checked={autoApply}
-              onCheckedChange={toggleAutoApply}
-              className="data-[state=checked]:bg-emerald-500"
-            />
+            <button
+              onClick={toggleAutoApply}
+              className={`w-11 h-6 rounded-full transition-colors duration-200 ease-in-out flex items-center ${
+                autoApply ? 'bg-emerald-500' : 'bg-slate-300'
+              }`}
+            >
+              <div
+                className={`w-5 h-5 bg-white rounded-full shadow-sm transform transition-transform duration-200 ease-in-out ${
+                  autoApply ? 'translate-x-5' : 'translate-x-0.5'
+                }`}
+              />
+            </button>
             <span className={`font-bold ${autoApply ? 'text-emerald-400' : 'text-slate-400'}`}>
               {autoApply ? 'AUTOPILOT ACTIVE' : 'SYSTEM OFFLINE'}
             </span>
