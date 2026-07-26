@@ -102,7 +102,7 @@ export default function AutopilotDashboard() {
               onCheckedChange={toggleAutoApply}
               className="data-[state=checked]:bg-emerald-500"
             />
-            <span className={\`font-bold \${autoApply ? 'text-emerald-400' : 'text-slate-400'}\`}>
+            <span className={`font-bold ${autoApply ? 'text-emerald-400' : 'text-slate-400'}`}>
               {autoApply ? 'AUTOPILOT ACTIVE' : 'SYSTEM OFFLINE'}
             </span>
           </div>
