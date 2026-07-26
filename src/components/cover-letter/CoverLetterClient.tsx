@@ -16,7 +16,7 @@ export function CoverLetterClient() {
   const [copied, setCopied] = useState(false);
 
   // Check if they have at least some basic resume data
-  const hasResumeData = resumeData?.basics?.name || (resumeData?.experience && resumeData.experience.length > 0);
+  const hasResumeData = resumeData?.personalInfo?.firstName || (resumeData?.experience && resumeData.experience.length > 0);
 
   const handleGenerate = async () => {
     if (!hasResumeData) {
