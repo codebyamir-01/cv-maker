@@ -360,10 +360,11 @@ async function autoCommitAndPush(newPost) {
     const commitMsg = `feat(seo): daily autopilot - publish post #${newPost.id} - ${cleanTitle}`;
     execFileSync("git", ["commit", "-m", commitMsg], { stdio: "inherit" });
     console.log("🚀 Pushing updates to GitHub (origin main)...");
-    execFileSync("git", ["push", "origin", "main"], { stdio: "inherit" });
+    execFileSync("git", ["push", "origin", "HEAD:main"], { stdio: "inherit" });
     console.log("🎉 Successfully deployed to GitHub & Vercel!");
   } catch (err) {
-    console.warn("Git commit/push note:", err.message);
+    console.error("Git commit/push error:", err.message);
+    throw err;
   }
 }
 
