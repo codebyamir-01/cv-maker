@@ -1,0 +1,39 @@
+name: Daily SEO & Site Health Autopilot
+
+on:
+  schedule:
+    # Runs daily at 06:00 UTC (11:00 AM PKT) completely in the cloud
+    - cron: '0 6 * * *'
+  workflow_dispatch: # Allows manual trigger from GitHub Actions dashboard anytime
+
+permissions:
+  contents: write
+
+jobs:
+  seo-autopilot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm install --prefer-offline
+
+      - name: Configure Git Committer
+        run: |
+          git config user.name "Gemini SEO Autopilot"
+          git config user.email "autopilot@smartresumemaker.com"
+
+      - name: Run Gemini Daily SEO Health & Content Generator
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: node scripts/gemini-seo-autopilot.mjs

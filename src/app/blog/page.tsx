@@ -26,8 +26,41 @@ const POSTS = SORTED_POSTS.slice(1);
 const CATEGORIES = ["All", "ATS Tips", "Writing Tips", "Resume Advice", "Tech Careers", "Job Search", "Career Tips"];
 
 export default function BlogPage() {
+  const blogListSchema = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Smart Resume Maker Career Blog",
+    "description": "Expert guides, resume writing tips, ATS advice, and job search strategies.",
+    "url": "https://www.smartresumemaker.com/blog",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Smart Resume Maker",
+      "url": "https://www.smartresumemaker.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.smartresumemaker.com/icon.svg"
+      }
+    },
+    "blogPost": SORTED_POSTS.map(post => ({
+      "@type": "BlogPosting",
+      "headline": post.title,
+      "description": post.metaDescription,
+      "url": `https://www.smartresumemaker.com/blog/${post.slug}`,
+      "datePublished": new Date(post.date).toISOString(),
+      "image": `https://www.smartresumemaker.com${post.bannerImage}`,
+      "author": {
+        "@type": "Person",
+        "name": post.author
+      }
+    }))
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-[#f8fafc] font-sans">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogListSchema) }}
+      />
       <Navbar />
 
       <main className="flex-1 pt-28 pb-20">

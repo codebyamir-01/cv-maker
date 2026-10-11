@@ -1,0 +1,16 @@
+{
+  "timestamp": "2026-10-11T06:14:02.035Z",
+  "overallScore": 100,
+  "totalBlogPosts": 20,
+  "activeModel": "gemini-flash-latest",
+  "lastPublishedPost": {
+    "id": 20,
+    "title": "AI Prompt Engineer Resume Guide: 2026 Skills & Examples",
+    "slug": "ai-prompt-engineer-llm-specialist-resume-guide"
+  },
+  "recommendations": [
+    "Ensure backlink acquisition on top career forums.",
+    "Monitor Core Web Vitals on /builder and /blog routes weekly.",
+    "Track Google Discover impressions for newly published articles."
+  ]
+}

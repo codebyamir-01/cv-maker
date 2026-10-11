@@ -13,8 +13,8 @@ export const post5: BlogPost = {
   author: "Jerry",
   metaTitle: "Best Resume Format for Software Engineers in 2026 | CV Maker",
   metaDescription: "Learn the exact resume format tech recruiters look for. Discover how to list your tech stack, GitHub projects, and engineering impact effectively.",
-  bannerImage: "/images/blog/blog_software_engineer.png",
-  bannerAlt: "Laptop screen with code merging into a professional resume",
+  bannerImage: "/images/blog/blog_software_engineer_realistic.jpg",
+  bannerAlt: "Software engineer at modern Scandinavian standing desk coding on dual monitors",
   relatedSlugs: ["ats-friendly-resume-2026", "how-to-list-skills-on-resume"],
   faqs: [
     {
