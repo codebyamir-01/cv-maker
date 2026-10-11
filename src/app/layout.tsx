@@ -2,9 +2,9 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { Providers } from "@/components/providers";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import "./globals.css";
-
 import { CookieBanner } from "@/components/layout/CookieBanner";
+import Script from "next/script";
+import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -64,9 +64,9 @@ export default function RootLayout({
     >
       <head>
         {/* Google AdSense */}
-        <script
-          async
+        <Script
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5652941069170288"
+          strategy="lazyOnload"
           crossOrigin="anonymous"
         />
 

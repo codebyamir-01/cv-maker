@@ -303,14 +303,14 @@ export const useResumeStore = create<ResumeState>()(
 
       updateOptionalItem: (section, id, data) =>
         set((state) => {
-          const currentSection = state.resumeData.optionalSections?.[section] || [];
+          const currentSection = (state.resumeData.optionalSections?.[section] ?? []) as (OptionalSections[keyof OptionalSections][number])[];
+          const updatedItems = currentSection.map((item) => (item.id === id ? { ...item, ...data } : item));
           return {
             resumeData: {
               ...state.resumeData,
               optionalSections: {
                 ...state.resumeData.optionalSections,
-                // @ts-ignore
-                [section]: currentSection.map((item) => (item.id === id ? { ...item, ...data } : item)),
+                [section]: updatedItems,
               },
             },
           };
@@ -318,14 +318,14 @@ export const useResumeStore = create<ResumeState>()(
 
       removeOptionalItem: (section, id) =>
         set((state) => {
-          const currentSection = state.resumeData.optionalSections?.[section] || [];
+          const currentSection = (state.resumeData.optionalSections?.[section] ?? []) as (OptionalSections[keyof OptionalSections][number])[];
+          const filteredItems = currentSection.filter((item) => item.id !== id);
           return {
             resumeData: {
               ...state.resumeData,
               optionalSections: {
                 ...state.resumeData.optionalSections,
-                // @ts-ignore
-                [section]: currentSection.filter((item) => item.id !== id),
+                [section]: filteredItems,
               },
             },
           };

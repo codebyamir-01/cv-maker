@@ -18,7 +18,7 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
 
   experimental: {
-    optimizePackageImports: ['lucide-react'],
+    optimizePackageImports: ['lucide-react', 'framer-motion', 'recharts'],
   },
 
   // HTTP headers for caching static assets

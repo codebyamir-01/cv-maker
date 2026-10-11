@@ -1,22 +1,26 @@
 "use client";
 
-import { useState, useRef, useEffect, memo, useCallback, lazy, Suspense } from "react";
+import { useState, useRef, useCallback, Suspense } from "react";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import {
   ArrowLeft, ArrowRight, ChevronLeft, ChevronRight,
-  Download, CheckCircle2, FileText, ZoomIn, ZoomOut,
-  RotateCcw, Sparkles, Lightbulb, Eye, Loader2, Star, ThumbsUp, X
+  Download, CheckCircle2, ZoomIn, ZoomOut,
+  RotateCcw, Lightbulb, Loader2
 } from "lucide-react";
-import PersonalInfoForm from "@/components/builder/PersonalInfoForm";
-import { useResumeStore } from "@/store/useResumeStore";
-import dynamic from "next/dynamic";
-import { useSearchParams, useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
 
-/* ─── Lazy-load ALL heavy form components ─────────────────────────
-   This is the main mobile win. Without this, all 6 form components
-   and all 6 template files were bundled into ONE chunk (~600KB+).
-   Now each component is a separate chunk loaded on demand.
+import { useResumeStore } from "@/store/useResumeStore";
+import { useBuilderNavigation, STEPS, ZOOM_OPTIONS } from "@/hooks/useBuilderNavigation";
+import { usePdfDownload } from "@/hooks/usePdfDownload";
+
+import PersonalInfoForm from "@/components/builder/PersonalInfoForm";
+import SummaryForm from "@/components/builder/SummaryForm";
+import DataLoader from "@/components/builder/DataLoader";
+import AutoSaver from "@/components/builder/AutoSaver";
+import DownloadSuccessModal from "@/components/builder/DownloadSuccessModal";
+
+/* ─── Lazy-load heavy form components ─────────────────────────
+   Keeps each form step and template separate from the initial bundle.
 ─────────────────────────────────────────────────────────────────── */
 const FormSkeleton = () => (
   <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm animate-pulse">
@@ -45,7 +49,6 @@ const FinalizeStep = dynamic(() => import("@/components/builder/FinalizeStep"), 
 const AtsMatchStep = dynamic(() => import("@/components/builder/AtsMatchStep"), {
   ssr: false, loading: () => <FormSkeleton />,
 });
-// LivePreview is the heaviest: it pulls in template CSS + fonts
 const LivePreview = dynamic(() => import("@/components/builder/LivePreview"), {
   ssr: false,
   loading: () => (
@@ -55,251 +58,44 @@ const LivePreview = dynamic(() => import("@/components/builder/LivePreview"), {
   ),
 });
 
-/* ─── Steps ──────────────────────────────────────────────────────── */
-const STEPS = [
-  { id: "personal", title: "Contact", subtitle: "Personal information" },
-  { id: "summary", title: "Summary", subtitle: "Professional summary" },
-  { id: "experience", title: "Experience", subtitle: "Work history" },
-  { id: "education", title: "Education", subtitle: "Academic background" },
-  { id: "skills", title: "Skills", subtitle: "Your abilities" },
-  { id: "optional", title: "Optional", subtitle: "Additional sections" },
-  { id: "ats-match", title: "ATS Match", subtitle: "Score your resume" },
-  { id: "finalize", title: "Finalize", subtitle: "Review & download" },
-];
-
-/* ─── Colour palette ─────────────────────────────────────────────── */
-const COLORS = [
-  { label: "blue", hex: "#3b82f6" },
-  { label: "indigo", hex: "#4f46e5" },
-  { label: "teal", hex: "#0d9488" },
-  { label: "black", hex: "#1e293b" },
-  { label: "slate", hex: "#64748b" },
-  { label: "red", hex: "#b91c1c" },
-  { label: "green", hex: "#16a34a" },
-  { label: "purple", hex: "#7c3aed" },
-  { label: "orange", hex: "#f97316" },
-];
-
-const ZOOM_OPTIONS = [30, 50, 60, 75, 100];
-const A4_W = 816;
-
-/* ─── Summary inline form (kept here — no separate import needed) ── */
-const SummaryForm = memo(function SummaryForm() {
-  const { resumeData, updateSummary } = useResumeStore();
-  const [showSuggestions, setShowSuggestions] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [suggestions, setSuggestions] = useState<string[]>([]);
-
-  const handleFetchSuggestions = async () => {
-    setShowSuggestions(true);
-    if (suggestions.length > 0) return; // already loaded
-
-    setIsLoading(true);
-    const title = resumeData.personalInfo?.jobTitle || "Professional";
-    try {
-      const res = await fetch("/api/ai/suggestions", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title, type: "summary" })
-      });
-      const data = await res.json();
-      if (data.suggestions) {
-        setSuggestions(data.suggestions);
-      }
-    } catch (e) {
-      console.error(e);
-      setSuggestions(["Failed to load suggestions. Please try again later."]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-bold text-slate-900">Professional Summary</h2>
-        <button
-          type="button"
-          onClick={showSuggestions ? () => setShowSuggestions(false) : handleFetchSuggestions}
-          disabled={isLoading}
-          className="text-[11px] text-blue-700 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-full font-bold tracking-wide transition-colors flex items-center gap-1.5 shadow-sm border border-blue-200 disabled:opacity-50"
-        >
-          {isLoading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Sparkles className="w-3.5 h-3.5" />}
-          SMART SUGGESTIONS
-        </button>
-      </div>
-
-      {showSuggestions && (
-        <div className="mb-4 p-4 bg-slate-50 border border-blue-100 rounded-xl">
-          <p className="text-xs font-bold text-slate-500 mb-3 uppercase tracking-wider">
-            {isLoading ? "Generating AI suggestions..." : "Click a template to use it"}
-          </p>
-          <div className="space-y-2">
-            {!isLoading && suggestions.map((text, i) => (
-              <div
-                key={i}
-                onClick={() => {
-                  updateSummary(text);
-                  setShowSuggestions(false);
-                }}
-                className="text-sm text-slate-700 bg-white border border-slate-200 p-3 rounded-lg hover:border-blue-400 hover:shadow-sm cursor-pointer transition-all"
-              >
-                {text}
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      <p className="mt-0.5 mb-4 text-sm text-slate-400">Write 2–4 sentences that highlight your expertise and value.</p>
-      <textarea
-        className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-800 placeholder:text-slate-300 focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-200 transition resize-none"
-        rows={6}
-        placeholder="e.g. Results-driven Senior Developer with 5+ years experience building scalable web apps..."
-        value={resumeData.summary}
-        onChange={e => updateSummary(e.target.value)}
-      />
-    </div>
-  );
-});
-
-/* ─── DataLoader and AutoSaver ───────────────────────────────────── */
-function DataLoader() {
-  const searchParams = useSearchParams();
-  const { updateTemplateId, setDatabaseId, setResumeData, databaseId } = useResumeStore();
-
-  useEffect(() => {
-    const t = searchParams.get("t");
-    if (t) updateTemplateId(t);
-  }, [searchParams, updateTemplateId]);
-
-  useEffect(() => {
-    const id = searchParams.get("id");
-    if (id && id !== databaseId) {
-      setDatabaseId(id);
-      // Fetch directly by ID — no need to load all resumes
-      fetch(`/api/resumes/${id}`)
-        .then(res => {
-          if (!res.ok) throw new Error(`HTTP ${res.status}`);
-          return res.json();
-        })
-        .then(data => {
-          const resume = data.resume;
-          if (resume) {
-            setResumeData({
-              personalInfo: resume.personalInfo || {},
-              summary: resume.summary || "",
-              experience: resume.experience || [],
-              education: resume.education || [],
-              skills: resume.skills || [],
-              optionalSections: {
-                projects: resume.projects || [],
-                certifications: resume.certifications || [],
-                languages: resume.languages || [],
-                awards: resume.customSections?.awards || [],
-                volunteer: resume.customSections?.volunteer || [],
-                publications: resume.customSections?.publications || [],
-              },
-              templateId: resume.templateId || "ats-classic",
-              accentColor: resume.accentColor || "#0d9488"
-            });
-          }
-        })
-        .catch(() => {
-          // Silently fall back to locally stored data
-        });
-    }
-  }, [searchParams, setDatabaseId, setResumeData, databaseId]);
-
-  return null;
-}
-
-function AutoSaver() {
-  const { resumeData, databaseId } = useResumeStore();
-  const { status } = useSession();
-  const [saveStatus, setSaveStatus] = useState<"idle" | "saving" | "saved" | "error">("idle");
-  const [pendingPayload, setPendingPayload] = useState<string | null>(null);
-  const prevDataRef = useRef(JSON.stringify(resumeData));
-
-  const doSave = useCallback(async (payload: any) => {
-    setSaveStatus("saving");
-    try {
-      const res = await fetch("/api/resumes", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      if (!databaseId) {
-        const result = await res.json();
-        if (result.resume?.id) {
-          useResumeStore.getState().setDatabaseId(result.resume.id);
-          window.history.replaceState(null, "", `/builder?id=${result.resume.id}`);
-        }
-      }
-      setSaveStatus("saved");
-      setPendingPayload(null);
-      setTimeout(() => setSaveStatus("idle"), 3000);
-    } catch {
-      setSaveStatus("error");
-    }
-  }, [databaseId]);
-
-  useEffect(() => {
-    if (status !== "authenticated") return; // Do not auto-save for guests
-    const currentDataStr = JSON.stringify(resumeData);
-    if (currentDataStr === prevDataRef.current) return;
-    prevDataRef.current = currentDataStr;
-    const payload: any = { ...resumeData };
-    if (databaseId) payload.id = databaseId;
-    setPendingPayload(JSON.stringify(payload));
-    const handler = setTimeout(() => doSave(payload), 2000);
-    return () => clearTimeout(handler);
-  }, [resumeData, databaseId, doSave]);
-
-  if (saveStatus === "error") {
-    return (
-      <div className="flex items-center gap-2 rounded-full bg-red-50 px-3 py-1.5 text-xs font-semibold text-red-600">
-        <span>Save failed</span>
-        <button
-          onClick={() => { if (pendingPayload) doSave(JSON.parse(pendingPayload)); }}
-          className="underline hover:no-underline"
-        >
-          Retry
-        </button>
-      </div>
-    );
-  }
-  if (saveStatus === "saving") {
-    return (
-      <div className="flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-600">
-        <Loader2 className="h-3 w-3 animate-spin text-emerald-500" />
-        Saving...
-      </div>
-    );
-  }
-  if (saveStatus === "saved") {
-    return (
-      <div className="flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-600">
-        <CheckCircle2 className="h-3 w-3 text-emerald-500" />
-        Saved
-      </div>
-    );
-  }
-  return null;
-}
-
-
-/* ─── Page ───────────────────────────────────────────────────────── */
 export default function BuilderPage() {
-  const { resumeData, updateTemplateId, updateAccentColor, databaseId } = useResumeStore();
+  const { resumeData, databaseId } = useResumeStore();
   const printRef = useRef<HTMLDivElement>(null);
-  const router = useRouter();
-  const { status } = useSession();
 
-  const handleExit = () => {
+  const {
+    stepIdx,
+    setStepIdx,
+    zoom,
+    setZoom,
+    goNext,
+    goPrev,
+    isStepValid,
+    pct,
+    cycleTemplate,
+    templatesList,
+    scaledW,
+    scaledH,
+    A4_W,
+  } = useBuilderNavigation();
+
+  const {
+    isDownloading,
+    showSuccessModal,
+    setShowSuccessModal,
+    feedbackRating,
+    feedbackSubmitted,
+    submitFeedback,
+    handleDownloadPdf,
+  } = usePdfDownload({
+    printRef,
+    onAutoDownloadJump: () => setStepIdx(STEPS.length - 1),
+  });
+
+  const [showPreviewOnMobile, setShowPreviewOnMobile] = useState(false);
+
+  const handleExit = useCallback(() => {
     if (resumeData && Object.keys(resumeData).length > 0) {
-      const payload: any = { ...resumeData };
+      const payload: Record<string, unknown> = { ...resumeData };
       if (databaseId) payload.id = databaseId;
 
       // Save in background without blocking navigation
@@ -307,208 +103,39 @@ export default function BuilderPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
-        keepalive: true
+        keepalive: true,
       }).catch(e => console.error("Save on exit failed", e));
     }
-  };
-
-  const [stepIdx, setStepIdx] = useState(0);
-  const [zoom, setZoom] = useState(60);
-  // On mobile, preview panel is hidden by default to boost FCP/LCP
-  const [showPreviewOnMobile, setShowPreviewOnMobile] = useState(false);
-  const [isDownloading, setIsDownloading] = useState(false);
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
-  const [feedbackRating, setFeedbackRating] = useState(0);
-  const [feedbackSubmitted, setFeedbackSubmitted] = useState(false);
-  const searchParams = useSearchParams();
-
-  useEffect(() => {
-    // Restore step
-    const savedStep = sessionStorage.getItem("builderCurrentStep");
-    if (savedStep !== null) {
-      const parsed = parseInt(savedStep, 10);
-      if (!isNaN(parsed) && parsed >= 0 && parsed < STEPS.length) {
-        setStepIdx(parsed);
-      }
-    }
-
-    const w = window.innerWidth;
-    if (w < 640) setZoom(40);
-    else if (w < 1024) setZoom(50);
-  }, []);
-
-  // Auto-trigger download after returning from login
-  const hasAutoDownloaded = useRef(false);
-  useEffect(() => {
-    if (
-      status === "authenticated" &&
-      searchParams.get("action") === "download" &&
-      !hasAutoDownloaded.current
-    ) {
-      hasAutoDownloaded.current = true;
-      // Jump to final step and trigger download
-      setStepIdx(STEPS.length - 1);
-      // Small delay to let preview render
-      setTimeout(() => handleDownloadPdf(), 1200);
-      // Clean the URL
-      window.history.replaceState(null, "", "/builder");
-    }
-  }, [status, searchParams]);
-
-  useEffect(() => {
-    sessionStorage.setItem("builderCurrentStep", stepIdx.toString());
-  }, [stepIdx]);
-
+  }, [resumeData, databaseId]);
 
   const accentColor = resumeData.accentColor ?? "#0d9488";
 
-  const handleDownloadPdf = async () => {
-    if (status !== "authenticated") {
-      router.push("/login?callbackUrl=/builder%3Faction%3Ddownload");
-      return;
-    }
-
-    if (isDownloading) return;
-    if (!printRef.current) return;
-
-    setIsDownloading(true);
-    try {
-      const element = printRef.current;
-      await new Promise(r => setTimeout(r, 500));
-
-      const domtoimage = (await import("dom-to-image-more")).default;
-      const jsPDF = (await import("jspdf")).default;
-
-      const scale = 2;
-      const imgData = await domtoimage.toJpeg(element, {
-        quality: 1.0,
-        bgcolor: "#ffffff",
-        width: element.clientWidth * scale,
-        height: element.clientHeight * scale,
-        style: {
-          transform: `scale(${scale})`,
-          transformOrigin: 'top left',
-          width: `${element.clientWidth}px`,
-          height: `${element.clientHeight}px`
-        }
-      });
-
-      const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pageHeight = pdf.internal.pageSize.getHeight();
-      const imgHeight = (element.clientHeight * pdfWidth) / element.clientWidth;
-
-      let heightLeft = imgHeight;
-      let position = 0;
-
-      pdf.addImage(imgData, "JPEG", 0, position, pdfWidth, imgHeight);
-      heightLeft -= pageHeight;
-
-      while (heightLeft > 0) {
-        position = position - pageHeight;
-        pdf.addPage();
-        pdf.addImage(imgData, "JPEG", 0, position, pdfWidth, imgHeight);
-        heightLeft -= pageHeight;
-      }
-
-      const filename = resumeData.personalInfo?.fullName
-        ? `${resumeData.personalInfo.fullName.replace(/\s+/g, '_')}_Resume.pdf`
-        : 'Resume.pdf';
-
-      pdf.save(filename);
-      // Show success + feedback modal after download
-      setShowSuccessModal(true);
-    } catch (error: any) {
-      console.error("PDF generation error:", error);
-      alert(`Download failed: ${error.message || 'Unknown error'}`);
-    } finally {
-      setIsDownloading(false);
-    }
-  };
-
-  const submitFeedback = (rating: number) => {
-    setFeedbackRating(rating);
-    setFeedbackSubmitted(true);
-    setTimeout(() => setShowSuccessModal(false), 1800);
-  };
-
-  const templatesList = [
-    "monochrome", "ats-classic", "aether", "modern", "developer", "executive",
-    "ats-minimal", "corporate", "creative-clean", "academic", "two-column",
-    "graduate", "finance", "marketing", "simple-bw", "startup-leader", "elegant-serif"
-  ];
-  const cycleTemplate = useCallback((dir: 1 | -1) => {
-    const i = templatesList.indexOf(resumeData.templateId);
-    let n = i + dir;
-    if (n >= templatesList.length) n = 0;
-    if (n < 0) n = templatesList.length - 1;
-    updateTemplateId(templatesList[n]);
-  }, [resumeData.templateId, updateTemplateId]);
-
-  const scaledW = Math.round(A4_W * zoom / 100);
-  const scaledH = Math.round(1056 * zoom / 100);
-
-  const goNext = useCallback(() => {
-    if (stepIdx < STEPS.length - 1) {
-      setStepIdx(s => s + 1);
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-  }, [stepIdx]);
-  const goPrev = useCallback(() => {
-    if (stepIdx > 0) {
-      setStepIdx(s => s - 1);
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-  }, [stepIdx]);
-
-  const isStepValid = useCallback((index: number) => {
-    if (!resumeData) return false;
-    switch (index) {
-      case 0: return Object.values(resumeData.personalInfo || {}).some(v => v && String(v).trim() !== "");
-      case 1: return !!resumeData.summary?.trim();
-      case 2: return resumeData.experience && resumeData.experience.length > 0;
-      case 3: return resumeData.education && resumeData.education.length > 0;
-      case 4: return resumeData.skills && resumeData.skills.length > 0;
-      case 5: {
-        const opt = resumeData.optionalSections;
-        if (!opt) return false;
-        return (
-          (opt.projects?.length ?? 0) > 0 ||
-          (opt.certifications?.length ?? 0) > 0 ||
-          (opt.languages?.length ?? 0) > 0 ||
-          (opt.awards?.length ?? 0) > 0 ||
-          (opt.volunteer?.length ?? 0) > 0 ||
-          (opt.publications?.length ?? 0) > 0
-        );
-      }
-      case 6: return true; // ATS Match is optional
-      case 7: return true; // Finalize is always "valid" if they reach it
-      default: return false;
-    }
-  }, [resumeData]);
-
-
-
   const renderForm = () => {
     switch (STEPS[stepIdx].id) {
-      case "personal": return <PersonalInfoForm />;
-      case "summary": return <SummaryForm />;
-      case "experience": return (
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <ExperienceForm />
-        </div>
-      );
-      case "education": return <EducationForm />;
-      case "skills": return <SkillsForm />;
-      case "optional": return <OptionalForm />;
-      case "ats-match": return <AtsMatchStep />;
-      case "finalize": return <FinalizeStep onDownload={handleDownloadPdf} isDownloading={isDownloading} />;
-      default: return null;
+      case "personal":
+        return <PersonalInfoForm />;
+      case "summary":
+        return <SummaryForm />;
+      case "experience":
+        return (
+          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+            <ExperienceForm />
+          </div>
+        );
+      case "education":
+        return <EducationForm />;
+      case "skills":
+        return <SkillsForm />;
+      case "optional":
+        return <OptionalForm />;
+      case "ats-match":
+        return <AtsMatchStep />;
+      case "finalize":
+        return <FinalizeStep onDownload={handleDownloadPdf} isDownloading={isDownloading} />;
+      default:
+        return null;
     }
   };
-
-  const validStepsCount = STEPS.filter((_, idx) => isStepValid(idx)).length;
-  const pct = Math.round((validStepsCount / STEPS.length) * 100);
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f8fafc]" style={{ fontFamily: "Inter, Arial, system-ui, sans-serif" }}>
@@ -519,7 +146,12 @@ export default function BuilderPage() {
       {/* ── HEADER ── */}
       <header className="sticky top-0 z-40 bg-white border-b border-slate-200">
         <div className="mx-auto flex max-w-[1400px] items-center gap-4 px-4 py-3 sm:px-6">
-          <Link href="/" onClick={handleExit} prefetch={true} className="flex shrink-0 items-center gap-2 rounded-lg px-2 py-1.5 text-sm font-semibold text-slate-600 transition hover:bg-slate-100 hover:text-slate-900">
+          <Link
+            href="/"
+            onClick={handleExit}
+            prefetch={true}
+            className="flex shrink-0 items-center gap-2 rounded-lg px-2 py-1.5 text-sm font-semibold text-slate-600 transition hover:bg-slate-100 hover:text-slate-900"
+          >
             <ArrowLeft className="h-4 w-4" /> Exit
           </Link>
           <div className="min-w-0 flex-1">
@@ -527,7 +159,6 @@ export default function BuilderPage() {
             <p className="text-xs text-slate-400 font-medium">Step {stepIdx + 1} of {STEPS.length} • My Resume</p>
           </div>
           <div className="flex shrink-0 items-center gap-2">
-            {/* Preview toggle moved to tabs below stepper */}
             <AutoSaver />
           </div>
         </div>
@@ -631,9 +262,7 @@ export default function BuilderPage() {
             </div>
           </div>
 
-          {/* Right column – Live Preview
-              On mobile: visually hidden but kept in DOM for PDF capture
-              On desktop: always visible and sticky             */}
+          {/* Right column – Live Preview */}
           <div className={`lg:sticky lg:top-24 lg:h-fit ${showPreviewOnMobile ? "block" : "absolute opacity-0 pointer-events-none -z-50 lg:static lg:opacity-100 lg:pointer-events-auto lg:z-auto lg:block"}`}>
             <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
 
@@ -641,13 +270,13 @@ export default function BuilderPage() {
               <div className="mb-4 flex items-center justify-between">
                 <h2 className="text-lg font-bold tracking-tight text-slate-900">Live Preview</h2>
                 <div className="flex items-center gap-1">
-                  <button onClick={() => cycleTemplate(-1)} className="grid h-7 w-7 place-items-center rounded-md text-slate-400 transition hover:bg-slate-100">
+                  <button onClick={() => cycleTemplate(-1)} className="grid h-7 w-7 place-items-center rounded-md text-slate-400 transition hover:bg-slate-100" aria-label="Previous template">
                     <ChevronLeft className="h-4 w-4" />
                   </button>
                   <span className="px-1 text-xs font-semibold text-slate-500">
                     {templatesList.indexOf(resumeData.templateId) + 1} / {templatesList.length}
                   </span>
-                  <button onClick={() => cycleTemplate(1)} className="grid h-7 w-7 place-items-center rounded-md text-slate-400 transition hover:bg-slate-100">
+                  <button onClick={() => cycleTemplate(1)} className="grid h-7 w-7 place-items-center rounded-md text-slate-400 transition hover:bg-slate-100" aria-label="Next template">
                     <ChevronRight className="h-4 w-4" />
                   </button>
                 </div>
@@ -677,20 +306,21 @@ export default function BuilderPage() {
               {/* Zoom bar */}
               <div className="mb-3 flex items-center justify-between rounded-lg border border-slate-200 bg-slate-50/60 px-3 py-1.5">
                 <div className="flex items-center gap-1">
-                  <button onClick={() => setZoom(z => Math.max(30, z - 10))} className="grid h-7 w-7 place-items-center rounded-md text-slate-400 transition hover:bg-white">
+                  <button onClick={() => setZoom(z => Math.max(30, z - 10))} className="grid h-7 w-7 place-items-center rounded-md text-slate-400 transition hover:bg-white" aria-label="Zoom out">
                     <ZoomOut className="h-3.5 w-3.5" />
                   </button>
                   <select
                     value={zoom}
                     onChange={e => setZoom(Number(e.target.value))}
                     className="rounded-md border border-slate-200 bg-white px-2 py-1 text-xs font-semibold text-slate-700 focus:outline-none"
+                    aria-label="Zoom level"
                   >
                     {ZOOM_OPTIONS.map(v => <option key={v} value={v}>{v}%</option>)}
                   </select>
-                  <button onClick={() => setZoom(z => Math.min(100, z + 10))} className="grid h-7 w-7 place-items-center rounded-md text-slate-400 transition hover:bg-white">
+                  <button onClick={() => setZoom(z => Math.min(100, z + 10))} className="grid h-7 w-7 place-items-center rounded-md text-slate-400 transition hover:bg-white" aria-label="Zoom in">
                     <ZoomIn className="h-3.5 w-3.5" />
                   </button>
-                  <button onClick={() => setZoom(60)} className="grid h-7 w-7 place-items-center rounded-md text-slate-400 transition hover:bg-white">
+                  <button onClick={() => setZoom(60)} className="grid h-7 w-7 place-items-center rounded-md text-slate-400 transition hover:bg-white" aria-label="Reset zoom">
                     <RotateCcw className="h-3.5 w-3.5" />
                   </button>
                 </div>
@@ -725,93 +355,15 @@ export default function BuilderPage() {
       </footer>
 
       {/* ── Success + Feedback Modal ── */}
-      {showSuccessModal && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-          <div className="relative w-full max-w-md rounded-3xl bg-white shadow-2xl overflow-hidden animate-[scale-in_0.3s_ease-out]">
-            {/* Close */}
-            <button
-              onClick={() => setShowSuccessModal(false)}
-              className="absolute top-4 right-4 grid h-8 w-8 place-items-center rounded-full text-slate-400 hover:bg-slate-100 transition-colors z-10"
-            >
-              <X className="h-4 w-4" />
-            </button>
-
-            {/* Green top banner */}
-            <div className="bg-gradient-to-br from-emerald-500 to-teal-600 px-8 pt-10 pb-8 text-center text-white">
-              <div className="mx-auto mb-4 grid h-16 w-16 place-items-center rounded-full bg-white/20 ring-4 ring-white/30">
-                <Download className="h-8 w-8 text-white" />
-              </div>
-              <h2 className="text-2xl font-extrabold mb-1">Resume Downloaded! 🎉</h2>
-              <p className="text-emerald-100 text-sm font-medium">
-                Your CV is saved as a PDF — ready to send to employers!
-              </p>
-            </div>
-
-            {/* Feedback section */}
-            <div className="px-8 py-6 text-center">
-              {!feedbackSubmitted ? (
-                <>
-                  <p className="text-slate-800 font-bold text-base mb-1">How was your experience?</p>
-                  <p className="text-slate-500 text-sm mb-5">Your feedback helps us improve the builder.</p>
-
-                  {/* Star rating */}
-                  <div className="flex items-center justify-center gap-2 mb-6">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <button
-                        key={star}
-                        onClick={() => submitFeedback(star)}
-                        className="group transition-transform hover:scale-125 active:scale-110"
-                        aria-label={`${star} star`}
-                      >
-                        <Star
-                          className={`h-9 w-9 transition-colors ${
-                            star <= feedbackRating
-                              ? "fill-amber-400 text-amber-400"
-                              : "fill-slate-100 text-slate-200 group-hover:fill-amber-300 group-hover:text-amber-300"
-                          }`}
-                        />
-                      </button>
-                    ))}
-                  </div>
-
-                  <button
-                    onClick={() => setShowSuccessModal(false)}
-                    className="text-xs text-slate-400 hover:text-slate-600 underline transition-colors"
-                  >
-                    Skip feedback
-                  </button>
-                </>
-              ) : (
-                <div className="py-4 flex flex-col items-center gap-3">
-                  <div className="grid h-12 w-12 place-items-center rounded-full bg-emerald-50">
-                    <ThumbsUp className="h-6 w-6 text-emerald-500" />
-                  </div>
-                  <p className="font-bold text-slate-800">Thank you for your feedback!</p>
-                  <p className="text-sm text-slate-500">We appreciate you taking the time. 😊</p>
-                </div>
-              )}
-            </div>
-
-            {/* Actions */}
-            <div className="px-8 pb-7 flex flex-col gap-2.5">
-              <button
-                onClick={handleDownloadPdf}
-                disabled={isDownloading}
-                className="inline-flex items-center justify-center gap-2 w-full rounded-xl bg-slate-900 py-3 text-sm font-bold text-white hover:bg-black transition-colors disabled:opacity-60"
-              >
-                <Download className="h-4 w-4" />
-                Download Again
-              </button>
-              <button
-                onClick={() => { setShowSuccessModal(false); router.push("/dashboard"); }}
-                className="inline-flex items-center justify-center w-full rounded-xl bg-slate-100 py-3 text-sm font-bold text-slate-700 hover:bg-slate-200 transition-colors"
-              >
-                Go to Dashboard
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <DownloadSuccessModal
+        isOpen={showSuccessModal}
+        onClose={() => setShowSuccessModal(false)}
+        onDownloadAgain={handleDownloadPdf}
+        isDownloading={isDownloading}
+        feedbackRating={feedbackRating}
+        feedbackSubmitted={feedbackSubmitted}
+        onFeedbackSubmit={submitFeedback}
+      />
     </div>
   );
 }

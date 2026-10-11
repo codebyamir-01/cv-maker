@@ -8,9 +8,26 @@ export function CookieBanner() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const consent = localStorage.getItem("cookieConsent");
-    if (!consent) {
-      setIsVisible(true);
+    const checkConsent = () => {
+      const consent = localStorage.getItem("cookieConsent");
+      if (!consent) {
+        setIsVisible(true);
+      }
+    };
+
+    if (typeof window !== "undefined") {
+      type IdleCallbackWindow = Window & {
+        requestIdleCallback?: (callback: () => void, options?: { timeout: number }) => number;
+        cancelIdleCallback?: (handle: number) => void;
+      };
+      const win = window as IdleCallbackWindow;
+      if (typeof win.requestIdleCallback === "function") {
+        const handle = win.requestIdleCallback(checkConsent, { timeout: 2000 });
+        return () => win.cancelIdleCallback?.(handle);
+      } else {
+        const timer = setTimeout(checkConsent, 1200);
+        return () => clearTimeout(timer);
+      }
     }
   }, []);
 
@@ -26,7 +43,7 @@ export function CookieBanner() {
       <div className="mb-4 md:mb-0 md:mr-8 flex-1">
         <h3 className="text-sm font-bold text-slate-900 mb-1">We value your privacy</h3>
         <p className="text-sm text-slate-600">
-          We use cookies to enhance your browsing experience, serve personalized ads or content, and analyze our traffic. By clicking "Accept All", you consent to our use of cookies. Read more in our <Link href="/cookies" className="text-blue-600 underline hover:text-blue-700 underline-offset-2">Cookie Policy</Link> and <Link href="/privacy" className="text-blue-600 underline hover:text-blue-700 underline-offset-2">Privacy Policy</Link>.
+          We use cookies to enhance your browsing experience, serve personalized ads or content, and analyze our traffic. By clicking &quot;Accept All&quot;, you consent to our use of cookies. Read more in our <Link href="/cookies" className="text-blue-600 underline hover:text-blue-700 underline-offset-2">Cookie Policy</Link> and <Link href="/privacy" className="text-blue-600 underline hover:text-blue-700 underline-offset-2">Privacy Policy</Link>.
         </p>
       </div>
       <div className="flex gap-3 shrink-0">
