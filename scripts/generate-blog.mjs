@@ -28,13 +28,14 @@ const DEFAULT_TOPICS = [
 
 // Available blog banner images in /public/images/blog
 const AVAILABLE_IMAGES = [
+  "/images/blog/blog_product_manager.jpg",
+  "/images/blog/blog_software_engineer_realistic.jpg",
+  "/images/blog/blog_job_interview.jpg",
   "/images/blog/blog_ats_resume.png",
-  "/images/blog/blog_software_engineer.png",
   "/images/blog/blog_action_verbs.png",
   "/images/blog/blog_professional_summary.png",
   "/images/blog/blog_list_skills.png",
   "/images/blog/blog_cover_letter.png",
-  "/images/blog/blog_fresh_graduates.png",
   "/images/blog/blog_one_vs_two_page.png",
   "/images/blog/blog_employment_gaps.png",
   "/images/blog/blog_linkedin_profile.png",

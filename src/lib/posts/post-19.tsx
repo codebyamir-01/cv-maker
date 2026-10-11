@@ -14,8 +14,8 @@ export const post19: BlogPost = {
   author: "Sarah Jenkins",
   metaTitle: "Product Manager Resume Guide | Smart Resume Maker",
   metaDescription: "Build an interview-winning Product Manager resume for high-growth tech in 2026. Proven frameworks, metrics-driven bullets, and ATS strategies.",
-  bannerImage: "/images/blog/blog_fresh_graduates.png",
-  bannerAlt: "Product Manager analyzing digital analytics dashboards and roadmap documentation on a laptop",
+  bannerImage: "/images/blog/blog_product_manager.jpg",
+  bannerAlt: "Professional Product Manager in modern sunlit tech office working on laptop with roadmap notes",
   relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","quantifying-resume-accomplishments"],
   faqs: [
   {
