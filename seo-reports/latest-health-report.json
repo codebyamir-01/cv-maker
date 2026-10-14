@@ -1,13 +1,9 @@
 {
-  "timestamp": "2026-10-14T01:18:16.632Z",
+  "timestamp": "2026-10-14T01:22:53.514Z",
   "overallScore": 100,
   "totalBlogPosts": 22,
-  "activeModel": "gemini-flash-latest",
-  "lastPublishedPost": {
-    "id": 22,
-    "title": "Cybersecurity Resume Guide 2026: Skills, Certifications & ATS Tips",
-    "slug": "cybersecurity-resume-guide-2026"
-  },
+  "activeModel": "gemini-flash-latest (with 4-model fallback)",
+  "lastPublishedPost": null,
   "recommendations": [
     "Ensure backlink acquisition on top career forums.",
     "Monitor Core Web Vitals on /builder and /blog routes weekly.",

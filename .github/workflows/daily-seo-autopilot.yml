@@ -2,8 +2,9 @@ name: Daily SEO & Site Health Autopilot
 
 on:
   schedule:
-    # Runs daily at 06:00 UTC (11:00 AM PKT) completely in the cloud
-    - cron: '0 6 * * *'
+    # Runs at off-peak minutes: 06:17 UTC & 18:17 UTC (catch-up if GitHub delays morning run)
+    - cron: '17 6 * * *'
+    - cron: '17 18 * * *'
   workflow_dispatch: # Allows manual trigger from GitHub Actions dashboard anytime
 
 permissions:
