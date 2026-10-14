@@ -35,6 +35,47 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+
+  // 301 Permanent Redirects for legacy URLs reported by Google Search Console
+  async redirects() {
+    return [
+      {
+        source: "/blog/software-engineer-resume-format",
+        destination: "/blog/best-resume-format-software-engineers",
+        permanent: true,
+      },
+      {
+        source: "/blog/professional-summary-guide",
+        destination: "/blog/how-to-write-professional-summary",
+        permanent: true,
+      },
+      {
+        source: "/blog/linkedin-vs-resume",
+        destination: "/blog/linkedin-profile-vs-resume",
+        permanent: true,
+      },
+      {
+        source: "/blog/explain-employment-gaps",
+        destination: "/blog/how-to-explain-employment-gaps",
+        permanent: true,
+      },
+      {
+        source: "/blog/how-to-list-skills-resume",
+        destination: "/blog/how-to-list-skills-on-resume",
+        permanent: true,
+      },
+      {
+        source: "/blog/one-vs-two-page-resume",
+        destination: "/blog/one-page-vs-two-page-resume",
+        permanent: true,
+      },
+      {
+        source: "/blog/fresh-graduate-resume-tips",
+        destination: "/blog/resume-tips-for-fresh-graduates",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
