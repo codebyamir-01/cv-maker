@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-10-12T14:43:26.345Z",
+  "timestamp": "2026-10-14T01:18:16.632Z",
   "overallScore": 100,
-  "totalBlogPosts": 21,
+  "totalBlogPosts": 22,
   "activeModel": "gemini-flash-latest",
   "lastPublishedPost": {
-    "id": 21,
-    "title": "How to Showcase Remote Work & Global Experience on Your Resume",
-    "slug": "how-to-list-remote-work-global-experience-resume"
+    "id": 22,
+    "title": "Cybersecurity Resume Guide 2026: Skills, Certifications & ATS Tips",
+    "slug": "cybersecurity-resume-guide-2026"
   },
   "recommendations": [
     "Ensure backlink acquisition on top career forums.",
