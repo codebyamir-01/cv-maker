@@ -1,9 +1,13 @@
 {
-  "timestamp": "2026-10-14T01:22:53.514Z",
+  "timestamp": "2026-10-15T11:32:47.798Z",
   "overallScore": 100,
-  "totalBlogPosts": 22,
+  "totalBlogPosts": 23,
   "activeModel": "gemini-flash-latest (with 4-model fallback)",
-  "lastPublishedPost": null,
+  "lastPublishedPost": {
+    "id": 23,
+    "title": "How to Write a Career Change Resume in 2026 (With Examples)",
+    "slug": "how-to-write-a-career-change-resume-2026"
+  },
   "recommendations": [
     "Ensure backlink acquisition on top career forums.",
     "Monitor Core Web Vitals on /builder and /blog routes weekly.",
