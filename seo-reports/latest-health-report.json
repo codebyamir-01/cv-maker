@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-10-15T11:32:47.798Z",
+  "timestamp": "2026-10-16T11:29:47.395Z",
   "overallScore": 100,
-  "totalBlogPosts": 23,
+  "totalBlogPosts": 24,
   "activeModel": "gemini-flash-latest (with 4-model fallback)",
   "lastPublishedPost": {
-    "id": 23,
-    "title": "How to Write a Career Change Resume in 2026 (With Examples)",
-    "slug": "how-to-write-a-career-change-resume-2026"
+    "id": 24,
+    "title": "How to Tailor Your Resume to Any Job Description in 2026",
+    "slug": "how-to-tailor-resume-to-job-description-2026"
   },
   "recommendations": [
     "Ensure backlink acquisition on top career forums.",

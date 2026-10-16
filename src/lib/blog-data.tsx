@@ -1,3 +1,4 @@
+import { post24 } from "./posts/post-24";
 import { post23 } from "./posts/post-23";
 import { post22 } from "./posts/post-22";
 import { post21 } from "./posts/post-21";
@@ -24,6 +25,8 @@ import { post18 } from "./posts/post-18";
 
 import { post19 } from "./posts/post-19";
 export const BLOG_POSTS: BlogPost[] = [
+  post24,
+
   post23,
 
   post22,
