@@ -5,7 +5,7 @@
  * Below-the-fold sections are dynamically imported.
  */
 import Link from "next/link";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight, CheckCircle2, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Footer } from "@/components/layout/Footer";
 import { NavbarClient } from "@/components/layout/NavbarClient";
@@ -14,6 +14,10 @@ import nextDynamic from "next/dynamic";
 // Dynamically import ALL below-the-fold sections
 const TemplatesSection = nextDynamic(() => import("@/components/home/TemplatesSection"), {
   loading: () => <div className="py-32 bg-[#1e293b]" aria-hidden="true" />,
+});
+
+const DemoVideoSection = nextDynamic(() => import("@/components/home/DemoVideoSection"), {
+  loading: () => <div className="py-24 bg-slate-950" aria-hidden="true" />,
 });
 
 const AtsSection = nextDynamic(() => import("@/components/home/AtsSection"), {
@@ -84,11 +88,21 @@ export default function LandingPage() {
                   Start Building <ArrowRight className="ml-2 w-4 h-4" />
                 </Button>
               </Link>
+              <Link href="#demo">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="w-full sm:w-auto bg-slate-900/80 hover:bg-slate-800 text-slate-200 border border-slate-700/80 rounded-full px-8 h-13 text-base font-semibold transition-all hover:text-white flex items-center justify-center gap-2 group"
+                >
+                  <Play className="w-4 h-4 text-emerald-400 fill-emerald-400 group-hover:scale-110 transition-transform" />
+                  Watch 20s Demo
+                </Button>
+              </Link>
               <Link href="#templates">
                 <Button
                   size="lg"
                   variant="outline"
-                  className="w-full sm:w-auto bg-transparent hover:bg-slate-800 text-slate-300 border border-slate-700 rounded-full px-10 h-13 text-base font-semibold transition-colors hover:text-white"
+                  className="w-full sm:w-auto bg-transparent hover:bg-slate-800 text-slate-300 border border-slate-700 rounded-full px-8 h-13 text-base font-semibold transition-colors hover:text-white"
                 >
                   View Templates
                 </Button>
@@ -110,6 +124,10 @@ export default function LandingPage() {
         {/* ─── Below the fold — lazy loaded with content-visibility ────── */}
         <div className="cv-below-fold" id="templates">
           <TemplatesSection />
+        </div>
+
+        <div className="cv-below-fold">
+          <DemoVideoSection />
         </div>
 
         <div className="cv-below-fold">
