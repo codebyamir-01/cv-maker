@@ -8,6 +8,9 @@ import { authOptions } from "@/lib/auth";
 export const metadata: Metadata = {
   title: "Terms of Service — CV Maker",
   description: "Read our Terms of Service.",
+  alternates: {
+    canonical: "https://www.smartresumemaker.com/terms",
+  },
 };
 
 export default async function TermsPage() {

@@ -8,6 +8,9 @@ import { authOptions } from "@/lib/auth";
 export const metadata: Metadata = {
   title: "Cookie Policy — CV Maker",
   description: "Read our Cookie Policy.",
+  alternates: {
+    canonical: "https://www.smartresumemaker.com/cookies",
+  },
 };
 
 export default async function CookiesPage() {

@@ -10,6 +10,9 @@ import TemplatesGrid from "@/components/templates/TemplatesGrid";
 export const metadata: Metadata = {
   title: "Resume Templates — CV Maker",
   description: "Browse professional, ATS-friendly resume templates.",
+  alternates: {
+    canonical: "https://www.smartresumemaker.com/templates",
+  },
 };
 
 const DUMMY_DATA = {

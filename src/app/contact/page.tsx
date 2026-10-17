@@ -8,6 +8,9 @@ import { SupportForm } from "@/components/support/SupportForm";
 export const metadata: Metadata = {
   title: "Contact Us — CV Maker",
   description: "Get in touch with the CV Maker team. We're here to help with your resume questions, feedback, or support needs.",
+  alternates: {
+    canonical: "https://www.smartresumemaker.com/contact",
+  },
 };
 
 export default function ContactPage() {

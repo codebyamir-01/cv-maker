@@ -6,6 +6,9 @@ import { CheckCircle2, ShieldCheck, FileText, Users, Award } from "lucide-react"
 export const metadata: Metadata = {
   title: "About Us & Editorial Policy | Smart Resume Maker",
   description: "Learn about the team behind Smart Resume Maker. We are dedicated to providing free, ATS-friendly resume tools reviewed by Certified Professional Resume Writers (CPRW).",
+  alternates: {
+    canonical: "https://www.smartresumemaker.com/about",
+  },
 };
 
 export default function AboutPage() {

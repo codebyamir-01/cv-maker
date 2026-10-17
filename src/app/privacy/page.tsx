@@ -8,6 +8,9 @@ import { authOptions } from "@/lib/auth";
 export const metadata: Metadata = {
   title: "Privacy Policy — CV Maker",
   description: "Read our Privacy Policy.",
+  alternates: {
+    canonical: "https://www.smartresumemaker.com/privacy",
+  },
 };
 
 export default async function PrivacyPage() {

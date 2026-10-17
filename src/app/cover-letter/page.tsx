@@ -6,6 +6,9 @@ import { CoverLetterClient } from "@/components/cover-letter/CoverLetterClient";
 export const metadata: Metadata = {
   title: "AI Cover Letter Generator | 1-Click Builder | Smart Resume Maker",
   description: "Instantly generate a highly personalized, ATS-friendly cover letter using your resume and a job description. Powered by advanced AI.",
+  alternates: {
+    canonical: "https://www.smartresumemaker.com/cover-letter",
+  },
 };
 
 export default function CoverLetterPage() {

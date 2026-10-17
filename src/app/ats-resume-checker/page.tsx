@@ -6,6 +6,9 @@ import { AtsCheckerClient } from "@/components/ats-checker/AtsCheckerClient";
 export const metadata: Metadata = {
   title: "Free ATS Resume Checker & Scanner | Smart Resume Maker",
   description: "Scan your resume against any job description for free. Get an instant ATS match score, find missing keywords, and learn how to beat Applicant Tracking Systems.",
+  alternates: {
+    canonical: "https://www.smartresumemaker.com/ats-resume-checker",
+  },
 };
 
 export default function AtsResumeCheckerPage() {
