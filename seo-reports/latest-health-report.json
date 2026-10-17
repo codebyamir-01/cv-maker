@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-10-16T11:29:47.395Z",
+  "timestamp": "2026-10-17T10:47:40.725Z",
   "overallScore": 100,
-  "totalBlogPosts": 24,
+  "totalBlogPosts": 25,
   "activeModel": "gemini-flash-latest (with 4-model fallback)",
   "lastPublishedPost": {
-    "id": 24,
-    "title": "How to Tailor Your Resume to Any Job Description in 2026",
-    "slug": "how-to-tailor-resume-to-job-description-2026"
+    "id": 25,
+    "title": "Executive Resume Guide 2026: C-Suite Formats & Metrics",
+    "slug": "executive-resume-guide-2026-c-suite-examples"
   },
   "recommendations": [
     "Ensure backlink acquisition on top career forums.",
