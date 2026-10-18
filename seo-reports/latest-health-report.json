@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-10-17T10:47:40.725Z",
+  "timestamp": "2026-10-18T11:09:25.711Z",
   "overallScore": 100,
-  "totalBlogPosts": 25,
+  "totalBlogPosts": 26,
   "activeModel": "gemini-flash-latest (with 4-model fallback)",
   "lastPublishedPost": {
-    "id": 25,
-    "title": "Executive Resume Guide 2026: C-Suite Formats & Metrics",
-    "slug": "executive-resume-guide-2026-c-suite-examples"
+    "id": 26,
+    "title": "How to Beat Workday ATS in 2026: Master Resume Formatting Guide",
+    "slug": "how-to-beat-workday-ats-2026-guide"
   },
   "recommendations": [
     "Ensure backlink acquisition on top career forums.",
