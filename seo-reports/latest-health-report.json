@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-10-19T13:20:21.271Z",
+  "timestamp": "2026-10-20T11:44:51.798Z",
   "overallScore": 100,
-  "totalBlogPosts": 27,
+  "totalBlogPosts": 28,
   "activeModel": "gemini-flash-latest (with 4-model fallback)",
   "lastPublishedPost": {
-    "id": 27,
-    "title": "Can ATS Detect AI Resumes in 2026? How Recruiters Screen ChatGPT",
-    "slug": "can-ats-detect-ai-resumes-2026"
+    "id": 28,
+    "title": "How Long Should a Resume Be in 2026? One vs Two Page Guide",
+    "slug": "resume-length-one-page-vs-two-page-2026"
   },
   "recommendations": [
     "Ensure backlink acquisition on top career forums.",
