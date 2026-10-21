@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-10-20T11:44:51.798Z",
+  "timestamp": "2026-10-21T11:52:56.515Z",
   "overallScore": 100,
-  "totalBlogPosts": 28,
+  "totalBlogPosts": 29,
   "activeModel": "gemini-flash-latest (with 4-model fallback)",
   "lastPublishedPost": {
-    "id": 28,
-    "title": "How Long Should a Resume Be in 2026? One vs Two Page Guide",
-    "slug": "resume-length-one-page-vs-two-page-2026"
+    "id": 29,
+    "title": "How to List AI Skills on Your Resume in 2026 (With Examples)",
+    "slug": "how-to-list-ai-skills-on-resume-2026"
   },
   "recommendations": [
     "Ensure backlink acquisition on top career forums.",
