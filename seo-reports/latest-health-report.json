@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-10-21T11:52:56.515Z",
+  "timestamp": "2026-10-22T12:03:37.922Z",
   "overallScore": 100,
-  "totalBlogPosts": 29,
+  "totalBlogPosts": 30,
   "activeModel": "gemini-flash-latest (with 4-model fallback)",
   "lastPublishedPost": {
-    "id": 29,
-    "title": "How to List AI Skills on Your Resume in 2026 (With Examples)",
-    "slug": "how-to-list-ai-skills-on-resume-2026"
+    "id": 30,
+    "title": "What Is a Good ATS Resume Score? (And How to Test Yours in 2026)",
+    "slug": "what-is-a-good-ats-resume-score-2026"
   },
   "recommendations": [
     "Ensure backlink acquisition on top career forums.",
