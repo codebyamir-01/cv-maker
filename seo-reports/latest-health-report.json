@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-10-22T12:03:37.922Z",
+  "timestamp": "2026-10-23T11:45:00.948Z",
   "overallScore": 100,
-  "totalBlogPosts": 30,
+  "totalBlogPosts": 31,
   "activeModel": "gemini-flash-latest (with 4-model fallback)",
   "lastPublishedPost": {
-    "id": 30,
-    "title": "What Is a Good ATS Resume Score? (And How to Test Yours in 2026)",
-    "slug": "what-is-a-good-ats-resume-score-2026"
+    "id": 31,
+    "title": "Data Science Resume Guide 2026: Skills, Projects & ATS Tips",
+    "slug": "data-science-resume-guide-2026"
   },
   "recommendations": [
     "Ensure backlink acquisition on top career forums.",
