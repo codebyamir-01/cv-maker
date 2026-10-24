@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-10-23T11:45:00.948Z",
+  "timestamp": "2026-10-24T11:12:47.768Z",
   "overallScore": 100,
-  "totalBlogPosts": 31,
+  "totalBlogPosts": 32,
   "activeModel": "gemini-flash-latest (with 4-model fallback)",
   "lastPublishedPost": {
-    "id": 31,
-    "title": "Data Science Resume Guide 2026: Skills, Projects & ATS Tips",
-    "slug": "data-science-resume-guide-2026"
+    "id": 32,
+    "title": "Beat Greenhouse ATS in 2026: Formatting Rules & Keywords",
+    "slug": "how-to-beat-greenhouse-ats-2026"
   },
   "recommendations": [
     "Ensure backlink acquisition on top career forums.",
