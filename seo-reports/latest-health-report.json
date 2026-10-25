@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-10-24T11:12:47.768Z",
+  "timestamp": "2026-10-25T11:38:21.438Z",
   "overallScore": 100,
-  "totalBlogPosts": 32,
+  "totalBlogPosts": 33,
   "activeModel": "gemini-flash-latest (with 4-model fallback)",
   "lastPublishedPost": {
-    "id": 32,
-    "title": "Beat Greenhouse ATS in 2026: Formatting Rules & Keywords",
-    "slug": "how-to-beat-greenhouse-ats-2026"
+    "id": 33,
+    "title": "PDF vs Word for ATS: Which Resume File Format Wins in 2026?",
+    "slug": "pdf-vs-word-ats-resume-format-2026"
   },
   "recommendations": [
     "Ensure backlink acquisition on top career forums.",
