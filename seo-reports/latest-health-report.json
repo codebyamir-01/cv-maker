@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-10-25T11:38:21.438Z",
+  "timestamp": "2026-10-26T13:12:47.486Z",
   "overallScore": 100,
-  "totalBlogPosts": 33,
+  "totalBlogPosts": 34,
   "activeModel": "gemini-flash-latest (with 4-model fallback)",
   "lastPublishedPost": {
-    "id": 33,
-    "title": "PDF vs Word for ATS: Which Resume File Format Wins in 2026?",
-    "slug": "pdf-vs-word-ats-resume-format-2026"
+    "id": 34,
+    "title": "One-Page vs. Two-Page Resume 2026: What Recruiters ACTUALLY Prefer",
+    "slug": "one-page-vs-two-page-resume-2026"
   },
   "recommendations": [
     "Ensure backlink acquisition on top career forums.",
