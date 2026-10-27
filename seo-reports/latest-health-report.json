@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-10-26T13:12:47.486Z",
+  "timestamp": "2026-10-27T12:38:24.294Z",
   "overallScore": 100,
-  "totalBlogPosts": 34,
+  "totalBlogPosts": 35,
   "activeModel": "gemini-flash-latest (with 4-model fallback)",
   "lastPublishedPost": {
-    "id": 34,
-    "title": "One-Page vs. Two-Page Resume 2026: What Recruiters ACTUALLY Prefer",
-    "slug": "one-page-vs-two-page-resume-2026"
+    "id": 35,
+    "title": "How Many Pages Should a Resume Be in 2026? 1 vs 2 Page Guide",
+    "slug": "how-many-pages-should-a-resume-be-2026"
   },
   "recommendations": [
     "Ensure backlink acquisition on top career forums.",
