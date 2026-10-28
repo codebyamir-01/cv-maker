@@ -1,11 +1,11 @@
 {
-  "timestamp": "2026-10-27T12:38:24.294Z",
+  "timestamp": "2026-10-28T13:00:43.457Z",
   "overallScore": 100,
-  "totalBlogPosts": 35,
+  "totalBlogPosts": 36,
   "activeModel": "gemini-flash-latest (with 4-model fallback)",
   "lastPublishedPost": {
-    "id": 35,
-    "title": "How Many Pages Should a Resume Be in 2026? 1 vs 2 Page Guide",
+    "id": 36,
+    "title": "How Many Pages Should a Resume Be in 2026? 1 vs. 2 Pages",
     "slug": "how-many-pages-should-a-resume-be-2026"
   },
   "recommendations": [
