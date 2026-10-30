@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-10-29T13:19:36.120Z",
+  "timestamp": "2026-10-30T13:06:46.823Z",
   "overallScore": 100,
-  "totalBlogPosts": 37,
+  "totalBlogPosts": 38,
   "activeModel": "gemini-flash-latest (with 4-model fallback)",
   "lastPublishedPost": {
-    "id": 37,
-    "title": "Data Science Resume Guide 2026: Portfolios, Stacks & ATS Tips",
-    "slug": "data-science-resume-guide-2026"
+    "id": 38,
+    "title": "One-Page vs. Two-Page Resume in 2026: When Is 2 Pages Acceptable?",
+    "slug": "one-page-vs-two-page-resume-2026"
   },
   "recommendations": [
     "Ensure backlink acquisition on top career forums.",
