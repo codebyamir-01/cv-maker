@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-10-30T13:06:46.823Z",
+  "timestamp": "2026-10-31T12:43:30.624Z",
   "overallScore": 100,
-  "totalBlogPosts": 38,
+  "totalBlogPosts": 39,
   "activeModel": "gemini-flash-latest (with 4-model fallback)",
   "lastPublishedPost": {
-    "id": 38,
-    "title": "One-Page vs. Two-Page Resume in 2026: When Is 2 Pages Acceptable?",
-    "slug": "one-page-vs-two-page-resume-2026"
+    "id": 39,
+    "title": "Are Two-Column Resumes ATS-Friendly in 2026? Parsing Tested",
+    "slug": "are-two-column-resumes-ats-friendly-2026"
   },
   "recommendations": [
     "Ensure backlink acquisition on top career forums.",
