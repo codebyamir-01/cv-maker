@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-10-31T12:43:30.624Z",
+  "timestamp": "2026-11-01T13:32:55.234Z",
   "overallScore": 100,
-  "totalBlogPosts": 39,
+  "totalBlogPosts": 40,
   "activeModel": "gemini-flash-latest (with 4-model fallback)",
   "lastPublishedPost": {
-    "id": 39,
-    "title": "Are Two-Column Resumes ATS-Friendly in 2026? Parsing Tested",
-    "slug": "are-two-column-resumes-ats-friendly-2026"
+    "id": 40,
+    "title": "Data Science Resume Guide 2026: Skills, Projects & ATS Keywords",
+    "slug": "data-science-resume-guide-2026-skills-portfolio-ats-keywords"
   },
   "recommendations": [
     "Ensure backlink acquisition on top career forums.",
