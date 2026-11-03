@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-11-02T15:59:14.602Z",
+  "timestamp": "2026-11-03T01:15:02.108Z",
   "overallScore": 100,
-  "totalBlogPosts": 41,
+  "totalBlogPosts": 42,
   "activeModel": "gemini-flash-latest (with 4-model fallback)",
   "lastPublishedPost": {
-    "id": 41,
-    "title": "How to Put AI Skills on Your Resume in 2026 (Examples for Any Job)",
-    "slug": "how-to-put-ai-skills-on-resume-2026"
+    "id": 42,
+    "title": "Data Scientist Resume Guide 2026: Projects, Skills & ATS Tips",
+    "slug": "data-scientist-resume-guide-2026"
   },
   "recommendations": [
     "Ensure backlink acquisition on top career forums.",
