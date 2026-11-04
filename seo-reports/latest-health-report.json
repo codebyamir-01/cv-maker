@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-11-03T01:15:02.108Z",
+  "timestamp": "2026-11-04T14:38:31.993Z",
   "overallScore": 100,
-  "totalBlogPosts": 42,
+  "totalBlogPosts": 43,
   "activeModel": "gemini-flash-latest (with 4-model fallback)",
   "lastPublishedPost": {
-    "id": 42,
-    "title": "Data Scientist Resume Guide 2026: Projects, Skills & ATS Tips",
-    "slug": "data-scientist-resume-guide-2026"
+    "id": 43,
+    "title": "How to Put Freelance & Contract Work on Resume (2026)",
+    "slug": "how-to-put-freelance-contract-work-on-resume"
   },
   "recommendations": [
     "Ensure backlink acquisition on top career forums.",
