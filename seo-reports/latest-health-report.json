@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-11-04T14:38:31.993Z",
+  "timestamp": "2026-11-05T14:43:52.025Z",
   "overallScore": 100,
-  "totalBlogPosts": 43,
+  "totalBlogPosts": 44,
   "activeModel": "gemini-flash-latest (with 4-model fallback)",
   "lastPublishedPost": {
-    "id": 43,
-    "title": "How to Put Freelance & Contract Work on Resume (2026)",
-    "slug": "how-to-put-freelance-contract-work-on-resume"
+    "id": 44,
+    "title": "Data Analyst Resume Guide 2026: Projects, Skills & ATS Examples",
+    "slug": "data-analyst-resume-guide-2026"
   },
   "recommendations": [
     "Ensure backlink acquisition on top career forums.",
