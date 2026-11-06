@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-11-05T14:43:52.025Z",
+  "timestamp": "2026-11-06T14:27:24.320Z",
   "overallScore": 100,
-  "totalBlogPosts": 44,
+  "totalBlogPosts": 45,
   "activeModel": "gemini-flash-latest (with 4-model fallback)",
   "lastPublishedPost": {
-    "id": 44,
-    "title": "Data Analyst Resume Guide 2026: Projects, Skills & ATS Examples",
-    "slug": "data-analyst-resume-guide-2026"
+    "id": 45,
+    "title": "Beat AI Resume Screeners: Smart Strategies Beyond Keywords",
+    "slug": "optimizing-resume-for-ai-screening-beyond-keywords"
   },
   "recommendations": [
     "Ensure backlink acquisition on top career forums.",
