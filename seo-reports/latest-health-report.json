@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-11-06T14:27:24.320Z",
+  "timestamp": "2026-11-07T13:09:42.537Z",
   "overallScore": 100,
-  "totalBlogPosts": 45,
+  "totalBlogPosts": 46,
   "activeModel": "gemini-flash-latest (with 4-model fallback)",
   "lastPublishedPost": {
-    "id": 45,
-    "title": "Beat AI Resume Screeners: Smart Strategies Beyond Keywords",
-    "slug": "optimizing-resume-for-ai-screening-beyond-keywords"
+    "id": 46,
+    "title": "PDF vs. Word for ATS: Which Resume Format Wins in 2026?",
+    "slug": "pdf-vs-word-ats-resume-format-2026"
   },
   "recommendations": [
     "Ensure backlink acquisition on top career forums.",
