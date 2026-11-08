@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-11-07T13:09:42.537Z",
-  "overallScore": 100,
-  "totalBlogPosts": 46,
+  "timestamp": "2026-11-08T13:46:35.008Z",
+  "overallScore": 98,
+  "totalBlogPosts": 47,
   "activeModel": "gemini-flash-latest (with 4-model fallback)",
   "lastPublishedPost": {
-    "id": 46,
-    "title": "PDF vs. Word for ATS: Which Resume Format Wins in 2026?",
-    "slug": "pdf-vs-word-ats-resume-format-2026"
+    "id": 47,
+    "title": "Data Scientist Resume Guide 2026: Skills, Projects & ATS Tips",
+    "slug": "data-scientist-resume-guide-2026"
   },
   "recommendations": [
     "Ensure backlink acquisition on top career forums.",
