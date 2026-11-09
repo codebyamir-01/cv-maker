@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-11-08T13:46:35.008Z",
+  "timestamp": "2026-11-09T16:29:35.322Z",
   "overallScore": 98,
-  "totalBlogPosts": 47,
+  "totalBlogPosts": 48,
   "activeModel": "gemini-flash-latest (with 4-model fallback)",
   "lastPublishedPost": {
-    "id": 47,
-    "title": "Data Scientist Resume Guide 2026: Skills, Projects & ATS Tips",
-    "slug": "data-scientist-resume-guide-2026"
+    "id": 48,
+    "title": "FinTech Product Manager Resume Guide for 2026 Scale-Ups",
+    "slug": "fintech-product-manager-resume-guide-for-2026-scale-ups"
   },
   "recommendations": [
     "Ensure backlink acquisition on top career forums.",
