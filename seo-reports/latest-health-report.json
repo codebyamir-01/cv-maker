@@ -1,10 +1,10 @@
 {
-  "timestamp": "2026-11-10T01:33:26.051Z",
-  "overallScore": 96,
-  "totalBlogPosts": 49,
+  "timestamp": "2026-11-11T14:26:48.160Z",
+  "overallScore": 94,
+  "totalBlogPosts": 50,
   "activeModel": "gemini-flash-latest (with 4-model fallback)",
   "lastPublishedPost": {
-    "id": 49,
+    "id": 50,
     "title": "Executive Resume Writing: How to Showcase 7-Figure P&L Growth",
     "slug": "executive-resume-writing-how-to-showcase-7-figure-p-l-growth"
   },
