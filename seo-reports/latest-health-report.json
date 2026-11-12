@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-11-11T14:26:48.160Z",
-  "overallScore": 94,
-  "totalBlogPosts": 50,
+  "timestamp": "2026-11-12T00:45:28.436Z",
+  "overallScore": 92,
+  "totalBlogPosts": 51,
   "activeModel": "gemini-flash-latest (with 4-model fallback)",
   "lastPublishedPost": {
-    "id": 50,
-    "title": "Executive Resume Writing: How to Showcase 7-Figure P&L Growth",
-    "slug": "executive-resume-writing-how-to-showcase-7-figure-p-l-growth"
+    "id": 51,
+    "title": "Data Analyst to Data Scientist: Resume Transition Blueprint",
+    "slug": "data-analyst-to-data-scientist-resume-transition-blueprint"
   },
   "recommendations": [
     "Ensure backlink acquisition on top career forums.",
