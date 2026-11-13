@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-11-12T00:45:28.436Z",
-  "overallScore": 92,
-  "totalBlogPosts": 51,
+  "timestamp": "2026-11-13T14:38:55.095Z",
+  "overallScore": 90,
+  "totalBlogPosts": 52,
   "activeModel": "gemini-flash-latest (with 4-model fallback)",
   "lastPublishedPost": {
-    "id": 51,
-    "title": "Data Analyst to Data Scientist: Resume Transition Blueprint",
-    "slug": "data-analyst-to-data-scientist-resume-transition-blueprint"
+    "id": 52,
+    "title": "How to Write an ATS-Proof Healthcare & Nursing Resume in 2026",
+    "slug": "how-to-write-an-ats-proof-healthcare-nursing-resume-in-2026"
   },
   "recommendations": [
     "Ensure backlink acquisition on top career forums.",
