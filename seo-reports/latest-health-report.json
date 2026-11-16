@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-11-15T13:58:47.343Z",
+  "timestamp": "2026-11-16T15:51:01.071Z",
   "overallScore": 90,
-  "totalBlogPosts": 54,
+  "totalBlogPosts": 55,
   "activeModel": "gemini-flash-latest (with 4-model fallback)",
   "lastPublishedPost": {
-    "id": 54,
-    "title": "Data Analyst to Data Scientist: Resume Transition Blueprint",
-    "slug": "data-analyst-to-data-scientist-resume-transition-blueprint"
+    "id": 55,
+    "title": "DevOps & Platform Engineering Resume: Kubernetes & Cloud Architecture",
+    "slug": "devops-platform-engineering-resume-kubernetes-cloud-architecture"
   },
   "recommendations": [
     "Ensure backlink acquisition on top career forums.",
