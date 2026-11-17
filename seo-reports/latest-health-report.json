@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-11-16T15:51:01.071Z",
+  "timestamp": "2026-11-17T01:53:20.501Z",
   "overallScore": 90,
-  "totalBlogPosts": 55,
+  "totalBlogPosts": 56,
   "activeModel": "gemini-flash-latest (with 4-model fallback)",
   "lastPublishedPost": {
-    "id": 55,
-    "title": "DevOps & Platform Engineering Resume: Kubernetes & Cloud Architecture",
-    "slug": "devops-platform-engineering-resume-kubernetes-cloud-architecture"
+    "id": 56,
+    "title": "How to Write an ATS-Proof Healthcare & Nursing Resume in 2026",
+    "slug": "how-to-write-an-ats-proof-healthcare-nursing-resume-in-2026"
   },
   "recommendations": [
     "Ensure backlink acquisition on top career forums.",
