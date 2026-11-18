@@ -1,10 +1,10 @@
 {
-  "timestamp": "2026-11-17T01:53:20.501Z",
+  "timestamp": "2026-11-18T00:59:30.620Z",
   "overallScore": 90,
-  "totalBlogPosts": 56,
+  "totalBlogPosts": 57,
   "activeModel": "gemini-flash-latest (with 4-model fallback)",
   "lastPublishedPost": {
-    "id": 56,
+    "id": 57,
     "title": "How to Write an ATS-Proof Healthcare & Nursing Resume in 2026",
     "slug": "how-to-write-an-ats-proof-healthcare-nursing-resume-in-2026"
   },
