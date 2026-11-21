@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-11-20T00:38:31.513Z",
+  "timestamp": "2026-11-21T00:00:58.527Z",
   "overallScore": 90,
-  "totalBlogPosts": 59,
+  "totalBlogPosts": 60,
   "activeModel": "gemini-flash-latest (with 4-model fallback)",
   "lastPublishedPost": {
-    "id": 59,
-    "title": "FinTech Product Manager Resume Guide for 2026 Scale-Ups",
-    "slug": "fintech-product-manager-resume-guide-for-2026-scale-ups"
+    "id": 60,
+    "title": "Executive Resume Writing: How to Showcase 7-Figure P&L Growth",
+    "slug": "executive-resume-writing-how-to-showcase-7-figure-p-l-growth"
   },
   "recommendations": [
     "Ensure backlink acquisition on top career forums.",
