@@ -59,8 +59,8 @@ export const RESUME_EXAMPLES: ResumeExample[] = [
   {
     slug: 'student-resume',
     role: 'College Student',
-    title: 'College Student Resume Example & Guide',
-    description: 'Writing a resume as a student with no experience? Focus on your education, projects, and extracurriculars. Use this student resume example as a template.',
+    title: 'Student Resume Example With No Experience | Smart Resume Maker',
+    description: 'See a student resume example with a sample summary, project and volunteer achievement bullets, skills, and tips for writing a first resume without formal work experience.',
     recommendedTemplate: 'graduate',
     recommendedTemplateName: 'Graduate Starter',
     skills: ['Research & Analysis', 'Academic Writing', 'Public Speaking', 'Time Management', 'Team Collaboration', 'Problem Solving', 'Data Collection', 'Microsoft Office Suite'],

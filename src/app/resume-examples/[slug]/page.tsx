@@ -62,6 +62,11 @@ export default async function ResumeExampleDynamicPage({ params }: { params: Pro
             <p className="text-xl text-slate-600 mb-8 max-w-2xl mx-auto leading-relaxed">
               {example.description}
             </p>
+            {slug === "student-resume" && (
+              <p className="text-sm text-slate-600 mb-6 max-w-2xl mx-auto">
+                No formal work experience yet? Use class projects, volunteering, and part-time roles to show relevant skills. Keep only details that support the role you want. See our <Link className="text-blue-700 underline" href="/blog/one-page-vs-two-page-resume">one-page versus two-page guide</Link> before choosing a length.
+              </p>
+            )}
             <Link href={`/builder?t=${example.recommendedTemplate}`}>
               <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white rounded-full px-8 h-12 text-base font-semibold shadow-md transition-transform hover:scale-105">
                 Build this Resume Now <ArrowRight className="ml-2 w-4 h-4" />

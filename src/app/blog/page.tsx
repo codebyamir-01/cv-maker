@@ -84,6 +84,15 @@ export default function BlogPage() {
         </section>
 
         <div className="container mx-auto px-6 max-w-7xl">
+          <nav aria-label="Popular resume guides" className="mb-12 rounded-2xl border border-blue-100 bg-white p-6 md:p-8">
+            <h2 className="text-xl font-bold text-slate-900 mb-4">Start with a popular question</h2>
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4 text-sm font-semibold">
+              <Link className="text-blue-700 hover:underline" href="/blog/one-page-vs-two-page-resume">Can a resume be two pages?</Link>
+              <Link className="text-blue-700 hover:underline" href="/resume-examples/student-resume">Student resume example</Link>
+              <Link className="text-blue-700 hover:underline" href="/resume-summary-generator">Write a resume summary</Link>
+              <Link className="text-blue-700 hover:underline" href="/ats-resume-builder">Build an ATS-friendly resume</Link>
+            </div>
+          </nav>
           <BlogGrid categories={CATEGORIES} posts={POSTS} featuredPost={FEATURED} />
 
           {/* ── NEWSLETTER CTA ── */}

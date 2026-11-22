@@ -1,21 +1,6 @@
 import { MetadataRoute } from 'next';
 import { BLOG_POSTS } from '@/lib/blog-data';
-
-// All resume example slugs
-const EXAMPLE_SLUGS = [
-  'software-engineer',
-  'student-resume',
-  'fresh-graduate',
-  'teacher',
-  'sales-representative',
-  'marketing-specialist',
-  'project-manager',
-  'customer-support',
-  'data-analyst',
-  'graphic-designer',
-  'accountant',
-  'nurse-healthcare',
-];
+import { RESUME_EXAMPLES } from '@/lib/resume-examples-data';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.smartresumemaker.com';
@@ -23,91 +8,76 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
-      lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 1,
     },
     {
       url: `${baseUrl}/builder`,
-      lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.95,
     },
     {
       url: `${baseUrl}/templates`,
-      lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.9,
     },
     {
       url: `${baseUrl}/blog`,
-      lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.9,
     },
     {
       url: `${baseUrl}/free-resume-builder`,
-      lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.9,
     },
     {
       url: `${baseUrl}/ats-resume-builder`,
-      lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.9,
     },
     {
       url: `${baseUrl}/ats-resume-checker`,
-      lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.9,
     },
     {
       url: `${baseUrl}/cover-letter`,
-      lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.88,
     },
     {
       url: `${baseUrl}/resume-summary-generator`,
-      lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.85,
     },
     {
       url: `${baseUrl}/resume-examples`,
-      lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.85,
     },
     {
       url: `${baseUrl}/contact`,
-      lastModified: new Date(),
       changeFrequency: 'yearly',
       priority: 0.5,
     },
     {
       url: `${baseUrl}/about`,
-      lastModified: new Date(),
       changeFrequency: 'yearly',
       priority: 0.4,
     },
     {
       url: `${baseUrl}/privacy`,
-      lastModified: new Date(),
       changeFrequency: 'yearly',
       priority: 0.3,
     },
     {
       url: `${baseUrl}/terms`,
-      lastModified: new Date(),
       changeFrequency: 'yearly',
       priority: 0.3,
     },
     {
       url: `${baseUrl}/cookies`,
-      lastModified: new Date(),
       changeFrequency: 'yearly',
       priority: 0.2,
     },
@@ -120,9 +90,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  const exampleRoutes: MetadataRoute.Sitemap = EXAMPLE_SLUGS.map((slug) => ({
-    url: `${baseUrl}/resume-examples/${slug}`,
-    lastModified: new Date(),
+  const exampleRoutes: MetadataRoute.Sitemap = RESUME_EXAMPLES.map((example) => ({
+    url: `${baseUrl}/resume-examples/${example.slug}`,
     changeFrequency: 'monthly' as const,
     priority: 0.8,
   }));

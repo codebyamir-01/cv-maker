@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Head from "next/head";
 import Link from "next/link";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -54,8 +53,6 @@ export default function ResumeSummaryGenerator() {
 
   return (
     <div className="flex flex-col min-h-screen bg-[#f8fafc]">
-      <title>Free AI Resume Summary Generator 2026 | Smart Resume Maker</title>
-      <meta name="description" content="Generate professional, ATS-friendly resume summaries in seconds with our free AI tool. No signup required." />
       
       <Navbar />
       

@@ -6,8 +6,8 @@ import { Footer } from "@/components/layout/Footer";
 import { RESUME_EXAMPLES } from "@/lib/resume-examples-data";
 
 export const metadata: Metadata = {
-  title: "Resume Examples & Samples for All Jobs in 2024",
-  description: "Browse our collection of professional resume examples for all industries. Get role-specific tips, action verbs, and recommended ATS templates to land your dream job.",
+  title: "Resume Examples for Students and Professionals | Smart Resume Maker",
+  description: "Explore student and job-specific resume examples with sample summaries, achievement bullets, skills, and formatting tips. Start with a free template.",
   alternates: {
     canonical: "https://www.smartresumemaker.com/resume-examples",
   }

@@ -1,18 +1,19 @@
 import React from 'react';
+import Link from 'next/link';
 import { BlogPost } from '../blog-types';
 
 export const post3: BlogPost = {
   id: 3,
-  title: "One Page vs. Two Page Resume: What Recruiters Actually Want",
-  excerpt: "The old rule was 'never exceed one page.' But is that still true today? Find out when you should use a one-page vs a two-page resume.",
+  title: "Can a Resume Be Two Pages? One vs. Two Page Guide",
+  excerpt: "Yes, a resume can be two pages when relevant experience needs the space. Use this guide to decide what belongs on each page.",
   category: "Resume Advice",
   categoryColor: "bg-purple-100 text-purple-700",
   readTime: "6 min read",
   date: "Jun 10, 2026",
   slug: "one-page-vs-two-page-resume",
   author: "Jerry",
-  metaTitle: "One Page vs. Two Page Resume: Which is Better? | CV Maker",
-  metaDescription: "Wondering if your resume should be one or two pages? Discover the modern rules of resume length and what recruiters actually prefer based on your experience.",
+  metaTitle: "Can a Resume Be Two Pages? One vs. Two Page Guide",
+  metaDescription: "Can a resume be two pages? Compare one-page and two-page resumes by experience level, learn what to keep on page one, and see when to cut content.",
   bannerImage: "/images/blog/blog_one_vs_two_page.png",
   bannerAlt: "One page versus two page resume comparison scale",
   relatedSlugs: ["resume-tips-for-fresh-graduates", "how-to-write-professional-summary"],
@@ -41,6 +42,9 @@ export const post3: BlogPost = {
         <li><strong>Entry-Level Professionals:</strong> If you have less than 5 to 7 years of experience, stick to one page.</li>
         <li><strong>Career Changers:</strong> If you are completely changing industries, your past experience might not be highly relevant. Keep it to one page focusing on transferable skills.</li>
       </ul>
+      <p>
+        If you are still studying, see our <Link href="/resume-examples/student-resume">student resume example</Link> for a focused education and projects layout.
+      </p>
 
       <h2>When to Use a Two-Page Resume</h2>
       <p>
@@ -51,6 +55,15 @@ export const post3: BlogPost = {
         <li><strong>Tech & Engineering Roles:</strong> Software engineers and IT professionals often need extra space to list numerous technical skills, certifications, and complex project details.</li>
         <li><strong>Academics & Researchers (CV):</strong> In academia, medicine, and research, it's normal to have a multi-page Curriculum Vitae (CV) listing all publications and grants.</li>
       </ul>
+      <h2>A quick decision checklist</h2>
+      <ul>
+        <li><strong>Choose one page</strong> when your most relevant education, projects, and experience fit without shrinking the font or margins.</li>
+        <li><strong>Choose two pages</strong> when a second page adds relevant achievements, roles, or credentials that help a reader assess your fit.</li>
+        <li><strong>Edit first</strong> if page two contains only a few lines. Remove outdated duties and repeated skills before changing the layout.</li>
+      </ul>
+      <p>
+        Need a concise opening? Draft one with the <Link href="/resume-summary-generator">resume summary generator</Link>, then revise it to reflect your actual experience.
+      </p>
 
       <h2>The Rules of a Two-Page Resume</h2>
       <p>
