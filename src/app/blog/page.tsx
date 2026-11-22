@@ -1,11 +1,10 @@
 import Link from "next/link";
-import Image from "next/image";
-import { FileText, Clock, ArrowRight, Tag, TrendingUp, BookOpen, Sparkles } from "lucide-react";
+import { BookOpen } from "lucide-react";
 import type { Metadata } from "next";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import { BLOG_POSTS } from "@/lib/blog-data";
-import BlogGrid from "@/components/blog/BlogGrid";
+import BlogGrid, { type BlogCard } from "@/components/blog/BlogGrid";
 import NewsletterSection from "@/components/blog/NewsletterSection";
 
 export const metadata: Metadata = {
@@ -20,8 +19,11 @@ export const metadata: Metadata = {
 const SORTED_POSTS = [...BLOG_POSTS].sort(
   (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
 );
-const FEATURED = SORTED_POSTS[0];
-const POSTS = SORTED_POSTS.slice(1);
+const CARDS: BlogCard[] = SORTED_POSTS.map(({ id, slug, title, excerpt, category, categoryColor, readTime, date, author, bannerImage, bannerAlt }) => ({
+  id, slug, title, excerpt, category, categoryColor, readTime, date, author, bannerImage, bannerAlt,
+}));
+const FEATURED = CARDS[0];
+const POSTS = CARDS.slice(1);
 
 const CATEGORIES = ["All", "ATS Tips", "Writing Tips", "Resume Advice", "Tech Careers", "Job Search", "Career Tips"];
 

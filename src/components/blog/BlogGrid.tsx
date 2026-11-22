@@ -4,12 +4,17 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Clock, ArrowRight, Sparkles } from "lucide-react";
-import { BlogPost } from "@/lib/blog-types";
+import type { BlogPost } from "@/lib/blog-types";
+
+export type BlogCard = Pick<BlogPost,
+  "id" | "slug" | "title" | "excerpt" | "category" | "categoryColor" |
+  "readTime" | "date" | "author" | "bannerImage" | "bannerAlt"
+>;
 
 interface BlogGridProps {
   categories: string[];
-  posts: BlogPost[];
-  featuredPost: BlogPost;
+  posts: BlogCard[];
+  featuredPost: BlogCard;
 }
 
 export default function BlogGrid({ categories, posts, featuredPost }: BlogGridProps) {
