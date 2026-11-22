@@ -46,16 +46,19 @@ export default async function PrivacyPage() {
       
       <main className="flex-1 py-16 px-6 container mx-auto max-w-4xl">
         <h1 className="text-4xl font-extrabold text-slate-900 mb-6">Privacy Policy</h1>
-        <p className="text-sm text-slate-500 mb-8">Last updated: June 2026</p>
+        <p className="text-sm text-slate-500 mb-8">Last updated: November 2026</p>
         
         <div className="prose prose-slate max-w-none text-slate-700">
-          <p>CV Maker operates the cvmaker.io website, which provides the resume building service.</p>
+          <p>Smart Resume Maker operates smartresumemaker.com, which provides the resume building service.</p>
           
           <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-4">Information Collection and Use</h2>
           <p>For a better experience while using our Service, we may require you to provide us with certain personally identifiable information, including but not limited to your name, email address, phone number, and professional history.</p>
           
           <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-4">Log Data</h2>
-          <p>We want to inform you that whenever you visit our Service, we collect information that your browser sends to us that is called Log Data. This Log Data may include information such as your computer's Internet Protocol ("IP") address, browser version, pages of our Service that you visit, the time and date of your visit, the time spent on those pages, and other statistics.</p>
+          <p>When you visit the service, technical logs may include your IP address, browser version, pages visited, visit time, and related usage information.</p>
+
+          <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-4">Optional Analytics</h2>
+          <p>With your consent, Google Analytics 4 records visits to the resume builder and successful PDF downloads so we can understand how the service is used. These events do not include resume content or contact details. You can decline or change your choice using Cookie settings. Our existing Vercel Analytics and Speed Insights also collect aggregate site usage and performance data.</p>
           
           <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-4">Security</h2>
           <p>We value your trust in providing us your Personal Information, thus we are striving to use commercially acceptable means of protecting it. But remember that no method of transmission over the internet, or method of electronic storage is 100% secure and reliable, and we cannot guarantee its absolute security.</p>

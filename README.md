@@ -1,8 +1,22 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Smart Resume Maker is a Next.js resume builder with PostgreSQL, Prisma, Google AI tools, and optional live Google reporting.
+
+## Live SEO and conversion reporting
+
+The admin dashboard reads current Search Console and GA4 API reports. Without credentials it shows **Setup required**; the old CSV export is never presented as live data. Reports cover the most recent 28 complete days, ending three days ago to avoid partial reporting data. The dashboard shows when each report was fetched.
+
+1. Create a Google Cloud service account, enable the **Search Console API** and **Google Analytics Data API**, and download its JSON key. Keep the key private.
+2. Add the service account email as a user on the exact Search Console property you will query. Set `GSC_SITE_URL` to that property's identifier, for example `sc-domain:smartresumemaker.com` or `https://www.smartresumemaker.com/`.
+3. In GA4 property access management, grant the same service account **Viewer** access. Set `GA4_PROPERTY_ID` to the numeric property ID (not the web stream ID).
+4. Create or select the GA4 web data stream for this website and set `NEXT_PUBLIC_GA4_MEASUREMENT_ID` to its `G-...` measurement ID.
+5. Set `GOOGLE_SERVICE_ACCOUNT_JSON` to the complete service account JSON in Vercel's server environment variables. Set the other three variables there too, then redeploy. Do not commit the key or place it in a `NEXT_PUBLIC_` variable.
+
+GA4 loads only after the visitor accepts optional cookies. The `builder_opened` event is sent once per browser tab session when the builder is opened; `resume_downloaded` is sent after a successful PDF save. No resume text, email, or other personal data is sent with these events. Visitors can change consent with **Cookie settings**. Event counts will remain empty until GA4 receives real, consented traffic. They are not a same-user conversion rate.
+
+OpenSEO is an optional external ChatGPT integration for research; this project's admin dashboard uses Google's official APIs directly and does not depend on it. Vercel Analytics and Speed Insights remain in place; no paid Vercel feature is required.
 
 ## Getting Started
 
-First, run the development server:
+Create `.env.local` with the required database and authentication variables for local development. Add the four Google reporting variables listed above only when you have authorized Google API access. Then run the development server:
 
 ```bash
 npm run dev

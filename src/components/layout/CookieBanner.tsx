@@ -10,7 +10,7 @@ export function CookieBanner() {
   useEffect(() => {
     const checkConsent = () => {
       const consent = localStorage.getItem("cookieConsent");
-      if (!consent) {
+      if (consent !== "accepted" && consent !== "declined") {
         setIsVisible(true);
       }
     };
@@ -31,12 +31,15 @@ export function CookieBanner() {
     }
   }, []);
 
-  const acceptCookies = () => {
-    localStorage.setItem("cookieConsent", "true");
+  const saveConsent = (choice: "accepted" | "declined") => {
+    const wasAccepted = localStorage.getItem("cookieConsent") === "accepted";
+    localStorage.setItem("cookieConsent", choice);
+    window.dispatchEvent(new Event("cookie-consent-changed"));
     setIsVisible(false);
+    if (wasAccepted && choice === "declined") window.location.reload();
   };
 
-  if (!isVisible) return null;
+  if (!isVisible) return <button type="button" onClick={() => setIsVisible(true)} className="fixed bottom-2 left-2 z-40 rounded-full border border-slate-200 bg-white px-3 py-1 text-xs text-slate-600 shadow-sm print:hidden">Cookie settings</button>;
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-slate-200 shadow-[0_-4px_6px_-1px_rgb(0,0,0,0.05)] p-4 sm:p-6 md:flex md:items-center md:justify-between font-sans">
@@ -47,10 +50,10 @@ export function CookieBanner() {
         </p>
       </div>
       <div className="flex gap-3 shrink-0">
-        <Button variant="outline" onClick={acceptCookies} className="text-slate-600 border-slate-300 hover:bg-slate-50">
+        <Button variant="outline" onClick={() => saveConsent("declined")} className="text-slate-600 border-slate-300 hover:bg-slate-50">
           Decline Optional
         </Button>
-        <Button onClick={acceptCookies} className="bg-blue-600 hover:bg-blue-700 text-white shadow-sm">
+        <Button onClick={() => saveConsent("accepted")} className="bg-blue-600 hover:bg-blue-700 text-white shadow-sm">
           Accept All
         </Button>
       </div>

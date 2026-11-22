@@ -4,6 +4,7 @@ import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { Users, FileText, Activity, ShieldCheck } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { getGa4FunnelReport, getSearchConsoleReport } from "@/lib/google-reporting";
 
 export const metadata = {
   robots: { index: false, follow: false },
@@ -27,7 +28,7 @@ export default async function AdminDashboard() {
     redirect("/dashboard");
   }
 
-  const [userCount, resumeCount, score, recentResumes] = await Promise.all([
+  const [userCount, resumeCount, score, recentResumes, seo, funnel] = await Promise.all([
     prisma.user.count(),
     prisma.resume.count(),
     prisma.resume.aggregate({ _avg: { atsScore: true } }),
@@ -36,6 +37,8 @@ export default async function AdminDashboard() {
       orderBy: { createdAt: "desc" },
       select: { id: true, title: true, createdAt: true, user: { select: { email: true } } },
     }),
+    getSearchConsoleReport(),
+    getGa4FunnelReport(),
   ]);
 
   return (
@@ -83,6 +86,42 @@ export default async function AdminDashboard() {
             <CardContent>
               <div className="text-4xl font-bold text-slate-900">{Math.round(score._avg.atsScore ?? 0)}%</div>
               <p className="text-xs text-slate-500 mt-1">Across all users</p>
+            </CardContent>
+          </Card>
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-6">
+          <Card>
+            <CardHeader><CardTitle>Google Search Console</CardTitle></CardHeader>
+            <CardContent className="space-y-4">
+              {seo.status === "setup_required" ? <p className="text-sm text-slate-600">Setup required: add a read-only service account and the Search Console site property. No historical CSV is shown as live data.</p> :
+                seo.status === "error" ? <p className="text-sm text-amber-700">{seo.message}</p> : <>
+                  <p className="text-xs text-slate-500">Live API · {seo.startDate} to {seo.endDate} · Updated {new Date(seo.fetchedAt).toLocaleString()}</p>
+                  <div className="grid grid-cols-2 gap-4 text-sm">
+                    <div><span className="text-slate-500">Impressions</span><p className="text-2xl font-bold">{seo.data.impressions.toLocaleString()}</p></div>
+                    <div><span className="text-slate-500">Clicks</span><p className="text-2xl font-bold">{seo.data.clicks.toLocaleString()}</p></div>
+                    <div><span className="text-slate-500">CTR</span><p className="text-2xl font-bold">{(seo.data.ctr * 100).toFixed(2)}%</p></div>
+                    <div><span className="text-slate-500">Avg. position</span><p className="text-2xl font-bold">{seo.data.position.toFixed(1)}</p></div>
+                  </div>
+                  <h3 className="font-semibold text-slate-800">Top pages by clicks</h3>
+                  {seo.data.pages.length === 0 ? <p className="text-sm text-slate-500">No page data in this period.</p> : <ul className="divide-y text-sm">
+                    {seo.data.pages.map(page => <li key={page.url} className="py-2 flex justify-between gap-3"><span className="break-all text-slate-700">{page.url}</span><span className="shrink-0">{page.clicks} clicks</span></li>)}
+                  </ul>}
+                </>}
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader><CardTitle>Builder → Download</CardTitle></CardHeader>
+            <CardContent className="space-y-4">
+              {funnel.status === "setup_required" ? <p className="text-sm text-slate-600">Setup required: configure GA4 collection and read-only reporting access. Conversion counts will appear after consented visitors generate events.</p> :
+                funnel.status === "error" ? <p className="text-sm text-amber-700">{funnel.message}</p> : <>
+                  <p className="text-xs text-slate-500">Live GA4 API · {funnel.startDate} to {funnel.endDate} · Updated {new Date(funnel.fetchedAt).toLocaleString()}</p>
+                  <div className="grid grid-cols-2 gap-4 text-sm">
+                    <div><span className="text-slate-500">Builder opens</span><p className="text-2xl font-bold">{funnel.data.builderOpened.toLocaleString()}</p></div>
+                    <div><span className="text-slate-500">PDF downloads</span><p className="text-2xl font-bold">{funnel.data.resumeDownloaded.toLocaleString()}</p></div>
+                  </div>
+                  <p className="text-xs text-slate-500">Event counts from consented visits. These counts do not establish a same-user conversion rate.</p>
+                </>}
             </CardContent>
           </Card>
         </div>

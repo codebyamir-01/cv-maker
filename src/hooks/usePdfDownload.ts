@@ -4,6 +4,7 @@ import { useState, useRef, useEffect, useCallback, RefObject } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useResumeStore } from "@/store/useResumeStore";
+import { trackGa4Event } from "@/components/analytics/Ga4Tracker";
 
 interface UsePdfDownloadOptions {
   printRef: RefObject<HTMLDivElement | null>;
@@ -20,6 +21,7 @@ export function usePdfDownload({ printRef, onAutoDownloadJump }: UsePdfDownloadO
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [feedbackRating, setFeedbackRating] = useState(0);
   const [feedbackSubmitted, setFeedbackSubmitted] = useState(false);
+  const downloadInProgress = useRef(false);
 
   const handleDownloadPdf = useCallback(async () => {
     if (status !== "authenticated") {
@@ -27,9 +29,10 @@ export function usePdfDownload({ printRef, onAutoDownloadJump }: UsePdfDownloadO
       return;
     }
 
-    if (isDownloading) return;
+    if (downloadInProgress.current) return;
     if (!printRef.current) return;
 
+    downloadInProgress.current = true;
     setIsDownloading(true);
     try {
       const element = printRef.current;
@@ -75,6 +78,7 @@ export function usePdfDownload({ printRef, onAutoDownloadJump }: UsePdfDownloadO
         : "Resume.pdf";
 
       pdf.save(filename);
+      trackGa4Event("resume_downloaded");
       // Show success + feedback modal after download
       setShowSuccessModal(true);
     } catch (error: unknown) {
@@ -82,9 +86,10 @@ export function usePdfDownload({ printRef, onAutoDownloadJump }: UsePdfDownloadO
       const message = error instanceof Error ? error.message : "Unknown error";
       alert(`Download failed: ${message}`);
     } finally {
+      downloadInProgress.current = false;
       setIsDownloading(false);
     }
-  }, [status, isDownloading, printRef, router, resumeData]);
+  }, [status, printRef, router, resumeData]);
 
   // Auto-trigger download after returning from login
   const hasAutoDownloaded = useRef(false);

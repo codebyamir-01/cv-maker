@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Providers } from "@/components/providers";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { CookieBanner } from "@/components/layout/CookieBanner";
+import { Ga4Tracker } from "@/components/analytics/Ga4Tracker";
 import Script from "next/script";
 import "./globals.css";
 
@@ -199,6 +200,7 @@ export default function RootLayout({
         <Providers>{children}</Providers>
         <SpeedInsights />
         <Analytics />
+        <Ga4Tracker />
         <CookieBanner />
       </body>
     </html>
