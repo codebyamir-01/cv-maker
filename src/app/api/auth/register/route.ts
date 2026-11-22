@@ -1,17 +1,24 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
+import { z } from "zod";
+
+const registrationSchema = z.object({
+  name: z.string().trim().max(100).optional(),
+  email: z.email().max(254).transform((value) => value.trim().toLowerCase()),
+  password: z.string().min(8).max(128),
+});
 
 export async function POST(req: Request) {
   try {
-    const { name, email, password } = await req.json();
-
-    if (!email || !password) {
+    const parsed = registrationSchema.safeParse(await req.json());
+    if (!parsed.success) {
       return NextResponse.json(
-        { message: "Missing email or password" },
+        { message: "Enter a valid email and a password of 8 to 128 characters." },
         { status: 400 }
       );
     }
+    const { name, email, password } = parsed.data;
 
     // Check if user already exists
     const existingUser = await prisma.user.findUnique({

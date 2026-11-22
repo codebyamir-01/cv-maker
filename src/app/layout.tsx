@@ -1,17 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
 import { Providers } from "@/components/providers";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { CookieBanner } from "@/components/layout/CookieBanner";
 import Script from "next/script";
 import "./globals.css";
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-  preload: true,
-});
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -60,7 +52,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} font-sans h-full antialiased overflow-x-hidden`}
+      className="font-sans h-full antialiased overflow-x-hidden"
     >
       <head>
         {/* Google AdSense */}

@@ -27,6 +27,17 @@ export default async function AdminDashboard() {
     redirect("/dashboard");
   }
 
+  const [userCount, resumeCount, score, recentResumes] = await Promise.all([
+    prisma.user.count(),
+    prisma.resume.count(),
+    prisma.resume.aggregate({ _avg: { atsScore: true } }),
+    prisma.resume.findMany({
+      take: 5,
+      orderBy: { createdAt: "desc" },
+      select: { id: true, title: true, createdAt: true, user: { select: { email: true } } },
+    }),
+  ]);
+
   return (
     <div className="p-8 bg-slate-50 min-h-screen">
       <div className="max-w-6xl mx-auto space-y-8">
@@ -48,8 +59,7 @@ export default async function AdminDashboard() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-4xl font-bold text-slate-900">1,248</div>
-              <p className="text-xs text-green-600 mt-1">+12% from last month</p>
+              <div className="text-4xl font-bold text-slate-900">{userCount.toLocaleString()}</div>
             </CardContent>
           </Card>
           
@@ -60,8 +70,7 @@ export default async function AdminDashboard() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-4xl font-bold text-slate-900">3,892</div>
-              <p className="text-xs text-green-600 mt-1">+24% from last month</p>
+              <div className="text-4xl font-bold text-slate-900">{resumeCount.toLocaleString()}</div>
             </CardContent>
           </Card>
 
@@ -72,7 +81,7 @@ export default async function AdminDashboard() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-4xl font-bold text-slate-900">76%</div>
+              <div className="text-4xl font-bold text-slate-900">{Math.round(score._avg.atsScore ?? 0)}%</div>
               <p className="text-xs text-slate-500 mt-1">Across all users</p>
             </CardContent>
           </Card>
@@ -83,9 +92,16 @@ export default async function AdminDashboard() {
             <CardTitle>Recent Activity</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-sm text-slate-500 text-center py-12 border-2 border-dashed border-slate-200 rounded-lg">
-              Data grid placeholder. In a production environment, this will list real-time database rows of latest users and resumes.
-            </div>
+            {recentResumes.length === 0 ? <p className="text-sm text-slate-500">No resumes created yet.</p> : (
+              <ul className="divide-y divide-slate-200 text-sm">
+                {recentResumes.map((resume) => (
+                  <li key={resume.id} className="flex flex-wrap justify-between gap-2 py-3">
+                    <span className="font-medium text-slate-800">{resume.title}</span>
+                    <span className="text-slate-500">{resume.user.email} · {resume.createdAt.toLocaleDateString()}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
           </CardContent>
         </Card>
       </div>

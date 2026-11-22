@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 
-import { Loader2, Zap, Briefcase, MapPin, DollarSign, Activity, AlertCircle, CheckCircle2 } from "lucide-react";
+import { Loader2, Zap, Briefcase, MapPin, DollarSign, AlertCircle, CheckCircle2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 
 export default function AutopilotDashboard() {
@@ -13,17 +13,13 @@ export default function AutopilotDashboard() {
   const [location, setLocation] = useState<string>("Remote");
   const [remoteOnly, setRemoteOnly] = useState<boolean>(true);
   const [minSalary, setMinSalary] = useState<string>("100000");
-  const [autoApply, setAutoApply] = useState<boolean>(false);
   
-  const [isLoading, setIsLoading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [saveStatus, setSaveStatus] = useState<"idle" | "success" | "error">("idle");
-  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     async function loadPreferences() {
       if (!session?.user?.email) return;
-      setIsLoading(true);
       try {
         const res = await fetch("/api/autopilot");
         if (res.ok) {
@@ -33,23 +29,19 @@ export default function AutopilotDashboard() {
             setLocation(data.preferences.location || "");
             setRemoteOnly(data.preferences.remoteOnly);
             setMinSalary(data.preferences.minSalary?.toString() || "");
-            setAutoApply(data.preferences.autoApplyEnabled);
           }
         }
       } catch (err) {
         console.error("Failed to load preferences", err);
-      } finally {
-        setIsLoading(false);
       }
     }
     loadPreferences();
   }, [session]);
 
-  const handleSave = async (forceAutoApplyState?: boolean) => {
+  const handleSave = async () => {
     setIsSaving(true);
     setSaveStatus("idle");
     try {
-      const isAuto = forceAutoApplyState !== undefined ? forceAutoApplyState : autoApply;
       const res = await fetch("/api/autopilot", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -58,25 +50,18 @@ export default function AutopilotDashboard() {
           location,
           remoteOnly,
           minSalary,
-          autoApplyEnabled: isAuto,
         })
       });
 
       if (!res.ok) throw new Error("Failed to connect to database");
       setSaveStatus("success");
       setTimeout(() => setSaveStatus("idle"), 3000);
-    } catch (err: any) {
+    } catch (err) {
       setSaveStatus("error");
-      setErrorMessage(err.message || "Something went wrong");
+      console.error("Failed to save preferences", err);
     } finally {
       setIsSaving(false);
     }
-  };
-
-  const toggleAutoApply = () => {
-    const newState = !autoApply;
-    setAutoApply(newState);
-    handleSave(newState);
   };
 
   return (
@@ -88,31 +73,10 @@ export default function AutopilotDashboard() {
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-bold uppercase tracking-wider mb-3">
             <Zap className="h-3 w-3 fill-current" /> Beta Access
           </div>
-          <h1 className="text-3xl font-extrabold tracking-tight">Autonomous Reverse Recruiter</h1>
+          <h1 className="text-3xl font-extrabold tracking-tight">Job Preferences</h1>
           <p className="text-slate-400 mt-2 max-w-xl">
-            Set your parameters. Turn on Autopilot. Our AI agents will automatically find and apply to jobs on your behalf 24/7.
+            Save the roles and locations you are interested in. Automatic job search and applications are not available yet.
           </p>
-        </div>
-        
-        <div className="relative z-10 flex flex-col items-center bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/10 min-w-[250px]">
-          <p className="text-sm font-semibold text-slate-300 mb-4 uppercase tracking-wider">System Status</p>
-          <div className="flex items-center gap-4">
-            <button
-              onClick={toggleAutoApply}
-              className={`w-11 h-6 rounded-full transition-colors duration-200 ease-in-out flex items-center ${
-                autoApply ? 'bg-emerald-500' : 'bg-slate-300'
-              }`}
-            >
-              <div
-                className={`w-5 h-5 bg-white rounded-full shadow-sm transform transition-transform duration-200 ease-in-out ${
-                  autoApply ? 'translate-x-5' : 'translate-x-0.5'
-                }`}
-              />
-            </button>
-            <span className={`font-bold ${autoApply ? 'text-emerald-400' : 'text-slate-400'}`}>
-              {autoApply ? 'AUTOPILOT ACTIVE' : 'SYSTEM OFFLINE'}
-            </span>
-          </div>
         </div>
       </div>
 
@@ -139,7 +103,7 @@ export default function AutopilotDashboard() {
                   placeholder="e.g. Software Engineer, React Developer"
                   className="w-full rounded-xl border border-slate-300 p-3 text-slate-900 focus:ring-2 focus:ring-blue-500 outline-none"
                 />
-                <p className="text-xs text-slate-500 mt-2">Comma separated list of roles the AI should search for.</p>
+                <p className="text-xs text-slate-500 mt-2">Separate multiple job titles with commas.</p>
               </div>
 
               <div className="grid sm:grid-cols-2 gap-6">
@@ -177,61 +141,25 @@ export default function AutopilotDashboard() {
                   onChange={(e) => setRemoteOnly(e.target.checked)}
                   className="w-5 h-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
                 />
-                <label htmlFor="remote" className="text-sm font-bold text-slate-700">Only apply to Remote jobs</label>
+                <label htmlFor="remote" className="text-sm font-bold text-slate-700">Remote jobs only</label>
               </div>
 
               <Button 
-                onClick={() => handleSave(autoApply)} 
+                onClick={() => handleSave()}
                 disabled={isSaving}
                 className="w-full h-12 rounded-xl font-bold bg-blue-600 hover:bg-blue-700 text-white"
               >
-                {isSaving ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Saving...</> : "Update Parameters"}
+                {isSaving ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Saving...</> : "Save Preferences"}
               </Button>
             </div>
           </div>
         </div>
 
-        {/* LIVE ACTIVITY FEED */}
+        {/* Availability notice */}
         <div className="lg:col-span-1 space-y-6">
-          <div className="bg-slate-50 p-6 rounded-3xl border border-slate-200 h-full flex flex-col relative overflow-hidden">
-            <h2 className="text-lg font-bold text-slate-900 mb-6 flex items-center gap-2">
-              <Activity className="h-5 w-5 text-blue-600" /> Live Agent Feed
-            </h2>
-
-            {autoApply ? (
-              <div className="space-y-4 flex-1 relative z-10">
-                <div className="p-4 rounded-xl border border-blue-100 bg-white shadow-sm flex items-start gap-3 animate-in fade-in slide-in-from-bottom-4 duration-500">
-                  <div className="w-2 h-2 rounded-full bg-blue-500 mt-1.5 animate-pulse shrink-0" />
-                  <div>
-                    <p className="text-xs text-slate-500 font-medium mb-1">Just now</p>
-                    <p className="text-sm text-slate-800">Agent spawned. Initializing headless browser and evading bot detection...</p>
-                  </div>
-                </div>
-                <div className="p-4 rounded-xl border border-slate-200 bg-white shadow-sm flex items-start gap-3 opacity-60">
-                  <div className="w-2 h-2 rounded-full bg-emerald-500 mt-1.5 shrink-0" />
-                  <div>
-                    <p className="text-xs text-slate-500 font-medium mb-1">2 mins ago</p>
-                    <p className="text-sm text-slate-800">Successfully scraped 142 new jobs from Workday matching "{jobTitles.split(",")[0] || "Software Engineer"}".</p>
-                  </div>
-                </div>
-                <div className="p-4 rounded-xl border border-slate-200 bg-white shadow-sm flex items-start gap-3 opacity-40">
-                  <div className="w-2 h-2 rounded-full bg-emerald-500 mt-1.5 shrink-0" />
-                  <div>
-                    <p className="text-xs text-slate-500 font-medium mb-1">5 mins ago</p>
-                    <p className="text-sm text-slate-800">Applied to Google (L4 Engineer) via Greenhouse. Cover letter automatically generated.</p>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <div className="flex-1 flex flex-col items-center justify-center text-center text-slate-400 p-6">
-                <Briefcase className="h-12 w-12 text-slate-200 mb-4" />
-                <p className="text-sm font-medium">Turn on Autopilot to start applying to jobs automatically.</p>
-              </div>
-            )}
-            
-            {autoApply && (
-              <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-50 to-transparent z-20 pointer-events-none" />
-            )}
+          <div className="bg-slate-50 p-6 rounded-3xl border border-slate-200 h-full">
+            <h2 className="text-lg font-bold text-slate-900 mb-3">Coming later</h2>
+            <p className="text-sm text-slate-600">These preferences are saved to your account. No jobs are searched or applied to automatically.</p>
           </div>
         </div>
       </div>

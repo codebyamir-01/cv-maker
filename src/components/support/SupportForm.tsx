@@ -1,39 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import { Send, CheckCircle2 } from "lucide-react";
+import { Send } from "lucide-react";
 
 export function SupportForm() {
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
-  const [message, setMessage] = useState("");
+  const [openedEmail, setOpenedEmail] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setStatus("loading");
-    setMessage("");
-
     const formData = new FormData(e.currentTarget);
-
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        body: formData,
-      });
-
-      const data = await response.json();
-
-      if (data.success) {
-        setStatus("success");
-        setMessage("Message sent successfully! We'll get back to you soon.");
-        (e.target as HTMLFormElement).reset();
-      } else {
-        setStatus("error");
-        setMessage(data.message || "Something went wrong. Please try again.");
-      }
-    } catch (error) {
-      setStatus("error");
-      setMessage("Failed to send message. Please check your internet connection.");
-    }
+    const name = `${formData.get("FirstName") ?? ""} ${formData.get("LastName") ?? ""}`.trim();
+    const email = String(formData.get("email") ?? "");
+    const message = String(formData.get("Message") ?? "");
+    const subject = encodeURIComponent(`CV Maker support request from ${name}`);
+    const body = encodeURIComponent(`${message}\n\nFrom: ${name}\nReply to: ${email}`);
+    window.location.href = `mailto:jerryjoe9199@gmail.com?subject=${subject}&body=${body}`;
+    setOpenedEmail(true);
   };
 
   return (
@@ -41,22 +23,6 @@ export function SupportForm() {
       <h2 className="text-2xl font-bold text-slate-900 mb-1">Send a Message</h2>
       <p className="text-sm text-slate-400 mb-7">Fill out the form and we&apos;ll get back to you as soon as possible.</p>
 
-      {status === "success" ? (
-        <div className="flex flex-col items-center justify-center py-10 text-center animate-fade-in">
-          <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mb-4">
-            <CheckCircle2 className="w-8 h-8" />
-          </div>
-          <h3 className="text-xl font-bold text-slate-900 mb-2">Thank you!</h3>
-          <p className="text-slate-500">{message}</p>
-          <button 
-            type="button"
-            onClick={() => setStatus("idle")}
-            className="mt-6 text-sm font-semibold text-blue-600 hover:text-blue-700 transition"
-          >
-            Send another message
-          </button>
-        </div>
-      ) : (
         <form onSubmit={handleSubmit} className="flex flex-col gap-5">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div className="flex flex-col gap-1.5">
@@ -111,24 +77,16 @@ export function SupportForm() {
             />
           </div>
 
-          {status === "error" && (
-            <p className="text-sm font-semibold text-red-600">{message}</p>
-          )}
+          {openedEmail && <p role="status" className="text-sm text-slate-600">Your email app should open with a draft. Please send it there. If it did not open, email <a className="underline" href="mailto:jerryjoe9199@gmail.com">jerryjoe9199@gmail.com</a> directly.</p>}
 
           <button
             type="submit"
-            disabled={status === "loading"}
             className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3.5 text-sm font-bold text-white shadow-md transition hover:bg-blue-700 hover:shadow-lg active:scale-[0.98] disabled:opacity-70 disabled:pointer-events-none"
           >
-            {status === "loading" ? (
-              <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-            ) : (
-              <Send className="h-4 w-4" />
-            )}
-            {status === "loading" ? "Sending..." : "Send Message"}
+            <Send className="h-4 w-4" />
+            Open Email Draft
           </button>
         </form>
-      )}
     </div>
   );
 }

@@ -34,7 +34,11 @@ export async function POST(req: Request) {
     }
 
     const data = await req.json();
-    const { jobTitles, location, remoteOnly, minSalary, autoApplyEnabled } = data;
+    const { jobTitles, location, remoteOnly, minSalary } = data;
+
+    if (!Array.isArray(jobTitles) || jobTitles.length > 20 || jobTitles.some((title) => typeof title !== "string" || title.length > 100)) {
+      return NextResponse.json({ error: "Invalid job titles" }, { status: 400 });
+    }
 
     const user = await prisma.user.findUnique({
       where: { email: session.user.email },
@@ -51,7 +55,7 @@ export async function POST(req: Request) {
         location,
         remoteOnly,
         minSalary: minSalary ? parseInt(minSalary, 10) : null,
-        autoApplyEnabled,
+        autoApplyEnabled: false,
       },
       create: {
         userId: user.id,
@@ -59,7 +63,7 @@ export async function POST(req: Request) {
         location,
         remoteOnly,
         minSalary: minSalary ? parseInt(minSalary, 10) : null,
-        autoApplyEnabled,
+        autoApplyEnabled: false,
       },
     });
 
