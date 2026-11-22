@@ -1,18 +1,3 @@
-import { post61 } from "./posts/post-61";
-import { post60 } from "./posts/post-60";
-import { post59 } from "./posts/post-59";
-import { post58 } from "./posts/post-58";
-import { post57 } from "./posts/post-57";
-import { post56 } from "./posts/post-56";
-import { post55 } from "./posts/post-55";
-import { post54 } from "./posts/post-54";
-import { post53 } from "./posts/post-53";
-import { post52 } from "./posts/post-52";
-import { post51 } from "./posts/post-51";
-import { post50 } from "./posts/post-50";
-import { post49 } from "./posts/post-49";
-import { post48 } from "./posts/post-48";
-import { post47 } from "./posts/post-47";
 import { post46 } from "./posts/post-46";
 import { post45 } from "./posts/post-45";
 import { post44 } from "./posts/post-44";
@@ -21,14 +6,10 @@ import { post42 } from "./posts/post-42";
 import { post41 } from "./posts/post-41";
 import { post40 } from "./posts/post-40";
 import { post39 } from "./posts/post-39";
-import { post38 } from "./posts/post-38";
 import { post37 } from "./posts/post-37";
 import { post36 } from "./posts/post-36";
-import { post35 } from "./posts/post-35";
 import { post34 } from "./posts/post-34";
-import { post33 } from "./posts/post-33";
 import { post32 } from "./posts/post-32";
-import { post31 } from "./posts/post-31";
 import { post30 } from "./posts/post-30";
 import { post29 } from "./posts/post-29";
 import { post28 } from "./posts/post-28";
@@ -62,35 +43,6 @@ import { post18 } from "./posts/post-18";
 
 import { post19 } from "./posts/post-19";
 export const BLOG_POSTS: BlogPost[] = [
-  post61,
-
-  post60,
-
-  post59,
-
-  post58,
-
-  post57,
-
-  post56,
-
-  post55,
-
-  post54,
-
-  post53,
-
-  post52,
-
-  post51,
-
-  post50,
-
-  post49,
-
-  post48,
-
-  post47,
 
   post46,
 
@@ -108,21 +60,17 @@ export const BLOG_POSTS: BlogPost[] = [
 
   post39,
 
-  post38,
 
   post37,
 
   post36,
 
-  post35,
 
   post34,
 
-  post33,
 
   post32,
 
-  post31,
 
   post30,
 

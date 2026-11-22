@@ -38,3 +38,6 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: node scripts/gemini-seo-autopilot.mjs
+
+      - name: Verify Published Blog Content
+        run: npm run check:blog
