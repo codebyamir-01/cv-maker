@@ -5,6 +5,7 @@ import { prisma } from "@/lib/prisma";
 import { Users, FileText, Activity, ShieldCheck } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getGa4FunnelReport, getSearchConsoleReport } from "@/lib/google-reporting";
+import { AdminSignOutButton } from "./AdminSignOutButton";
 
 export const metadata = {
   robots: { index: false, follow: false },
@@ -44,13 +45,19 @@ export default async function AdminDashboard() {
   return (
     <div className="p-8 bg-slate-50 min-h-screen">
       <div className="max-w-6xl mx-auto space-y-8">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-slate-900 rounded-lg flex items-center justify-center">
-            <ShieldCheck className="w-6 h-6 text-white" />
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-slate-900 rounded-lg flex items-center justify-center">
+              <ShieldCheck className="w-6 h-6 text-white" />
+            </div>
+            <div>
+              <h1 className="text-3xl font-bold text-slate-900">Admin Dashboard</h1>
+              <p className="text-slate-500">Manage users, view analytics, and configure settings.</p>
+            </div>
           </div>
-          <div>
-            <h1 className="text-3xl font-bold text-slate-900">Admin Dashboard</h1>
-            <p className="text-slate-500">Manage users, view analytics, and configure settings.</p>
+          <div className="flex items-center gap-3">
+            <span className="text-sm text-slate-600">{session.user.email}</span>
+            <AdminSignOutButton />
           </div>
         </div>
 
