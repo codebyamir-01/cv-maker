@@ -36,7 +36,14 @@ async function accessToken(account: Credentials, scope: string): Promise<string>
     cache: "no-store",
     signal: AbortSignal.timeout(10000),
   });
-  if (!response.ok) throw new Error(`Google authentication failed (${response.status})`);
+  if (!response.ok) {
+    const failure = await response.json().catch(() => null) as { error?: unknown; error_description?: unknown } | null;
+    const code = typeof failure?.error === "string" ? failure.error.replace(/[^a-zA-Z0-9_.-]/g, "").slice(0, 40) : "unknown";
+    const description = typeof failure?.error_description === "string"
+      ? failure.error_description.replace(/[\r\n]/g, " ").slice(0, 200)
+      : "";
+    throw new Error(`Google authentication failed (${response.status}; ${code}${description ? `: ${description}` : ""})`);
+  }
   const result = await response.json() as { access_token?: string };
   if (!result.access_token) throw new Error("Google authentication returned no token");
   tokenCache.set(scope, { value: result.access_token, expiresAt: Date.now() + 50 * 60 * 1000 });
