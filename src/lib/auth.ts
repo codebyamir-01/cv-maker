@@ -28,6 +28,7 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      httpOptions: { timeout: 10000 },
       // allowDangerousEmailAccountLinking removed: email verification is not
       // enforced in this app, so enabling it creates an account-takeover risk.
     }),

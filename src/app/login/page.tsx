@@ -12,6 +12,14 @@ export default function LoginPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/dashboard";
+  const authError = searchParams.get("error");
+  const authErrorMessage = authError === "OAuthAccountNotLinked"
+    ? "This email already has an account. Sign in with its original method."
+    : authError === "OAuthCallback"
+      ? "Google sign-in could not be completed. Please try again."
+      : authError
+        ? "Sign-in failed. Please try again."
+        : "";
   const { status } = useSession();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -60,9 +68,9 @@ export default function LoginPage() {
         </div>
 
         <form onSubmit={handleLogin} className="space-y-[clamp(0.75rem,1.5vh,1.25rem)]">
-          {error && (
+          {(error || authErrorMessage) && (
             <div className="animate-scale-in rounded-xl bg-red-50 p-3 text-sm font-semibold text-red-600 ring-1 ring-inset ring-red-500/20">
-              {error}
+              {error || authErrorMessage}
             </div>
           )}
 
