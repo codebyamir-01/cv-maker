@@ -13,9 +13,10 @@ declare global {
 const measurementId = process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID;
 
 export function trackGa4Event(name: "builder_opened" | "resume_downloaded") {
-  if (typeof window === "undefined" || !measurementId) return;
-  if (localStorage.getItem("cookieConsent") !== "accepted") return;
-  window.gtag?.("event", name);
+  if (typeof window === "undefined" || !measurementId) return false;
+  if (localStorage.getItem("cookieConsent") !== "accepted" || !window.gtag) return false;
+  window.gtag("event", name);
+  return true;
 }
 
 export function Ga4Tracker() {
@@ -30,6 +31,7 @@ export function Ga4Tracker() {
   }, []);
 
   useEffect(() => {
+    if (pathname !== "/builder") sessionStorage.removeItem("ga4-builder-entry");
     if (!accepted || !measurementId) return;
     if (!window.gtag) {
       window.dataLayer = window.dataLayer || [];
@@ -41,9 +43,8 @@ export function Ga4Tracker() {
       script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`;
       document.head.appendChild(script);
     }
-    if (pathname === "/builder" && !sessionStorage.getItem("ga4-builder-opened")) {
-      sessionStorage.setItem("ga4-builder-opened", "1");
-      trackGa4Event("builder_opened");
+    if (pathname === "/builder" && !sessionStorage.getItem("ga4-builder-entry")) {
+      if (trackGa4Event("builder_opened")) sessionStorage.setItem("ga4-builder-entry", "1");
     }
   }, [accepted, pathname]);
 

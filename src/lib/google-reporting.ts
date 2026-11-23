@@ -6,6 +6,11 @@ type Report<T> =
   | { status: "error"; message: string }
   | { status: "live"; fetchedAt: string; startDate: string; endDate: string; data: T };
 
+type RealtimeReport<T> =
+  | { status: "setup_required" }
+  | { status: "error"; message: string }
+  | { status: "live"; fetchedAt: string; data: T };
+
 type Credentials = { client_email: string; private_key: string };
 const tokenCache = new Map<string, { value: string; expiresAt: number }>();
 
@@ -121,5 +126,30 @@ export async function getGa4FunnelReport(): Promise<Report<FunnelData>> {
   } catch (error) {
     console.error("GA4 reporting failed:", error);
     return { status: "error", message: "GA4 reporting is unavailable. Check Data API access and the property ID." };
+  }
+}
+
+type RealtimeData = { pageViews: number; builderOpened: number; resumeDownloaded: number };
+
+export async function getGa4RealtimeReport(): Promise<RealtimeReport<RealtimeData>> {
+  const property = process.env.GA4_PROPERTY_ID;
+  if (!property || !process.env.GOOGLE_SERVICE_ACCOUNT_JSON || !process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID) return { status: "setup_required" };
+  if (!/^\d+$/.test(property)) return { status: "error", message: "GA4 property ID must be numeric." };
+  try {
+    const account = credentials()!;
+    const report = await googlePost<{ rows?: GaRow[] }>(
+      `https://analyticsdata.googleapis.com/v1beta/properties/${property}:runRealtimeReport`,
+      "https://www.googleapis.com/auth/analytics.readonly",
+      { dimensions: [{ name: "eventName" }], metrics: [{ name: "eventCount" }] },
+      account,
+    );
+    const counts = new Map((report.rows ?? []).map(row => [row.dimensionValues?.[0]?.value, Number(row.metricValues?.[0]?.value ?? 0)]));
+    return {
+      status: "live", fetchedAt: new Date().toISOString(),
+      data: { pageViews: counts.get("page_view") ?? 0, builderOpened: counts.get("builder_opened") ?? 0, resumeDownloaded: counts.get("resume_downloaded") ?? 0 },
+    };
+  } catch (error) {
+    console.error("GA4 realtime reporting failed:", error);
+    return { status: "error", message: "GA4 realtime reporting is unavailable. Check Data API access." };
   }
 }

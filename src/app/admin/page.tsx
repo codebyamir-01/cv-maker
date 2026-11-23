@@ -4,7 +4,7 @@ import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { Users, FileText, Activity, ShieldCheck } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { getGa4FunnelReport, getSearchConsoleReport } from "@/lib/google-reporting";
+import { getGa4FunnelReport, getGa4RealtimeReport, getSearchConsoleReport } from "@/lib/google-reporting";
 import { AdminSignOutButton } from "./AdminSignOutButton";
 
 export const metadata = {
@@ -29,7 +29,7 @@ export default async function AdminDashboard() {
     redirect("/dashboard");
   }
 
-  const [userCount, resumeCount, score, recentResumes, seo, funnel] = await Promise.all([
+  const [userCount, resumeCount, score, recentResumes, seo, funnel, realtime] = await Promise.all([
     prisma.user.count(),
     prisma.resume.count(),
     prisma.resume.aggregate({ _avg: { atsScore: true } }),
@@ -40,6 +40,7 @@ export default async function AdminDashboard() {
     }),
     getSearchConsoleReport(),
     getGa4FunnelReport(),
+    getGa4RealtimeReport(),
   ]);
 
   return (
@@ -130,6 +131,16 @@ export default async function AdminDashboard() {
                   <p className="text-xs text-slate-500">Event counts from consented visits. These counts do not establish a same-user conversion rate.</p>
                   {funnel.data.builderOpened === 0 && funnel.data.resumeDownloaded === 0 && <p className="text-xs text-slate-500">No matching events have been reported for this period. Today&apos;s GA4 data may still be processing.</p>}
                 </>}
+              {realtime.status === "live" && <div className="border-t pt-4 space-y-2">
+                <p className="text-xs text-slate-500">Last 30 minutes · GA4 Realtime API · Updated {new Date(realtime.fetchedAt).toLocaleString()}</p>
+                <div className="grid grid-cols-3 gap-3 text-sm">
+                  <div><span className="text-slate-500">Page views</span><p className="text-xl font-bold">{realtime.data.pageViews.toLocaleString()}</p></div>
+                  <div><span className="text-slate-500">Builder opens</span><p className="text-xl font-bold">{realtime.data.builderOpened.toLocaleString()}</p></div>
+                  <div><span className="text-slate-500">PDF downloads</span><p className="text-xl font-bold">{realtime.data.resumeDownloaded.toLocaleString()}</p></div>
+                </div>
+                <p className="text-xs text-slate-500">Page views are visits, not unique users. Analytics consent is required.</p>
+              </div>}
+              {realtime.status === "error" && <p className="text-xs text-amber-700">{realtime.message}</p>}
             </CardContent>
           </Card>
         </div>
