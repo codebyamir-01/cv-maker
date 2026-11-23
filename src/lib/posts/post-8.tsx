@@ -13,8 +13,8 @@ export const post8: BlogPost = {
   author: "Jerry",
   metaTitle: "How to Explain Employment Gaps on Your Resume | CV Maker",
   metaDescription: "Learn how to handle employment gaps on your resume professionally. Discover the best ways to explain time off for travel, family, health, or layoffs.",
-  bannerImage: "/images/blog/blog_employment_gaps.png",
-  bannerAlt: "Timeline on a resume with a gap being bridged",
+  bannerImage: "/images/blog/post-8-how-to-explain-employment-gaps.jpg",
+  bannerAlt: "Illustrated cover for How to Explain Employment Gaps on Your Resume",
   relatedSlugs: ["cover-letter-vs-resume", "how-to-write-professional-summary"],
   faqs: [
     {

@@ -14,8 +14,8 @@ export const post27: BlogPost = {
   author: "Smart Resume Maker Editorial Team",
   metaTitle: "Can ATS Detect AI Resumes in 2026? | Smart Resume Maker",
   metaDescription: "Do modern ATS tools detect ChatGPT resumes in 2026? Learn how AI screening works and how to optimize bullet points using the Google X-Y-Z formula.",
-  bannerImage: "/images/blog/blog_ats_resume.png",
-  bannerAlt: "Digital illustration of an ATS algorithm scanning a digital resume with holographic data visualization",
+  bannerImage: "/images/blog/post-27-can-ats-detect-ai-resumes-2026.jpg",
+  bannerAlt: "Illustrated cover for Can ATS Detect AI Resumes in 2026? How Recruiters Screen ChatGPT",
   relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","how-to-tailor-resume-to-job-description-2026"],
   faqs: [
   {

@@ -14,8 +14,8 @@ export const post43: BlogPost = {
   author: "Smart Resume Maker Editorial Team",
   metaTitle: "How to List Freelance Work on Resume | Smart Resume Maker",
   metaDescription: "Master listing freelance, contract, and consulting work on your resume. Learn formatting strategies, ATS optimization, and formulas for 2026.",
-  bannerImage: "/images/blog/blog_job_interview.jpg",
-  bannerAlt: "A job applicant discussing their experience in an interview",
+  bannerImage: "/images/blog/post-43-how-to-put-freelance-contract-work-on-resume.jpg",
+  bannerAlt: "Illustrated cover for How to Put Freelance & Contract Work on Resume (2026)",
   relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","how-to-tailor-resume-to-job-description-2026"],
   faqs: [
   {

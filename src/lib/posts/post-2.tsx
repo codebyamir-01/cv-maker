@@ -13,8 +13,8 @@ export const post2: BlogPost = {
   author: "Jerry",
   metaTitle: "10 Resume Action Verbs With Examples | Smart Resume Maker",
   metaDescription: "See ten resume action verbs with example bullets for leadership, analysis, operations, and support. Learn when each verb fits your work.",
-  bannerImage: "/images/blog/blog_action_verbs.png",
-  bannerAlt: "Action verbs highlighted on a resume with a target icon",
+  bannerImage: "/images/blog/post-2-resume-action-verbs.jpg",
+  bannerAlt: "Illustrated cover for 10 Resume Action Verbs With Examples You Can Adapt",
   relatedSlugs: ["ats-friendly-resume-2026", "how-to-write-professional-summary"],
   faqs: [
     {

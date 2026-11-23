@@ -13,8 +13,8 @@ export const post1: BlogPost = {
   author: "Jerry",
   metaTitle: "How to Write an ATS-Friendly Resume | Smart Resume Maker",
   metaDescription: "Build a readable ATS-friendly resume with clear headings, relevant skills, and a file check before submitting your application.",
-  bannerImage: "/images/blog/blog_ats_resume.png",
-  bannerAlt: "Robot scanning a resume representing Applicant Tracking Systems",
+  bannerImage: "/images/blog/post-1-ats-friendly-resume-2026.jpg",
+  bannerAlt: "Illustrated cover for How to Write an ATS-Friendly Resume in 2026",
   relatedSlugs: ["resume-action-verbs", "best-resume-format-software-engineers"],
   faqs: [
     {

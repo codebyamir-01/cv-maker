@@ -14,8 +14,8 @@ export const post20: BlogPost = {
   author: "Smart Resume Maker Editorial Team",
   metaTitle: "AI Prompt Engineer Resume Guide | Smart Resume Maker",
   metaDescription: "Land top AI roles with our 2026 Prompt Engineer & LLM Specialist resume guide. Includes ATS keywords, metrics, and battle-tested Google X-Y-Z bullets.",
-  bannerImage: "/images/blog/blog_software_engineer_realistic.jpg",
-  bannerAlt: "A modern software engineer workspace displaying code, neural network diagrams, and language model evaluation pipelines on multiple monitors",
+  bannerImage: "/images/blog/post-20-ai-prompt-engineer-llm-specialist-resume-guide.jpg",
+  bannerAlt: "Illustrated cover for AI Prompt Engineer Resume Guide: 2026 Skills & Examples",
   relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","how-to-tailor-resume-to-job-description-2026"],
   faqs: [
   {

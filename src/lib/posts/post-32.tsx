@@ -14,8 +14,8 @@ export const post32: BlogPost = {
   author: "Smart Resume Maker Editorial Team",
   metaTitle: "Beat Greenhouse ATS in 2026 | Smart Resume Maker",
   metaDescription: "Learn how to beat Greenhouse ATS in 2026. Discover parsing rules, semantic keyword optimization, and proven Google X-Y-Z resume bullet examples.",
-  bannerImage: "/images/blog/blog_ats_resume.png",
-  bannerAlt: "A hiring manager reviewing candidates parsed through the Greenhouse applicant tracking system dashboard",
+  bannerImage: "/images/blog/post-32-how-to-beat-greenhouse-ats-2026.jpg",
+  bannerAlt: "Illustrated cover for Beat Greenhouse ATS in 2026: Formatting Rules & Keywords",
   relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","how-to-tailor-resume-to-job-description-2026"],
   faqs: [
   {

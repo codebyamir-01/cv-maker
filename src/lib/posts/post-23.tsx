@@ -14,8 +14,8 @@ export const post23: BlogPost = {
   author: "Smart Resume Maker Editorial Team",
   metaTitle: "Career Change Resume Guide 2026 | Smart Resume Maker",
   metaDescription: "Master your professional pivot with our 2026 career change resume guide. Includes ATS optimization, hybrid templates, and real metric-driven examples.",
-  bannerImage: "/images/blog/blog_job_interview.jpg",
-  bannerAlt: "Professional reviewing a modernized career transition resume on a digital workspace tablet",
+  bannerImage: "/images/blog/post-23-how-to-write-a-career-change-resume-2026.jpg",
+  bannerAlt: "Illustrated cover for How to Write a Career Change Resume in 2026 (With Examples)",
   relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","how-to-tailor-resume-to-job-description-2026"],
   faqs: [
   {

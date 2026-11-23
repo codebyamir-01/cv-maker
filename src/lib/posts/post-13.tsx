@@ -13,8 +13,8 @@ export const post13: BlogPost = {
   author: "Jerry",
   metaTitle: "How to Use AI to Write Your Resume | CV Maker",
   metaDescription: "Learn the right way to use AI and smart tools to write your resume. Discover prompt tricks to generate bullet points without sounding like a robot.",
-  bannerImage: "/images/blog/blog_ats_resume.png", // reusing an image
-  bannerAlt: "AI brain network generating a resume document",
+  bannerImage: "/images/blog/post-13-how-to-use-ai-resume-builder.jpg", // reusing an image
+  bannerAlt: "Illustrated cover for How to Use AI to Write Your Resume (Without Sounding Robotic)",
   relatedSlugs: ["what-is-a-smart-resume-builder", "how-to-write-professional-summary"],
   faqs: [
     {

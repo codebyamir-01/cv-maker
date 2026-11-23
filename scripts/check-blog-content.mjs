@@ -6,6 +6,7 @@ const registry = await fs.readFile(path.join(root, "src/lib/blog-data.tsx"), "ut
 const ids = [...registry.matchAll(/^\s+post(\d+),\s*$/gm)].map(match => Number(match[1]));
 const slugs = new Set();
 const published = [];
+const banners = new Set();
 
 if (ids.length === 0 || new Set(ids).size !== ids.length) {
   throw new Error("Blog registry is empty or contains duplicate post IDs.");
@@ -23,6 +24,8 @@ for (const id of ids) {
 for (const post of published) {
   const banner = post.content.match(/^\s*bannerImage:\s*["']([^"']+)["']/m)?.[1];
   if (!banner || !banner.startsWith("/")) throw new Error(`Missing local banner image: post-${post.id}`);
+  if (banners.has(banner)) throw new Error(`Repeated banner image in post-${post.id}: ${banner}`);
+  banners.add(banner);
   await fs.access(path.join(root, "public", banner.slice(1)));
 
   const related = post.content.match(/relatedSlugs:\s*\[([^\]]*)\]/s)?.[1] || "";

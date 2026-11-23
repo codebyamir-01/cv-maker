@@ -14,8 +14,8 @@ export const post26: BlogPost = {
   author: "Smart Resume Maker Editorial Team",
   metaTitle: "Beat Workday ATS: 2026 Guide | Smart Resume Maker",
   metaDescription: "Master Workday ATS formatting for 2026. Learn how to format parsing fields, beat AI skills scoring, and guarantee your resume reaches recruiters.",
-  bannerImage: "/images/blog/blog_ats_resume.png",
-  bannerAlt: "Digital illustration of an ATS resume scanner parsing candidate credentials on a clean modern dashboard",
+  bannerImage: "/images/blog/post-26-how-to-beat-workday-ats-2026-guide.jpg",
+  bannerAlt: "Illustrated cover for How to Beat Workday ATS in 2026: Master Resume Formatting Guide",
   relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","how-to-tailor-resume-to-job-description-2026"],
   faqs: [
   {

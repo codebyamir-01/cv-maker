@@ -14,8 +14,8 @@ export const post40: BlogPost = {
   author: "Smart Resume Maker Editorial Team",
   metaTitle: "Data Science Resume Guide 2026 | Smart Resume Maker",
   metaDescription: "Build a winning 2026 data science resume. Discover high-converting ATS keywords, portfolio blueprints, and executive-level bullet point formulas.",
-  bannerImage: "/images/blog/data-science-resume-2026.png",
-  bannerAlt: "Illustrated data scientist resume beside a portfolio project and data charts",
+  bannerImage: "/images/blog/post-40-data-science-resume-guide-2026-skills-portfolio-ats-keywords.jpg",
+  bannerAlt: "Illustrated cover for Data Science Resume Guide 2026: Skills, Projects & ATS Keywords",
   relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","how-to-tailor-resume-to-job-description-2026"],
   faqs: [
   {

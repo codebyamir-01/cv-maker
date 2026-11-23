@@ -14,8 +14,8 @@ export const post41: BlogPost = {
   author: "Smart Resume Maker Editorial Team",
   metaTitle: "AI Skills on Resume 2026 | Smart Resume Maker",
   metaDescription: "Master showcasing your AI skills on your 2026 resume. This expert guide provides actionable examples, keywords, and strategies to pass ATS and land your dream job.",
-  bannerImage: "/images/blog/blog_software_engineer_realistic.jpg",
-  bannerAlt: "Professional showing AI interface on a laptop with data visualizations.",
+  bannerImage: "/images/blog/post-41-how-to-put-ai-skills-on-resume-2026.jpg",
+  bannerAlt: "Illustrated cover for How to Put AI Skills on Your Resume in 2026 (Examples for Any Job)",
   relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","how-to-tailor-resume-to-job-description-2026"],
   faqs: [
   {

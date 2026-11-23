@@ -13,8 +13,8 @@ export const post10: BlogPost = {
   author: "Jerry",
   metaTitle: "Resume Tips for Fresh Graduates With No Experience | CV Maker",
   metaDescription: "Learn how to write a powerful resume as a fresh graduate with no formal work experience. Discover how to leverage academic projects and extracurriculars.",
-  bannerImage: "/images/blog/blog_fresh_graduates.png",
-  bannerAlt: "Graduation cap resting on top of a professional resume",
+  bannerImage: "/images/blog/post-10-resume-tips-for-fresh-graduates.jpg",
+  bannerAlt: "Illustrated cover for Resume Tips for Fresh Graduates With No Experience",
   relatedSlugs: ["one-page-vs-two-page-resume", "how-to-write-professional-summary"],
   faqs: [
     {

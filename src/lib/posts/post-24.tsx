@@ -14,8 +14,8 @@ export const post24: BlogPost = {
   author: "Smart Resume Maker Editorial Team",
   metaTitle: "Tailor Your Resume to Job Descriptions | Smart Resume Maker",
   metaDescription: "Master resume tailoring for 2026 AI ATS systems. Step-by-step framework with Google X-Y-Z examples, keyword extraction tips, and live bullet points.",
-  bannerImage: "/images/blog/blog_ats_resume.png",
-  bannerAlt: "Professional reviewing a resume side-by-side with a targeted job description on a dual-monitor setup",
+  bannerImage: "/images/blog/post-24-how-to-tailor-resume-to-job-description-2026.jpg",
+  bannerAlt: "Illustrated cover for How to Tailor Your Resume to Any Job Description in 2026",
   relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","how-to-write-professional-summary"],
   faqs: [
   {

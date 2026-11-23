@@ -13,8 +13,8 @@ export const post11: BlogPost = {
   author: "Jerry",
   metaTitle: "What is a Smart Resume Builder? Why You Need One in 2026",
   metaDescription: "Discover how a smart resume builder uses automation and best practices to create ATS-friendly resumes instantly. Say goodbye to manual formatting.",
-  bannerImage: "/images/blog/blog_ats_resume.png", 
-  bannerAlt: "Digital resume building concept with smart technology",
+  bannerImage: "/images/blog/post-11-what-is-a-smart-resume-builder.jpg",
+  bannerAlt: "Illustrated cover for What is a Smart Resume Builder? (And Why You Need One in 2026)",
   relatedSlugs: ["ats-friendly-resume-2026", "how-to-use-ai-resume-builder"],
   faqs: [
     {

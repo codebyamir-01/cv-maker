@@ -13,8 +13,8 @@ export const post4: BlogPost = {
   author: "Jerry",
   metaTitle: "How to Write a Professional Resume Summary (2026 Guide) | CV Maker",
   metaDescription: "Learn how to write a powerful professional summary for your resume. Discover the 3-part formula, see 10+ real-world examples, and learn what mistakes to avoid.",
-  bannerImage: "/images/blog/blog_professional_summary.png",
-  bannerAlt: "Professional summary section of a resume highlighted",
+  bannerImage: "/images/blog/post-4-how-to-write-professional-summary.jpg",
+  bannerAlt: "Illustrated cover for How to Write a Professional Summary That Gets Noticed",
   relatedSlugs: ["resume-action-verbs", "one-page-vs-two-page-resume"],
   faqs: [
     {

@@ -13,8 +13,8 @@ export const post15: BlogPost = {
   author: "Jerry",
   metaTitle: "Resume Summary vs Objective: Which Should You Use? (2026)",
   metaDescription: "Should you write a resume summary or an objective statement? Learn the key differences, when to use each, and see examples for every career stage.",
-  bannerImage: "/images/blog/blog_professional_summary.png",
-  bannerAlt: "Person deciding between writing a resume summary or objective statement",
+  bannerImage: "/images/blog/post-15-resume-summary-vs-objective.jpg",
+  bannerAlt: "Illustrated cover for Resume Summary vs Objective: Which One Should You Use in 2026?",
   relatedSlugs: ["ats-friendly-resume-2026", "resume-no-work-experience"],
   faqs: [
     {

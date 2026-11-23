@@ -13,8 +13,8 @@ export const post12: BlogPost = {
   author: "Jerry",
   metaTitle: "How to Find ATS Keywords for Your Resume | CV Maker",
   metaDescription: "Learn how to read a job description and extract the exact Applicant Tracking System (ATS) keywords you need to include in your resume to get an interview.",
-  bannerImage: "/images/blog/blog_action_verbs.png", // reusing a relevant image
-  bannerAlt: "Magnifying glass over a job description highlighting keywords",
+  bannerImage: "/images/blog/post-12-beat-the-bots-ats-keywords.jpg", // reusing a relevant image
+  bannerAlt: "Illustrated cover for Beat the Bots: How to Find the Right ATS Keywords for Your Resume",
   relatedSlugs: ["ats-friendly-resume-2026", "resume-action-verbs"],
   faqs: [
     {

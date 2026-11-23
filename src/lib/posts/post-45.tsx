@@ -14,8 +14,8 @@ export const post45: BlogPost = {
   author: "Smart Resume Maker Editorial Team",
   metaTitle: "AI Resume Screening Guide 2026 | Smart Resume Maker",
   metaDescription: "Discover how semantic search and modern AI resume screeners parse your resume. Go beyond keywords with real metrics and proven X-Y-Z formulas.",
-  bannerImage: "/images/blog/blog_ats_resume.png",
-  bannerAlt: "Digital illustration showing artificial intelligence analyzing a resume with data points, metrics, and semantic keyword matching",
+  bannerImage: "/images/blog/post-45-optimizing-resume-for-ai-screening-beyond-keywords.jpg",
+  bannerAlt: "Illustrated cover for Beat AI Resume Screeners: Smart Strategies Beyond Keywords",
   relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","how-to-tailor-resume-to-job-description-2026"],
   faqs: [
   {

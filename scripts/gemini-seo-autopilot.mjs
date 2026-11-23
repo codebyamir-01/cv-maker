@@ -3,6 +3,7 @@ import path from "path";
 import { execFileSync } from "child_process";
 import { GoogleGenAI } from "@google/genai";
 import dotenv from "dotenv";
+import { createBlogThumbnail } from "./blog-thumbnail.mjs";
 
 dotenv.config({ path: ".env.local" });
 dotenv.config({ path: ".env" });
@@ -21,18 +22,6 @@ const SUPPORTED_MODELS = [
   "gemini-3.7-flash",
   "gemini-3.5-flash",
   "gemini-2.5-flash"
-];
-
-// High-converting authentic editorial banners
-const EDITORIAL_BANNERS = [
-  "/images/blog/blog_product_manager.jpg",
-  "/images/blog/blog_software_engineer_realistic.jpg",
-  "/images/blog/blog_job_interview.jpg",
-  "/images/blog/blog_ats_resume.png",
-  "/images/blog/blog_action_verbs.png",
-  "/images/blog/blog_professional_summary.png",
-  "/images/blog/blog_list_skills.png",
-  "/images/blog/blog_one_vs_two_page.png"
 ];
 
 function escapeJsxText(text) {
@@ -278,15 +267,7 @@ CRITICAL REQUIREMENTS:
     throw new Error(`Article failed quality/uniqueness checks (slug: ${article.slug || "missing"}, words: ${words}). Nothing will be published.`);
   }
 
-  // Pick realistic editorial image based on category
-  let bannerImage = EDITORIAL_BANNERS[0];
-  if (article.category === "Tech Careers") {
-    bannerImage = "/images/blog/blog_software_engineer_realistic.jpg";
-  } else if (article.category === "Job Search" || article.category === "Career Tips") {
-    bannerImage = "/images/blog/blog_job_interview.jpg";
-  } else if (article.category === "ATS Tips") {
-    bannerImage = "/images/blog/blog_ats_resume.png";
-  }
+  const bannerImage = await createBlogThumbnail({ id: nextId, slug: article.slug, title: article.title, category: article.category || "Career Tips" });
 
   const today = new Date().toLocaleDateString("en-US", {
     month: "short",
@@ -335,7 +316,7 @@ export const post${nextId}: BlogPost = {
   metaTitle: ${JSON.stringify(article.metaTitle || `${article.title} | Smart Resume Maker`)},
   metaDescription: ${JSON.stringify(article.metaDescription)},
   bannerImage: ${JSON.stringify(bannerImage)},
-  bannerAlt: ${JSON.stringify(article.bannerAlt || article.title)},
+  bannerAlt: ${JSON.stringify(`Illustrated cover for ${article.title}`)},
   relatedSlugs: ${JSON.stringify(relatedSlugs)},
   faqs: ${JSON.stringify(article.faqs || [], null, 2)},
   fullContent: (
@@ -417,7 +398,7 @@ async function recordHealthReport(health, newPost) {
 async function autoCommitAndPush(newPost) {
   console.log("\x1b[34m[4/4] Automated Git Sync & Deploy...\x1b[0m");
   try {
-    execFileSync("git", ["add", "src/lib/posts/", "src/lib/blog-data.tsx", "seo-reports/", "src/app/"], { stdio: "inherit" });
+    execFileSync("git", ["add", "src/lib/posts/", "src/lib/blog-data.tsx", "seo-reports/", "src/app/", "public/images/blog/"], { stdio: "inherit" });
     const cleanTitle = (newPost.title || "").replace(/["'\\]/g, "");
     const commitMsg = `feat(seo): daily autopilot - publish post #${newPost.id} - ${cleanTitle}`;
     execFileSync("git", ["commit", "-m", commitMsg], { stdio: "inherit" });

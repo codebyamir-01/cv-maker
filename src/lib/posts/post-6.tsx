@@ -13,8 +13,8 @@ export const post6: BlogPost = {
   author: "Jerry",
   metaTitle: "How to List Skills on a Resume | CV Maker",
   metaDescription: "Learn the most effective ways to list skills on your resume. Discover the difference between hard and soft skills and how to prove them to employers.",
-  bannerImage: "/images/blog/blog_list_skills.png",
-  bannerAlt: "Grid of puzzle pieces fitting into a resume representing skills",
+  bannerImage: "/images/blog/post-6-how-to-list-skills-on-resume.jpg",
+  bannerAlt: "Illustrated cover for How to List Skills on a Resume (With Examples)",
   relatedSlugs: ["ats-friendly-resume-2026", "resume-tips-for-fresh-graduates"],
   faqs: [
     {

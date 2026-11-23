@@ -2,6 +2,7 @@ import fs from "fs/promises";
 import path from "path";
 import { GoogleGenAI } from "@google/genai";
 import dotenv from "dotenv";
+import { createBlogThumbnail } from "./blog-thumbnail.mjs";
 
 dotenv.config({ path: ".env.local" });
 dotenv.config({ path: ".env" });
@@ -24,21 +25,6 @@ const DEFAULT_TOPICS = [
   "Product Manager Resume Guide for High-Growth Tech",
   "How to Write an Executive Summary That Gets Read",
   "The Perfect DevOps & Cloud Engineer Resume Template"
-];
-
-// Available blog banner images in /public/images/blog
-const AVAILABLE_IMAGES = [
-  "/images/blog/blog_product_manager.jpg",
-  "/images/blog/blog_software_engineer_realistic.jpg",
-  "/images/blog/blog_job_interview.jpg",
-  "/images/blog/blog_ats_resume.png",
-  "/images/blog/blog_action_verbs.png",
-  "/images/blog/blog_professional_summary.png",
-  "/images/blog/blog_list_skills.png",
-  "/images/blog/blog_cover_letter.png",
-  "/images/blog/blog_one_vs_two_page.png",
-  "/images/blog/blog_employment_gaps.png",
-  "/images/blog/blog_linkedin_profile.png",
 ];
 
 function escapeJsxText(text) {
@@ -157,21 +143,13 @@ Ensure you provide 4 to 6 comprehensive sections with rich paragraphs and concre
     article = JSON.parse(cleaned);
   }
 
-  // Pick suitable banner image from available assets
-  const bannerImage = article.category === "ATS Tips"
-    ? "/images/blog/blog_ats_resume.png"
-    : article.category === "Tech Careers"
-      ? "/images/blog/blog_software_engineer_realistic.jpg"
-      : article.category === "Writing Tips"
-        ? "/images/blog/blog_professional_summary.png"
-        : AVAILABLE_IMAGES[0];
-
   const existingFiles = (await fs.readdir(path.join(process.cwd(), "src", "lib", "posts"))).filter(file => /^post-\d+\.tsx$/.test(file));
   const existingPosts = await Promise.all(existingFiles.map(file => fs.readFile(path.join(process.cwd(), "src", "lib", "posts", file), "utf8")));
   const existingSlugs = existingPosts.map(content => content.match(/slug:\s*["']([^"']+)["']/)?.[1]);
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(article.slug || "") || existingSlugs.includes(article.slug)) {
     throw new Error(`Invalid or duplicate article slug: ${article.slug || "missing"}. Nothing was published.`);
   }
+  const bannerImage = await createBlogThumbnail({ id: nextId, slug: article.slug, title: article.title, category: article.category || "Career Tips" });
   const blogDataPath = path.join(process.cwd(), "src", "lib", "blog-data.tsx");
   const registrySource = await fs.readFile(blogDataPath, "utf8");
   const publishedIds = new Set([...registrySource.matchAll(/^\s+post(\d+),\s*$/gm)].map(match => Number(match[1])));
@@ -227,7 +205,7 @@ export const post${nextId}: BlogPost = {
   metaTitle: "${escapeJsxText(article.metaTitle || article.title)}",
   metaDescription: "${escapeJsxText(article.metaDescription || article.excerpt)}",
   bannerImage: "${bannerImage}",
-  bannerAlt: "${escapeJsxText(article.bannerAlt || article.title)}",
+  bannerAlt: ${JSON.stringify(`Illustrated cover for ${article.title}`)},
   relatedSlugs: ${JSON.stringify(relatedSlugs)},
   faqs: ${JSON.stringify(article.faqs || [], null, 2)},
   fullContent: (

@@ -14,8 +14,8 @@ export const post21: BlogPost = {
   author: "Smart Resume Maker Editorial Team",
   metaTitle: "Listing Remote & Global Work on Resumes | Smart Resume Maker",
   metaDescription: "Learn how to format remote jobs and international experience on your resume with ATS-ready formulas, time-zone collaboration metrics, and real examples.",
-  bannerImage: "/images/blog/blog_product_manager.jpg",
-  bannerAlt: "Professional working remotely on laptop collaborating with an international global team across time zones",
+  bannerImage: "/images/blog/post-21-how-to-list-remote-work-global-experience-resume.jpg",
+  bannerAlt: "Illustrated cover for How to Showcase Remote Work & Global Experience on Your Resume",
   relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","how-to-tailor-resume-to-job-description-2026"],
   faqs: [
   {

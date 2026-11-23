@@ -14,8 +14,8 @@ export const post22: BlogPost = {
   author: "Smart Resume Maker Editorial Team",
   metaTitle: "2026 Cybersecurity Resume Guide | Smart Resume Maker",
   metaDescription: "Master your cybersecurity resume for 2026. Learn high-demand skills, certifications, ATS keyword optimization, and proven Google X-Y-Z bullet examples.",
-  bannerImage: "/images/blog/blog_software_engineer_realistic.jpg",
-  bannerAlt: "A cybersecurity engineer analyzing security metrics and telemetry on modern operations center dashboards",
+  bannerImage: "/images/blog/post-22-cybersecurity-resume-guide-2026.jpg",
+  bannerAlt: "Illustrated cover for Cybersecurity Resume Guide 2026: Skills, Certifications & ATS Tips",
   relatedSlugs: ["ats-friendly-resume-2026","how-to-tailor-resume-to-job-description-2026","resume-action-verbs"],
   faqs: [
   {
