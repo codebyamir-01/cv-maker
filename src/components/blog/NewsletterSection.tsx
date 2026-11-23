@@ -50,15 +50,14 @@ export default function NewsletterSection() {
   return (
     <div className="mt-16 rounded-3xl border border-slate-200 bg-gradient-to-br from-slate-900 to-slate-800 p-12 text-center">
       <div className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/20 px-4 py-2 text-sm font-semibold text-white/80 mb-5">
-        <Tag className="h-4 w-4" /> Weekly Career Tips
+        <Tag className="h-4 w-4" /> Career Tips
       </div>
 
       <h2 className="text-3xl font-extrabold text-white mb-3">
         Get Resume Tips in Your Inbox
       </h2>
       <p className="text-slate-400 mb-8 max-w-xl mx-auto">
-        Join 10,000+ job seekers who get our weekly resume tips, ATS updates,
-        and hiring insights — free.
+        Subscribe for future resume tips and product updates.
       </p>
 
       {status === "success" ? (
@@ -106,7 +105,7 @@ export default function NewsletterSection() {
       )}
 
       {status !== "success" && (
-        <p className="mt-3 text-xs text-slate-500">No spam. Unsubscribe anytime.</p>
+          <p className="mt-3 text-xs text-slate-500">To remove your email, contact us through our support page.</p>
       )}
     </div>
   );

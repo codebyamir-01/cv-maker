@@ -11,12 +11,12 @@ export const post25: BlogPost = {
   readTime: "8 min read",
   date: "Oct 17, 2026",
   slug: "executive-resume-guide-2026-c-suite-examples",
-  author: "Sarah Jenkins",
+  author: "Smart Resume Maker Editorial Team",
   metaTitle: "2026 Executive Resume Guide | Smart Resume Maker",
   metaDescription: "Craft a winning C-suite resume for 2026. Learn executive formatting, Google X-Y-Z metric formulas, AI screening keywords, and board-ready strategies.",
   bannerImage: "/images/blog/blog_product_manager.jpg",
   bannerAlt: "Executive reviewing a polished corporate leadership resume and financial dashboard metrics on a modern desk",
-  relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","quantifying-resume-accomplishments"],
+  relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","how-to-tailor-resume-to-job-description-2026"],
   faqs: [
   {
     "question": "How long should an executive or C-suite resume be in 2026?",

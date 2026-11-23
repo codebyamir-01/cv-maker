@@ -3,16 +3,16 @@ import { BlogPost } from '../blog-types';
 
 export const post2: BlogPost = {
   id: 2,
-  title: "10 Resume Action Verbs That Get You Hired",
-  excerpt: "Replace weak filler words with powerful action verbs that immediately signal impact to recruiters and hiring managers.",
+  title: "10 Resume Action Verbs With Examples You Can Adapt",
+  excerpt: "Choose precise verbs for your actual work. See ten before-and-after examples and a simple formula for writing stronger resume bullets.",
   category: "Writing Tips",
   categoryColor: "bg-blue-100 text-blue-700",
   readTime: "5 min read",
   date: "Jun 15, 2026",
   slug: "resume-action-verbs",
   author: "Jerry",
-  metaTitle: "Top 10 Resume Action Verbs That Get You Hired | CV Maker",
-  metaDescription: "Boost your resume's impact by replacing weak words with these 10 powerful resume action verbs. Learn how to showcase your achievements effectively.",
+  metaTitle: "10 Resume Action Verbs With Examples | Smart Resume Maker",
+  metaDescription: "See ten resume action verbs with example bullets for leadership, analysis, operations, and support. Learn when each verb fits your work.",
   bannerImage: "/images/blog/blog_action_verbs.png",
   bannerAlt: "Action verbs highlighted on a resume with a target icon",
   relatedSlugs: ["ats-friendly-resume-2026", "how-to-write-professional-summary"],
@@ -29,15 +29,15 @@ export const post2: BlogPost = {
   fullContent: (
     <>
       <p className="lead">
-        The words you choose for your resume can make the difference between a callback and a rejection. One of the biggest mistakes job seekers make is using passive, weak language to describe their responsibilities. If your resume is full of phrases like "responsible for," "helped with," or "tasked with," you're underselling yourself.
+        A precise verb helps a reader understand what you did. Choose words that match your responsibility; a modest, accurate verb is stronger than an impressive one you cannot defend. The examples below are illustrative. Replace their details and numbers with your own.
       </p>
 
       <h2>Why Action Verbs Matter</h2>
       <p>
-        Recruiters spend an average of six to seven seconds skimming a resume. In that brief window, they need to see exactly what you achieved. Action verbs put you in the driver's seat of your career. They show initiative, leadership, and tangible results.
+        Start each bullet with an action, then explain the work and its outcome. This helps a reader connect your contribution to a result without relying on vague phrases such as "responsible for."
       </p>
       <p>
-        Instead of saying "Responsible for managing a team," saying "Directed a team of 10" paints a much more authoritative picture. Let's look at some of the most powerful action verbs you should be using.
+        Instead of "Responsible for weekly reports," try "Prepared weekly reports for the sales team." Add a result if you know it, such as time saved or errors reduced.
       </p>
 
       <h3>1. Spearheaded</h3>
@@ -75,6 +75,26 @@ export const post2: BlogPost = {
       </p>
       <p><em>Example: "Quantified the impact of customer churn, leading to a new retention strategy that saved $200k."</em></p>
 
+      <h3>6. Analyzed</h3>
+      <p><strong>Use it when:</strong> You examined data or feedback to support a decision.</p>
+      <p><em>Example: "Analyzed support tickets to identify the three most common onboarding questions."</em></p>
+
+      <h3>7. Built</h3>
+      <p><strong>Use it when:</strong> You created a tool, process, document, or product.</p>
+      <p><em>Example: "Built a spreadsheet that tracked weekly inventory and flagged low-stock items."</em></p>
+
+      <h3>8. Resolved</h3>
+      <p><strong>Use it when:</strong> You handled a specific problem or customer issue.</p>
+      <p><em>Example: "Resolved billing questions by reviewing account records and explaining the next steps to customers."</em></p>
+
+      <h3>9. Trained</h3>
+      <p><strong>Use it when:</strong> You taught colleagues a process or skill.</p>
+      <p><em>Example: "Trained four new team members on the scheduling system and escalation process."</em></p>
+
+      <h3>10. Improved</h3>
+      <p><strong>Use it when:</strong> You made a measurable or clearly observable change to an existing process.</p>
+      <p><em>Example: "Improved the handoff checklist so each shift could see unresolved customer requests."</em></p>
+
       <h2>The Formula for a Great Bullet Point</h2>
       <p>
         Using an action verb is only the first step. To make your bullet points truly shine, combine them with metrics and results. Use this formula:
@@ -83,7 +103,7 @@ export const post2: BlogPost = {
         [Action Verb] + [What you did] + [Result/Impact, quantified if possible]
       </p>
       <p>
-        Review your resume today. Hunt down every "Responsible for" and replace it with a strong action verb to instantly see your resume transform.
+        Review each bullet for a clear action and a truthful outcome. If you lack a number, describe the scope of your work instead. For more examples, see our <a href="/resume-examples">resume examples</a> and <a href="/blog/how-to-list-skills-on-resume">skills guide</a>.
       </p>
     </>
   )

@@ -109,6 +109,7 @@ async function performHealthCheck() {
 
   return {
     postCount: postFiles.length,
+    sourcePostIds: postFiles.map(file => Number(file.match(/^post-(\d+)\.tsx$/)?.[1])).filter(Number.isFinite),
     issues,
     existingSlugs,
     existingTitles,
@@ -122,7 +123,7 @@ async function discoverTrendingTopic(existingTitles) {
 We currently have these published resume articles:
 ${[...new Set(existingTitles)].map(t => `- ${t}`).join("\n")}
 
-Identify ONE high-intent, high-CTR, low-competition search query that job seekers and recruiters are actively searching for in 2026 (e.g., AI resume screening, cyber security, data science, executive leadership, ATS formatting, career gaps, high-paying remote jobs).
+Identify one distinct, practical resume question that the site has not yet answered. Do not invent search volume, competition, or trending status.
 It MUST be completely unique and not duplicate any existing article title.
 
 Return ONLY a JSON object:
@@ -130,7 +131,7 @@ Return ONLY a JSON object:
   "topic": "The exact trending article topic title",
   "targetKeyword": "Primary SEO keyword target",
   "searchIntent": "Informational / Transactional to Resume Builder",
-  "estimatedMonthlyVolume": "High"
+  "reason": "Why this question needs a useful answer"
 }`;
 
   const result = await callGeminiWithFallbacks(prompt, true);
@@ -166,13 +167,14 @@ async function generateAndPublishPost(topic) {
   console.log("\x1b[34m[3/4] Gemini Generator: Creating 1,400+ Word Authority Article...\x1b[0m");
   const nextId = await getNextPostId();
 
-  const prompt = `You are a world-class career expert, executive resume writer, and SEO strategist for Smart Resume Maker (smartresumemaker.com).
+  const prompt = `Draft a practical career guide for Smart Resume Maker (smartresumemaker.com).
 Generate an authoritative, deeply practical 1,400+ word resume/career guide for: "${topic}".
 
 CRITICAL REQUIREMENTS:
 1. Provide actionable guidance with real resume bullet points, metrics, and Google X-Y-Z formula examples.
 2. Include specific keyword targets that help applicants pass modern AI screening and ATS filters in 2026.
 3. Include 4 to 6 comprehensive sections.
+3a. Do not invent research, experiments, employment statistics, credentials, named reviewers, or guarantees about how an ATS evaluates a document. Distinguish examples from observed results.
 4. Output MUST be ONLY valid JSON matching this schema:
 
 {
@@ -182,11 +184,11 @@ CRITICAL REQUIREMENTS:
   "categoryColor": "Choose corresponding: bg-emerald-100 text-emerald-700 | bg-blue-100 text-blue-700 | bg-purple-100 text-purple-700 | bg-cyan-100 text-cyan-700 | bg-amber-100 text-amber-700 | bg-indigo-100 text-indigo-700",
   "readTime": "8 min read",
   "slug": "unique-kebab-case-slug",
-  "author": "Sarah Jenkins",
+  "author": "Smart Resume Maker Editorial Team",
   "metaTitle": "SEO title under 60 characters with | Smart Resume Maker",
   "metaDescription": "Compelling meta description under 155 characters summarizing the article for Google Search.",
   "bannerAlt": "Descriptive accessibility alt text for the banner image",
-  "relatedSlugs": ["ats-friendly-resume-2026", "resume-action-verbs", "quantifying-resume-accomplishments"],
+  "relatedSlugs": ["ats-friendly-resume-2026", "resume-action-verbs", "how-to-tailor-resume-to-job-description-2026"],
   "faqs": [
     {
       "question": "Frequently asked question 1?",
@@ -241,18 +243,37 @@ CRITICAL REQUIREMENTS:
   const existingPosts = await Promise.all(files.map(file => fs.readFile(path.join(postsDir, file), "utf8")));
   const existingSlugs = existingPosts.map(content => content.match(/slug:\s*["']([^"']+)["']/)?.[1]).filter(Boolean);
   const existingTitles = existingPosts.map(content => content.match(/title:\s*["']([^"']+)["']/)?.[1]).filter(Boolean);
+  const registrySource = await fs.readFile(path.join(process.cwd(), "src", "lib", "blog-data.tsx"), "utf8");
+  const publishedIds = new Set([...registrySource.matchAll(/^\s+post(\d+),\s*$/gm)].map(match => Number(match[1])));
+  const publishedSlugs = new Set(existingFiles.flatMap((file, index) => publishedIds.has(Number(file.match(/^post-(\d+)\.tsx$/)?.[1]))
+    ? [existingPosts[index].match(/slug:\s*["']([^"']+)["']/)?.[1]].filter(Boolean)
+    : []));
+  const relatedSlugs = [...new Set([...(Array.isArray(article.relatedSlugs) ? article.relatedSlugs : []), "ats-friendly-resume-2026", "resume-action-verbs"])]
+    .filter(slug => slug !== article.slug && publishedSlugs.has(slug)).slice(0, 3);
   const words = (article.sections || []).flatMap(section => [
     ...(section.paragraphs || []), ...(section.bulletPoints || []), section.proTip || ""
   ]).join(" ").trim().split(/\s+/).filter(Boolean).length;
   const normalized = value => value.trim().toLowerCase().replace(/\s+/g, " ");
+  const titleTerms = value => new Set(normalized(value).match(/[a-z0-9]+/g)?.filter(word => !["a", "an", "the", "for", "in", "to", "and", "of", "2026", "resume", "guide"].includes(word)) || []);
+  const titleOverlap = (a, b) => {
+    const left = titleTerms(a);
+    const right = titleTerms(b);
+    const shared = [...left].filter(word => right.has(word)).length;
+    return shared / Math.max(1, Math.min(left.size, right.size));
+  };
+  const articleText = (article.sections || []).flatMap(section => [
+    ...(section.paragraphs || []), ...(section.bulletPoints || []), section.proTip || ""
+  ]).join(" ");
 
   if (
     typeof article.title !== "string" || !article.title.trim() ||
     typeof article.slug !== "string" || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(article.slug) ||
     existingSlugs.includes(article.slug) ||
     existingTitles.some(title => normalized(title) === normalized(article.title)) ||
+    existingTitles.some(title => titleOverlap(title, article.title) >= 0.8) ||
     !Array.isArray(article.sections) || article.sections.length < 4 || words < 900 ||
-    typeof article.metaDescription !== "string" || article.metaDescription.length < 70 || article.metaDescription.length > 160
+    typeof article.metaDescription !== "string" || article.metaDescription.length < 70 || article.metaDescription.length > 160 ||
+    /\b(we tested|our research (shows|found)|our (lab|team) ran|guarantee 100%|100% parsing accuracy)\b/i.test(articleText)
   ) {
     throw new Error(`Article failed quality/uniqueness checks (slug: ${article.slug || "missing"}, words: ${words}). Nothing will be published.`);
   }
@@ -310,12 +331,12 @@ export const post${nextId}: BlogPost = {
   readTime: ${JSON.stringify(article.readTime || "8 min read")},
   date: ${JSON.stringify(today)},
   slug: ${JSON.stringify(article.slug)},
-  author: ${JSON.stringify(article.author || "Sarah Jenkins")},
+  author: "Smart Resume Maker Editorial Team",
   metaTitle: ${JSON.stringify(article.metaTitle || `${article.title} | Smart Resume Maker`)},
   metaDescription: ${JSON.stringify(article.metaDescription)},
   bannerImage: ${JSON.stringify(bannerImage)},
   bannerAlt: ${JSON.stringify(article.bannerAlt || article.title)},
-  relatedSlugs: ${JSON.stringify(article.relatedSlugs || ["ats-friendly-resume-2026", "resume-action-verbs"])},
+  relatedSlugs: ${JSON.stringify(relatedSlugs)},
   faqs: ${JSON.stringify(article.faqs || [], null, 2)},
   fullContent: (
     <>
@@ -324,7 +345,7 @@ export const post${nextId}: BlogPost = {
       </p>
 ${sectionsJsx}
       <div className="my-10 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 p-8 text-white text-center shadow-lg not-prose">
-        <h3 className="text-2xl font-bold text-white mb-3">Build an ATS-Proof Resume in Minutes</h3>
+        <h3 className="text-2xl font-bold text-white mb-3">Build a Clearer Resume in Minutes</h3>
         <p className="text-blue-100 max-w-xl mx-auto mb-6 text-sm leading-relaxed">
           Put these strategies into practice immediately with our free, professional online resume builder.
         </p>
@@ -371,19 +392,18 @@ async function recordHealthReport(health, newPost) {
   const reportsDir = path.join(process.cwd(), "seo-reports");
   await fs.mkdir(reportsDir, { recursive: true });
   const registry = await fs.readFile(path.join(process.cwd(), "src", "lib", "blog-data.tsx"), "utf8");
-  const publishedPostCount = [...registry.matchAll(/^\s+post\d+,\s*$/gm)].length;
+  const publishedIds = [...registry.matchAll(/^\s+post(\d+),\s*$/gm)].map(match => Number(match[1]));
 
   const report = {
     timestamp: new Date().toISOString(),
+    scope: "Source-code audit only; no live Search Console or AdSense account data",
     contentAuditWarnings: health.issues,
-    totalBlogPosts: publishedPostCount,
-    activeModel: "gemini-flash-latest (with 4-model fallback)",
-    lastPublishedPost: newPost ? { id: newPost.id, title: newPost.title, slug: newPost.slug } : null,
-    recommendations: [
-      "Ensure backlink acquisition on top career forums.",
-      "Monitor Core Web Vitals on /builder and /blog routes weekly.",
-      "Track Google Discover impressions for newly published articles."
-    ]
+    publishedBlogPosts: publishedIds.length,
+    sourcePostFiles: health.postCount + (newPost ? 1 : 0),
+    unpublishedPostIds: health.sourcePostIds.filter(id => !publishedIds.includes(id)).sort((a, b) => a - b),
+    lastPublishedThisRun: newPost ? { id: newPost.id, title: newPost.title, slug: newPost.slug } : null,
+    liveSearchConsoleStatus: "unavailable without authenticated access",
+    adsenseApprovalStatus: "unavailable without AdSense Sites status"
   };
 
   await fs.writeFile(

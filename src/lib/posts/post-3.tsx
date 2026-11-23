@@ -20,11 +20,11 @@ export const post3: BlogPost = {
   faqs: [
     {
       question: "Is a two-page resume acceptable?",
-      answer: "Yes, a two-page resume is perfectly acceptable and often preferred for professionals with more than 7-10 years of relevant experience."
+      answer: "Yes. Use a second page when it adds relevant experience, projects, or credentials that help the employer assess your fit. Follow any length limit in the job posting."
     },
     {
       question: "Can a fresh graduate have a two-page resume?",
-      answer: "Generally, no. Fresh graduates and entry-level candidates should keep their resume strictly to one page to maintain conciseness."
+      answer: "Often one page is enough for a new graduate, but a second page can be useful when substantial projects, research, or relevant work truly need the space. Edit repeated or unrelated material first."
     }
   ],
   fullContent: (
@@ -38,8 +38,8 @@ export const post3: BlogPost = {
         A one-page resume is the standard for a reason. It forces you to be concise, highlighting only your most impressive and relevant achievements.
       </p>
       <ul>
-        <li><strong>Fresh Graduates & Students:</strong> If you are entering the workforce, you simply don't have enough relevant professional experience to justify a second page.</li>
-        <li><strong>Entry-Level Professionals:</strong> If you have less than 5 to 7 years of experience, stick to one page.</li>
+        <li><strong>Fresh Graduates & Students:</strong> Start with one page when education, projects, and relevant work fit comfortably.</li>
+        <li><strong>Entry-Level Professionals:</strong> Keep the most relevant achievements and remove repeated duties before adding space.</li>
         <li><strong>Career Changers:</strong> If you are completely changing industries, your past experience might not be highly relevant. Keep it to one page focusing on transferable skills.</li>
       </ul>
       <p>
@@ -48,10 +48,10 @@ export const post3: BlogPost = {
 
       <h2>When to Use a Two-Page Resume</h2>
       <p>
-        Recruiters actually prefer two-page resumes for senior candidates because it provides a complete picture of their career trajectory and accomplishments.
+        A second page can make sense when it gives a reader useful evidence that would otherwise be cut. Length alone does not improve a resume; relevance does.
       </p>
       <ul>
-        <li><strong>Senior & Mid-Level Professionals:</strong> If you have 10+ years of experience and a track record of promotions and measurable achievements, use two pages.</li>
+        <li><strong>Experienced Professionals:</strong> Consider two pages when recent roles, promotions, and outcomes need the space.</li>
         <li><strong>Tech & Engineering Roles:</strong> Software engineers and IT professionals often need extra space to list numerous technical skills, certifications, and complex project details.</li>
         <li><strong>Academics & Researchers (CV):</strong> In academia, medicine, and research, it's normal to have a multi-page Curriculum Vitae (CV) listing all publications and grants.</li>
       </ul>
@@ -61,6 +61,13 @@ export const post3: BlogPost = {
         <li><strong>Choose two pages</strong> when a second page adds relevant achievements, roles, or credentials that help a reader assess your fit.</li>
         <li><strong>Edit first</strong> if page two contains only a few lines. Remove outdated duties and repeated skills before changing the layout.</li>
       </ul>
+      <h2>What belongs on page two?</h2>
+      <p>
+        Keep your strongest match for the role on page one. Page two can hold earlier relevant roles, selected projects, certifications, publications, or technical details that help explain your fit. For example, a software engineer might put recent production work on page one and a short selection of older projects on page two. A graduate might include substantial research or internships, but should avoid padding the page with unrelated coursework.
+      </p>
+      <p>
+        Compare every second-page item with the job description. If it does not support a required skill, useful experience, or a clear career story, shorten or remove it. A second page should add evidence, not duplicate your summary or skills list.
+      </p>
       <p>
         Need a concise opening? Draft one with the <Link href="/resume-summary-generator">resume summary generator</Link>, then revise it to reflect your actual experience.
       </p>
@@ -70,10 +77,15 @@ export const post3: BlogPost = {
         If you decide to spill over onto a second page, make sure you do it right:
       </p>
       <ul>
-        <li><strong>Fill the Page:</strong> Don't have a two-page resume where the second page only has two lines on it. Either condense it to one page or expand on your achievements to fill at least half of the second page.</li>
+        <li><strong>Avoid a nearly empty page:</strong> If page two has only a few lines, edit the layout and wording before deciding whether it is needed.</li>
         <li><strong>Put the Best Stuff First:</strong> Assume the recruiter might not read the second page. Your most recent job, core skills, and professional summary must be on page one.</li>
         <li><strong>Include Your Name on Page Two:</strong> If the resume is printed, pages can get separated. Make sure your name and contact info are briefly at the top of the second page.</li>
       </ul>
+
+      <h2>Can a resume be two pages for an online application?</h2>
+      <p>
+        Yes, unless the employer asks for a shorter document. Export a text-based PDF or DOCX in the requested format. Review the application form after upload: check your name, employer, title, and dates in the autofilled fields. If the form misreads the file, correct those fields and consider a simpler layout. Our <Link href="/blog/are-two-column-resumes-ats-friendly-2026">layout check</Link> explains a quick way to inspect text order.
+      </p>
 
       <h2>Conclusion</h2>
       <p>

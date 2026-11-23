@@ -11,12 +11,12 @@ export const post36: BlogPost = {
   readTime: "8 min read",
   date: "Oct 28, 2026",
   slug: "how-many-pages-should-a-resume-be-2026",
-  author: "Sarah Jenkins",
+  author: "Smart Resume Maker Editorial Team",
   metaTitle: "Resume Length in 2026: 1 vs 2 Pages | Smart Resume Maker",
   metaDescription: "Is a one-page resume still mandatory in 2026? Discover recruiter expectations, AI parser rules, and exact page length guidelines for your career stage.",
-  bannerImage: "/images/blog/blog_product_manager.jpg",
-  bannerAlt: "Side-by-side comparison of a clean one-page and two-page resume format on a modern workstation",
-  relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","quantifying-resume-accomplishments"],
+  bannerImage: "/images/blog/blog_one_vs_two_page.png",
+  bannerAlt: "A one-page and two-page resume shown side by side",
+  relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","how-to-tailor-resume-to-job-description-2026"],
   faqs: [
   {
     "question": "Does an ATS reject a resume simply because it is two pages long?",

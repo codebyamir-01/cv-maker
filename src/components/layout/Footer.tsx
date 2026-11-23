@@ -16,10 +16,6 @@ export function Footer() {
             <p className="mt-3 max-w-xs text-sm text-slate-500 leading-relaxed">
               Build a professional resume or CV in minutes. Smart guidance, ATS-friendly templates, and instant download.
             </p>
-            <div className="mt-4 flex gap-2">
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="grid h-8 w-8 place-items-center rounded-full border border-slate-200 text-xs font-bold text-slate-500 transition hover:bg-slate-100">X</a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="grid h-8 w-8 place-items-center rounded-full border border-slate-200 text-xs font-bold text-slate-500 transition hover:bg-slate-100">in</a>
-            </div>
           </div>
           <div>
             <h3 className="mb-4 text-sm font-bold tracking-tight text-slate-900">Product</h3>
@@ -40,7 +36,7 @@ export function Footer() {
               <li><Link href="/resume-examples" className="transition hover:text-slate-900">Resume Examples</Link></li>
               <li><Link href="/blog" className="transition hover:text-slate-900">Career Blog</Link></li>
               <li><Link href="/blog/ats-friendly-resume-2026" className="transition hover:text-slate-900">ATS-Friendly Guide</Link></li>
-              <li><Link href="/blog/one-vs-two-page-resume" className="transition hover:text-slate-900">How to Write a CV</Link></li>
+              <li><Link href="/blog/one-page-vs-two-page-resume" className="transition hover:text-slate-900">One or Two Page Resume</Link></li>
               <li><Link href="/blog/resume-action-verbs" className="transition hover:text-slate-900">Resume Action Verbs</Link></li>
               <li><Link href="/resume-summary-generator" className="transition hover:text-blue-600 font-medium text-blue-500">Free AI Summary Generator</Link></li>
             </ul>

@@ -11,12 +11,12 @@ export const post30: BlogPost = {
   readTime: "9 min read",
   date: "Oct 22, 2026",
   slug: "what-is-a-good-ats-resume-score-2026",
-  author: "Sarah Jenkins",
+  author: "Smart Resume Maker Editorial Team",
   metaTitle: "What Is a Good ATS Resume Score? | Smart Resume Maker",
   metaDescription: "Learn what a good ATS resume score is in 2026, how modern AI recruiters rank candidates, and how to test and optimize your resume to pass every filter.",
   bannerImage: "/images/blog/blog_ats_resume.png",
   bannerAlt: "Digital analytics interface visualizing an applicant tracking system score benchmark and resume parsing metrics",
-  relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","quantifying-resume-accomplishments"],
+  relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","how-to-tailor-resume-to-job-description-2026"],
   faqs: [
   {
     "question": "What is the minimum passing ATS score across most enterprise job portals?",

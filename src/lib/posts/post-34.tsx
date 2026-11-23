@@ -11,12 +11,12 @@ export const post34: BlogPost = {
   readTime: "8 min read",
   date: "Oct 26, 2026",
   slug: "one-page-vs-two-page-resume-2026",
-  author: "Sarah Jenkins",
+  author: "Smart Resume Maker Editorial Team",
   metaTitle: "One-Page vs. Two-Page Resume 2026 | Smart Resume Maker",
   metaDescription: "Uncover recruiter preferences for one-page vs. two-page resumes in 2026. Learn ATS optimization, keyword targeting, and actionable strategies for career success.",
-  bannerImage: "/images/blog/blog_product_manager.jpg",
-  bannerAlt: "A split image showing a one-page resume and a two-page resume side-by-side on a desk with a laptop and magnifying glass, symbolizing choice and scrutiny.",
-  relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","quantifying-resume-accomplishments"],
+  bannerImage: "/images/blog/blog_one_vs_two_page.png",
+  bannerAlt: "A one-page and two-page resume shown side by side",
+  relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","how-to-tailor-resume-to-job-description-2026"],
   faqs: [
   {
     "question": "Should entry-level candidates always use a one-page resume?",

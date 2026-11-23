@@ -11,12 +11,12 @@ export const post27: BlogPost = {
   readTime: "9 min read",
   date: "Oct 19, 2026",
   slug: "can-ats-detect-ai-resumes-2026",
-  author: "Sarah Jenkins",
+  author: "Smart Resume Maker Editorial Team",
   metaTitle: "Can ATS Detect AI Resumes in 2026? | Smart Resume Maker",
   metaDescription: "Do modern ATS tools detect ChatGPT resumes in 2026? Learn how AI screening works and how to optimize bullet points using the Google X-Y-Z formula.",
   bannerImage: "/images/blog/blog_ats_resume.png",
   bannerAlt: "Digital illustration of an ATS algorithm scanning a digital resume with holographic data visualization",
-  relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","quantifying-resume-accomplishments"],
+  relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","how-to-tailor-resume-to-job-description-2026"],
   faqs: [
   {
     "question": "Does Workday, Greenhouse, or Taleo automatically reject resumes written by ChatGPT?",
@@ -24,7 +24,7 @@ export const post27: BlogPost = {
   },
   {
     "question": "Can recruiters tell if I used ChatGPT or Claude to write my resume?",
-    "answer": "Recruiters cannot confirm AI usage with 100% technical certainty, but experienced screeners can spot an unedited AI resume in under three seconds. Hallmarks include repetitive sentence structures, uniform bullet lengths, overuse of cliché buzzwords (e.g., 'spearheaded,' 'testament to,' 'delve,' 'fostered a culture of collaboration'), lack of specific company context, and suspicious or perfectly rounded metric percentages that lack plausible business attribution."
+    "answer": "Recruiters cannot confirm AI usage with 100% technical certainty, but an unedited AI draft can sound generic or repeat phrases. Hallmarks include repetitive sentence structures, uniform bullet lengths, overuse of cliché buzzwords (e.g., 'spearheaded,' 'testament to,' 'delve,' 'fostered a culture of collaboration'), lack of specific company context, and suspicious or perfectly rounded metric percentages that lack plausible business attribution."
   },
   {
     "question": "Is it ethical or acceptable to use AI when building my resume in 2026?",

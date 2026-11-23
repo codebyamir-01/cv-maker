@@ -11,12 +11,12 @@ export const post46: BlogPost = {
   readTime: "8 min read",
   date: "Nov 7, 2026",
   slug: "pdf-vs-word-ats-resume-format-2026",
-  author: "Sarah Jenkins",
+  author: "Smart Resume Maker Editorial Team",
   metaTitle: "PDF vs. Word for ATS: Which Wins in 2026? | Smart Resume Maker",
   metaDescription: "Unlock the secrets to ATS-friendly resumes in 2026. Discover if PDF or Word is best for AI screeners, learn essential formatting tips, and optimize your resume for success.",
-  bannerImage: "/images/blog/blog_ats_resume.png",
-  bannerAlt: "A digital scale balancing a PDF icon against a Word icon, symbolizing the resume file format debate for Applicant Tracking Systems in 2026.",
-  relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","quantifying-resume-accomplishments"],
+  bannerImage: "/images/blog/pdf-vs-word-ats-2026.png",
+  bannerAlt: "PDF and Word resume documents compared side by side",
+  relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","how-to-tailor-resume-to-job-description-2026"],
   faqs: [
   {
     "question": "Should I always submit a Word document if given the choice?",
@@ -39,7 +39,7 @@ export const post46: BlogPost = {
 
       <h2>The Evolving Resume Landscape: PDF vs. Word in 2026</h2>
       <p>In the competitive job market of 2026, your resume isn&apos;t just a document; it&apos;s your digital handshake with an Applicant Tracking System (ATS) long before it reaches human eyes. The foundational question for every job seeker remains: PDF or Word? This isn&apos;t just about personal preference anymore; it&apos;s a strategic decision influenced by sophisticated AI, machine learning, and natural language processing (NLP) that define modern ATS.</p>
-      <p>As a world-class career expert and SEO strategist for Smart Resume Maker, we understand that passing these initial digital gatekeepers is paramount. The right file format can smooth your entry, while the wrong one can send your meticulously crafted application into the digital abyss. This guide will meticulously break down the strengths and weaknesses of PDF and Word formats in the context of 2026&apos;s advanced ATS, providing actionable insights to ensure your resume not only gets seen but gets understood.</p>
+      <p>The best file format depends on the employer&apos;s instructions and how your export preserves readable text. The right file format can smooth your entry, while the wrong one can send your meticulously crafted application into the digital abyss. This guide will meticulously break down the strengths and weaknesses of PDF and Word formats in the context of 2026&apos;s advanced ATS, providing actionable insights to ensure your resume not only gets seen but gets understood.</p>
       <p>We&apos;ll delve into the nuances of how AI-powered ATS systems interpret various file types, identify critical keyword targets, and equip you with the Google X-Y-Z formula to articulate your accomplishments powerfully, regardless of the format. Your goal isn&apos;t just to apply; it&apos;s to strategically position your candidacy for success.</p>
       <div className="my-8 rounded-2xl border border-blue-100 bg-blue-50/70 p-6 text-slate-800 shadow-sm not-prose">
         <div className="flex items-center gap-2 font-bold text-blue-900 mb-2">

@@ -19,7 +19,7 @@ export default function TemplatesSection() {
             Templates That <span className="text-blue-300">Get You Hired</span>
           </h2>
           <p className="text-xl text-slate-400 font-medium">
-            Professionally designed, ATS-friendly resume and CV templates trusted by thousands of job seekers.
+            Explore resume and CV layouts you can customize for your experience and target role.
           </p>
         </div>
 

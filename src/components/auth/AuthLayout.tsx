@@ -35,7 +35,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
                 Build an <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-blue-400">ATS-Ready</span> CV in minutes.
               </h1>
               <p className="mt-[clamp(0.5rem,1.5vh,1rem)] text-[clamp(0.875rem,2vh,1.125rem)] text-slate-300">
-                Join thousands of professionals landing their dream jobs with our premium, ATS-optimized resume builder.
+                Create and edit your resume with practical guidance and customizable templates.
               </p>
             </div>
 

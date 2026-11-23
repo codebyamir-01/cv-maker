@@ -1,11 +1,11 @@
 import { Metadata } from "next";
 import { NavbarClient } from "@/components/layout/NavbarClient";
 import { Footer } from "@/components/layout/Footer";
-import { CheckCircle2, ShieldCheck, FileText, Users, Award } from "lucide-react";
+import { ShieldCheck, FileText, Users } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "About Us & Editorial Policy | Smart Resume Maker",
-  description: "Learn about the team behind Smart Resume Maker. We are dedicated to providing free, ATS-friendly resume tools reviewed by Certified Professional Resume Writers (CPRW).",
+  description: "Learn how Smart Resume Maker creates free resume tools and career guides, and how to contact us with corrections or feedback.",
   alternates: {
     canonical: "https://www.smartresumemaker.com/about",
   },
@@ -49,13 +49,13 @@ export default function AboutPage() {
               <h2 className="mb-4 text-3xl font-bold tracking-tight text-slate-900">Why We Built This</h2>
               <div className="space-y-4 text-slate-600 leading-relaxed">
                 <p>
-                  The internet is full of "free" resume builders that ask for your credit card the moment you try to download your PDF. We were tired of seeing job seekers scammed and frustrated during an already stressful time.
+                  The internet is full of &quot;free&quot; resume builders that ask for your credit card the moment you try to download your PDF. We were tired of seeing job seekers scammed and frustrated during an already stressful time.
                 </p>
                 <p>
-                  We launched Smart Resume Maker with a simple promise: <strong>100% Free Downloads, No Watermarks, Forever.</strong> 
+                  We launched Smart Resume Maker to offer free resume downloads without watermarks.
                 </p>
                 <p>
-                  By leveraging modern web technology and AI, we've created a platform that not only generates beautiful designs but actively helps you beat Applicant Tracking Systems (ATS).
+                  Using modern web technology and AI, we&apos;ve created tools that help you prepare a clear resume for online applications.
                 </p>
               </div>
             </div>
@@ -78,7 +78,7 @@ export default function AboutPage() {
                   </div>
                   <div>
                     <h4 className="font-bold text-slate-900">ATS-First Design</h4>
-                    <p className="text-sm text-slate-500 mt-1">Every template is rigorously tested against Workday, Greenhouse, and Taleo.</p>
+                    <p className="text-sm text-slate-500 mt-1">Templates use clear sections and readable formatting. Always review the exported file before applying.</p>
                   </div>
                 </li>
                 <li className="flex items-start gap-4">
@@ -95,78 +95,15 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* ── EDITORIAL POLICY & EXPERT REVIEWERS (EEAT) ── */}
-        <section className="bg-slate-100 py-20 border-t border-slate-200">
+        <section className="border-t border-slate-200 bg-slate-100 py-20">
           <div className="mx-auto max-w-[1000px] px-4 sm:px-6">
-            <div className="mb-12 text-center">
-              <h2 className="mb-4 text-3xl font-bold tracking-tight text-slate-900">Our Editorial Policy</h2>
-              <p className="mx-auto max-w-2xl text-slate-600">
-                To ensure you receive the best career advice, all our templates, AI suggestions, and blog articles are reviewed by certified HR professionals and resume writers.
-              </p>
-            </div>
-
-            <div className="grid gap-8 sm:grid-cols-2">
-              {/* Profile 1 */}
-              <div className="rounded-2xl border border-slate-200 bg-white p-6 flex flex-col items-center text-center shadow-sm">
-                <div className="mb-4 h-24 w-24 overflow-hidden rounded-full bg-slate-200 shadow-inner">
-                  {/* Real-looking professional stock avatar */}
-                  <img 
-                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=250&auto=format&fit=crop" 
-                    alt="Sarah Jenkins, CPRW"
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-                <h3 className="text-lg font-bold text-slate-900">Sarah Jenkins, CPRW</h3>
-                <p className="text-sm font-bold text-blue-600 mb-3">Head of Resume Optimization</p>
-                <div className="flex items-center gap-1.5 text-xs font-semibold text-emerald-700 mb-3 bg-emerald-50 px-3 py-1.5 rounded-full border border-emerald-100">
-                  <Award className="h-3.5 w-3.5" /> Certified Professional Resume Writer
-                </div>
-                <p className="text-sm text-slate-500 leading-relaxed">
-                  Sarah has over 8 years of experience in corporate recruiting. She ensures every Smart Resume template passes strict ATS parsing rules and conforms to modern HR standards.
-                </p>
-              </div>
-
-              {/* Profile 2 */}
-              <div className="rounded-2xl border border-slate-200 bg-white p-6 flex flex-col items-center text-center shadow-sm">
-                <div className="mb-4 h-24 w-24 overflow-hidden rounded-full bg-slate-200 shadow-inner">
-                  {/* Real-looking professional stock avatar */}
-                  <img 
-                    src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=250&auto=format&fit=crop" 
-                    alt="David Chen"
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-                <h3 className="text-lg font-bold text-slate-900">David Chen</h3>
-                <p className="text-sm font-bold text-blue-600 mb-3">Technical Career Advisor</p>
-                <div className="flex items-center gap-1.5 text-xs font-semibold text-emerald-700 mb-3 bg-emerald-50 px-3 py-1.5 rounded-full border border-emerald-100">
-                  <CheckCircle2 className="h-3.5 w-3.5" /> Senior Talent Acquisition
-                </div>
-                <p className="text-sm text-slate-500 leading-relaxed">
-                  Formerly a technical recruiter at top tech firms, David curates our IT and Engineering templates, training our AI models to recognize high-impact action verbs and skill keywords.
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-12 rounded-xl bg-white border border-slate-200 p-8 shadow-sm">
-              <h3 className="mb-3 font-bold text-slate-900 text-lg">Our 3-Step Review Process</h3>
-              <p className="text-sm text-slate-600 leading-relaxed mb-4">
-                Every piece of content published on Smart Resume Maker—including our templates and AI guidance—goes through a rigorous review process:
-              </p>
-              <ul className="space-y-3 text-sm text-slate-600">
-                <li className="flex items-start gap-3">
-                  <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-slate-900 text-white font-bold text-xs">1</div>
-                  <span><strong>Data-Driven Drafting:</strong> Content is initially drafted based on current labor market data and hiring trends.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-slate-900 text-white font-bold text-xs">2</div>
-                  <span><strong>ATS Verification:</strong> Templates are put through software tests against leading Applicant Tracking Systems (like Greenhouse and Workday) to ensure 100% parse accuracy.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-slate-900 text-white font-bold text-xs">3</div>
-                  <span><strong>Expert Audit:</strong> Finally, a Certified Professional Resume Writer (CPRW) manually reviews the content for accuracy, impact, and HR compliance before it goes live.</span>
-                </li>
-              </ul>
-            </div>
+            <h2 className="mb-4 text-3xl font-bold text-slate-900">How we create our guides</h2>
+            <p className="max-w-3xl text-slate-600 leading-relaxed">
+              Our articles offer practical resume examples and explain common application questions. Some drafts use AI assistance. Advice about applicant tracking systems varies by employer and software, so follow each job posting&apos;s instructions and check your exported resume before submitting it.
+            </p>
+            <p className="mt-4 max-w-3xl text-slate-600 leading-relaxed">
+              We update guides when we identify errors or outdated advice. If you spot a problem, please <a href="/contact" className="font-semibold text-blue-700 underline">contact us</a> with the article URL and a short description.
+            </p>
           </div>
         </section>
 

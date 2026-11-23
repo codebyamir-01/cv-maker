@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, Clock, Tag, ArrowRight, User } from "lucide-react";
+import { ArrowLeft, Clock, ArrowRight, User } from "lucide-react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { BLOG_POSTS } from "@/lib/blog-data";
@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: post.metaDescription,
       type: "article",
       url: `https://www.smartresumemaker.com/blog/${post.slug}`,
-      publishedTime: post.date,
+      publishedTime: new Date(post.date).toISOString(),
       authors: [post.author],
       images: [
         {
@@ -87,9 +87,9 @@ export default async function BlogPostPage({ params }: Props) {
     "description": post.metaDescription,
     "image": `https://www.smartresumemaker.com${post.bannerImage}`,  
     "author": {
-      "@type": "Person",
+      "@type": post.author === "Smart Resume Maker Editorial Team" ? "Organization" : "Person",
       "name": post.author
-    },  
+    },
     "publisher": {
       "@type": "Organization",
       "name": "Smart Resume Maker",

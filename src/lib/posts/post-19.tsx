@@ -11,12 +11,12 @@ export const post19: BlogPost = {
   readTime: "8 min read",
   date: "Oct 11, 2026",
   slug: "product-manager-resume-guide-high-growth-tech",
-  author: "Sarah Jenkins",
+  author: "Smart Resume Maker Editorial Team",
   metaTitle: "Product Manager Resume Guide | Smart Resume Maker",
   metaDescription: "Build an interview-winning Product Manager resume for high-growth tech in 2026. Proven frameworks, metrics-driven bullets, and ATS strategies.",
   bannerImage: "/images/blog/blog_product_manager.jpg",
   bannerAlt: "Professional Product Manager in modern sunlit tech office working on laptop with roadmap notes",
-  relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","quantifying-resume-accomplishments"],
+  relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","how-to-tailor-resume-to-job-description-2026"],
   faqs: [
   {
     "question": "How technical does a Product Manager resume need to be in 2026?",

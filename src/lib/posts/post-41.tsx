@@ -11,12 +11,12 @@ export const post41: BlogPost = {
   readTime: "8 min read",
   date: "Nov 2, 2026",
   slug: "how-to-put-ai-skills-on-resume-2026",
-  author: "Sarah Jenkins",
+  author: "Smart Resume Maker Editorial Team",
   metaTitle: "AI Skills on Resume 2026 | Smart Resume Maker",
   metaDescription: "Master showcasing your AI skills on your 2026 resume. This expert guide provides actionable examples, keywords, and strategies to pass ATS and land your dream job.",
   bannerImage: "/images/blog/blog_software_engineer_realistic.jpg",
   bannerAlt: "Professional showing AI interface on a laptop with data visualizations.",
-  relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","quantifying-resume-accomplishments"],
+  relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","how-to-tailor-resume-to-job-description-2026"],
   faqs: [
   {
     "question": "Do I need to be a programmer to list AI skills?",
@@ -40,7 +40,7 @@ export const post41: BlogPost = {
       <h2>The AI Imperative: Why Your Resume Needs AI in 2026</h2>
       <p>In 2026, the landscape of work has been irrevocably reshaped by Artificial Intelligence. What was once a specialized technical domain is now a foundational competency expected across virtually all industries and job functions. Recruiters are no longer just seeking candidates who *know about* AI; they&apos;re actively searching for professionals who can *strategically apply* AI tools and principles to drive tangible business outcomes.</p>
       <p>Your resume in 2026 is your primary gateway to opportunity, and it must reflect this new reality. Advanced Applicant Tracking Systems (ATS), powered by AI themselves, are designed to filter for specific keywords and demonstrable AI capabilities. Failing to integrate these skills effectively means risking immediate disqualification, regardless of your other qualifications. This isn&apos;t about becoming an AI developer; it&apos;s about showcasing your AI literacy, your ability to collaborate with AI, and your understanding of its ethical and strategic implications.</p>
-      <p>As a world-class career expert at Smart Resume Maker, I&apos;ve witnessed firsthand the dramatic shift in hiring priorities. Organizations are investing heavily in AI integration, and they need talent capable of navigating this transformation. By strategically positioning your AI skills, you’re not just keeping pace; you’re positioning yourself as an indispensable asset in the future of work.</p>
+      <p>AI skills can be relevant to some roles, but their value depends on the job and the work you actually did. Organizations are investing heavily in AI integration, and they need talent capable of navigating this transformation. By strategically positioning your AI skills, you’re not just keeping pace; you’re positioning yourself as an indispensable asset in the future of work.</p>
       <ul>
         <li>**Universal Relevance:** AI skills are no longer confined to tech roles; they&apos;re vital for marketing, HR, finance, operations, healthcare, and more.</li>
         <li>**ATS Optimization:** Modern AI-powered ATS algorithms actively scan for AI-related keywords and phrases in your resume.</li>

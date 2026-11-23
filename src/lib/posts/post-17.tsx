@@ -38,7 +38,7 @@ export const post17: BlogPost = {
 
       <h2>Do Cover Letters Still Matter in 2026?</h2>
       <p>
-        Short answer: yes, especially for roles you really want. A 2024 survey by Jobvite found that 83% of hiring managers said cover letters influenced their hiring decision. The key is writing one that's actually worth reading.
+        Short answer: yes, especially for roles you really want. A cover letter can help when it adds specific context that your resume cannot show. The key is writing one that's actually worth reading.
       </p>
 
       <h2>The Proven Cover Letter Structure</h2>

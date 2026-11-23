@@ -60,6 +60,9 @@ export default async function PrivacyPage() {
 
           <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-4">Optional Analytics</h2>
           <p>With your consent, Google Analytics 4 records visits to the resume builder and successful PDF downloads so we can understand how the service is used. These events do not include resume content or contact details. You can decline or change your choice using Cookie settings. Our existing Vercel Analytics and Speed Insights also collect aggregate site usage and performance data.</p>
+
+          <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-4">Advertising</h2>
+          <p>We have connected Google AdSense for site review. If ads are enabled, Google may process information about visits to serve and measure ads. Our analytics choice does not control advertising consent; where required, this is handled through a separate consent platform.</p>
           
           <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-4">Security</h2>
           <p>We value your trust in providing us your Personal Information, thus we are striving to use commercially acceptable means of protecting it. But remember that no method of transmission over the internet, or method of electronic storage is 100% secure and reliable, and we cannot guarantee its absolute security.</p>

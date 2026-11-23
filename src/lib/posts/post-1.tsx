@@ -4,15 +4,15 @@ import { BlogPost } from '../blog-types';
 export const post1: BlogPost = {
   id: 1,
   title: "How to Write an ATS-Friendly Resume in 2026",
-  excerpt: "Over 75% of resumes are rejected by Applicant Tracking Systems before a human sees them. Learn how to format yours to pass the bots.",
+  excerpt: "Learn how to format a readable resume, choose relevant terms from a job posting, and check the file before you apply.",
   category: "ATS Tips",
   categoryColor: "bg-emerald-100 text-emerald-700",
   readTime: "8 min read",
   date: "Jun 18, 2026",
   slug: "ats-friendly-resume-2026",
   author: "Jerry",
-  metaTitle: "How to Write an ATS-Friendly Resume in 2026 | CV Maker",
-  metaDescription: "Learn how Applicant Tracking Systems (ATS) work and get actionable tips to write an ATS-friendly resume that passes software filters and gets you hired.",
+  metaTitle: "How to Write an ATS-Friendly Resume | Smart Resume Maker",
+  metaDescription: "Build a readable ATS-friendly resume with clear headings, relevant skills, and a file check before submitting your application.",
   bannerImage: "/images/blog/blog_ats_resume.png",
   bannerAlt: "Robot scanning a resume representing Applicant Tracking Systems",
   relatedSlugs: ["resume-action-verbs", "best-resume-format-software-engineers"],
@@ -23,17 +23,17 @@ export const post1: BlogPost = {
     },
     {
       question: "Can ATS read PDF resumes?",
-      answer: "Yes, modern Applicant Tracking Systems can parse PDF files perfectly. In fact, PDF is often recommended because it preserves your formatting across all devices."
+      answer: "Many systems can read text-based PDFs, but results vary by file and employer. Follow the job posting's format instructions and review any fields filled by the application form."
     },
     {
       question: "Should I use invisible text to trick the ATS?",
-      answer: "No. Using white or invisible text to keyword-stuff your resume is a known 'hack' that modern ATS algorithms easily detect. It will likely get your application automatically rejected."
+      answer: "No. Hidden text misrepresents your skills and can make a resume difficult to review. Include only relevant experience you can explain in an interview."
     }
   ],
   fullContent: (
     <>
       <p className="lead">
-        In 2026, the job market is highly competitive, and Applicant Tracking Systems (ATS) are the ultimate gatekeepers. If your resume isn't optimized for these automated software filters, there's a strong chance a human recruiter will never even see it.
+        Applicant tracking systems help employers organize applications. A clear resume makes it easier for software and people to find your experience. This guide focuses on what you can check yourself, rather than promising a particular screening result.
       </p>
 
       <h2>What is an Applicant Tracking System (ATS)?</h2>
@@ -41,30 +41,30 @@ export const post1: BlogPost = {
         An Applicant Tracking System (ATS) is software used by HR and recruiting teams to manage the hiring process. When you submit your resume online, it usually doesn't go straight to a recruiter's inbox. Instead, it gets processed, scanned, and ranked by an ATS.
       </p>
       <p>
-        The ATS parses the text in your resume, extracting important details like contact info, experience, and skills. Recruiters then search the ATS using specific keywords to find the most qualified candidates. If your resume lacks the right keywords or uses an unreadable format, you simply won't appear in their search results.
+        Some application systems extract contact details, work history, and skills from your file. Others ask you to enter that information separately. After uploading, review the fields the employer displays and correct any mistakes.
       </p>
 
-      <h2>Why Most Resumes Fail the ATS Test</h2>
+      <h2>Formatting problems to check</h2>
       <p>
-        The most common reason a resume fails an ATS scan isn't a lack of skills—it's poor formatting. While a heavily designed, graphic-rich resume might look impressive to a human, to an ATS, it often looks like a garbled mess of broken text.
+        Decorative elements can make an exported file harder to extract. Copy the text from your final PDF into a plain-text editor and read it in order. If text is missing or mixed between columns, try a simpler layout or export again.
       </p>
       <ul>
-        <li><strong>Complex Layouts:</strong> Multiple columns, sidebars, and text boxes confuse parsing algorithms. ATS reads top-to-bottom, left-to-right.</li>
-        <li><strong>Graphics and Images:</strong> ATS software cannot read text embedded in images or charts. If you use a visual chart to display your skill levels, the ATS sees nothing.</li>
-        <li><strong>Unusual Fonts:</strong> Stick to standard, web-safe fonts like Arial, Calibri, Times New Roman, or Helvetica.</li>
-        <li><strong>Missing Keywords:</strong> If you use the term "Customer Support" but the job description asks for "Client Relations," the ATS might not match you.</li>
+        <li><strong>Reading order:</strong> Check that each employer, title, date, and achievement stays together after export.</li>
+        <li><strong>Image-only text:</strong> Make sure your name, contact details, and experience are selectable text.</li>
+        <li><strong>Headings:</strong> Use familiar labels such as Work Experience, Education, and Skills.</li>
+        <li><strong>Relevant wording:</strong> If the job description asks for a skill you have, describe where you used it instead of adding a disconnected keyword list.</li>
       </ul>
 
       <h2>Step-by-Step Guide to Making Your Resume ATS-Friendly</h2>
 
       <h3>1. Use a Simple, Single-Column Layout</h3>
       <p>
-        While creative industries sometimes appreciate unique designs, standard corporate roles require ATS compliance. A single-column layout ensures the ATS reads your work experience chronologically without getting confused by sidebars.
+        A single column is a sensible default when you cannot check how an employer extracts your file. Keep the most relevant recent experience near the top. A two-column version can also work if its exported text remains in the right order; see our <a href="/blog/are-two-column-resumes-ats-friendly-2026">two-column resume check</a>.
       </p>
 
       <h3>2. Optimize Your Keywords</h3>
       <p>
-        Keywords are the lifeblood of an ATS. Read the job description carefully and identify the exact terms they use for skills and tools. Mirror those exact phrases in your resume. If they ask for "Search Engine Optimization," write it out rather than just putting "SEO." Ideally, include both: "Search Engine Optimization (SEO)."
+        Read the job posting and identify the tools, responsibilities, and qualifications that match your actual experience. Use the employer&apos;s term when it is accurate. For example, if you performed search engine optimization, you could write: "Improved search engine optimization (SEO) for product pages by updating titles and internal links." Add a measurable result only if you can substantiate it.
       </p>
 
       <h3>3. Use Standard Section Headings</h3>
@@ -79,7 +79,7 @@ export const post1: BlogPost = {
 
       <h2>Conclusion</h2>
       <p>
-        Writing an ATS-friendly resume doesn't mean it has to be boring. It means it needs to be clean, organized, and highly relevant. By focusing on standard formatting and targeted keywords, you ensure that your resume actually makes it through the digital gates.
+        A readable resume cannot guarantee an interview. It can help you present relevant experience clearly. Before submitting, check the exported file, follow the requested format, and correct any application fields that were filled incorrectly.
       </p>
       
       <div className="bg-blue-50 border border-blue-100 rounded-xl p-6 mt-8">

@@ -46,15 +46,15 @@ export function CookieBanner() {
       <div className="mb-4 md:mb-0 md:mr-8 flex-1">
         <h3 className="text-sm font-bold text-slate-900 mb-1">We value your privacy</h3>
         <p className="text-sm text-slate-600">
-          We use cookies to enhance your browsing experience, serve personalized ads or content, and analyze our traffic. By clicking &quot;Accept All&quot;, you consent to our use of cookies. Read more in our <Link href="/cookies" className="text-blue-600 underline hover:text-blue-700 underline-offset-2">Cookie Policy</Link> and <Link href="/privacy" className="text-blue-600 underline hover:text-blue-700 underline-offset-2">Privacy Policy</Link>.
+          Essential storage keeps sign-in and saved work available. With your permission, we also use Google Analytics to understand visits and downloads. This choice controls Google Analytics; ad consent is managed separately. Read our <Link href="/cookies" className="text-blue-600 underline hover:text-blue-700 underline-offset-2">Cookie Policy</Link> and <Link href="/privacy" className="text-blue-600 underline hover:text-blue-700 underline-offset-2">Privacy Policy</Link>.
         </p>
       </div>
       <div className="flex gap-3 shrink-0">
         <Button variant="outline" onClick={() => saveConsent("declined")} className="text-slate-600 border-slate-300 hover:bg-slate-50">
-          Decline Optional
+          Decline Analytics
         </Button>
         <Button onClick={() => saveConsent("accepted")} className="bg-blue-600 hover:bg-blue-700 text-white shadow-sm">
-          Accept All
+          Accept Analytics
         </Button>
       </div>
     </div>

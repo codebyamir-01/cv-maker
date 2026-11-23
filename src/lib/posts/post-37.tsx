@@ -11,12 +11,12 @@ export const post37: BlogPost = {
   readTime: "9 min read",
   date: "Oct 29, 2026",
   slug: "data-science-resume-guide-2026",
-  author: "Sarah Jenkins",
+  author: "Smart Resume Maker Editorial Team",
   metaTitle: "Data Science Resume Guide 2026 | Smart Resume Maker",
   metaDescription: "Build a high-impact data science resume in 2026. Learn top tech stacks, GitHub portfolio best practices, and ATS optimization to land tier-1 interviews.",
-  bannerImage: "/images/blog/blog_software_engineer_realistic.jpg",
-  bannerAlt: "Data scientist analyzing predictive machine learning models and code on dual monitor setup",
-  relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","quantifying-resume-accomplishments"],
+  bannerImage: "/images/blog/data-science-resume-2026.png",
+  bannerAlt: "Illustrated data scientist resume beside a portfolio project and data charts",
+  relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","how-to-tailor-resume-to-job-description-2026"],
   faqs: [
   {
     "question": "Should I still include classic machine learning libraries like Scikit-Learn if applying for GenAI roles?",

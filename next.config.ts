@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import bundleAnalyzer from "@next/bundle-analyzer";
 
 const nextConfig: NextConfig = {
   allowedDevOrigins: ['172.19.86.124'],
@@ -36,7 +37,7 @@ const nextConfig: NextConfig = {
     ];
   },
 
-  // 301 Permanent Redirects for legacy URLs reported by Google Search Console
+  // Permanent 308 redirects for legacy URLs reported by Google Search Console.
   async redirects() {
     return [
       {
@@ -78,7 +79,7 @@ const nextConfig: NextConfig = {
   },
 };
 
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
+const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
 })
 

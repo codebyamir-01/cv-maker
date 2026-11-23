@@ -11,12 +11,12 @@ export const post20: BlogPost = {
   readTime: "8 min read",
   date: "Oct 11, 2026",
   slug: "ai-prompt-engineer-llm-specialist-resume-guide",
-  author: "Sarah Jenkins",
+  author: "Smart Resume Maker Editorial Team",
   metaTitle: "AI Prompt Engineer Resume Guide | Smart Resume Maker",
   metaDescription: "Land top AI roles with our 2026 Prompt Engineer & LLM Specialist resume guide. Includes ATS keywords, metrics, and battle-tested Google X-Y-Z bullets.",
   bannerImage: "/images/blog/blog_software_engineer_realistic.jpg",
   bannerAlt: "A modern software engineer workspace displaying code, neural network diagrams, and language model evaluation pipelines on multiple monitors",
-  relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","quantifying-resume-accomplishments"],
+  relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","how-to-tailor-resume-to-job-description-2026"],
   faqs: [
   {
     "question": "Is Prompt Engineering still a standalone role or absorbed into Software Engineering?",

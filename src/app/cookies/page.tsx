@@ -58,7 +58,7 @@ export default async function CookiesPage() {
           <p>We use first and third-party cookies for several reasons. Some are required for the website to work. Optional analytics cookies help us understand visits and improve the service.</p>
           
           <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-4">How can I control cookies?</h2>
-          <p>You have the right to decide whether to accept or reject cookies. You can exercise your cookie rights by setting your preferences in the Cookie Consent Manager. The Cookie Consent Manager allows you to select which categories of cookies you accept or reject. Essential cookies cannot be rejected as they are strictly necessary to provide you with services.</p>
+          <p>You can accept or decline optional Google Analytics using the banner or the Cookie settings button. Essential sign-in and saved-work storage remains available. This choice does not manage AdSense consent.</p>
           <p>Google Analytics 4 is loaded only after you accept optional cookies. It records builder opens and completed PDF downloads without sending resume content or contact details. Use the Cookie settings button on any page to change your choice.</p>
         </div>
       </main>

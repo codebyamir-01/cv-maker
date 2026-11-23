@@ -11,12 +11,12 @@ export const post45: BlogPost = {
   readTime: "9 min read",
   date: "Nov 6, 2026",
   slug: "optimizing-resume-for-ai-screening-beyond-keywords",
-  author: "Sarah Jenkins",
+  author: "Smart Resume Maker Editorial Team",
   metaTitle: "AI Resume Screening Guide 2026 | Smart Resume Maker",
   metaDescription: "Discover how semantic search and modern AI resume screeners parse your resume. Go beyond keywords with real metrics and proven X-Y-Z formulas.",
   bannerImage: "/images/blog/blog_ats_resume.png",
   bannerAlt: "Digital illustration showing artificial intelligence analyzing a resume with data points, metrics, and semantic keyword matching",
-  relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","quantifying-resume-accomplishments"],
+  relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","how-to-tailor-resume-to-job-description-2026"],
   faqs: [
   {
     "question": "How do modern AI resume screeners differ from old Applicant Tracking Systems (ATS)?",
@@ -70,7 +70,7 @@ export const post45: BlogPost = {
       </div>
 
       <h2>Leveraging the Google X-Y-Z Formula for Maximum AI Impact Scoring</h2>
-      <p>AI screening models are explicitly trained to reward resumes that demonstrate measurable business value. Vague responsibility statements like &apos;Responsible for managing client budgets and overseeing social media campaigns&apos; rank poorly because they lack intent signals and concrete proof. To consistently score in the top 5% of candidate matches, structure your accomplishments using Google&apos;s renowned X-Y-Z formula: &apos;Accomplished [X], as measured by [Y], by doing [Z]&apos;.</p>
+      <p>AI screening models are explicitly trained to reward resumes that demonstrate measurable business value. Vague responsibility statements like &apos;Responsible for managing client budgets and overseeing social media campaigns&apos; rank poorly because they lack intent signals and concrete proof. To make your accomplishments easier to understand, try a result-action-context structure such as: &apos;Accomplished [X], as measured by [Y], by doing [Z]&apos;.</p>
       <p>When an AI parser processes an X-Y-Z structured bullet point, it identifies three distinct semantic nodes: the action verb (leadership/competency), the quantitative metric (result/scale), and the operational context (strategy/tooling). This structured presentation allows natural language processing (NLP) models to extract high confidence scores for your functional capabilities.</p>
       <ul>
         <li>Software Engineering Example: &apos;Engineered automated CI/CD deployment pipelines [Z], reducing production deployment failures by 64% [Y] and accelerating sprint feature delivery cycles by 3 weeks [X].&apos;</li>
@@ -87,7 +87,7 @@ export const post45: BlogPost = {
 
       <h2>Technical Formatting Rules: Eliminating Parsing Errors and Formatting Traps</h2>
       <p>Even the most compelling career accomplishments will fail if an AI parser cannot cleanly extract your text structure. Modern AI screeners construct an internal JSON representation of your resume before scoring it. Complex graphic designs, non-standard layouts, and misaligned file formats scramble this text extraction process, leading to missing employment history, misplaced job titles, or complete document rejection.</p>
-      <p>To guarantee 100% parsing accuracy across every major enterprise ATS platform (Workday, Taleo, iCIMS, Greenhouse, Lever), your document architecture must strictly adhere to computational parsing standards. Avoid visual elements that confuse computer vision and optical character recognition (OCR) engines.</p>
+      <p>No resume layout can guarantee accurate parsing across every employer. Use a clear structure, inspect the exported text, and correct application fields after uploading. Avoid visual elements that confuse computer vision and optical character recognition (OCR) engines.</p>
       <ul>
         <li>File Format Standard: Submit cleanly exported PDF files generated directly from text editors, or standard .docx files. Avoid scanned PDFs or image-based exports (JPEG/PNG).</li>
         <li>Layout Architecture: Use a clean single-column or strictly aligned two-column layout. Avoid multi-column setups with overlapping text boxes, header callouts, or sidebar graphs.</li>

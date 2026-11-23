@@ -11,12 +11,12 @@ export const post43: BlogPost = {
   readTime: "8 min read",
   date: "Nov 4, 2026",
   slug: "how-to-put-freelance-contract-work-on-resume",
-  author: "Sarah Jenkins",
+  author: "Smart Resume Maker Editorial Team",
   metaTitle: "How to List Freelance Work on Resume | Smart Resume Maker",
   metaDescription: "Master listing freelance, contract, and consulting work on your resume. Learn formatting strategies, ATS optimization, and formulas for 2026.",
-  bannerImage: "/images/blog/blog_product_manager.jpg",
-  bannerAlt: "Professional resume builder interface showing formatted freelance and contract work entries.",
-  relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","quantifying-resume-accomplishments"],
+  bannerImage: "/images/blog/blog_job_interview.jpg",
+  bannerAlt: "A job applicant discussing their experience in an interview",
+  relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","how-to-tailor-resume-to-job-description-2026"],
   faqs: [
   {
     "question": "Should I list client names on my resume if I signed a non-disclosure agreement (NDA)?",
@@ -38,7 +38,7 @@ export const post43: BlogPost = {
       </p>
 
       <h2>The 2026 Freelance Dilemma: Why Formatting Contract Work Matters for ATS</h2>
-      <p>By 2026, the modern labor market has fundamentally transformed. Over 45% of the global knowledge workforce engages in fractional, contract, or project-based work. However, automated Applicant Tracking Systems (ATS) and AI-assisted screening algorithms still struggle with fragmented employment histories. If you format contract assignments as ten distinct short-term jobs, screening algorithms may flag your application for &apos;job hopping&apos; or unstable retention risks.</p>
+      <p>By 2026, the modern labor market has fundamentally transformed. Contract and project-based work can be valuable experience when you explain the work and its outcomes. However, automated Applicant Tracking Systems (ATS) and AI-assisted screening algorithms still struggle with fragmented employment histories. If you format contract assignments as ten distinct short-term jobs, screening algorithms may flag your application for &apos;job hopping&apos; or unstable retention risks.</p>
       <p>Conversely, hiding contract engagements entirely creates massive chronological employment gaps that derail recruiters&apos; initial evaluation. To win interviews in 2026, candidates must present freelance and project work with structure, clarity, and targeted metrics. Learning to package gig work into cohesive consulting entries elevates your status from a hired hand to a strategic solution provider.</p>
       <ul>
         <li>ATS Risk: Multiple short-term entries (&lt; 6 months) without an umbrella title trigger automated stability flags.</li>

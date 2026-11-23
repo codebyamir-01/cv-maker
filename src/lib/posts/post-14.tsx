@@ -15,7 +15,7 @@ export const post14: BlogPost = {
   metaDescription: "No job experience? No problem. Learn how to write a professional resume from scratch using education, projects, internships, and volunteer work.",
   bannerImage: "/images/blog/blog_fresh_graduates.png",
   bannerAlt: "Fresh graduate writing a resume with no work experience",
-  relatedSlugs: ["ats-friendly-resume-2026", "resume-tips-fresh-graduates"],
+  relatedSlugs: ["ats-friendly-resume-2026", "resume-tips-for-fresh-graduates"],
   faqs: [
     {
       question: "Can I get a job with no work experience?",

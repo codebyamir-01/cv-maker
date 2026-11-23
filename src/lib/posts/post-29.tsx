@@ -11,12 +11,12 @@ export const post29: BlogPost = {
   readTime: "9 min read",
   date: "Oct 21, 2026",
   slug: "how-to-list-ai-skills-on-resume-2026",
-  author: "Sarah Jenkins",
+  author: "Smart Resume Maker Editorial Team",
   metaTitle: "List AI Skills on Your Resume (2026) | Smart Resume Maker",
   metaDescription: "Learn how to feature artificial intelligence tools and workflows on your resume in 2026. Real examples, ATS keyword strategies, and X-Y-Z formula bullets.",
   bannerImage: "/images/blog/blog_software_engineer_realistic.jpg",
   bannerAlt: "Modern executive resume showcasing technical AI proficiencies and enterprise workflow achievements",
-  relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","quantifying-resume-accomplishments"],
+  relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","how-to-tailor-resume-to-job-description-2026"],
   faqs: [
   {
     "question": "Should I list ChatGPT directly under my technical skills section?",
@@ -24,7 +24,7 @@ export const post29: BlogPost = {
   },
   {
     "question": "Will modern Applicant Tracking Systems (ATS) reject resumes containing AI keywords?",
-    "answer": "No. In fact, Fortune 500 ATS platforms (such as Workday, Greenhouse, and Taleo) actively scan for contemporary AI competencies. What triggers disqualification is keyword stuffing or unsubstantiated claims. As long as your AI keywords (e.g., 'RAG Architecture,' 'Syntactic Prompt Chaining,' or 'Copilot-driven CI/CD') appear in contextualized bullet points with clear business outcomes, ATS parsers score your application significantly higher."
+    "answer": "No. In fact, Employers may search for relevant AI skills when the role calls for them. What triggers disqualification is keyword stuffing or unsubstantiated claims. As long as your AI keywords (e.g., 'RAG Architecture,' 'Syntactic Prompt Chaining,' or 'Copilot-driven CI/CD') appear in contextualized bullet points with clear business outcomes, ATS parsers score your application significantly higher."
   },
   {
     "question": "How do non-technical professionals (e.g., Marketers, HR, Project Managers) list AI skills?",

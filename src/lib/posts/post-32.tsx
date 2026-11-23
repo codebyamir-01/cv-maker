@@ -11,12 +11,12 @@ export const post32: BlogPost = {
   readTime: "8 min read",
   date: "Oct 24, 2026",
   slug: "how-to-beat-greenhouse-ats-2026",
-  author: "Sarah Jenkins",
+  author: "Smart Resume Maker Editorial Team",
   metaTitle: "Beat Greenhouse ATS in 2026 | Smart Resume Maker",
   metaDescription: "Learn how to beat Greenhouse ATS in 2026. Discover parsing rules, semantic keyword optimization, and proven Google X-Y-Z resume bullet examples.",
   bannerImage: "/images/blog/blog_ats_resume.png",
   bannerAlt: "A hiring manager reviewing candidates parsed through the Greenhouse applicant tracking system dashboard",
-  relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","quantifying-resume-accomplishments"],
+  relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","how-to-tailor-resume-to-job-description-2026"],
   faqs: [
   {
     "question": "Does Greenhouse automatically reject candidates using AI algorithms?",

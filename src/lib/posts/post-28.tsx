@@ -11,12 +11,12 @@ export const post28: BlogPost = {
   readTime: "8 min read",
   date: "Oct 20, 2026",
   slug: "resume-length-one-page-vs-two-page-2026",
-  author: "Sarah Jenkins",
+  author: "Smart Resume Maker Editorial Team",
   metaTitle: "Resume Length in 2026: 1 vs 2 Pages | Smart Resume Maker",
   metaDescription: "Discover whether a 1-page or 2-page resume is best in 2026. Learn ATS rules, recruiter expectations, and executive length strategies to win interviews.",
-  bannerImage: "/images/blog/blog_product_manager.jpg",
-  bannerAlt: "Side-by-side comparison of a single-page resume and a two-page executive resume on a clean desk",
-  relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","quantifying-resume-accomplishments"],
+  bannerImage: "/images/blog/blog_one_vs_two_page.png",
+  bannerAlt: "A one-page and two-page resume shown side by side",
+  relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","how-to-tailor-resume-to-job-description-2026"],
   faqs: [
   {
     "question": "Is a two-page resume acceptable for someone with under 5 years of experience?",

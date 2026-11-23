@@ -11,12 +11,12 @@ export const post42: BlogPost = {
   readTime: "8 min read",
   date: "Nov 3, 2026",
   slug: "data-scientist-resume-guide-2026",
-  author: "Sarah Jenkins",
+  author: "Smart Resume Maker Editorial Team",
   metaTitle: "Data Scientist Resume Guide 2026 | Smart Resume Maker",
   metaDescription: "Master the 2026 data scientist resume with ATS keyword optimization, portfolio project frameworks, and proven Google X-Y-Z impact formulas.",
-  bannerImage: "/images/blog/blog_software_engineer_realistic.jpg",
-  bannerAlt: "Data scientist analyzing machine learning models on a dual-monitor setup with resume metrics overlays",
-  relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","quantifying-resume-accomplishments"],
+  bannerImage: "/images/blog/data-science-resume-2026.png",
+  bannerAlt: "Illustrated data scientist resume beside a portfolio project and data charts",
+  relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","how-to-tailor-resume-to-job-description-2026"],
   faqs: [
   {
     "question": "How do modern ATS parsers evaluate Data Science resumes in 2026?",

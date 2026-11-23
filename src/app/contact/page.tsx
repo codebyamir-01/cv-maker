@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { FileText, Mail, MapPin, Phone, Send, MessageSquare, Clock, CheckCircle2 } from "lucide-react";
+import { Mail, MapPin, Phone, MessageSquare, Clock, CheckCircle2 } from "lucide-react";
 import type { Metadata } from "next";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
@@ -37,7 +36,7 @@ export default function ContactPage() {
               Get in <span className="text-blue-600">Touch</span>
             </h1>
             <p className="animate-fade-in-up-delay-1 text-lg text-slate-500 font-medium leading-relaxed">
-              Have a question, feedback, or need help? Our team is here to assist you — usually within 24 hours.
+              Have a question, feedback, or need help? Send us a message and we&apos;ll reply as soon as we can.
             </p>
           </div>
         </section>

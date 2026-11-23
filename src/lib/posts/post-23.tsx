@@ -11,12 +11,12 @@ export const post23: BlogPost = {
   readTime: "8 min read",
   date: "Oct 15, 2026",
   slug: "how-to-write-a-career-change-resume-2026",
-  author: "Sarah Jenkins",
+  author: "Smart Resume Maker Editorial Team",
   metaTitle: "Career Change Resume Guide 2026 | Smart Resume Maker",
   metaDescription: "Master your professional pivot with our 2026 career change resume guide. Includes ATS optimization, hybrid templates, and real metric-driven examples.",
   bannerImage: "/images/blog/blog_job_interview.jpg",
   bannerAlt: "Professional reviewing a modernized career transition resume on a digital workspace tablet",
-  relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","quantifying-resume-accomplishments"],
+  relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","how-to-tailor-resume-to-job-description-2026"],
   faqs: [
   {
     "question": "Which resume format is best for a career transition in 2026?",

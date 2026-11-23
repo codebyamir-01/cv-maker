@@ -222,7 +222,7 @@ export function AtsCheckerClient() {
           <div className="mt-12 rounded-2xl bg-gradient-to-br from-blue-900 to-slate-900 p-8 text-center sm:p-10 shadow-xl">
             <h3 className="mb-3 text-2xl font-bold text-white">Want to fix these errors instantly?</h3>
             <p className="mb-8 text-blue-200">
-              Our AI Resume Builder auto-formats your resume to be 100% ATS compliant and helps you write keyword-rich bullet points.
+              Our resume builder helps you organize your experience and write relevant bullet points. Always check the file and follow the employer&apos;s instructions.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link href="/builder" className="w-full sm:w-auto">

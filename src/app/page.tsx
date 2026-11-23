@@ -10,6 +10,33 @@ import { Button } from "@/components/ui/button";
 import { Footer } from "@/components/layout/Footer";
 import { NavbarClient } from "@/components/layout/NavbarClient";
 import nextDynamic from "next/dynamic";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "https://www.smartresumemaker.com" },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://www.smartresumemaker.com",
+    title: "Free Resume Builder & CV Maker Online | Smart Resume Maker",
+    description: "Build a free resume online with customizable templates, writing help, and PDF download.",
+    siteName: "Smart Resume Maker",
+    images: [
+      {
+        url: "/opengraph-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Smart Resume Maker - Free Online Resume Builder & CV Maker",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Free Resume Builder & CV Maker Online | Smart Resume Maker",
+    description: "Build a free, professional, ATS-friendly resume online in minutes. No watermarks, no hidden fees.",
+    images: ["/opengraph-image.png"],
+  },
+};
 
 // Dynamically import ALL below-the-fold sections
 const TemplatesSection = nextDynamic(() => import("@/components/home/TemplatesSection"), {

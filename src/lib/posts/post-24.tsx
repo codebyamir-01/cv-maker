@@ -11,12 +11,12 @@ export const post24: BlogPost = {
   readTime: "8 min read",
   date: "Oct 16, 2026",
   slug: "how-to-tailor-resume-to-job-description-2026",
-  author: "Sarah Jenkins",
+  author: "Smart Resume Maker Editorial Team",
   metaTitle: "Tailor Your Resume to Job Descriptions | Smart Resume Maker",
   metaDescription: "Master resume tailoring for 2026 AI ATS systems. Step-by-step framework with Google X-Y-Z examples, keyword extraction tips, and live bullet points.",
   bannerImage: "/images/blog/blog_ats_resume.png",
   bannerAlt: "Professional reviewing a resume side-by-side with a targeted job description on a dual-monitor setup",
-  relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","quantifying-resume-accomplishments"],
+  relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","how-to-write-professional-summary"],
   faqs: [
   {
     "question": "How much of my resume should I change for every job application?",
@@ -43,7 +43,7 @@ export const post24: BlogPost = {
       <ul>
         <li>Semantic Search Parsing: Modern ATS platforms correlate adjacent terms (e.g., recognizing that &apos;pipeline velocity&apos; and &apos;deal acceleration&apos; indicate the same core B2B sales competency).</li>
         <li>Contextual Keyword Weighting: Keywords located in recent work experience carry up to 3x more algorithmic weight than skills listed in static, isolated bullet matrices.</li>
-        <li>Match-Rate Thresholds: Many Fortune 500 recruiting teams configure automated filters to review only applicants achieving an 80%+ contextual alignment score.</li>
+        <li>Match-Rate Thresholds: Some application systems use screening questions and recruiters may search for relevant qualifications. There is no universal match-score threshold.</li>
       </ul>
       <div className="my-8 rounded-2xl border border-blue-100 bg-blue-50/70 p-6 text-slate-800 shadow-sm not-prose">
         <div className="flex items-center gap-2 font-bold text-blue-900 mb-2">

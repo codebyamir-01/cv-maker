@@ -11,12 +11,12 @@ export const post21: BlogPost = {
   readTime: "9 min read",
   date: "Oct 12, 2026",
   slug: "how-to-list-remote-work-global-experience-resume",
-  author: "Sarah Jenkins",
+  author: "Smart Resume Maker Editorial Team",
   metaTitle: "Listing Remote & Global Work on Resumes | Smart Resume Maker",
   metaDescription: "Learn how to format remote jobs and international experience on your resume with ATS-ready formulas, time-zone collaboration metrics, and real examples.",
   bannerImage: "/images/blog/blog_product_manager.jpg",
   bannerAlt: "Professional working remotely on laptop collaborating with an international global team across time zones",
-  relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","quantifying-resume-accomplishments"],
+  relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","how-to-tailor-resume-to-job-description-2026"],
   faqs: [
   {
     "question": "How should I list my location if I work remotely for a foreign company?",

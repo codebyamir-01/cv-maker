@@ -77,13 +77,14 @@ async function main() {
   const nextId = await getNextPostId();
   console.log(`Allocating Post ID: #${nextId}...`);
 
-  const prompt = `You are a world-class career expert, executive resume writer, and SEO strategist for Smart Resume Maker (smartresumemaker.com).
+  const prompt = `Draft a practical career guide for Smart Resume Maker (smartresumemaker.com).
 Generate an authoritative, deeply practical 1,200+ word resume/career guide for the topic: "${selectedTopic}".
 
 CRITICAL INSTRUCTIONS:
 1. Provide actionable advice with real resume bullet points, metrics, and step-by-step guidance.
 2. Tone: Professional, encouraging, modern (set in 2026).
 3. Include specific keyword targets that help job applicants pass modern AI and ATS filters.
+3a. Do not invent research, tests, statistics, certifications, named reviewers, or guarantees about screening outcomes. Use illustrative examples only.
 4. Output MUST be ONLY valid JSON matching this schema:
 
 {
@@ -93,7 +94,7 @@ CRITICAL INSTRUCTIONS:
   "categoryColor": "Choose corresponding: bg-emerald-100 text-emerald-700 (ATS Tips) | bg-blue-100 text-blue-700 (Writing Tips) | bg-purple-100 text-purple-700 (Resume Advice) | bg-cyan-100 text-cyan-700 (Tech Careers) | bg-amber-100 text-amber-700 (Job Search) | bg-indigo-100 text-indigo-700 (Career Tips)",
   "readTime": "8 min read",
   "slug": "url-friendly-slug-without-symbols",
-  "author": "Sarah Jenkins",
+  "author": "Smart Resume Maker Editorial Team",
   "metaTitle": "SEO title under 60 characters with | Smart Resume Maker",
   "metaDescription": "Compelling meta description under 155 characters summarizing the article for Google Search.",
   "bannerAlt": "Descriptive accessibility alt text for the banner image",
@@ -151,14 +152,34 @@ Ensure you provide 4 to 6 comprehensive sections with rich paragraphs and concre
   let article;
   try {
     article = JSON.parse(rawText);
-  } catch (err) {
+  } catch {
     const cleaned = rawText.replace(/```json/g, "").replace(/```/g, "").trim();
     article = JSON.parse(cleaned);
   }
 
   // Pick suitable banner image from available assets
-  const randomImage = AVAILABLE_IMAGES[Math.floor(Math.random() * AVAILABLE_IMAGES.length)];
-  const bannerImage = randomImage;
+  const bannerImage = article.category === "ATS Tips"
+    ? "/images/blog/blog_ats_resume.png"
+    : article.category === "Tech Careers"
+      ? "/images/blog/blog_software_engineer_realistic.jpg"
+      : article.category === "Writing Tips"
+        ? "/images/blog/blog_professional_summary.png"
+        : AVAILABLE_IMAGES[0];
+
+  const existingFiles = (await fs.readdir(path.join(process.cwd(), "src", "lib", "posts"))).filter(file => /^post-\d+\.tsx$/.test(file));
+  const existingPosts = await Promise.all(existingFiles.map(file => fs.readFile(path.join(process.cwd(), "src", "lib", "posts", file), "utf8")));
+  const existingSlugs = existingPosts.map(content => content.match(/slug:\s*["']([^"']+)["']/)?.[1]);
+  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(article.slug || "") || existingSlugs.includes(article.slug)) {
+    throw new Error(`Invalid or duplicate article slug: ${article.slug || "missing"}. Nothing was published.`);
+  }
+  const blogDataPath = path.join(process.cwd(), "src", "lib", "blog-data.tsx");
+  const registrySource = await fs.readFile(blogDataPath, "utf8");
+  const publishedIds = new Set([...registrySource.matchAll(/^\s+post(\d+),\s*$/gm)].map(match => Number(match[1])));
+  const publishedSlugs = new Set(existingFiles.flatMap((file, index) => publishedIds.has(Number(file.match(/^post-(\d+)\.tsx$/)?.[1]))
+    ? [existingSlugs[index]].filter(Boolean)
+    : []));
+  const relatedSlugs = [...new Set([...(Array.isArray(article.relatedSlugs) ? article.relatedSlugs : []), "ats-friendly-resume-2026", "resume-action-verbs"])]
+    .filter(slug => slug !== article.slug && publishedSlugs.has(slug)).slice(0, 3);
 
   // Format today's date in "MMM DD, YYYY" format
   const dateStr = new Date().toLocaleDateString("en-US", {
@@ -202,12 +223,12 @@ export const post${nextId}: BlogPost = {
   readTime: "${escapeJsxText(article.readTime || "7 min read")}",
   date: "${dateStr}",
   slug: "${article.slug}",
-  author: "${escapeJsxText(article.author || "Smart Resume Team")}",
+  author: "Smart Resume Maker Editorial Team",
   metaTitle: "${escapeJsxText(article.metaTitle || article.title)}",
   metaDescription: "${escapeJsxText(article.metaDescription || article.excerpt)}",
   bannerImage: "${bannerImage}",
   bannerAlt: "${escapeJsxText(article.bannerAlt || article.title)}",
-  relatedSlugs: ${JSON.stringify(article.relatedSlugs || ["ats-friendly-resume-2026", "resume-action-verbs"])},
+  relatedSlugs: ${JSON.stringify(relatedSlugs)},
   faqs: ${JSON.stringify(article.faqs || [], null, 2)},
   fullContent: (
     <>
@@ -220,7 +241,7 @@ ${sectionsJsx}
       <div className="my-10 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 p-8 text-white not-prose shadow-lg text-center">
         <h3 className="text-2xl font-extrabold mb-2 text-white">Ready to Put This Into Practice?</h3>
         <p className="text-blue-100 text-sm max-w-xl mx-auto mb-6">
-          Create an ATS-compliant resume in less than 5 minutes with our free AI builder. Instant PDF download — no watermarks.
+          Use our free builder to organize your experience, choose a layout, and export a PDF you can review before applying.
         </p>
         <Link
           href="/builder"
@@ -240,7 +261,6 @@ ${sectionsJsx}
   console.log(`\x1b[32m✔ Created\x1b[0m ${postFilePath}`);
 
   // 2. Update src/lib/blog-data.tsx
-  const blogDataPath = path.join(process.cwd(), "src", "lib", "blog-data.tsx");
   let blogDataContent = await fs.readFile(blogDataPath, "utf-8");
 
   // Add import right before export const BLOG_POSTS

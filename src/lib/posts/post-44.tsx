@@ -11,12 +11,12 @@ export const post44: BlogPost = {
   readTime: "9 min read",
   date: "Nov 5, 2026",
   slug: "data-analyst-resume-guide-2026",
-  author: "Sarah Jenkins",
+  author: "Smart Resume Maker Editorial Team",
   metaTitle: "Data Analyst Resume Guide 2026 | Smart Resume Maker",
   metaDescription: "Land top analytics interviews in 2026 with our ultimate data analyst resume guide. Includes ATS keywords, Google X-Y-Z bullets, and project tips.",
   bannerImage: "/images/blog/blog_software_engineer_realistic.jpg",
   bannerAlt: "Modern data analyst resume guide highlighting ATS optimization and metrics",
-  relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","quantifying-resume-accomplishments"],
+  relatedSlugs: ["ats-friendly-resume-2026","resume-action-verbs","how-to-tailor-resume-to-job-description-2026"],
   faqs: [
   {
     "question": "What are the most important technical skills for a Data Analyst resume in 2026?",

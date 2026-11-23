@@ -1,16 +1,46 @@
 {
-  "timestamp": "2026-11-22T14:38:37.255Z",
-  "overallScore": 90,
-  "totalBlogPosts": 61,
-  "activeModel": "gemini-flash-latest (with 4-model fallback)",
-  "lastPublishedPost": {
-    "id": 61,
-    "title": "FinTech Product Manager Resume Guide for 2026 Scale-Ups",
-    "slug": "fintech-product-manager-resume-guide-for-2026-scale-ups"
-  },
-  "recommendations": [
-    "Ensure backlink acquisition on top career forums.",
-    "Monitor Core Web Vitals on /builder and /blog routes weekly.",
-    "Track Google Discover impressions for newly published articles."
-  ]
+  "timestamp": "2026-11-23T05:14:40.035133+00:00",
+  "scope": "Source-code audit only; no live Search Console or AdSense account data",
+  "publishedBlogPosts": 42,
+  "sourcePostFiles": 61,
+  "unpublishedPostIds": [
+    31,
+    33,
+    35,
+    38,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61
+  ],
+  "duplicateSlugsAcrossSourceFiles": [
+    "data-analyst-to-data-scientist-resume-transition-blueprint",
+    "data-science-resume-guide-2026",
+    "data-scientist-resume-guide-2026",
+    "executive-resume-writing-how-to-showcase-7-figure-p-l-growth",
+    "fintech-product-manager-resume-guide-for-2026-scale-ups",
+    "how-many-pages-should-a-resume-be-2026",
+    "how-to-write-an-ats-proof-healthcare-nursing-resume-in-2026",
+    "one-page-vs-two-page-resume-2026",
+    "pdf-vs-word-ats-resume-format-2026"
+  ],
+  "verifiedChecks": [
+    "published slugs unique",
+    "published banner assets exist",
+    "published related links resolve",
+    "literal internal links resolve"
+  ],
+  "liveSearchConsoleStatus": "unavailable without authenticated access",
+  "adsenseApprovalStatus": "unavailable without AdSense Sites status"
 }

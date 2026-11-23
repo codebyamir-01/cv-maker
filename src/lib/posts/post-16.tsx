@@ -38,7 +38,7 @@ export const post16: BlogPost = {
 
       <h2>First: Don't Panic About Your Gap</h2>
       <p>
-        In 2024, LinkedIn reported that over 60% of professionals have had at least one career gap. The stigma around gaps has dropped significantly in recent years. What matters far more than the gap itself is how you frame it.
+        Career gaps are common for many reasons. You can explain the relevant context briefly without apologizing for it. What matters far more than the gap itself is how you frame it.
       </p>
 
       <h2>Common Types of Employment Gaps and How to Handle Each</h2>

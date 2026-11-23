@@ -51,7 +51,7 @@ export default function BlogPage() {
       "datePublished": new Date(post.date).toISOString(),
       "image": `https://www.smartresumemaker.com${post.bannerImage}`,
       "author": {
-        "@type": "Person",
+        "@type": post.author === "Smart Resume Maker Editorial Team" ? "Organization" : "Person",
         "name": post.author
       }
     }))

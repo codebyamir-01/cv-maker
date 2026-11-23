@@ -29,7 +29,7 @@ export const post12: BlogPost = {
   fullContent: (
     <>
       <p>
-        Imagine spending hours writing the perfect resume, only to have it rejected by a computer algorithm before a human ever sets eyes on it. Unfortunately, in 2026, this is the reality for nearly 75% of job applicants.
+        Imagine spending hours writing the perfect resume, only to have it rejected by a computer algorithm before a human ever sets eyes on it. Application systems vary. Focus on a readable document and an accurate match to the job requirements.
       </p>
       <p>
         Companies use Applicant Tracking Systems (ATS) to scan and filter thousands of resumes. These systems are programmed to look for specific <strong>keywords</strong>. If your resume does not contain them, you are automatically sorted into the "no" pile. Here is exactly how to beat the bots and find the right keywords.
