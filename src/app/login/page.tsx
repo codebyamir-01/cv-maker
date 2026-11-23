@@ -48,7 +48,7 @@ export default function LoginPage() {
 
   const handleGoogleSignIn = () => {
     setIsLoading(true);
-    signIn("google", { callbackUrl });
+    signIn("google", { callbackUrl }, { prompt: "select_account" });
   };
 
   return (
@@ -170,7 +170,7 @@ export default function LoginPage() {
         </div>
 
         <div className="mt-[clamp(1.5rem,3vh,2rem)] text-center text-xs sm:text-sm text-slate-500">
-          Don't have an account?{" "}
+          Don&apos;t have an account?{" "}
           <Link href="/signup" className="font-bold text-blue-600 hover:text-blue-500 transition-colors">
             Create one
           </Link>

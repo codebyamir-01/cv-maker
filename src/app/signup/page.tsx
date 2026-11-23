@@ -50,7 +50,7 @@ export default function SignupPage() {
 
   const handleGoogleSignUp = () => {
     setIsLoading(true);
-    signIn("google", { callbackUrl: "/dashboard" });
+    signIn("google", { callbackUrl: "/dashboard" }, { prompt: "select_account" });
   };
 
   return (
