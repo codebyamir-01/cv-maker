@@ -53,6 +53,7 @@ export default async function PrivacyPage() {
           
           <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-4">Information Collection and Use</h2>
           <p>For a better experience while using our Service, we may require you to provide us with certain personally identifiable information, including but not limited to your name, email address, phone number, and professional history.</p>
+          <p>If you request a password reset, we send a one-use link to your account email through our transactional email provider. The link expires after 30 minutes, and we store only a hash of its token.</p>
           
           <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-4">Log Data</h2>
           <p>When you visit the service, technical logs may include your IP address, browser version, pages visited, visit time, and related usage information.</p>

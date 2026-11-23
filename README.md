@@ -14,6 +14,16 @@ GA4 loads only after the visitor accepts optional cookies. The `builder_opened` 
 
 OpenSEO is an optional external ChatGPT integration for research; this project's admin dashboard uses Google's official APIs directly and does not depend on it. Vercel Analytics and Speed Insights remain in place; no paid Vercel feature is required.
 
+## Password reset email
+
+The **Forgot password?** link uses one-use, 30-minute reset links for email/password accounts. Google-only accounts continue to sign in with Google, and admin accounts cannot reset a password through this flow. Responses do not reveal whether an address has an account, and requests are limited to one per address every five minutes.
+
+1. In [Resend](https://resend.com/), add and verify a sending domain you control. Create an API key with **Sending access** for that domain.
+2. In the Vercel project's **Production** environment, add `RESEND_API_KEY` as a private secret and `PASSWORD_RESET_FROM_EMAIL` as a sender on the verified domain, such as `Smart Resume Maker <no-reply@smartresumemaker.com>`. Keep `NEXTAUTH_URL` set to the public HTTPS site origin.
+3. Redeploy after saving the variables. Test with a non-admin email/password account that you control. If mail is not configured, the reset page returns a clear setup-unavailable error rather than claiming an email was sent.
+
+The raw reset token is never stored in the database; only its SHA-256 hash is stored in the existing `VerificationToken` table. The link uses a URL fragment so the token is not sent in the page request. Do not put the Resend API key in Git or a `NEXT_PUBLIC_` variable.
+
 ## Getting Started
 
 Create `.env.local` with the required database and authentication variables for local development. Add the four Google reporting variables listed above only when you have authorized Google API access. Then run the development server:
