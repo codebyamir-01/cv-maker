@@ -53,7 +53,10 @@ export async function POST(req: Request) {
       }
     }
   } catch (error) {
-    console.error("Password reset request failed:", error instanceof Error ? error.name : "unknown");
+    const detail = error instanceof Error && error.message.startsWith("Password reset email delivery failed (")
+      ? error.message
+      : error instanceof Error ? error.name : "unknown";
+    console.error("Password reset request failed:", detail);
   }
   return NextResponse.json({ message: genericMessage });
 }

@@ -35,5 +35,9 @@ export async function sendPasswordResetEmail(email: string, token: string): Prom
     cache: "no-store",
     signal: AbortSignal.timeout(10000),
   });
-  if (!response.ok) throw new Error(`Password reset email delivery failed (${response.status})`);
+  if (!response.ok) {
+    const failure = await response.json().catch(() => null) as { name?: unknown } | null;
+    const code = typeof failure?.name === "string" ? failure.name.replace(/[^a-zA-Z0-9_.-]/g, "").slice(0, 40) : "unknown";
+    throw new Error(`Password reset email delivery failed (${response.status}; ${code})`);
+  }
 }
