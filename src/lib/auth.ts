@@ -12,6 +12,7 @@ declare module "next-auth" {
       name?: string | null;
       email?: string | null;
       image?: string | null;
+      authProvider?: string;
     };
   }
 }
@@ -69,11 +70,12 @@ export const authOptions: NextAuthOptions = {
         session.user.id = token.sub!;
         session.user.name = token.name;
         session.user.email = token.email;
+        session.user.authProvider = token.authProvider === "google" ? "google" : undefined;
         // Don't pull image from token as it exceeds cookie size limits
       }
       return session;
     },
-    async jwt({ token, user, trigger, session }) {
+    async jwt({ token, user, account, trigger, session }) {
       // NextAuth automatically maps user.image to token.picture, we must delete it
       if (token.picture) {
         delete token.picture;
@@ -84,6 +86,7 @@ export const authOptions: NextAuthOptions = {
         token.name = user.name;
         token.email = user.email;
       }
+      if (account) token.authProvider = account.provider;
       if (trigger === "update" && session) {
         if (session.name) token.name = session.name;
         // Skip saving session.image to token.picture

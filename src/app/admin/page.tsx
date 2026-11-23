@@ -23,7 +23,7 @@ export default async function AdminDashboard() {
     select: { role: true },
   });
 
-  if (!user || user.role !== "ADMIN") {
+  if (!user || user.role !== "ADMIN" || session.user.authProvider !== "google") {
     // Non-admin authenticated users get a 404-style redirect to dashboard
     redirect("/dashboard");
   }
