@@ -128,6 +128,7 @@ export default async function AdminDashboard() {
                     <div><span className="text-slate-500">PDF downloads</span><p className="text-2xl font-bold">{funnel.data.resumeDownloaded.toLocaleString()}</p></div>
                   </div>
                   <p className="text-xs text-slate-500">Event counts from consented visits. These counts do not establish a same-user conversion rate.</p>
+                  {funnel.data.builderOpened === 0 && funnel.data.resumeDownloaded === 0 && <p className="text-xs text-slate-500">No matching events have been reported for this period. Today&apos;s GA4 data may still be processing.</p>}
                 </>}
             </CardContent>
           </Card>

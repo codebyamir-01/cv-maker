@@ -63,9 +63,9 @@ async function googlePost<T>(url: string, scope: string, body: object, account: 
   return response.json() as Promise<T>;
 }
 
-function dateRange() {
+function dateRange(daysBehind = 3) {
   const end = new Date();
-  end.setUTCDate(end.getUTCDate() - 3); // Avoid Google's recent-data processing delay.
+  end.setUTCDate(end.getUTCDate() - daysBehind);
   const start = new Date(end);
   start.setUTCDate(start.getUTCDate() - 27);
   return { startDate: start.toISOString().slice(0, 10), endDate: end.toISOString().slice(0, 10) };
@@ -109,7 +109,7 @@ export async function getGa4FunnelReport(): Promise<Report<FunnelData>> {
   if (!/^\d+$/.test(property)) return { status: "error", message: "GA4 property ID must be numeric." };
   try {
     const account = credentials()!;
-    const range = dateRange();
+    const range = dateRange(0); // Include today's events; GA4 may still be processing them.
     const report = await googlePost<{ rows?: GaRow[] }>(
       `https://analyticsdata.googleapis.com/v1beta/properties/${property}:runReport`,
       "https://www.googleapis.com/auth/analytics.readonly",
