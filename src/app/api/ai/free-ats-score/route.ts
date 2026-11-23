@@ -51,13 +51,13 @@ export async function POST(req: Request) {
     const jdString = jobDescription.substring(0, 5000); 
     const resumeString = resumeText.substring(0, 8000);
 
-    const systemPrompt = `You are an expert ATS (Applicant Tracking System) algorithm and senior technical recruiter. 
-Your task is to analyze the provided candidate resume text against the provided Job Description.
-Evaluate how well the resume matches the job requirements.
+    const systemPrompt = `You are a resume writing adviser. Compare the supplied resume text with the supplied job description.
+Give an approximate relevance estimate for the candidate's stated experience, not an employer ATS score or a prediction of hiring.
+Only identify requirements explicitly present in the job description and absent from the resume. Do not advise adding skills the candidate does not have.
 
 You MUST return ONLY a valid JSON object with the following exact structure:
 {
-  "score": number, // An integer from 0 to 100 representing the match percentage
+  "score": number, // An approximate relevance estimate from 0 to 100
   "missingKeywords": string[], // An array of 3 to 7 critical keywords or hard skills found in the Job Description but completely missing from the resume
   "suggestions": string[] // An array of 3 actionable, specific sentences on how the user can improve their resume for this specific job
 }
@@ -86,21 +86,21 @@ ${resumeString}
     let result;
     try {
       result = JSON.parse(text);
-    } catch (e) {
+    } catch {
       const cleaned = text.replace(/```json/g, "").replace(/```/g, "").trim();
       result = JSON.parse(cleaned);
     }
 
     // Validate structure
-    if (typeof result.score !== 'number' || !Array.isArray(result.missingKeywords) || !Array.isArray(result.suggestions)) {
+    if (!Number.isFinite(result.score) || result.score < 0 || result.score > 100 || !Array.isArray(result.missingKeywords) || !result.missingKeywords.every((item: unknown) => typeof item === "string") || !Array.isArray(result.suggestions) || !result.suggestions.every((item: unknown) => typeof item === "string")) {
         throw new Error("Invalid response structure from AI");
     }
 
     return NextResponse.json(result);
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Free ATS Score API Error:", error);
     return NextResponse.json(
-      { error: error.message || "Failed to analyze resume against job description." },
+      { error: error instanceof Error ? error.message : "Failed to analyze resume against job description." },
       { status: 500 }
     );
   }

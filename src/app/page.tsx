@@ -11,6 +11,7 @@ import { Footer } from "@/components/layout/Footer";
 import { NavbarClient } from "@/components/layout/NavbarClient";
 import nextDynamic from "next/dynamic";
 import type { Metadata } from "next";
+import LatestGuidesSection from "@/components/home/LatestGuidesSection";
 
 export const metadata: Metadata = {
   alternates: { canonical: "https://www.smartresumemaker.com" },
@@ -33,7 +34,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Free Resume Builder & CV Maker Online | Smart Resume Maker",
-    description: "Build a free, professional, ATS-friendly resume online in minutes. No watermarks, no hidden fees.",
+    description: "Build a free resume online with editable templates and a selectable-text PDF option for applications.",
     images: ["/opengraph-image.png"],
   },
 };
@@ -102,7 +103,7 @@ export default function LandingPage() {
 
             {/* Subheadline — keyword rich, visible immediately */}
             <p className="text-base sm:text-lg md:text-[1.3rem] text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed font-light">
-              Create a professional, ATS-friendly resume in minutes — for free. Use our online resume builder with premium templates, AI suggestions, and instant PDF download. No watermarks, no hidden fees.
+              Create a clear professional resume for free. Edit a template, review your wording, and choose a designed or selectable-text PDF download. No watermarks or hidden fees.
             </p>
 
             {/* CTA buttons */}
@@ -138,7 +139,7 @@ export default function LandingPage() {
 
             {/* Trust signals */}
             <div className="mt-12 pt-8 border-t border-slate-800/60 w-full max-w-3xl flex flex-wrap items-center justify-center gap-5 sm:gap-8">
-              {["Free PDF Download", "No Watermark", "ATS-Friendly", "Auto-Save"].map((label) => (
+              {["Free PDF Download", "No Watermark", "Text PDF Option", "Auto-Save"].map((label) => (
                 <div key={label} className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                   <span className="font-semibold text-slate-300 text-sm">{label}</span>
@@ -164,6 +165,8 @@ export default function LandingPage() {
         <div className="cv-below-fold">
           <TrustSection />
         </div>
+
+        <LatestGuidesSection />
 
       </main>
 

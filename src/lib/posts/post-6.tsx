@@ -4,7 +4,7 @@ import { BlogPost } from '../blog-types';
 export const post6: BlogPost = {
   id: 6,
   title: "How to List Skills on a Resume (With Examples)",
-  excerpt: "Don't just dump a list of random skills at the bottom of your resume. Learn how to categorize, format, and prove your skills to recruiters.",
+  excerpt: "Choose role-relevant skills, group them clearly, and support important claims with examples from your work or projects.",
   category: "Resume Advice",
   categoryColor: "bg-purple-100 text-purple-700",
   readTime: "5 min read",
@@ -13,17 +13,17 @@ export const post6: BlogPost = {
   author: "Jerry",
   metaTitle: "How to List Skills on a Resume | CV Maker",
   metaDescription: "Learn the most effective ways to list skills on your resume. Discover the difference between hard and soft skills and how to prove them to employers.",
-  bannerImage: "/images/blog/post-6-how-to-list-skills-on-resume.jpg",
-  bannerAlt: "Illustrated cover for How to List Skills on a Resume (With Examples)",
+  bannerImage: "/images/blog/resume-skills-editorial.webp",
+  bannerAlt: "Skills cards being organized around a resume",
   relatedSlugs: ["ats-friendly-resume-2026", "resume-tips-for-fresh-graduates"],
   faqs: [
     {
       question: "Should I include a separate skills section?",
-      answer: "Yes, a dedicated skills section is highly recommended. It allows recruiters and ATS software to quickly scan and verify that you possess the core competencies required for the job."
+      answer: "A concise skills section can help a reader find relevant tools. It does not verify proficiency on its own; show important skills in your work or projects."
     },
     {
       question: "Should I use progress bars for my skills?",
-      answer: "No. Graphical progress bars cannot be read by ATS software. Furthermore, they are highly subjective (what does a 70% in 'Communication' actually mean?). Stick to plain text lists."
+      answer: "Plain text is easier to copy and interpret. A percentage bar can be subjective and may not extract well from a file."
     }
   ],
   fullContent: (
@@ -46,7 +46,7 @@ export const post6: BlogPost = {
         Here is a harsh truth: putting "Excellent Communicator" in your skills list means absolutely nothing. Anyone can type that. Soft skills should rarely be listed in a bulleted skills section. Instead, they must be <strong>proven</strong> in your work experience bullet points.
       </p>
       <p>
-        <em>Instead of listing "Leadership," write this in your experience:</em> "Led a cross-functional team of 8 to deliver the Q3 product launch two weeks ahead of schedule."
+        <em>Illustrative example:</em> "Coordinated a design and engineering handoff for a product launch." Add team size and timing only if you can verify them.
       </p>
 
       <h2>How to Format the Skills Section</h2>

@@ -13,8 +13,8 @@ export const post7: BlogPost = {
   author: "Jerry",
   metaTitle: "Cover Letter vs. Resume: What is the Difference? | CV Maker",
   metaDescription: "Understand the key differences between a cover letter and a resume, when you should send both, and how to write a cover letter that recruiters actually read.",
-  bannerImage: "/images/blog/post-7-cover-letter-vs-resume.jpg",
-  bannerAlt: "Illustrated cover for Cover Letter vs. Resume: What's the Difference?",
+  bannerImage: "/images/blog/cover-letter-vs-resume-editorial.webp",
+  bannerAlt: "Cover letter in an envelope beside a structured resume",
   relatedSlugs: ["one-page-vs-two-page-resume", "how-to-write-professional-summary"],
   faqs: [
     {

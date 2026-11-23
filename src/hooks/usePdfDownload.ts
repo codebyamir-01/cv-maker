@@ -91,6 +91,29 @@ export function usePdfDownload({ printRef, onAutoDownloadJump }: UsePdfDownloadO
     }
   }, [status, printRef, router, resumeData]);
 
+  const handleDownloadTextPdf = useCallback(async () => {
+    if (status !== "authenticated") {
+      router.push("/login?callbackUrl=/builder%3Faction%3Ddownload");
+      return;
+    }
+    if (downloadInProgress.current) return;
+    downloadInProgress.current = true;
+    setIsDownloading(true);
+    try {
+      const { saveTextResumePdf } = await import("@/lib/ats-pdf");
+      const safeName = (resumeData.personalInfo.fullName || "Resume").replace(/[^a-zA-Z0-9_-]+/g, "_");
+      await saveTextResumePdf(resumeData, `${safeName}_Text_Resume.pdf`);
+      trackGa4Event("resume_downloaded");
+      setShowSuccessModal(true);
+    } catch (error) {
+      console.error("Text PDF generation error:", error);
+      alert("Could not create the text PDF. Please try again.");
+    } finally {
+      downloadInProgress.current = false;
+      setIsDownloading(false);
+    }
+  }, [status, router, resumeData]);
+
   // Auto-trigger download after returning from login
   const hasAutoDownloaded = useRef(false);
   useEffect(() => {
@@ -124,6 +147,7 @@ export function usePdfDownload({ printRef, onAutoDownloadJump }: UsePdfDownloadO
     feedbackSubmitted,
     submitFeedback,
     handleDownloadPdf,
+    handleDownloadTextPdf,
   };
 }
 

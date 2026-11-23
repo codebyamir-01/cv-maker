@@ -13,8 +13,8 @@ export const post9: BlogPost = {
   author: "Jerry",
   metaTitle: "LinkedIn Profile vs. Resume: What is the Difference? | CV Maker",
   metaDescription: "Understand the key differences between your LinkedIn profile and your resume. Learn how to optimize both platforms to maximize your job search success.",
-  bannerImage: "/images/blog/post-9-linkedin-profile-vs-resume.jpg",
-  bannerAlt: "Illustrated cover for LinkedIn Profile vs. Resume: Key Differences",
+  bannerImage: "/images/blog/linkedin-vs-resume-editorial.webp",
+  bannerAlt: "Online professional profile compared with a printed resume",
   relatedSlugs: ["how-to-write-professional-summary", "resume-action-verbs"],
   faqs: [
     {

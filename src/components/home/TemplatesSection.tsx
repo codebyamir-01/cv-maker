@@ -16,7 +16,7 @@ export default function TemplatesSection() {
             Curated Designs
           </div>
           <h2 className="text-4xl md:text-[3.5rem] font-bold text-white mb-6 leading-tight tracking-tight">
-            Templates That <span className="text-blue-300">Get You Hired</span>
+            Templates You Can <span className="text-blue-300">Make Your Own</span>
           </h2>
           <p className="text-xl text-slate-400 font-medium">
             Explore resume and CV layouts you can customize for your experience and target role.

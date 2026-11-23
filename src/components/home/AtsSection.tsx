@@ -10,7 +10,7 @@ export default function AtsSection() {
         <div>
           <h2 className="text-3xl md:text-4xl font-bold mb-6">What is an ATS and why does it matter?</h2>
           <p className="text-slate-300 text-lg mb-6 leading-relaxed">
-            Many modern employers use an <strong>Applicant Tracking System (ATS)</strong> to filter resumes before a human ever sees them. If your resume is not formatted correctly, the robot will reject it.
+            Employers use <strong>Applicant Tracking Systems (ATS)</strong> to organize applications. A readable file helps them extract your details, but no format guarantees a screening result.
           </p>
           <ul className="space-y-4 mb-8">
             <li className="flex items-start gap-3">
@@ -36,11 +36,10 @@ export default function AtsSection() {
           <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-3xl blur-2xl opacity-20" />
           <div className="bg-slate-800 border border-slate-700 p-8 rounded-3xl shadow-2xl relative">
             <div className="flex items-center justify-between mb-8 pb-6 border-b border-slate-700">
-              <div className="font-bold text-xl">Resume Score</div>
-              <div className="text-3xl font-extrabold text-emerald-400">95%</div>
+              <div className="font-bold text-xl">File review checklist</div>
             </div>
             <div className="space-y-4">
-              {["Contact Info", "Professional Summary", "Experience Formatting", "Keyword Density"].map((item) => (
+              {["Selectable contact details", "Clear section headings", "Consistent work dates", "Relevant work examples"].map((item) => (
                 <div key={item} className="flex items-center justify-between">
                   <span className="text-slate-400">{item}</span>
                   <CheckCircle2 className="w-5 h-5 text-emerald-400" />

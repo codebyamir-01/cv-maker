@@ -1,5 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { createHash } from "node:crypto";
+import sharp from "sharp";
 
 const root = process.cwd();
 const registry = await fs.readFile(path.join(root, "src/lib/blog-data.tsx"), "utf8");
@@ -7,6 +9,7 @@ const ids = [...registry.matchAll(/^\s+post(\d+),\s*$/gm)].map(match => Number(m
 const slugs = new Set();
 const published = [];
 const banners = new Set();
+const bannerHashes = new Set();
 
 if (ids.length === 0 || new Set(ids).size !== ids.length) {
   throw new Error("Blog registry is empty or contains duplicate post IDs.");
@@ -26,7 +29,13 @@ for (const post of published) {
   if (!banner || !banner.startsWith("/")) throw new Error(`Missing local banner image: post-${post.id}`);
   if (banners.has(banner)) throw new Error(`Repeated banner image in post-${post.id}: ${banner}`);
   banners.add(banner);
-  await fs.access(path.join(root, "public", banner.slice(1)));
+  const bannerFile = path.join(root, "public", banner.slice(1));
+  const bytes = await fs.readFile(bannerFile);
+  const hash = createHash("sha256").update(bytes).digest("hex");
+  if (bannerHashes.has(hash)) throw new Error(`Identical banner content found for post-${post.id}`);
+  bannerHashes.add(hash);
+  const image = await sharp(bytes).metadata();
+  if (image.width < 1000 || image.height < 500) throw new Error(`Banner too small for post-${post.id}: ${image.width}x${image.height}`);
 
   const related = post.content.match(/relatedSlugs:\s*\[([^\]]*)\]/s)?.[1] || "";
   for (const [, slug] of related.matchAll(/["']([^"']+)["']/g)) {

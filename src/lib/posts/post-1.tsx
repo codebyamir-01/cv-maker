@@ -13,8 +13,8 @@ export const post1: BlogPost = {
   author: "Jerry",
   metaTitle: "How to Write an ATS-Friendly Resume | Smart Resume Maker",
   metaDescription: "Build a readable ATS-friendly resume with clear headings, relevant skills, and a file check before submitting your application.",
-  bannerImage: "/images/blog/post-1-ats-friendly-resume-2026.jpg",
-  bannerAlt: "Illustrated cover for How to Write an ATS-Friendly Resume in 2026",
+  bannerImage: "/images/blog/ats-friendly-resume-editorial.webp",
+  bannerAlt: "Resume beside a laptop showing a document scan",
   relatedSlugs: ["resume-action-verbs", "best-resume-format-software-engineers"],
   faqs: [
     {
@@ -38,7 +38,7 @@ export const post1: BlogPost = {
 
       <h2>What is an Applicant Tracking System (ATS)?</h2>
       <p>
-        An Applicant Tracking System (ATS) is software used by HR and recruiting teams to manage the hiring process. When you submit your resume online, it usually doesn't go straight to a recruiter's inbox. Instead, it gets processed, scanned, and ranked by an ATS.
+        An Applicant Tracking System (ATS) is software used by HR and recruiting teams to manage applications. Some systems parse information from your uploaded resume; employers use different review processes, so it is inaccurate to assume every resume is automatically ranked.
       </p>
       <p>
         Some application systems extract contact details, work history, and skills from your file. Others ask you to enter that information separately. After uploading, review the fields the employer displays and correct any mistakes.
@@ -69,7 +69,7 @@ export const post1: BlogPost = {
 
       <h3>3. Use Standard Section Headings</h3>
       <p>
-        Don't try to be clever with your headings. Instead of "Where I've Been," use "Work Experience." Instead of "Things I Know," use "Skills." The ATS relies on these standard headings to categorize your information.
+        Use familiar headings. Instead of "Where I've Been," use "Work Experience." Instead of "Things I Know," use "Skills." Clear labels help people and can make parsing more reliable.
       </p>
 
       <h3>4. Format Your Dates Correctly</h3>
@@ -85,7 +85,7 @@ export const post1: BlogPost = {
       <div className="bg-blue-50 border border-blue-100 rounded-xl p-6 mt-8">
         <h3 className="text-xl font-bold text-slate-900 mt-0 mb-3">Ready to build your ATS-friendly resume?</h3>
         <p className="mb-4">
-          Try our <a href="/free-resume-builder" className="text-blue-600 hover:underline font-semibold">Free Resume Builder</a> to automatically format your CV for applicant tracking systems. 
+          Try our <a href="/free-resume-builder" className="text-blue-600 hover:underline font-semibold">Free Resume Builder</a>, then check the exported file before submitting.
           Looking for inspiration? Browse our collection of <a href="/resume-examples" className="text-blue-600 hover:underline font-semibold">Resume Examples</a> for every industry.
         </p>
       </div>

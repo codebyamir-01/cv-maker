@@ -1,81 +1,41 @@
-import React from 'react';
-import { BlogPost } from '../blog-types';
+import Link from "next/link";
+import type { BlogPost } from "../blog-types";
 
 export const post8: BlogPost = {
   id: 8,
-  title: "How to Explain Employment Gaps on Your Resume",
-  excerpt: "Took time off for travel, family, or health? Don't panic. Here is exactly how to format and explain employment gaps on your resume.",
+  title: "How to Explain an Employment Gap on Your Resume",
+  excerpt: "Keep dates accurate, decide when a brief career-break entry helps, and protect personal details you do not want to share.",
   category: "Career Tips",
   categoryColor: "bg-rose-100 text-rose-700",
-  readTime: "6 min read",
+  readTime: "5 min read",
   date: "May 10, 2026",
   slug: "how-to-explain-employment-gaps",
   author: "Jerry",
-  metaTitle: "How to Explain Employment Gaps on Your Resume | CV Maker",
-  metaDescription: "Learn how to handle employment gaps on your resume professionally. Discover the best ways to explain time off for travel, family, health, or layoffs.",
-  bannerImage: "/images/blog/post-8-how-to-explain-employment-gaps.jpg",
-  bannerAlt: "Illustrated cover for How to Explain Employment Gaps on Your Resume",
-  relatedSlugs: ["cover-letter-vs-resume", "how-to-write-professional-summary"],
+  metaTitle: "How to Explain an Employment Gap on a Resume",
+  metaDescription: "Use accurate dates and a brief career-break entry when helpful, without disclosing private health or family information.",
+  bannerImage: "/images/blog/employment-gaps-editorial.webp",
+  bannerAlt: "Job seeker reviewing a career timeline with a gap",
+  relatedSlugs: ["employment-gap-resume", "cover-letter-vs-resume", "how-to-put-freelance-contract-work-on-resume"],
   faqs: [
-    {
-      question: "Should I hide an employment gap on my resume?",
-      answer: "No, never lie or alter dates to hide a gap. Background checks will reveal the truth. Instead, format your dates to minimize small gaps (use years instead of months) or briefly explain large gaps."
-    },
-    {
-      question: "Is a one-year gap bad for my career?",
-      answer: "Not anymore. Post-2020, employers are much more understanding of career breaks for mental health, caregiving, or layoffs. The key is how confidently you explain it."
-    }
+    { question: "Should I change dates to hide a gap?", answer: "No. Keep the timeline truthful. An application may request exact months even if your resume uses years for a concise layout." },
+    { question: "Do I have to explain a health or family break?", answer: "You can keep personal details private. A short career-break entry or a brief interview answer may be enough if you choose to explain the timeline." },
   ],
-  fullContent: (
-    <>
-      <p className="lead">
-        An employment gap used to be considered the ultimate red flag for recruiters. Today, career breaks are incredibly common. Whether you were laid off, took time to care for a sick relative, went back to school, or simply traveled the world, you don't need to hide your gap—you just need to explain it properly.
-      </p>
+  fullContent: <>
+    <p className="lead">A break in paid work can have many reasons. A resume should give an accurate timeline and focus on the work you can do now. You do not need to disclose private medical or family details to write a truthful document.</p>
 
-      <h2>1. Don't Lie About the Dates</h2>
-      <p>
-        The absolute worst thing you can do is stretch your employment dates to cover a gap. When the company runs a standard background check, they will call your previous HR departments to verify dates of employment. If you are caught lying, your offer will be revoked instantly.
-      </p>
+    <h2>Keep the dates accurate</h2>
+    <p>Use one consistent date format across roles. If an application later asks for month and year, provide the accurate dates. Do not extend a job to cover a break. A resume may use years for readability, but that does not change the underlying work history.</p>
 
-      <h2>2. Use Years Instead of Months</h2>
-      <p>
-        If your gap was relatively short (e.g., 4 to 6 months) and happened within a single calendar year, you can simply format your resume dates using only years.
-      </p>
-      <p>
-        Instead of:<br/>
-        <em>Marketing Manager, Jan 2023 - Sept 2024</em><br/>
-        <em>Product Manager, March 2025 - Present</em>
-      </p>
-      <p>
-        Use:<br/>
-        <em>Marketing Manager, 2023 - 2024</em><br/>
-        <em>Product Manager, 2025 - Present</em>
-      </p>
+    <h2>Decide whether a career-break entry helps</h2>
+    <p>A short gap often needs no separate entry. For a longer break, a line such as &ldquo;Career break, 2024–2025: family caregiving&rdquo; can explain the timeline if you want to share that much. You can simply write &ldquo;Career break&rdquo; without additional personal detail. Avoid turning a private situation into a long story on the resume.</p>
 
-      <h2>3. Address Long Gaps Directly on the Resume</h2>
-      <p>
-        If your gap is longer than a year, don't leave it blank. Create a line item for it just like a job.
-      </p>
-      <p>
-        <strong>Example (Caregiving):</strong><br/>
-        <em>Full-Time Caregiver | 2024 - 2025</em><br/>
-        "Took a planned career sabbatical to provide full-time care for a terminally ill family member. Handled complex medical scheduling and financial estate planning. Now ready to fully re-enter the workforce."
-      </p>
-      <p>
-        <strong>Example (Travel/Sabbatical):</strong><br/>
-        <em>Independent Traveler & Sabbatical | 2023 - 2024</em><br/>
-        "Traveled extensively through Southeast Asia, immersing in diverse cultures and improving cross-cultural communication skills. Maintained industry knowledge via online marketing courses."
-      </p>
+    <h2>Include genuine work completed during the break</h2>
+    <p>Freelance projects, volunteering, coursework, or a personal project may be relevant. Label each accurately and describe what you did. Do not turn occasional freelance assignments into continuous full-time employment. Our <Link href="/blog/how-to-put-freelance-contract-work-on-resume">freelance work guide</Link> shows how to group projects clearly.</p>
 
-      <h2>4. Highlight Freelance or Volunteer Work</h2>
-      <p>
-        If you did any gig work, freelancing, consulting, or serious volunteering during your gap, put it on your resume! Experience does not have to come from a traditional W-2 job to count as valuable experience.
-      </p>
+    <h2>Prepare a short interview answer</h2>
+    <p>You may be asked about the interval. A concise answer can acknowledge the break and move to your readiness for the role: &ldquo;I took time away from paid work for family reasons. I&apos;m now available for full-time work and have kept up my spreadsheet skills through a recent project.&rdquo; Adapt the wording to your real situation and share only what you are comfortable sharing.</p>
 
-      <h2>Conclusion</h2>
-      <p>
-        Own your story. Employers appreciate honesty and self-awareness. Use your cover letter to provide slightly more context if needed, but keep it brief, positive, and pivot quickly back to why you are excited and ready for this new role.
-      </p>
-    </>
-  )
+    <h2>Bring the reader back to your fit</h2>
+    <p>Put your strongest relevant experience near the top, check dates and links, and follow the application&apos;s format instructions. Our <Link href="/blog/employment-gap-resume">longer employment-gap guide</Link> covers several scenarios. You can reorganize sections in our <Link href="/builder">resume builder</Link> and check the final export before applying.</p>
+  </>,
 };

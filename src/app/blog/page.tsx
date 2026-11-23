@@ -9,7 +9,7 @@ import NewsletterSection from "@/components/blog/NewsletterSection";
 
 export const metadata: Metadata = {
   title: "Career Blog | Smart Resume Maker",
-  description: "Expert resume tips, ATS guides, career advice, and job search strategies from the Smart Resume Maker team.",
+  description: "Practical resume writing guides, ATS file checks, career examples, and job search advice from Smart Resume Maker.",
   alternates: {
     canonical: "https://www.smartresumemaker.com/blog",
   },

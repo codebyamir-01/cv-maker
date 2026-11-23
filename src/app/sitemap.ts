@@ -4,6 +4,8 @@ import { RESUME_EXAMPLES } from '@/lib/resume-examples-data';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.smartresumemaker.com';
+  // Every published guide received a visible editorial update on this date.
+  const editorialRefresh = new Date('2026-11-23T00:00:00.000Z');
 
   const staticRoutes: MetadataRoute.Sitemap = [
     {
@@ -85,7 +87,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const blogRoutes: MetadataRoute.Sitemap = BLOG_POSTS.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
-    lastModified: new Date(post.date),
+    lastModified: new Date(Math.max(new Date(post.date).getTime(), editorialRefresh.getTime())),
     changeFrequency: 'monthly' as const,
     priority: 0.8,
   }));

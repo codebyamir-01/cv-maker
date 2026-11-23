@@ -1,104 +1,41 @@
-import React from 'react';
-import { BlogPost } from '../blog-types';
+import Link from "next/link";
+import type { BlogPost } from "../blog-types";
 
 export const post15: BlogPost = {
   id: 15,
-  title: "Resume Summary vs Objective: Which One Should You Use in 2026?",
-  excerpt: "Most people get this wrong. Here's the difference between a resume summary and an objective statement — and exactly when to use each one.",
+  title: "Resume Summary vs. Objective: Which Opening Fits You?",
+  excerpt: "Compare a summary and a career objective, then write a short opening supported by the rest of your resume.",
   category: "Writing Tips",
   categoryColor: "bg-blue-100 text-blue-700",
   readTime: "5 min read",
   date: "Jul 14, 2026",
   slug: "resume-summary-vs-objective",
   author: "Jerry",
-  metaTitle: "Resume Summary vs Objective: Which Should You Use? (2026)",
-  metaDescription: "Should you write a resume summary or an objective statement? Learn the key differences, when to use each, and see examples for every career stage.",
-  bannerImage: "/images/blog/post-15-resume-summary-vs-objective.jpg",
-  bannerAlt: "Illustrated cover for Resume Summary vs Objective: Which One Should You Use in 2026?",
-  relatedSlugs: ["ats-friendly-resume-2026", "resume-no-work-experience"],
+  metaTitle: "Resume Summary vs. Objective: Examples and Choice",
+  metaDescription: "Learn when a resume summary or objective helps, with examples for an experienced applicant and a career changer.",
+  bannerImage: "/images/blog/summary-vs-objective-editorial.webp",
+  bannerAlt: "Illustrated comparison of a resume summary and objective",
+  relatedSlugs: ["how-to-write-professional-summary", "resume-no-work-experience", "how-to-write-a-career-change-resume-2026"],
   faqs: [
-    {
-      question: "What is a resume summary?",
-      answer: "A resume summary is a 2-4 sentence paragraph at the top of your resume that highlights your most impressive professional achievements, skills, and career goals. It's designed for candidates who have relevant experience to show."
-    },
-    {
-      question: "What is a resume objective statement?",
-      answer: "A resume objective statement describes what you're looking for in a job, rather than what you offer. It's typically used by career changers or students with very little experience."
-    },
-    {
-      question: "Should I use a resume summary or objective in 2026?",
-      answer: "For most job seekers with any work experience, a resume summary is stronger. Objective statements are only useful for entry-level applicants or career changers who need to explain why they're switching industries."
-    }
+    { question: "Is a resume objective outdated?", answer: "A vague objective adds little, but a specific one can explain a career transition or entry-level target. Choose the opening that helps a reader understand your fit." },
+    { question: "Does every resume need an opening paragraph?", answer: "No. If your recent role and first bullets already make your fit clear, you may not need one. Use the space for relevant evidence." },
   ],
-  fullContent: (
-    <>
-      <p className="lead">
-        The top section of your resume — right below your name and contact info — is prime real estate. What you put there can determine whether a recruiter spends 10 seconds on your resume or 2 minutes. Here's how to get it right.
-      </p>
+  fullContent: <>
+    <p className="lead">The text below your contact details can orient a reader, but it is optional. A summary highlights relevant experience you already have. An objective can explain a new direction when it is not obvious from your job titles. Either should point to evidence elsewhere in the resume.</p>
 
-      <h2>What is a Resume Summary?</h2>
-      <p>
-        A resume summary (also called a professional summary or profile) is a short 2–4 sentence paragraph that showcases your experience, key skills, and biggest accomplishments. Think of it as your "elevator pitch" for the recruiter.
-      </p>
-      <p>
-        <strong>Example Resume Summary:</strong><br />
-        "Results-driven Digital Marketing Manager with 6 years of experience growing B2B SaaS companies. Specialized in SEO and paid social campaigns, generating over $2M in pipeline revenue. Looking to bring data-driven growth strategies to a fast-scaling tech company."
-      </p>
+    <h2>Use a summary for relevant experience</h2>
+    <p>A short summary can state your role, two strengths, and a specific kind of work. An illustrative example is: &ldquo;Customer support specialist experienced in email and chat queues, help-center updates, and escalation handoffs.&rdquo; A reader should be able to find those activities in the work section. Add a result only when you can explain how it was measured.</p>
 
-      <h2>What is a Resume Objective?</h2>
-      <p>
-        A resume objective focuses on what <em>you want</em> from the employer, not what you bring to them. It was standard practice in the 1990s and early 2000s but has largely fallen out of fashion.
-      </p>
-      <p>
-        <strong>Example Resume Objective (outdated style):</strong><br />
-        "Seeking a marketing position that allows me to grow my skills and advance my career."
-      </p>
-      <p>
-        Notice the problem? That statement tells the employer nothing useful. It's all about what <em>you</em> want, not what you offer.
-      </p>
+    <h2>Use an objective to explain a transition</h2>
+    <p>A useful objective does more than announce a wish for a job. For example: &ldquo;Retail team lead moving into operations coordination, bringing scheduling, stock reporting, and staff handoff experience.&rdquo; It identifies the direction and connects it to existing work. Our <Link href="/blog/how-to-write-a-career-change-resume-2026">career-change guide</Link> shows how to make the rest of the document support that opening.</p>
 
-      <h2>Which One Should You Use?</h2>
+    <h2>What to avoid in either version</h2>
+    <p>Skip broad statements such as &ldquo;motivated professional seeking a challenging opportunity.&rdquo; Do not invent years of experience, revenue figures, or credentials because an example sounded impressive. Keep the opening concise enough that it does not push your best work far down the page.</p>
 
-      <h3>Use a Resume Summary If:</h3>
-      <ul>
-        <li>✅ You have 1+ years of relevant work experience</li>
-        <li>✅ You're applying for a role in the same field you've worked in before</li>
-        <li>✅ You have measurable achievements to highlight</li>
-        <li>✅ You want to immediately establish your value to the recruiter</li>
-      </ul>
+    <h2>Write it last</h2>
+    <p>Draft the experience, projects, education, and skills first. Then choose the two or three facts most relevant to the posting. If they already appear clearly at the top of your resume, you may omit the opening. If they need a bridge, write a summary or objective in plain language. Our <Link href="/blog/how-to-write-professional-summary">summary examples</Link> give another starting point.</p>
 
-      <h3>Use a Resume Objective If:</h3>
-      <ul>
-        <li>✅ You're a recent graduate with no work experience</li>
-        <li>✅ You're switching industries and need to explain the transition</li>
-        <li>✅ You're re-entering the workforce after a long gap</li>
-      </ul>
-
-      <h2>How to Write a Killer Resume Summary in 3 Steps</h2>
-
-      <h3>Step 1: Start with your title and years of experience</h3>
-      <p>"Senior Software Engineer with 8 years of experience..."</p>
-
-      <h3>Step 2: Add your most impressive skill or achievement</h3>
-      <p>"...specializing in cloud architecture and microservices, having led the migration of a monolithic app to AWS that reduced infrastructure costs by 40%..."</p>
-
-      <h3>Step 3: State what you're looking for next</h3>
-      <p>"...now seeking a principal engineering role at a high-growth fintech company."</p>
-
-      <h2>Common Mistakes to Avoid</h2>
-      <ul>
-        <li><strong>Using clichés:</strong> "Hard-working team player" means nothing. Use specific examples.</li>
-        <li><strong>Writing in first person:</strong> Don't start with "I". Start with your title or a strong adjective.</li>
-        <li><strong>Making it too long:</strong> Keep it to 3–4 sentences maximum.</li>
-        <li><strong>Being too generic:</strong> Tailor your summary for each job application.</li>
-      </ul>
-
-      <div className="bg-blue-50 border border-blue-100 rounded-xl p-6 mt-8">
-        <h3 className="text-xl font-bold text-slate-900 mt-0 mb-3">Get AI-generated resume summaries instantly</h3>
-        <p className="mb-4">
-          Our <a href="/free-resume-builder" className="text-blue-600 hover:underline font-semibold">Free Resume Builder</a> uses AI to generate 3 professional summary options based on your job title — in seconds. <a href="/builder" className="text-blue-600 hover:underline font-semibold">Try it now →</a>
-        </p>
-      </div>
-    </>
-  )
+    <h2>Check the final file</h2>
+    <p>Read the opening beside the first work bullets: do they support it? Export the document and inspect how the text appears. A resume checker may suggest wording, but its score cannot determine which opening will help a specific employer. You can try both versions in our <Link href="/builder">builder</Link>.</p>
+  </>,
 };

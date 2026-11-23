@@ -4,7 +4,7 @@ import { BlogPost } from '../blog-types';
 export const post4: BlogPost = {
   id: 4,
   title: "How to Write a Professional Summary That Gets Noticed",
-  excerpt: "Your resume summary is your elevator pitch. Stop using generic objectives and learn the 3-part formula to hook recruiters instantly.",
+  excerpt: "Write a short resume summary based on your real skills and achievements, with examples you can adapt to your career stage.",
   category: "Writing Tips",
   categoryColor: "bg-blue-100 text-blue-700",
   readTime: "8 min read",
@@ -12,14 +12,14 @@ export const post4: BlogPost = {
   slug: "how-to-write-professional-summary",
   author: "Jerry",
   metaTitle: "How to Write a Professional Resume Summary (2026 Guide) | CV Maker",
-  metaDescription: "Learn how to write a powerful professional summary for your resume. Discover the 3-part formula, see 10+ real-world examples, and learn what mistakes to avoid.",
-  bannerImage: "/images/blog/post-4-how-to-write-professional-summary.jpg",
-  bannerAlt: "Illustrated cover for How to Write a Professional Summary That Gets Noticed",
+  metaDescription: "Learn how to write a concise professional summary using your role, relevant skills, and evidence, with examples for different career stages.",
+  bannerImage: "/images/blog/professional-summary-editorial.webp",
+  bannerAlt: "Job seeker drafting a highlighted resume summary",
   relatedSlugs: ["resume-action-verbs", "one-page-vs-two-page-resume"],
   faqs: [
     {
       question: "Is a resume objective the same as a summary?",
-      answer: "No. An objective states what you want (e.g., 'Seeking a marketing role'). A summary states what you offer (e.g., 'Marketing expert with 5 years experience'). Objectives are outdated; always use a summary."
+      answer: "A summary highlights relevant experience and strengths; an objective can explain a target role when changing careers or entering work. Choose the opening that best explains your fit."
     },
     {
       question: "How long should a resume summary be?",
@@ -33,7 +33,7 @@ export const post4: BlogPost = {
   fullContent: (
     <>
       <p className="lead">
-        Let's get straight to the point: recruiters spend an average of 6 to 7 seconds scanning a resume before deciding its fate. The very first thing they look at? Your professional summary. Sitting right at the top of the page, this short paragraph is your elevator pitch. It’s your one shot to grab their attention and prove you're worth their time.
+        A professional summary sits near the top of many resumes. Use that space to show the role you want, the skills you bring, and evidence from your work. Keep it specific enough that a reader can see why the rest of the resume is relevant.
       </p>
 
       <h2>The Death of the "Resume Objective"</h2>
@@ -51,25 +51,25 @@ export const post4: BlogPost = {
       
       <h3>1. The Hook (Who you are)</h3>
       <p>
-        Start strong. Use a powerful adjective, state your exact job title, and mention your years of experience. Don't beat around the bush.
+        State the role or background most relevant to the application. Mention years of experience only if accurate and useful.
       </p>
       <p><em>Example: "Results-driven Digital Marketing Manager with 6+ years of experience..."</em></p>
 
       <h3>2. The Value (What you do best)</h3>
       <p>
-        Next, highlight your core expertise. What are you actually doing day-to-day? This is also the perfect place to naturally inject industry-specific keywords so you pass the ATS (Applicant Tracking Systems).
+        Next, highlight the skills you use in your work. If a job posting names a tool or responsibility you genuinely have, use the same clear language and support it elsewhere in the resume.
       </p>
       <p><em>Example: "...specializing in B2B SEO, paid acquisition scaling, and data-driven content strategy."</em></p>
 
       <h3>3. The Proof (Your biggest win)</h3>
       <p>
-        Don't just say you're great; prove it. End with a quantified achievement. Numbers draw the eye and build instant credibility.
+        Support your claim with an accomplishment or a concrete example. Add a number only when you can verify it.
       </p>
       <p><em>Example: "Proven track record of scaling organic traffic by 150% in under 12 months and managing $500k ad budgets with a 3x ROI."</em></p>
 
-      <h2>Real-World Examples by Profession</h2>
+      <h2>Illustrative summary examples by profession</h2>
       <p>
-        Seeing is believing. Here are several highly effective professional summaries tailored for different career stages and industries. Feel free to use these as templates!
+        The following examples use fictional candidates and illustrative figures. Replace every role, credential, and number with details you can verify from your own experience.
       </p>
 
       <h3>For Software Engineers & Tech</h3>

@@ -13,8 +13,8 @@ export const post17: BlogPost = {
   author: "Jerry",
   metaTitle: "How to Write a Cover Letter That Gets Read in 2026 (With Examples)",
   metaDescription: "Learn how to write a compelling cover letter in 2026. Includes a proven structure, example paragraphs, and common mistakes that get letters thrown in the trash.",
-  bannerImage: "/images/blog/post-17-how-to-write-cover-letter.jpg",
-  bannerAlt: "Illustrated cover for How to Write a Cover Letter That Gets Read in 2026",
+  bannerImage: "/images/blog/cover-letter-writing-editorial.webp",
+  bannerAlt: "Writer drafting a cover letter beside a job posting",
   relatedSlugs: ["ats-friendly-resume-2026", "resume-summary-vs-objective"],
   faqs: [
     {

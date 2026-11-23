@@ -86,6 +86,7 @@ export default function BuilderPage() {
     feedbackSubmitted,
     submitFeedback,
     handleDownloadPdf,
+    handleDownloadTextPdf,
   } = usePdfDownload({
     printRef,
     onAutoDownloadJump: () => setStepIdx(STEPS.length - 1),
@@ -131,7 +132,7 @@ export default function BuilderPage() {
       case "ats-match":
         return <AtsMatchStep />;
       case "finalize":
-        return <FinalizeStep onDownload={handleDownloadPdf} isDownloading={isDownloading} />;
+        return <FinalizeStep onDownload={handleDownloadPdf} onDownloadText={handleDownloadTextPdf} isDownloading={isDownloading} />;
       default:
         return null;
     }

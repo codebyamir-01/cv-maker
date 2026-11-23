@@ -43,8 +43,8 @@ export function AtsCheckerClient() {
 
       const data = await response.json();
       setResult(data);
-    } catch (err: any) {
-      setError(err.message || "An unexpected error occurred.");
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "An unexpected error occurred.");
     } finally {
       setIsScanning(false);
     }
@@ -60,11 +60,6 @@ export function AtsCheckerClient() {
     if (score >= 80) return "text-emerald-500";
     if (score >= 50) return "text-amber-500";
     return "text-red-500";
-  };
-  const getScoreBg = (score: number) => {
-    if (score >= 80) return "bg-emerald-50";
-    if (score >= 50) return "bg-amber-50";
-    return "bg-red-50";
   };
   const radius = 45;
   const circumference = 2 * Math.PI * radius;
@@ -86,7 +81,7 @@ export function AtsCheckerClient() {
                 className="h-96 w-full resize-none rounded-xl border border-slate-300 p-4 text-sm text-slate-700 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
               />
               <p className="mt-2 text-xs text-slate-500">
-                Copy text from your PDF or Word document and paste it above. Don't worry about formatting.
+                Copy text from your PDF or Word document and paste it above. Don&apos;t worry about formatting.
               </p>
             </div>
 
@@ -123,7 +118,7 @@ export function AtsCheckerClient() {
               {isScanning ? (
                 <>
                   <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                  Scanning ATS Rules...
+                  Comparing Resume...
                 </>
               ) : (
                 "Scan My Resume"
@@ -134,7 +129,7 @@ export function AtsCheckerClient() {
       ) : (
         <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-10 animate-in fade-in zoom-in-95 duration-500">
           <div className="mb-10 flex flex-col items-center border-b border-slate-100 pb-10 text-center">
-            <h2 className="mb-8 text-2xl font-extrabold tracking-tight text-slate-900">Your ATS Match Results</h2>
+            <h2 className="mb-8 text-2xl font-extrabold tracking-tight text-slate-900">AI Resume Match Estimate</h2>
             
             <div className="relative mb-6 flex h-48 w-48 items-center justify-center">
               <svg className="h-full w-full -rotate-90 transform" viewBox="0 0 100 100">
@@ -162,21 +157,21 @@ export function AtsCheckerClient() {
                 <span className={`text-5xl font-black tracking-tighter ${getScoreColor(result.score)}`}>
                   {result.score}%
                 </span>
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-400 mt-1">Match</span>
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-400 mt-1">AI estimate</span>
               </div>
             </div>
 
             {result.score >= 80 ? (
               <p className="max-w-lg text-emerald-700 font-medium bg-emerald-50 px-4 py-2 rounded-lg border border-emerald-100">
-                Great job! Your resume is highly optimized for this role.
+                This estimate suggests a close match to the supplied posting. Check the details yourself before applying.
               </p>
             ) : result.score >= 50 ? (
               <p className="max-w-lg text-amber-700 font-medium bg-amber-50 px-4 py-2 rounded-lg border border-amber-100">
-                You're on the right track, but missing some key requirements. Add the missing keywords below.
+                Some requirements may need clearer evidence. Review the suggestions below and add only experience you actually have.
               </p>
             ) : (
               <p className="max-w-lg text-red-700 font-medium bg-red-50 px-4 py-2 rounded-lg border border-red-100">
-                Your resume is likely to be rejected by an ATS. It lacks critical keywords from the job description.
+                This estimate found a weaker match to the supplied posting. It cannot predict an employer&apos;s screening decision.
               </p>
             )}
           </div>
@@ -187,7 +182,7 @@ export function AtsCheckerClient() {
                 <XCircle className="h-5 w-5 text-red-500" /> Critical Missing Keywords
               </h3>
               <p className="mb-4 text-sm text-slate-600 leading-relaxed">
-                We couldn't find these hard skills in your resume. If you have this experience, you must add these exact words to pass the ATS filter.
+                These terms from the posting may be missing. Add them only when they accurately describe work or skills you can explain.
               </p>
               <div className="flex flex-wrap gap-2">
                 {result.missingKeywords.length > 0 ? (
@@ -220,14 +215,14 @@ export function AtsCheckerClient() {
           </div>
 
           <div className="mt-12 rounded-2xl bg-gradient-to-br from-blue-900 to-slate-900 p-8 text-center sm:p-10 shadow-xl">
-            <h3 className="mb-3 text-2xl font-bold text-white">Want to fix these errors instantly?</h3>
+            <h3 className="mb-3 text-2xl font-bold text-white">Ready to improve your resume?</h3>
             <p className="mb-8 text-blue-200">
               Our resume builder helps you organize your experience and write relevant bullet points. Always check the file and follow the employer&apos;s instructions.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link href="/builder" className="w-full sm:w-auto">
                 <Button className="h-12 w-full rounded-full bg-white text-blue-900 font-bold hover:bg-blue-50 transition-colors shadow-lg shadow-black/20 px-8">
-                  Build ATS Resume Now <ChevronRight className="ml-1 h-4 w-4" />
+                  Open Resume Builder <ChevronRight className="ml-1 h-4 w-4" />
                 </Button>
               </Link>
               <Button onClick={resetScanner} variant="outline" className="h-12 w-full sm:w-auto rounded-full border-blue-800 bg-transparent text-blue-100 hover:bg-blue-800 hover:text-white transition-colors px-8">

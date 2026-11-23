@@ -3,7 +3,7 @@ import path from "path";
 import { execFileSync } from "child_process";
 import { GoogleGenAI } from "@google/genai";
 import dotenv from "dotenv";
-import { createBlogThumbnail } from "./blog-thumbnail.mjs";
+import { requireEditorialCover } from "./editorial-cover.mjs";
 
 dotenv.config({ path: ".env.local" });
 dotenv.config({ path: ".env" });
@@ -234,7 +234,7 @@ CRITICAL REQUIREMENTS:
   const existingTitles = existingPosts.map(content => content.match(/title:\s*["']([^"']+)["']/)?.[1]).filter(Boolean);
   const registrySource = await fs.readFile(path.join(process.cwd(), "src", "lib", "blog-data.tsx"), "utf8");
   const publishedIds = new Set([...registrySource.matchAll(/^\s+post(\d+),\s*$/gm)].map(match => Number(match[1])));
-  const publishedSlugs = new Set(existingFiles.flatMap((file, index) => publishedIds.has(Number(file.match(/^post-(\d+)\.tsx$/)?.[1]))
+  const publishedSlugs = new Set(files.flatMap((file, index) => publishedIds.has(Number(file.match(/^post-(\d+)\.tsx$/)?.[1]))
     ? [existingPosts[index].match(/slug:\s*["']([^"']+)["']/)?.[1]].filter(Boolean)
     : []));
   const relatedSlugs = [...new Set([...(Array.isArray(article.relatedSlugs) ? article.relatedSlugs : []), "ats-friendly-resume-2026", "resume-action-verbs"])]
@@ -267,7 +267,7 @@ CRITICAL REQUIREMENTS:
     throw new Error(`Article failed quality/uniqueness checks (slug: ${article.slug || "missing"}, words: ${words}). Nothing will be published.`);
   }
 
-  const bannerImage = await createBlogThumbnail({ id: nextId, slug: article.slug, title: article.title, category: article.category || "Career Tips" });
+  const { bannerImage, bannerAlt } = await requireEditorialCover({ title: article.title, registrySource });
 
   const today = new Date().toLocaleDateString("en-US", {
     month: "short",
@@ -316,7 +316,7 @@ export const post${nextId}: BlogPost = {
   metaTitle: ${JSON.stringify(article.metaTitle || `${article.title} | Smart Resume Maker`)},
   metaDescription: ${JSON.stringify(article.metaDescription)},
   bannerImage: ${JSON.stringify(bannerImage)},
-  bannerAlt: ${JSON.stringify(`Illustrated cover for ${article.title}`)},
+  bannerAlt: ${JSON.stringify(bannerAlt)},
   relatedSlugs: ${JSON.stringify(relatedSlugs)},
   faqs: ${JSON.stringify(article.faqs || [], null, 2)},
   fullContent: (
@@ -429,6 +429,12 @@ async function main() {
     console.log(`ℹ️ An article for today (${today}) is already published. Running health audit only.\n`);
     await recordHealthReport(health, null);
     console.log("✨ Health Audit Complete!");
+    return;
+  }
+
+  if (process.env.BLOG_PUBLISH_REVIEWED !== "1" || !process.env.BLOG_COVER_IMAGE || !process.env.BLOG_COVER_ALT) {
+    console.log("Health audit complete. Article publishing requires an editorial review and a distinct cover.");
+    await recordHealthReport(health, null);
     return;
   }
 

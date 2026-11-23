@@ -47,8 +47,8 @@ export async function POST(req: Request) {
       );
     }
 
-    const systemPrompt = `You are an expert resume writer. Generate exactly 3 distinct, professional resume summaries for a candidate. 
-The summaries should be optimized for ATS systems and highlight impact.
+    const systemPrompt = `You are an expert resume writer. Generate exactly 3 distinct, professional resume summary drafts for a candidate.
+Use only skills, experience, and results the user actually supplies. Do not invent years of experience, employers, achievements, credentials, or metrics. When the user provides only a job title, write neutral starting points and tell the user to personalize them.
 Return ONLY a valid JSON array of strings, like this: ["Summary 1", "Summary 2", "Summary 3"]. Do not use markdown blocks.`;
 
     const userPrompt = `
@@ -70,16 +70,16 @@ Experience/Skills/Keywords to include: ${experience || "Not provided, please gen
     let summaries = [];
     try {
       summaries = JSON.parse(text);
-    } catch (e) {
+    } catch {
       const cleaned = text.replace(/```json/g, "").replace(/```/g, "").trim();
       summaries = JSON.parse(cleaned);
     }
 
     return NextResponse.json({ summaries });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("AI Summary Error:", error);
     return NextResponse.json(
-      { error: error.message || "Failed to generate summaries." },
+      { error: error instanceof Error ? error.message : "Failed to generate summaries." },
       { status: 500 }
     );
   }

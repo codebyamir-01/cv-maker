@@ -2,7 +2,7 @@ import fs from "fs/promises";
 import path from "path";
 import { GoogleGenAI } from "@google/genai";
 import dotenv from "dotenv";
-import { createBlogThumbnail } from "./blog-thumbnail.mjs";
+import { requireEditorialCover } from "./editorial-cover.mjs";
 
 dotenv.config({ path: ".env.local" });
 dotenv.config({ path: ".env" });
@@ -67,7 +67,7 @@ async function main() {
 Generate an authoritative, deeply practical 1,200+ word resume/career guide for the topic: "${selectedTopic}".
 
 CRITICAL INSTRUCTIONS:
-1. Provide actionable advice with real resume bullet points, metrics, and step-by-step guidance.
+1. Provide actionable advice, clearly labeled illustrative resume examples, and step-by-step guidance. Do not fabricate real candidate metrics.
 2. Tone: Professional, encouraging, modern (set in 2026).
 3. Include specific keyword targets that help job applicants pass modern AI and ATS filters.
 3a. Do not invent research, tests, statistics, certifications, named reviewers, or guarantees about screening outcomes. Use illustrative examples only.
@@ -149,9 +149,9 @@ Ensure you provide 4 to 6 comprehensive sections with rich paragraphs and concre
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(article.slug || "") || existingSlugs.includes(article.slug)) {
     throw new Error(`Invalid or duplicate article slug: ${article.slug || "missing"}. Nothing was published.`);
   }
-  const bannerImage = await createBlogThumbnail({ id: nextId, slug: article.slug, title: article.title, category: article.category || "Career Tips" });
   const blogDataPath = path.join(process.cwd(), "src", "lib", "blog-data.tsx");
   const registrySource = await fs.readFile(blogDataPath, "utf8");
+  const { bannerImage, bannerAlt } = await requireEditorialCover({ title: article.title, registrySource });
   const publishedIds = new Set([...registrySource.matchAll(/^\s+post(\d+),\s*$/gm)].map(match => Number(match[1])));
   const publishedSlugs = new Set(existingFiles.flatMap((file, index) => publishedIds.has(Number(file.match(/^post-(\d+)\.tsx$/)?.[1]))
     ? [existingSlugs[index]].filter(Boolean)
@@ -205,7 +205,7 @@ export const post${nextId}: BlogPost = {
   metaTitle: "${escapeJsxText(article.metaTitle || article.title)}",
   metaDescription: "${escapeJsxText(article.metaDescription || article.excerpt)}",
   bannerImage: "${bannerImage}",
-  bannerAlt: ${JSON.stringify(`Illustrated cover for ${article.title}`)},
+  bannerAlt: ${JSON.stringify(bannerAlt)},
   relatedSlugs: ${JSON.stringify(relatedSlugs)},
   faqs: ${JSON.stringify(article.faqs || [], null, 2)},
   fullContent: (

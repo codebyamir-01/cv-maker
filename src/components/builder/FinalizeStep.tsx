@@ -7,11 +7,12 @@ import { useResumeStore } from "@/store/useResumeStore";
 interface FinalizeStepProps {
   /** Called when the user clicks "Download PDF". Provided by builder/page.tsx. */
   onDownload: () => void;
+  onDownloadText: () => void;
   /** True while the PDF is being generated in the parent. */
   isDownloading: boolean;
 }
 
-export default function FinalizeStep({ onDownload, isDownloading }: FinalizeStepProps) {
+export default function FinalizeStep({ onDownload, onDownloadText, isDownloading }: FinalizeStepProps) {
   const { resumeData, databaseId, slug } = useResumeStore();
 
   const [shareMessage, setShareMessage] = useState("");
@@ -110,7 +111,7 @@ export default function FinalizeStep({ onDownload, isDownloading }: FinalizeStep
         </div>
 
         <h3 className="text-xl font-bold text-slate-900 mb-2">Download Your Resume</h3>
-        <p className="text-sm text-slate-500 mb-8 max-w-sm">Save as a PDF — ready to send to employers!</p>
+        <p className="text-sm text-slate-500 mb-8 max-w-sm">Choose a designed PDF for sharing or a selectable-text PDF for online applications.</p>
 
         <div className="flex flex-col w-full max-w-sm gap-3">
           <button
@@ -120,9 +121,18 @@ export default function FinalizeStep({ onDownload, isDownloading }: FinalizeStep
           >
             {isDownloading
               ? <><Loader2 className="h-5 w-5 animate-spin" /> Preparing PDF...</>
-              : <><Download className="h-5 w-5" /> Download PDF</>
+              : <><Download className="h-5 w-5" /> Download Designed PDF</>
             }
           </button>
+
+          <button
+            onClick={onDownloadText}
+            disabled={isDownloading}
+            className="inline-flex w-full items-center justify-center gap-2 rounded-xl border-2 border-blue-200 bg-white px-6 py-3.5 text-[15px] font-bold text-blue-700 transition hover:bg-blue-50 disabled:opacity-80"
+          >
+            <FileDown className="h-5 w-5" /> Download Selectable-Text PDF
+          </button>
+          <p className="text-xs text-slate-500">Check the downloaded text and any autofilled application fields before submitting. No export can guarantee a specific ATS result.</p>
 
           <button
             onClick={handleShareLink}

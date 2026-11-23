@@ -6,6 +6,7 @@ import { ArrowLeft, Clock, ArrowRight, User } from "lucide-react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { BLOG_POSTS } from "@/lib/blog-data";
+import { BLOG_EDITORIAL_NOTES, sourceForBlogPost } from "@/lib/blog-editorial-notes";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -62,6 +63,8 @@ export default async function BlogPostPage({ params }: Props) {
   if (!post) {
     notFound();
   }
+
+  const outsideSource = sourceForBlogPost(post.slug);
 
   // Related posts by specific slugs or fallback to next posts
   let relatedPosts = post.relatedSlugs 
@@ -210,6 +213,16 @@ export default async function BlogPostPage({ params }: Props) {
 
           <div className="prose prose-slate prose-lg md:prose-xl max-w-none prose-headings:font-bold prose-a:text-blue-600 hover:prose-a:text-blue-500 prose-img:rounded-xl">
             {post.fullContent}
+            {BLOG_EDITORIAL_NOTES[post.slug] && (
+              <section aria-label="Additional practical guidance" className="mt-10 border-t border-slate-200 pt-6">
+                {BLOG_EDITORIAL_NOTES[post.slug]}
+              </section>
+            )}
+
+            <aside className="mt-10 rounded-xl border border-slate-200 bg-white p-5 text-base" aria-label="Further reading">
+              <h2 className="mt-0 text-xl">Further reading</h2>
+              <p>{outsideSource.context} Read <a href={outsideSource.url} target="_blank" rel="noopener noreferrer">{outsideSource.label}</a>.</p>
+            </aside>
             
             {post.faqs && post.faqs.length > 0 && (
               <>
@@ -230,7 +243,7 @@ export default async function BlogPostPage({ params }: Props) {
               Ready to land your dream job?
             </h3>
             <p className="text-slate-600 mb-8 max-w-xl mx-auto">
-              Put these tips into practice immediately. Use our free, ATS-friendly resume builder and professionally designed templates to stand out.
+              Put these tips into practice. Build your resume, review the wording, and choose the export that fits the application instructions.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link 

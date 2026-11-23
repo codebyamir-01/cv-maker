@@ -13,8 +13,8 @@ export const post14: BlogPost = {
   author: "Jerry",
   metaTitle: "How to Write a Resume With No Work Experience in 2026",
   metaDescription: "No job experience? No problem. Learn how to write a professional resume from scratch using education, projects, internships, and volunteer work.",
-  bannerImage: "/images/blog/post-14-resume-no-work-experience.jpg",
-  bannerAlt: "Illustrated cover for How to Write a Resume With No Work Experience (2026 Guide)",
+  bannerImage: "/images/blog/no-work-experience-editorial.webp",
+  bannerAlt: "First-time applicant organizing projects and volunteer work",
   relatedSlugs: ["ats-friendly-resume-2026", "resume-tips-for-fresh-graduates"],
   faqs: [
     {

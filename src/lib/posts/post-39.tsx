@@ -14,8 +14,8 @@ export const post39: BlogPost = {
   author: "Smart Resume Maker Editorial Team",
   metaTitle: "Are Two-Column Resumes ATS-Friendly? | Smart Resume Maker",
   metaDescription: "Learn when a two-column resume may cause reading-order problems, how to inspect a PDF or Word export, and what to do if an application form misreads it.",
-  bannerImage: "/images/blog/post-39-are-two-column-resumes-ats-friendly-2026.jpg",
-  bannerAlt: "Illustrated cover for Are Two-Column Resumes ATS-Friendly? A Practical Check",
+  bannerImage: "/images/blog/two-column-reading-order-editorial.webp",
+  bannerAlt: "Illustration of two-column resume reading order",
   relatedSlugs: ["ats-friendly-resume-2026", "one-page-vs-two-page-resume", "best-resume-format-software-engineers"],
   faqs: [
     {

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { GoogleGenAI } from "@google/genai";
+import type { ResumeData } from "@/store/useResumeStore";
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
@@ -31,16 +32,16 @@ export async function POST(req: Request) {
       rateLimitMap.set(identifier, { count: 1, timestamp: now });
     }
 
-    const { resumeData, jobDescription, tone = "Professional" } = await req.json();
+    const { resumeData, jobDescription, tone = "Professional" } = await req.json() as { resumeData?: ResumeData; jobDescription?: string; tone?: string };
 
-    if (!jobDescription || jobDescription.trim() === "") {
+    if (typeof jobDescription !== "string" || !jobDescription.trim()) {
       return NextResponse.json(
         { error: "Job description is required." },
         { status: 400 }
       );
     }
 
-    if (!resumeData) {
+    if (!resumeData?.personalInfo || !Array.isArray(resumeData.experience)) {
       return NextResponse.json(
         { error: "Resume data is required." },
         { status: 400 }
@@ -51,14 +52,22 @@ export async function POST(req: Request) {
     const jdString = jobDescription.substring(0, 5000);
     // Convert resume to a condensed string to save tokens
     const condensedResume = {
-      basics: resumeData.basics,
-      experience: resumeData.experience?.map((e: any) => ({
+      personalInfo: {
+        name: resumeData.personalInfo.fullName || [resumeData.personalInfo.firstName, resumeData.personalInfo.lastName].filter(Boolean).join(" "),
+        jobTitle: resumeData.personalInfo.jobTitle,
+        city: resumeData.personalInfo.city,
+        country: resumeData.personalInfo.country,
+      },
+      summary: resumeData.summary,
+      experience: resumeData.experience?.map((e) => ({
         company: e.company,
-        position: e.position,
-        highlights: e.highlights
+        jobTitle: e.jobTitle,
+        dates: [e.startDate, e.endDate].filter(Boolean).join(" to "),
+        description: e.description,
       })),
       education: resumeData.education,
-      skills: resumeData.skills?.map((s: any) => s.name).join(", ")
+      skills: resumeData.skills?.map((s) => s.name),
+      projects: resumeData.optionalSections?.projects?.map((p) => ({ name: p.name, description: p.description, techStack: p.techStack })),
     };
     const resumeString = JSON.stringify(condensedResume).substring(0, 8000);
 
@@ -67,14 +76,14 @@ Your task is to write a highly compelling, custom Cover Letter for the user.
 You will be provided with their Resume Data (JSON) and the Target Job Description.
 
 Guidelines:
-1. Tone: ${tone}.
+1. Tone: ${["Professional", "Enthusiastic", "Confident"].includes(tone) ? tone : "Professional"}.
 2. Structure: 
    - A strong opening hook.
    - 1-2 body paragraphs connecting their specific resume achievements to the job requirements.
    - A confident closing call to action.
 3. DO NOT include placeholder addresses like "[Company Address]". Just start with "Dear Hiring Manager," or similar.
 4. Keep it concise (under 350 words). Recruiters skim.
-5. Emphasize metrics and hard skills from the resume that match the job description.
+5. Use only achievements, metrics, and skills actually present in the supplied resume. Never invent candidate experience or numbers.
 6. Return the cover letter as formatted Markdown (using paragraphs). Do NOT return a JSON object. Return purely the markdown text of the letter.`;
 
     const userPrompt = `
@@ -102,10 +111,10 @@ ${resumeString}
     }
 
     return NextResponse.json({ coverLetter: text });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Cover Letter Generation Error:", error);
     return NextResponse.json(
-      { error: error.message || "Failed to generate cover letter." },
+      { error: error instanceof Error ? error.message : "Failed to generate cover letter." },
       { status: 500 }
     );
   }

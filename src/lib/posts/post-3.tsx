@@ -14,8 +14,8 @@ export const post3: BlogPost = {
   author: "Jerry",
   metaTitle: "Can a Resume Be Two Pages? One vs. Two Page Guide",
   metaDescription: "Can a resume be two pages? Compare one-page and two-page resumes by experience level, learn what to keep on page one, and see when to cut content.",
-  bannerImage: "/images/blog/post-3-one-page-vs-two-page-resume.jpg",
-  bannerAlt: "Illustrated cover for Can a Resume Be Two Pages? One vs. Two Page Guide",
+  bannerImage: "/images/blog/one-vs-two-pages-editorial.webp",
+  bannerAlt: "One-page resume compared with a two-page resume",
   relatedSlugs: ["resume-tips-for-fresh-graduates", "how-to-write-professional-summary"],
   faqs: [
     {

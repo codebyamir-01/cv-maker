@@ -14,7 +14,7 @@ export default function TrustSection() {
     },
     { 
       title: "Free PDF Download", 
-      body: "Download your resume as a clean, ATS-friendly PDF instantly. No hidden fees or watermarks.",
+      body: "Choose a designed PDF or a selectable-text PDF. Check the final file before you apply. No hidden fees or watermarks.",
       icon: <DownloadCloud className="w-5 h-5 text-purple-600" />
     },
   ];

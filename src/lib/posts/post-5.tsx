@@ -12,18 +12,18 @@ export const post5: BlogPost = {
   slug: "best-resume-format-software-engineers",
   author: "Jerry",
   metaTitle: "Best Resume Format for Software Engineers in 2026 | CV Maker",
-  metaDescription: "Learn the exact resume format tech recruiters look for. Discover how to list your tech stack, GitHub projects, and engineering impact effectively.",
-  bannerImage: "/images/blog/post-5-best-resume-format-software-engineers.jpg",
-  bannerAlt: "Illustrated cover for The Best Resume Format for Software Engineers in 2026",
+  metaDescription: "Structure a software engineer resume around relevant tools, project decisions, working links, and results you can verify.",
+  bannerImage: "/images/blog/software-engineer-format-editorial.webp",
+  bannerAlt: "Software developer workspace with code and a resume",
   relatedSlugs: ["ats-friendly-resume-2026", "how-to-list-skills-on-resume"],
   faqs: [
     {
       question: "Should software engineers put skills at the top?",
-      answer: "Yes. Tech recruiters look for specific languages and frameworks first. A dedicated 'Technical Skills' section near the top is highly recommended."
+      answer: "A short technical skills section can help readers find relevant tools. Place it where it supports the rest of your experience and show key skills in project or work bullets."
     },
     {
       question: "Should I link my GitHub on my resume?",
-      answer: "Absolutely. Include clickable links to your GitHub profile and deployed live projects right in your contact header."
+      answer: "Link a public profile or project when it demonstrates relevant work, the link functions, and you have permission to share its contents."
     }
   ],
   fullContent: (
@@ -34,7 +34,7 @@ export const post5: BlogPost = {
 
       <h2>The Ideal Structure for a Tech Resume</h2>
       <p>
-        To make it easy for engineering managers to read your resume, stick to this specific order:
+        A clear order can make your work easier to review. Adjust it to emphasize the most relevant evidence:
       </p>
       <ol>
         <li><strong>Header:</strong> Name, Contact, GitHub Link, Portfolio Link, LinkedIn.</li>
@@ -64,7 +64,7 @@ export const post5: BlogPost = {
       </p>
       <p>You need to show impact. Use this format: <strong>Accomplished [X] as measured by [Y], by doing [Z].</strong></p>
       <p>
-        <em>Example:</em> "Reduced API response time by 40% (Impact) by migrating legacy REST endpoints to GraphQL and implementing Redis caching (Tech)."
+        <em>Illustrative example:</em> "Profiled slow API requests and revised database queries to reduce response time in a measured test." Add a figure only if you have the test data.
       </p>
 
       <h2>3. The Projects Section is Your Secret Weapon</h2>

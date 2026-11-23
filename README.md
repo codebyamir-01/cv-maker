@@ -14,6 +14,16 @@ GA4 loads only after the visitor accepts optional cookies. The `builder_opened` 
 
 OpenSEO is an optional external ChatGPT integration for research; this project's admin dashboard uses Google's official APIs directly and does not depend on it. Vercel Analytics and Speed Insights remain in place; no paid Vercel feature is required.
 
+## Blog editorial workflow
+
+The published blog has a distinct cover for each article. `npm run check:blog` checks the published images for missing files, duplicate paths, identical image bytes, and undersized files; it also checks related posts and static internal links. The homepage shows the latest guides.
+
+The scheduled GitHub Action runs the site health audit and **does not auto-publish articles**. A new article needs a topic-specific cover and an editorial review of its facts, examples, links, metadata, and title before it goes live. This prevents the old repeated template banners and unreviewed claims from returning.
+
+For a manually reviewed new article, add a unique 1200 × 630 image to `public/images/blog`, then set `BLOG_COVER_IMAGE` to its filename and `BLOG_COVER_ALT` to a truthful description. Run `npm run generate:blog -- "Specific topic"`, review the generated article and image together, run `npm run check:blog` and `npm run build`, then commit and deploy. The generator checks that the chosen image is not used by another published article. Never put an API key or personal data in a cover image.
+
+The builder now offers a selectable-text PDF beside the designed PDF. A text export improves the ability to copy and inspect resume text, but it cannot guarantee any employer's parsing or screening outcome.
+
 ## Password reset email
 
 The **Forgot password?** link uses one-use, 30-minute reset links for email/password accounts. Google-only accounts continue to sign in with Google, and admin accounts cannot reset a password through this flow. Responses do not reveal whether an address has an account, and requests are limited to one per address every five minutes.
