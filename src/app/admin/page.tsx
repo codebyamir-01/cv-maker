@@ -129,6 +129,14 @@ export default async function AdminDashboard() {
                     <div><span className="text-slate-500">PDF downloads</span><p className="text-2xl font-bold">{funnel.data.resumeDownloaded.toLocaleString()}</p></div>
                   </div>
                   <p className="text-xs text-slate-500">Event counts from consented visits. These counts do not establish a same-user conversion rate.</p>
+                  <div className="border-t pt-4 space-y-3">
+                    <h3 className="font-semibold text-slate-800">Jobs page actions</h3>
+                    <div className="grid grid-cols-2 gap-4 text-sm">
+                      <div><span className="text-slate-500">CV builder clicks</span><p className="text-2xl font-bold">{funnel.data.jobsBuilderClicked.toLocaleString()}</p></div>
+                      <div><span className="text-slate-500">Application link clicks</span><p className="text-2xl font-bold">{funnel.data.jobsApplyClicked.toLocaleString()}</p></div>
+                    </div>
+                    <p className="text-xs text-slate-500">Consented click events only. An application link click does not mean an application was submitted.</p>
+                  </div>
                   {funnel.data.builderOpened === 0 && funnel.data.resumeDownloaded === 0 && <p className="text-xs text-slate-500">No matching events have been reported for this period. Today&apos;s GA4 data may still be processing.</p>}
                 </>}
               {realtime.status === "live" && <div className="border-t pt-4 space-y-2">

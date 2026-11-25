@@ -18,6 +18,7 @@ import SummaryForm from "@/components/builder/SummaryForm";
 import DataLoader from "@/components/builder/DataLoader";
 import AutoSaver from "@/components/builder/AutoSaver";
 import DownloadSuccessModal from "@/components/builder/DownloadSuccessModal";
+import { JobRoleHint } from "@/components/jobs/JobRoleHint";
 
 /* ─── Lazy-load heavy form components ─────────────────────────
    Keeps each form step and template separate from the initial bundle.
@@ -164,6 +165,7 @@ export default function BuilderPage() {
           </div>
         </div>
       </header>
+      <Suspense fallback={null}><JobRoleHint /></Suspense>
 
       {/* ── STEPPER ── */}
       <section className="border-b border-slate-200 bg-white">

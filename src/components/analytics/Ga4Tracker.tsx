@@ -12,7 +12,7 @@ declare global {
 
 const measurementId = process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID;
 
-export function trackGa4Event(name: "builder_opened" | "resume_downloaded") {
+export function trackGa4Event(name: "builder_opened" | "resume_downloaded" | "jobs_builder_clicked" | "jobs_apply_clicked") {
   if (typeof window === "undefined" || !measurementId) return false;
   if (localStorage.getItem("cookieConsent") !== "accepted" || !window.gtag) return false;
   window.gtag("event", name);

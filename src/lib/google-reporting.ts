@@ -105,7 +105,7 @@ export async function getSearchConsoleReport(): Promise<Report<SeoData>> {
   }
 }
 
-type FunnelData = { builderOpened: number; resumeDownloaded: number };
+type FunnelData = { builderOpened: number; resumeDownloaded: number; jobsBuilderClicked: number; jobsApplyClicked: number };
 type GaRow = { dimensionValues?: { value: string }[]; metricValues?: { value: string }[] };
 
 export async function getGa4FunnelReport(): Promise<Report<FunnelData>> {
@@ -118,11 +118,11 @@ export async function getGa4FunnelReport(): Promise<Report<FunnelData>> {
     const report = await googlePost<{ rows?: GaRow[] }>(
       `https://analyticsdata.googleapis.com/v1beta/properties/${property}:runReport`,
       "https://www.googleapis.com/auth/analytics.readonly",
-      { dateRanges: [{ startDate: range.startDate, endDate: range.endDate }], dimensions: [{ name: "eventName" }], metrics: [{ name: "eventCount" }], dimensionFilter: { filter: { fieldName: "eventName", inListFilter: { values: ["builder_opened", "resume_downloaded"] } } } },
+      { dateRanges: [{ startDate: range.startDate, endDate: range.endDate }], dimensions: [{ name: "eventName" }], metrics: [{ name: "eventCount" }], dimensionFilter: { filter: { fieldName: "eventName", inListFilter: { values: ["builder_opened", "resume_downloaded", "jobs_builder_clicked", "jobs_apply_clicked"] } } } },
       account,
     );
     const counts = new Map((report.rows ?? []).map(row => [row.dimensionValues?.[0]?.value, Number(row.metricValues?.[0]?.value ?? 0)]));
-    return { status: "live", fetchedAt: new Date().toISOString(), ...range, data: { builderOpened: counts.get("builder_opened") ?? 0, resumeDownloaded: counts.get("resume_downloaded") ?? 0 } };
+    return { status: "live", fetchedAt: new Date().toISOString(), ...range, data: { builderOpened: counts.get("builder_opened") ?? 0, resumeDownloaded: counts.get("resume_downloaded") ?? 0, jobsBuilderClicked: counts.get("jobs_builder_clicked") ?? 0, jobsApplyClicked: counts.get("jobs_apply_clicked") ?? 0 } };
   } catch (error) {
     console.error("GA4 reporting failed:", error);
     return { status: "error", message: "GA4 reporting is unavailable. Check Data API access and the property ID." };
