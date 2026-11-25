@@ -61,7 +61,8 @@ export default async function PrivacyPage() {
 
           <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-4">Optional Analytics</h2>
           <p>With your consent, Google Analytics 4 records visits to the resume builder and successful PDF downloads so we can understand how the service is used. These events do not include resume content or contact details. You can decline or change your choice using Cookie settings. Our existing Vercel Analytics and Speed Insights also collect aggregate site usage and performance data.</p>
-          <p>On the jobs page, optional analytics also counts clicks from a listing to the CV builder and to the original application page. We do not send the job title, company, or your CV content with these events. The job listings come from Remotive; opening an external listing takes you to that provider under its own privacy terms.</p>
+          <p>On the jobs pages, optional analytics counts clicks from a listing to the CV builder and to an application link. These events may include the provider and section name, but not the job title, company, or your CV content.</p>
+          <p>Pakistan job listings are provided by SkillzDunya and remote listings by Remotive. We show the provider and send visitors to its listing or the application link it supplies. External sites have their own privacy terms.</p>
 
           <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-4">Advertising</h2>
           <p>We have connected Google AdSense for site review. If ads are enabled, Google may process information about visits to serve and measure ads. Our analytics choice does not control advertising consent; where required, this is handled through a separate consent platform.</p>

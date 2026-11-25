@@ -78,6 +78,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'daily',
       priority: 0.85,
     },
+    { url: `${baseUrl}/jobs/pakistan`, changeFrequency: 'daily', priority: 0.8 },
+    { url: `${baseUrl}/jobs/pakistan/government`, changeFrequency: 'daily', priority: 0.8 },
+    { url: `${baseUrl}/jobs/remote`, changeFrequency: 'daily', priority: 0.8 },
+    { url: `${baseUrl}/jobs/engineering`, changeFrequency: 'daily', priority: 0.8 },
     {
       url: `${baseUrl}/contact`,
       changeFrequency: 'yearly',

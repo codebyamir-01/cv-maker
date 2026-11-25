@@ -24,7 +24,10 @@ export function Footer() {
               <li><Link href="/about" className="transition hover:text-slate-900">About Us</Link></li>
               <li><Link href="/free-resume-builder" className="transition hover:text-slate-900">Free Resume Builder</Link></li>
               <li><Link href="/tools" className="transition hover:text-slate-900">All Free Tools</Link></li>
-              <li><Link href="/jobs" className="transition hover:text-slate-900">Remote Jobs</Link></li>
+              <li><Link href="/jobs" className="transition hover:text-slate-900">Find Jobs</Link></li>
+              <li><Link href="/jobs/pakistan" className="transition hover:text-slate-900">Pakistan Jobs</Link></li>
+              <li><Link href="/jobs/pakistan/government" className="transition hover:text-slate-900">Government Jobs</Link></li>
+              <li><Link href="/jobs/engineering" className="transition hover:text-slate-900">Engineering Jobs</Link></li>
               <li><Link href="/job-application-tracker" className="transition hover:text-slate-900">Job Application Tracker</Link></li>
               <li><Link href="/ats-resume-builder" className="transition hover:text-slate-900">ATS Resume Builder</Link></li>
               <li><Link href="/ats-resume-checker" className="transition hover:text-blue-600 font-medium text-blue-500">Free ATS Scanner</Link></li>

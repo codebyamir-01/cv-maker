@@ -14,7 +14,7 @@ const tools = [
   { title: "ATS resume checker and PDF text check", description: "Read PDF text locally, then compare your resume with a job description.", href: "/ats-resume-checker" },
   { title: "Resume skills finder", description: "Explore skills by role and copy only the ones you can demonstrate.", href: "/resume-skills-finder" },
   { title: "Job application tracker", description: "Record applications, interviews and follow-ups in your browser.", href: "/job-application-tracker" },
-  { title: "Remote jobs", description: "Browse remote openings, check applicant locations and prepare a CV for a role.", href: "/jobs" },
+  { title: "Find jobs", description: "Search Pakistan and remote vacancies, check deadlines and prepare a CV for a role.", href: "/jobs" },
   { title: "Resume summary generator", description: "Draft a summary based on your own experience.", href: "/resume-summary-generator" },
   { title: "Cover letter builder", description: "Prepare a cover letter for a specific application.", href: "/cover-letter" },
 ];

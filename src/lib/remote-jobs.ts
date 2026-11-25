@@ -51,8 +51,11 @@ function parseJob(value: unknown): RemoteJob | null {
   };
 }
 
-const getCachedJobs = unstable_cache(async (): Promise<RemoteJobsFeed> => {
-  const response = await fetch("https://remotive.com/api/remote-jobs?limit=100", {
+const getCachedJobs = unstable_cache(async (query: string): Promise<RemoteJobsFeed> => {
+  const url = new URL("https://remotive.com/api/remote-jobs");
+  url.searchParams.set("limit", "100");
+  if (query) url.searchParams.set("search", query);
+  const response = await fetch(url, {
     cache: "no-store",
     signal: AbortSignal.timeout(10000),
   });
@@ -65,9 +68,9 @@ const getCachedJobs = unstable_cache(async (): Promise<RemoteJobsFeed> => {
   return { jobs, fetchedAt: new Date().toISOString() };
 }, ["remotive-remote-jobs-v1"], { revalidate: 21600 });
 
-export async function getRemoteJobs(): Promise<RemoteJobsFeed | null> {
+export async function getRemoteJobs(query = ""): Promise<RemoteJobsFeed | null> {
   try {
-    const feed = await getCachedJobs();
+    const feed = await getCachedJobs(query.trim().slice(0, 80));
     // A cache can survive a failed revalidation. Never display indefinitely old vacancies.
     if (Date.now() - Date.parse(feed.fetchedAt) > 7 * 60 * 60 * 1000) return null;
     return feed;
