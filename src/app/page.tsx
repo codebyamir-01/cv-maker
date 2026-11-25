@@ -137,6 +137,8 @@ export default function LandingPage() {
               </Link>
             </div>
 
+            <p className="mt-6 text-sm text-slate-300">Need help beyond a resume? Explore our <Link href="/tools" className="font-semibold text-white underline underline-offset-4">free job search tools</Link>.</p>
+
             {/* Trust signals */}
             <div className="mt-12 pt-8 border-t border-slate-800/60 w-full max-w-3xl flex flex-wrap items-center justify-center gap-5 sm:gap-8">
               {["Free PDF Download", "No Watermark", "Text PDF Option", "Auto-Save"].map((label) => (

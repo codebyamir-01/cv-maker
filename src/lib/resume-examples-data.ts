@@ -434,5 +434,41 @@ export const RESUME_EXAMPLES: ResumeExample[] = [
       { slug: 'teacher', title: 'Teacher' }
     ]
   },
+  {
+    slug: 'cna',
+    role: 'Certified Nursing Assistant (CNA)',
+    title: 'CNA Resume Example: Patient Care Skills and Experience',
+    description: 'See a CNA resume example with patient care bullet points, relevant skills, certification placement and tips for new and experienced nursing assistants.',
+    recommendedTemplate: 'ats-minimal',
+    recommendedTemplateName: 'ATS Minimal',
+    skills: ['Activities of daily living support', 'Vital signs recording', 'Patient transfer assistance', 'Infection prevention', 'Care team communication', 'Patient observation', 'Electronic health records', 'Mobility support'],
+    actionVerbs: ['Assisted', 'Documented', 'Observed', 'Communicated', 'Supported', 'Recorded', 'Reported', 'Prepared'],
+    sampleStructure: {
+      summary: 'Certified Nursing Assistant with experience supporting patients with daily care, recording vital signs, and reporting changes to the nursing team. Familiar with infection prevention procedures and respectful patient communication.',
+      experience: [
+        'Assisted patients with bathing, dressing and mobility while following individual care plans and safety procedures.',
+        'Recorded vital signs and documented observations in the facility record, escalating changes to the supervising nurse.',
+        'Supported transfers and repositioning using approved equipment and team procedures.'
+      ]
+    },
+    formattingTips: [
+      'State your active CNA certification and the relevant state near the top.',
+      'Name the care setting you actually worked in, such as a hospital, care home or home health.',
+      'Use specific duties and tools from your experience; follow the wording in the job posting when it is accurate.'
+    ],
+    commonMistakes: [
+      'Listing nursing responsibilities you were not authorized or trained to perform.',
+      'Using only general phrases like “helped patients” without explaining the care provided.',
+      'Omitting your certification status or relevant clinical placement.'
+    ],
+    faqs: [
+      { question: 'What if I am a new CNA with no paid experience?', answer: 'Include supervised clinical placement, training, volunteering and relevant patient care duties. Label the setting and your role accurately.' },
+      { question: 'Should I include every clinical skill?', answer: 'Include only skills you can demonstrate and that are relevant to the specific job. Follow your local scope of practice and employer requirements.' }
+    ],
+    relatedExamples: [
+      { slug: 'nurse-healthcare', title: 'Nurse' },
+      { slug: 'student-resume', title: 'Student' }
+    ]
+  },
   ...ADDITIONAL_EXAMPLES
 ];

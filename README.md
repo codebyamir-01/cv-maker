@@ -1,5 +1,11 @@
 Smart Resume Maker is a Next.js resume builder with PostgreSQL, Prisma, Google AI tools, and optional live Google reporting.
 
+## Public job search tools
+
+`/tools` links the public resume and job search tools. `/job-application-tracker` saves up to 200 entries in the current browser's local storage, supports status and follow-up dates, and exports a CSV. Entries are not synced between devices or accounts; exporting is the visitor's backup. `/resume-skills-finder` lets visitors select and copy skills from the role examples, including the CNA example. Skills are suggestions to verify against the visitor's actual experience.
+
+The `/ats-resume-checker` page can extract text from a PDF entirely in the visitor's browser using PDF.js. Its worker is pinned to the same version in `public/pdf.worker.min.mjs`. The file is not uploaded for the readability check. If the visitor chooses to use extracted text in the AI matcher, the existing matcher sends that text and the job description to the AI endpoint. The check does not predict an employer's ATS decision.
+
 ## Live SEO and conversion reporting
 
 The admin dashboard reads current Search Console and GA4 API reports. Without credentials it shows **Setup required**; the old CSV export is never presented as live data. Reports cover the most recent 28 complete days, ending three days ago to avoid partial reporting data. The dashboard shows when each report was fetched.

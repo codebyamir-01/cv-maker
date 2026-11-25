@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Loader2, AlertCircle, CheckCircle2, ChevronRight, XCircle } from "lucide-react";
 import Link from "next/link";
+import { PdfReadabilityCheck } from "./PdfReadabilityCheck";
 
 interface AtsResult {
   score: number;
@@ -83,6 +84,7 @@ export function AtsCheckerClient() {
               <p className="mt-2 text-xs text-slate-500">
                 Copy text from your PDF or Word document and paste it above. Don&apos;t worry about formatting.
               </p>
+              <PdfReadabilityCheck onUseText={(text) => { setResumeText(text); setError(null); }} />
             </div>
 
             {/* Right Panel: Job Description */}

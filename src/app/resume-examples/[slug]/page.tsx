@@ -91,7 +91,7 @@ export default async function ResumeExampleDynamicPage({ params }: { params: Pro
                 
                 <div className="mb-8">
                   <h3 className="text-lg font-bold text-slate-800 mb-2 border-b pb-2">Professional Summary</h3>
-                  <p className="text-slate-600 italic">"{example.sampleStructure.summary}"</p>
+                  <p className="text-slate-600 italic">&ldquo;{example.sampleStructure.summary}&rdquo;</p>
                 </div>
 
                 <div>
@@ -109,8 +109,8 @@ export default async function ResumeExampleDynamicPage({ params }: { params: Pro
 
               {/* Action Verbs */}
               <div className="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm">
-                <h2 className="text-2xl font-bold text-slate-900 mb-6">Top Action Verbs for {example.role}s</h2>
-                <p className="text-slate-600 mb-6">Instead of using passive words like "responsible for," use these powerful action verbs to start your experience bullet points:</p>
+                <h2 className="text-2xl font-bold text-slate-900 mb-6">Action verbs for a {example.role} resume</h2>
+                <p className="text-slate-600 mb-6">When accurate, use a specific action verb to explain what you did. Choose from these examples:</p>
                 <div className="flex flex-wrap gap-3">
                   {example.actionVerbs.map((verb) => (
                     <span key={verb} className="px-4 py-2 bg-emerald-50 text-emerald-700 font-semibold rounded-lg border border-emerald-100">
@@ -126,7 +126,7 @@ export default async function ResumeExampleDynamicPage({ params }: { params: Pro
                 
                 <div className="mb-8">
                   <h3 className="text-lg font-bold text-slate-800 mb-3 flex items-center gap-2">
-                    <CheckCircle2 className="w-5 h-5 text-emerald-600" /> Do's (Best Practices)
+                    <CheckCircle2 className="w-5 h-5 text-emerald-600" /> Do&apos;s (Best Practices)
                   </h3>
                   <ul className="space-y-3">
                     {example.formattingTips.map((tip, i) => (
@@ -140,7 +140,7 @@ export default async function ResumeExampleDynamicPage({ params }: { params: Pro
 
                 <div>
                   <h3 className="text-lg font-bold text-slate-800 mb-3 flex items-center gap-2">
-                    <XCircle className="w-5 h-5 text-rose-600" /> Don'ts (Common Mistakes)
+                    <XCircle className="w-5 h-5 text-rose-600" /> Don&apos;ts (Common Mistakes)
                   </h3>
                   <ul className="space-y-3">
                     {example.commonMistakes.map((mistake, i) => (
@@ -186,6 +186,7 @@ export default async function ResumeExampleDynamicPage({ params }: { params: Pro
                     </li>
                   ))}
                 </ul>
+                <Link href="/resume-skills-finder" className="mt-5 inline-block text-sm font-semibold text-blue-200 underline">Choose skills you can demonstrate</Link>
               </div>
 
               {/* Template Ad */}

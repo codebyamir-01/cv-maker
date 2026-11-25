@@ -5,7 +5,7 @@ import { AtsCheckerClient } from "@/components/ats-checker/AtsCheckerClient";
 
 export const metadata: Metadata = {
   title: "Free ATS Resume Checker & Scanner | Smart Resume Maker",
-  description: "Compare your resume text with a job description. Get an AI estimate of relevant skills and practical suggestions; results are not an employer ATS score.",
+  description: "Check whether a resume PDF has readable text in your browser, then compare your resume with a job description. No employer ATS score is promised.",
   alternates: {
     canonical: "https://www.smartresumemaker.com/ats-resume-checker",
   },
@@ -27,7 +27,7 @@ export default function AtsResumeCheckerPage() {
               Free ATS Resume Checker
             </h1>
             <p className="text-lg text-slate-400 font-light max-w-2xl mx-auto leading-relaxed">
-              Paste your resume text and a job description below. Get an AI estimate of how your experience matches the posting and suggestions to review. This does not test an employer&apos;s ATS.
+              Check the text in your PDF locally, then compare your resume with a job description. Get an AI estimate and suggestions to review. This does not test an employer&apos;s ATS.
             </p>
           </div>
         </section>

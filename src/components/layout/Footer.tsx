@@ -23,6 +23,8 @@ export function Footer() {
               <li><Link href="/" className="transition hover:text-slate-900">Home</Link></li>
               <li><Link href="/about" className="transition hover:text-slate-900">About Us</Link></li>
               <li><Link href="/free-resume-builder" className="transition hover:text-slate-900">Free Resume Builder</Link></li>
+              <li><Link href="/tools" className="transition hover:text-slate-900">All Free Tools</Link></li>
+              <li><Link href="/job-application-tracker" className="transition hover:text-slate-900">Job Application Tracker</Link></li>
               <li><Link href="/ats-resume-builder" className="transition hover:text-slate-900">ATS Resume Builder</Link></li>
               <li><Link href="/ats-resume-checker" className="transition hover:text-blue-600 font-medium text-blue-500">Free ATS Scanner</Link></li>
               <li><Link href="/cover-letter" className="transition hover:text-slate-900">Cover Letter Builder</Link></li>
@@ -34,6 +36,7 @@ export function Footer() {
             <h3 className="mb-4 text-sm font-bold tracking-tight text-slate-900">Expert Resources</h3>
             <ul className="space-y-3 text-sm text-slate-500">
               <li><Link href="/resume-examples" className="transition hover:text-slate-900">Resume Examples</Link></li>
+              <li><Link href="/resume-skills-finder" className="transition hover:text-slate-900">Resume Skills Finder</Link></li>
               <li><Link href="/blog" className="transition hover:text-slate-900">Career Blog</Link></li>
               <li><Link href="/blog/ats-friendly-resume-2026" className="transition hover:text-slate-900">ATS-Friendly Guide</Link></li>
               <li><Link href="/blog/one-page-vs-two-page-resume" className="transition hover:text-slate-900">One or Two Page Resume</Link></li>

@@ -14,6 +14,7 @@ export function Navbar() {
   const links = [
     { href: "/", label: "Home" },
     { href: "/builder", label: "Builder" },
+    { href: "/tools", label: "Tools" },
     { href: "/cover-letter", label: "Cover Letter" },
     { href: "/templates", label: "Templates" },
     { href: "/blog", label: "Blog" },

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, FileText, ChevronRight } from "lucide-react";
+import { FileText, ChevronRight } from "lucide-react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { RESUME_EXAMPLES } from "@/lib/resume-examples-data";
@@ -26,8 +26,9 @@ export default function ResumeExamplesPage() {
               Resume Examples for <span className="text-blue-600">Every Profession</span>
             </h1>
             <p className="text-xl text-slate-600 mb-8 max-w-2xl mx-auto leading-relaxed">
-              Don't stare at a blank page. Get inspired by our hand-crafted resume examples. We've compiled the best skills, action verbs, and templates for dozens of roles.
+              Don&apos;t stare at a blank page. Explore role-specific resume examples with sample wording, skills and formatting tips. Adapt each example to your own experience.
             </p>
+            <p className="text-sm text-slate-600">Want to choose skills for your own resume? Try the <Link href="/resume-skills-finder" className="font-semibold text-blue-700 underline">resume skills finder</Link>.</p>
           </div>
         </section>
 
