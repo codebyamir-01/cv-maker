@@ -1,4 +1,4 @@
-name: Daily SEO & Site Health Autopilot
+name: Daily SEO & Site Health Audit
 
 on:
   schedule:
@@ -34,7 +34,7 @@ jobs:
           git config user.name "Gemini SEO Autopilot"
           git config user.email "autopilot@smartresumemaker.com"
 
-      - name: Run Gemini Daily SEO Health & Content Generator
+      - name: Audit content and report publication status
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: node scripts/gemini-seo-autopilot.mjs

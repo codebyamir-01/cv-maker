@@ -433,7 +433,15 @@ async function main() {
   }
 
   if (process.env.BLOG_PUBLISH_REVIEWED !== "1" || !process.env.BLOG_COVER_IMAGE || !process.env.BLOG_COVER_ALT) {
-    console.log("Health audit complete. Article publishing requires an editorial review and a distinct cover.");
+    const message = "Publishing paused: BLOG_PUBLISH_REVIEWED=1, BLOG_COVER_IMAGE, and BLOG_COVER_ALT are required. The scheduled workflow supplies none of these, so it only audits blog content and does not add a post to the site.";
+    console.warn(message);
+    if (process.env.GITHUB_ACTIONS === "true") {
+      console.log(`::warning title=Daily blog not published::${message}`);
+    }
+    if (process.env.GITHUB_STEP_SUMMARY) {
+      await fs.appendFile(process.env.GITHUB_STEP_SUMMARY,
+        `## Blog publication\n\n**Paused — no blog post was published.**\n\n${message}\n\nSee the blog registry for the current published total.\n`, "utf8");
+    }
     await recordHealthReport(health, null);
     return;
   }
