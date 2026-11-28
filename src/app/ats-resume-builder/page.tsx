@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, ShieldAlert, CheckSquare, Settings2, FileCheck, FileText } from "lucide-react";
+import { ArrowRight, CheckCircle2, ShieldAlert, CheckSquare, Settings2, FileText } from "lucide-react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
-  title: "ATS Resume Builder: Create ATS-Friendly Resumes Free Online",
-  description: "Build an ATS-friendly resume that passes automated screening systems. Free online ATS resume builder with optimized templates to help your resume reach human recruiters.",
+  title: "Free ATS Resume Builder | Clear, Readable PDF Resume",
+  description: "Create an ATS-friendly resume with clear headings and a selectable-text PDF option. Review your content against the job description before applying.",
   alternates: {
     canonical: "https://www.smartresumemaker.com/ats-resume-builder",
   }
@@ -23,10 +23,10 @@ export default function AtsResumeBuilderPage() {
         <section className="pt-32 pb-20 px-4 bg-white border-b border-slate-100">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">
-              ATS Resume Builder — Get Past the <span className="text-blue-600">Robots</span>
+              ATS Resume Builder — Make Your Resume <span className="text-blue-600">Readable</span>
             </h1>
             <p className="text-xl text-slate-600 mb-8 max-w-2xl mx-auto leading-relaxed">
-              Don't let software reject your application before a human even sees it. Build a resume specifically designed to pass Applicant Tracking Systems (ATS).
+              Use clear section headings, relevant experience, and a selectable-text PDF. You can check how your document reads before applying; no builder can guarantee an employer&apos;s screening decision.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
               <Link href="/builder">
@@ -58,19 +58,19 @@ export default function AtsResumeBuilderPage() {
               
               <div className="prose prose-slate max-w-none text-slate-600">
                 <p className="text-lg mb-6">
-                  An <strong>Applicant Tracking System (ATS)</strong> is a software application commonly used by employers to manage their recruitment process. Before a human recruiter ever sees your resume, the ATS scans it, extracts your text, and ranks you based on keywords.
+                  An <strong>Applicant Tracking System (ATS)</strong> helps employers receive and manage applications. Some systems extract resume text or support keyword searches, but employers use different tools and review processes.
                 </p>
                 
-                <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4">Why good resumes get rejected</h3>
+                <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4">Why readability matters</h3>
                 <p className="mb-6">
-                  Many highly qualified candidates get automatically rejected because their resume formatting confuses the software. Things like complex tables, columns, graphics, and non-standard fonts prevent the ATS from reading your skills and experience correctly.
+                  Dense tables, image-only PDFs, and unusual section labels can make a resume harder to read or copy. Clear headings and selectable text help you inspect what a recruiter or application system may receive.
                 </p>
 
                 <h3 className="text-xl font-bold text-slate-900 mt-8 mb-4">What makes a resume ATS-friendly?</h3>
                 <ul className="space-y-3 mb-6 list-none pl-0">
                   <li className="flex items-start gap-3">
                     <CheckSquare className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
-                    <span><strong>Standard Section Headings:</strong> Using common names like "Work Experience" instead of "My Professional Journey".</span>
+                    <span><strong>Standard Section Headings:</strong> Use common names such as Work Experience instead of creative labels that may be unclear.</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <CheckSquare className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
@@ -93,7 +93,7 @@ export default function AtsResumeBuilderPage() {
         {/* Features */}
         <section className="py-20 px-4 bg-white border-y border-slate-100">
           <div className="max-w-5xl mx-auto">
-            <h2 className="text-3xl font-bold center text-center text-slate-900 mb-12">How our builder helps you beat the ATS</h2>
+            <h2 className="text-3xl font-bold center text-center text-slate-900 mb-12">How our builder helps you prepare a readable resume</h2>
             
             <div className="grid md:grid-cols-3 gap-8">
               <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm text-center md:text-left hover:shadow-md transition-shadow">
@@ -112,7 +112,7 @@ export default function AtsResumeBuilderPage() {
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 mb-3">Smart Formatting</h3>
                 <p className="text-slate-600">
-                  You don't need to worry about invisible characters or broken margins. We handle the technical formatting automatically.
+                  Review your exported PDF for readable text, spacing, and section order before you apply.
                 </p>
               </div>
 
@@ -122,7 +122,7 @@ export default function AtsResumeBuilderPage() {
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 mb-3">Real-time ATS Checking</h3>
                 <p className="text-slate-600">
-                  Our builder constantly checks your resume for missing information and common mistakes that could trigger an ATS rejection.
+                  Review missing information and common formatting issues before downloading. You can also inspect a PDF with our <Link href="/ats-resume-checker" className="font-semibold text-blue-700 underline">ATS readability checker</Link>.
                 </p>
               </div>
             </div>

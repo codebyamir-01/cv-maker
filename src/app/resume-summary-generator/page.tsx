@@ -38,8 +38,8 @@ export default function ResumeSummaryGenerator() {
       }
 
       setSummaries(data.summaries || []);
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Could not generate summaries. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -67,7 +67,7 @@ export default function ResumeSummaryGenerator() {
                 AI Resume <span className="text-blue-600">Summary Generator</span>
               </h1>
               <p className="text-lg text-slate-600">
-                Type your job title and skills below. Our AI will instantly write 3 professional resume summaries tailored for Applicant Tracking Systems (ATS).
+                Enter a target job title and details you can support with your experience. Get three drafts to edit for the role you want.
               </p>
             </div>
 
@@ -146,7 +146,7 @@ export default function ResumeSummaryGenerator() {
                 <div className="mt-12 bg-slate-900 text-white rounded-3xl p-8 text-center shadow-lg">
                   <h3 className="text-2xl font-bold mb-3">Want to put this summary on a beautiful resume?</h3>
                   <p className="text-slate-300 mb-6 max-w-lg mx-auto">
-                    Use our completely free ATS resume builder. Paste your summary into our builder, pick a template, and download your PDF instantly.
+                    Paste your edited summary into the resume builder, pick a template, and sign in when you are ready to download a free PDF.
                   </p>
                   <Link href="/builder">
                     <Button className="bg-blue-600 hover:bg-blue-500 text-white rounded-full px-8 h-12 font-bold shadow-md">
@@ -158,6 +158,16 @@ export default function ResumeSummaryGenerator() {
             )}
             
           </div>
+          <section className="mx-auto max-w-3xl space-y-5 pb-12 text-slate-700" aria-labelledby="summary-writing-guide">
+            <h2 id="summary-writing-guide" className="text-2xl font-bold text-slate-900">How to write a useful resume summary</h2>
+            <p className="leading-7">Start with your target role, then choose two or three skills or results you can explain in an interview. A summary is usually stronger when it shows relevant work instead of broad claims such as “hard-working professional.”</p>
+            <div className="rounded-2xl border border-slate-200 bg-white p-6">
+              <h3 className="font-bold text-slate-900">Example for a frontend developer</h3>
+              <p className="mt-2 leading-7">“Frontend developer with experience building accessible React interfaces and improving page performance. Comfortable working with designers to turn requirements into tested, responsive pages.”</p>
+              <p className="mt-3 text-sm text-slate-600">Example only. Replace every skill with one you actually have, and add a measured result only if you can verify it.</p>
+            </div>
+            <p className="leading-7">Compare your draft with the job description, edit out unsupported claims, and use the <Link href="/builder" className="font-semibold text-blue-700 underline">resume builder</Link> to place it in your CV. Our <Link href="/ats-resume-checker" className="font-semibold text-blue-700 underline">ATS readability checker</Link> can help you inspect the exported document.</p>
+          </section>
         </section>
       </main>
       <Footer />

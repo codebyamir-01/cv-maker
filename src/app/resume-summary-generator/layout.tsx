@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Free AI Resume Summary Generator 2026 | Smart Resume Maker",
-  description: "Generate powerful, ATS-tailored professional resume summaries in seconds with AI. Pick from experienced, career changer, or fresh graduate styles.",
+  title: "Free Resume Summary Generator | 3 Editable Drafts",
+  description: "Enter a job title and your real skills to get three resume summary drafts. Copy a draft, check every claim, and tailor it to the job before using it.",
   alternates: {
     canonical: "https://www.smartresumemaker.com/resume-summary-generator",
   },

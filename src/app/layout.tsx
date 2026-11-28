@@ -46,7 +46,7 @@ export default function RootLayout({
               "@type": "WebApplication",
               "name": "Smart Resume Maker",
               "url": "https://www.smartresumemaker.com",
-              "description": "Free online resume builder and CV maker. Create ATS-friendly resumes with professional templates, AI suggestions, and instant PDF download.",
+              "description": "Free online resume builder and CV maker. Start building without an account, then sign in to download a watermark-free PDF.",
               "applicationCategory": "BusinessApplication",
               "operatingSystem": "Web Browser",
               "offers": {
