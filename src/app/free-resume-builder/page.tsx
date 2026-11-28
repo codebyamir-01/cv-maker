@@ -210,6 +210,9 @@ export default function FreeResumeBuilderPage() {
             </div>
             
             <div className="mt-16 text-center">
+              <p className="mb-6 text-slate-600">
+                Want a step-by-step file check? Read our <Link href="/blog/how-to-build-and-download-free-resume-pdf" className="font-semibold text-blue-700 underline">guide to building and downloading a free resume PDF</Link>.
+              </p>
               <Link href="/builder">
                 <Button size="lg" className="bg-slate-900 hover:bg-slate-800 text-white rounded-full px-8 h-12 text-base font-semibold">
                   Start Your Free Resume
